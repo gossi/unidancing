@@ -1,0 +1,9 @@
+.playlist {
+  list-style-type: none;
+
+  [role='listitem'] {
+    &[aria-selected] {
+      font-style: italic;
+    }
+  }
+}

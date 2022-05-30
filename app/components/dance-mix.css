@@ -1,0 +1,14 @@
+.tracks {
+  li {
+    margin-bottom: calc(var(--typography-spacing-vertical) * 0.5);
+  }
+
+  [aria-selected] {
+    font-weight: bold;
+  }
+}
+
+.counter {
+  font-size: 8rem;
+  text-align: center;
+}
