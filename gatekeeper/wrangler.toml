@@ -2,5 +2,10 @@ name = "unidance-coach"
 main = "src/index.ts"
 compatibility_date = "2022-07-23"
 
+#[dev]
+#port = 8787
+
 [vars]
-SPOTIFY_REDIRECT_URI = "http://localhost:4200/"
+WORKER_ROOT = "https://unidance-coach.gossi.workers.dev"
+APP_ROOT = "https://unidance-coach.pages.dev"
+

@@ -3,6 +3,7 @@ import { service, Registry as Services } from '@ember/service';
 import { LoginWithSpotify } from '../actions/login-with-spotify';
 import { command, commandFor } from 'ember-command';
 import { on } from '@ember/modifier';
+import config from 'unidance-coach/config/environment';
 
 export default class PlayerComponent extends Component {
 
@@ -13,7 +14,7 @@ export default class PlayerComponent extends Component {
 
   <template>
     <a
-      href='http://localhost:8787/spotify/login'
+      href='{{config.workerHostURL}}/spotify/login'
       {{on "click" this.loginWithSpotify}}
     >
       Login with Spotify

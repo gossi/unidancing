@@ -22,10 +22,10 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "paths": {
-      "dance-oh-mat/tests/*": [
+      "unidance-coach/tests/*": [
         "tests/*"
       ],
-      "dance-oh-mat/*": [
+      "unidance-coach/*": [
         "app/*"
       ],
       "*": [

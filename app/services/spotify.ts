@@ -4,6 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import { deserialize } from '../utils/serde';
 import { task, timeout } from 'ember-concurrency';
 import { taskFor } from 'ember-concurrency-ts';
+import config from 'unidance-coach/config/environment';
 
 interface SpotifyStorage {
   accessToken?: string;
@@ -46,7 +47,7 @@ export default class SpotifyService extends Service {
 
   async refresh(token: string) {
     const response = await fetch(
-      `http://localhost:8787/spotify/refresh?token=${token}`
+      `${config.workerHostURL}/spotify/refresh?token=${token}`
     );
 
     if (response.status === 200) {

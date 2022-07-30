@@ -33,7 +33,7 @@ async function getSpotifyClient(env: Env): Promise<OauthClient> {
       issuer: 'https://accounts.spotify.com',
       clientId: env.SPOTIFY_CLIENT_ID,
       clientSecret: env.SPOTIFY_CLIENT_SECRET,
-      grantRedirectURI: 'http://localhost:8787/spotify/logged',
+      grantRedirectURI: `${env.WORKER_ROOT}/spotify/logged`,
       scopes: [
         'playlist-read-collaborative',
         'playlist-read-private',
@@ -61,7 +61,7 @@ router.get('/spotify/logged', async (req, env: Env) => {
   const result = await spotify.grantCode(req.url);
   console.log(result);
 
-  const redirectUrl = new URL('http://localhost:4200/auth/spotify');
+  const redirectUrl = new URL(`${env.APP_ROOT}/auth/spotify`);
   redirectUrl.searchParams.set('access_token', result.access_token);
   redirectUrl.searchParams.set('refresh_token', result.refresh_token);
   redirectUrl.searchParams.set('expires_in', result.expires_in);

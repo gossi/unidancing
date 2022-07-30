@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   let ENV = {
-    modulePrefix: 'dance-oh-mat',
+    modulePrefix: 'unidance-coach',
     environment,
     rootURL: '/',
     locationType: 'history',
@@ -29,6 +29,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.workerHostURL = 'http://localhost:8787';
   }
 
   if (environment === 'test') {
@@ -45,6 +46,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
+    ENV.workerHostURL = 'https://unidance-coach.gossi.workers.dev';
   }
 
   return ENV;

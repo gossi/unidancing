@@ -1,5 +1,5 @@
-import Application from 'dance-oh-mat/app';
-import config from 'dance-oh-mat/config/environment';
+import Application from 'unidance-coach/app';
+import config from 'unidance-coach/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

@@ -1,6 +1,6 @@
 {
   "package": {
-    "productName": "dance-oh-mat",
+    "productName": "unidance-coach",
     "version": "0.1.0"
   },
   "build": {
@@ -54,7 +54,7 @@
     },
     "windows": [
       {
-        "title": "dance-oh-mat",
+        "title": "unidance-coach",
         "width": 800,
         "height": 600,
         "resizable": true,
