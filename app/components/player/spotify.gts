@@ -8,6 +8,8 @@ import { on } from '@ember/modifier';
 import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
 import SpotifyPlayer from '../../player/spotify';
+import LoginWithSpotify from '../login-with-spotify';
+import pick from 'ember-composable-helpers/helpers/pick';
 
 export default class SpotifyPlayerComponent extends Component {
   @service declare spotify: SpotifyService;
@@ -24,8 +26,7 @@ export default class SpotifyPlayerComponent extends Component {
   }
 
   @action
-  selectDevice(event: Event) {
-    const id = (event.target as HTMLSelectElement).value;
+  selectDevice(id: string) {
     this.spotify.client.transferMyPlayback([id]);
   }
 
@@ -33,32 +34,42 @@ export default class SpotifyPlayerComponent extends Component {
   async loadPlayer() {
     this.player.load();
     this.devices = (await this.spotify.client.getMyDevices()).devices;
+
+    const activeDevice = this.devices.find(device => device.is_active);
+
+    if (!activeDevice && this.devices.length === 1) {
+      this.selectDevice(this.devices[0].id);
+    }
   }
 
   <template>
-    <div {{didInsert this.loadPlayer}} class="grid">
-      <p>
-        {{#if this.track}}
-          <strong>{{this.track.name}}</strong><br>
-          <small>{{formatArtists this.track.artists}}</small>
-        {{/if}}
-      </p>
+    {{#if this.spotify.authed}}
+      <div {{didInsert this.loadPlayer}} class="grid">
+        <p>
+          {{#if this.track}}
+            <strong>{{this.track.name}}</strong><br>
+            <small>{{formatArtists this.track.artists}}</small>
+          {{/if}}
+        </p>
 
-      <div>
-        <button type="button" {{on "click" this.player.toggle}}>
-          {{#if this.player.playing}}Pause{{else}}Play{{/if}}
-        </button>
+        <div>
+          <button type="button" {{on "click" this.player.toggle}}>
+            {{#if this.player.playing}}Pause{{else}}Play{{/if}}
+          </button>
 
+        </div>
+
+        <div>
+          <select {{on "change" (pick "target.value" this.selectDevice)}}>
+            <option></option>
+            {{#each this.devices as |device|}}
+              <option selected={{device.is_active}} value={{device.id}}>[{{device.type}}] {{device.name}}</option>
+            {{/each}}
+          </select>
+        </div>
       </div>
-
-      <div>
-        <select {{on "change" this.selectDevice}}>
-          <option></option>
-          {{#each this.devices as |device|}}
-            <option selected={{device.is_active}} value={{device.id}}>{{device.type}} {{device.name}}</option>
-          {{/each}}
-        </select>
-      </div>
-    </div>
+    {{else}}
+      <LoginWithSpotify />
+    {{/if}}
   </template>
 }

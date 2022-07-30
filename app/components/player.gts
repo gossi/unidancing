@@ -12,11 +12,11 @@ export default class PlayerComponent extends Component {
   }
 
   <template>
-    <div class={{styles.player}}>
-      {{#if this.spotify}}
+    {{#if this.spotify}}
+      <div class={{styles.player}}>
         <Spotify />
-      {{/if}}
-    </div>
+      </div>
+    {{/if}}
   </template>
 }
 

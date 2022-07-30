@@ -1,0 +1,6 @@
+name = "unidance-coach"
+main = "src/index.ts"
+compatibility_date = "2022-07-23"
+
+[vars]
+SPOTIFY_REDIRECT_URI = "http://localhost:4200/"

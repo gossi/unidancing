@@ -8,5 +8,7 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   this.route('dance-mix');
-  this.route('auth');
+  this.route('auth', function () {
+    this.route('spotify');
+  });
 });
