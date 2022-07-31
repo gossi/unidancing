@@ -1,8 +1,28 @@
-{{page-title 'Dance-Oh!-Mat'}}
+{{page-title 'UniDance Coach'}}
 
 <nav class='container-fluid' local-class='nav'>
-  <ul class='container'>
+  <ul>
+    <li><LinkTo @route='application'><strong>UniDance Coach</strong></LinkTo></li>
+    <li><LinkTo @route='goals'>Lernziele</LinkTo></li>
     <li><LinkTo @route='dance-mix'>Dance Mix</LinkTo></li>
+  </ul>
+
+  <ul>
+    <li>
+      <details role='list' dir='rtl'>
+        <summary aria-haspopup='listbox' role='link'>Tools</summary>
+        <ul role='listbox' dir='ltr'>
+          <li>
+            Connection Status:<br />
+            Spotify
+            {{#if this.spotify.authed}}✅{{else}}❌{{/if}}
+          </li>
+          <li><a>Action</a></li>
+          <li><a>Another action</a></li>
+          <li><a>Something else here</a></li>
+        </ul>
+      </details>
+    </li>
   </ul>
 </nav>
 

@@ -11,4 +11,8 @@ Router.map(function () {
   this.route('auth', function () {
     this.route('spotify');
   });
+  this.route('courses', function () {
+    this.route('improvisation');
+  });
+  this.route('goals', { path: 'lernziele' });
 });

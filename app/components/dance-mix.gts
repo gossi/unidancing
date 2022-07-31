@@ -6,6 +6,7 @@ import {
   getRandomTracks
 } from '../resources/spotify/playlist';
 import didInsert from 'ember-render-helpers/helpers/did-insert';
+import willDestroy from 'ember-render-helpers/helpers/will-destroy';
 import PlaylistChooser from './playlist-chooser';
 import { service, Registry as Services } from '@ember/service';
 import { on } from '@ember/modifier';
@@ -50,6 +51,11 @@ export default class DanceMixComponent extends Component {
   selectPlayer() {
     this.player = lookupPlayer(SpotifyPlayer, getOwner(this));
     this.playerService.player = this.player;
+  }
+
+  @action
+  unloadPlayer() {
+    this.playerService.player = undefined;
   }
 
   @action
@@ -126,6 +132,7 @@ export default class DanceMixComponent extends Component {
   <template>
     {{didInsert this.selectPlayer}}
     {{didInsert this.readSettings}}
+    {{willDestroy this.unloadPlayer}}
 
     {{#if this.playlistId}}
       <div class="grid">
