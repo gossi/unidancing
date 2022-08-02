@@ -1,0 +1,8 @@
+<h1>Übungen</h1>
+
+{{#each @model as |entry|}}
+  <Exercises::Teaser
+    @exercise={{entry}}
+    @link={{link 'exercises.details' entry.id}}
+  />
+{{/each}}

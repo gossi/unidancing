@@ -1,0 +1,10 @@
+<h1>Lexikon</h1>
+
+<ul>
+  {{#each @model as |entry|}}
+    <li><LinkTo
+        @route='skills.details'
+        @model={{entry.id}}
+      >{{entry.title}}</LinkTo></li>
+  {{/each}}
+</ul>

@@ -1,0 +1,79 @@
+{{#let @model.exercise as |exercise|}}
+  {{#if exercise}}
+    <hgroup>
+      <h1>💃 {{exercise.title}}</h1>
+      <span local-class='tagline'>
+        {{#each exercise.personal as |personal|}}
+          {{format-personal personal text=true}}
+        {{/each}}
+
+        {{#each exercise.locomotion as |locomotion|}}
+          {{format-locomotion locomotion text=true}}
+        {{/each}}
+
+        {{#each exercise.tags as |tag|}}
+          <code>{{tag}}</code>
+        {{/each}}
+      </span>
+    </hgroup>
+
+    <div local-class='layout'>
+      <section local-class='main'>
+        {{html-safe exercise.contents}}
+      </section>
+      <aside>
+        <section>
+          {{#if exercise.see}}
+            <nav>
+              Siehe auch:
+
+              <ul>
+                {{#each exercise.see as |see|}}
+                  <li>
+                    {{#if see.url}}
+                      <a href={{see.url}} target='_blank'>
+                        🌐
+                        {{if see.label see.label see.url}}
+                      </a>
+                    {{else}}
+                      {{#let (@model.buildExerciseLink see.id) as |l|}}
+                        <a href={{l.url}} {{on 'click' l.transitionTo}}>
+                          💃
+                          {{see.title}}
+                        </a>
+                      {{/let}}
+                    {{/if}}
+                  </li>
+                {{/each}}
+              </ul>
+            </nav>
+          {{/if}}
+
+          {{#if exercise.skills}}
+            <nav>
+              Fertigkeiten:
+
+              <ul>
+                {{#each exercise.skills as |skill|}}
+                  <li>
+                    {{#let (@model.buildSkillLink skill.id) as |l|}}
+                      <a href={{l.url}} {{on 'click' l.transitionTo}}>
+                        🎓
+                        {{skill.title}}
+                      </a>
+                    {{/let}}
+                  </li>
+                {{/each}}
+              </ul>
+            </nav>
+          {{/if}}
+        </section>
+      </aside>
+    </div>
+
+  {{else}}
+    <h1>Not Found</h1>
+
+    <p>whoops</p>
+  {{/if}}
+{{/let}}

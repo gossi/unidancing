@@ -1,0 +1,31 @@
+{
+  "name": "ember-markdown-db",
+  "private": true,
+  "keywords": [
+    "ember-addon"
+  ],
+  "license": "MIT",
+  "files": [
+    "addon-main.js"
+  ],
+  "exports": {
+    "./addon-main.js": "./addon-main.js"
+  },
+  "dependencies": {
+    "@embroider/addon-shim": "^1.2.0",
+    "broccoli-funnel": "^3.0.8",
+    "broccoli-merge-files": "^0.8.0",
+    "broccoli-merge-trees": "^4.2.0",
+    "broccoli-source": "^3.0.1",
+    "markdown-json": "^1.6.1"
+  },
+  "ember": {
+    "edition": "octane"
+  },
+  "ember-addon": {
+    "version": 2,
+    "type": "addon",
+    "main": "addon-main.js",
+    "app-js": {}
+  }
+}
