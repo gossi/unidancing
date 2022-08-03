@@ -1,10 +1,13 @@
-import { Resource } from 'ember-resources/core';
+import { Resource } from 'ember-resources';
 import { service, Registry as Services } from '@ember/service';
+import { Link } from 'ember-link';
 
 export function createExerciseLinkBuilder(
   linkManager: Services['link-manager']
 ): (exercise: string) => Link {
   return (exercise: string): Link => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     return linkManager.createUILink({
       route: 'exercises.details',
       models: [exercise]

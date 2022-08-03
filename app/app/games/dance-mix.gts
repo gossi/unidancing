@@ -3,11 +3,13 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import {
   PlaylistResource,
+  usePlaylist,
   getRandomTracks
 } from '../resources/spotify/playlist';
 import didInsert from 'ember-render-helpers/helpers/did-insert';
 import willDestroy from 'ember-render-helpers/helpers/will-destroy';
-import PlaylistChooser from './playlist-chooser';
+import PlaylistChooser from '../components/playlist-chooser';
+import LoginWithSpotify from '../components/login-with-spotify';
 import { service, Registry as Services } from '@ember/service';
 import { on } from '@ember/modifier';
 import {useTrack} from '../resources/spotify/track';
@@ -24,7 +26,9 @@ import set from 'ember-set-helper/helpers/set';
 import { fn } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-export default class DanceMixComponent extends Component {
+export interface DanceMixSignature {}
+
+export default class DanceMixComponent extends Component<DanceMixSignature> {
   @service declare spotify: Services['spotify'];
   @service('player') declare playerService: Services['player'];
 
@@ -33,9 +37,16 @@ export default class DanceMixComponent extends Component {
   @tracked playlistId?: string;
   @tracked counter?: number;
 
-  resource: PlaylistResource = PlaylistResource.from(this, () => ({
-    playlist: this.playlistId
-  }));
+  get resource(): PlaylistResource | undefined {
+    if (this.playlistId && this.spotify.authed) {
+      return PlaylistResource.from(this, () => ({
+        playlist: this.playlistId
+      }));
+    }
+
+    return undefined;
+  }
+
 
   @tracked tracks?: SpotifyApi.TrackObjectFull[];
   // @action
@@ -130,75 +141,73 @@ export default class DanceMixComponent extends Component {
   }
 
   <template>
-    {{didInsert this.selectPlayer}}
-    {{didInsert this.readSettings}}
-    {{willDestroy this.unloadPlayer}}
+    {{#if this.spotify.authed}}
+      {{didInsert this.selectPlayer}}
+      {{didInsert this.readSettings}}
+      {{willDestroy this.unloadPlayer}}
 
-    {{#if this.playlistId}}
-      <div class="grid">
-        <p>
-          <strong>{{htmlSafe this.resource.playlist.name}}</strong><br>
-          <small>{{htmlSafe this.resource.playlist.description}}</small>
-        </p>
-
-        <div>
-          <button
-            type="button"
-            disabled={{this.mix.isRunning}}
-            class="outline"
-            {{on "click" (fn (set this "playlistId" undefined))}}
-          >
-            Playlist wechseln
-          </button>
-        </div>
-      </div>
-
-      {{#if this.mix.isRunning}}
+      {{#if this.playlistId}}
         <div class="grid">
-          <ol class={{styles.tracks}}>
-            {{#each this.tracks as |track|}}
-              <li aria-selected={{eq track this.player.track.data}}>
-                {{track.name}}<br>
-                <small>{{formatArtists track.artists}}</small>
-              </li>
-            {{/each}}
-          </ol>
+          <p>
+            <strong>{{htmlSafe this.resource.playlist.name}}</strong><br>
+            <small>{{htmlSafe this.resource.playlist.description}}</small>
+          </p>
 
           <div>
-            <p class={{styles.counter}}>{{this.counter}}</p>
-
-            <button type="button" {{on "click" this.stop}}>Stop</button>
+            <button
+              type="button"
+              disabled={{this.mix.isRunning}}
+              class="outline"
+              {{on "click" (fn (set this "playlistId" undefined))}}
+            >
+              Playlist wechseln
+            </button>
           </div>
         </div>
+
+        {{#if this.mix.isRunning}}
+          <div class="grid">
+            <ol class={{styles.tracks}}>
+              {{#each this.tracks as |track|}}
+                <li aria-selected={{eq track this.player.track.data}}>
+                  {{track.name}}<br>
+                  <small>{{formatArtists track.artists}}</small>
+                </li>
+              {{/each}}
+            </ol>
+
+            <div>
+              <p class={{styles.counter}}>{{this.counter}}</p>
+
+              <button type="button" {{on "click" this.stop}}>Stop</button>
+            </div>
+          </div>
+        {{else}}
+          <form {{on "submit" (preventDefault this.start)}}>
+            <label>
+              Dauer pro Lied [sec]:
+              <input type="number" name="duration" value="30">
+            </label>
+
+            <label>
+              Pause zwischen den Liedern [sec]:
+              <input type="number" name="pause" value="1">
+            </label>
+
+            <label>
+              Lieder [Anzahl]:
+              <input type="number" name="amount" value="5">
+            </label>
+
+            <button type="submit">Start</button>
+          </form>
+        {{/if}}
+
       {{else}}
-        <form {{on "submit" (preventDefault this.start)}}>
-          <label>
-            Dauer pro Lied [sec]:
-            <input type="number" name="duration" value="30">
-          </label>
-
-          <label>
-            Pause zwischen den Liedern [sec]:
-            <input type="number" name="pause" value="1">
-          </label>
-
-          <label>
-            Lieder [Anzahl]:
-            <input type="number" name="amount" value="5">
-          </label>
-
-          <button type="submit">Start</button>
-        </form>
+        <PlaylistChooser @select={{this.selectPlaylist}} />
       {{/if}}
-
     {{else}}
-      <PlaylistChooser @select={{this.selectPlaylist}} />
+      <LoginWithSpotify />
     {{/if}}
   </template>
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    DanceMix: typeof DanceMixComponent;
-  }
 }

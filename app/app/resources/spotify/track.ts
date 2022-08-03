@@ -1,8 +1,7 @@
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import SpotifyService from '../../services/spotify';
-import { ArgsWrapper } from 'ember-resources';
-import { Resource } from 'ember-resources/core';
+import { ArgsWrapper, Resource } from 'ember-resources';
 
 interface TrackArgs extends ArgsWrapper {
   positional: [string];

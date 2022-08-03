@@ -1,8 +1,7 @@
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import SpotifyService from '../../services/spotify';
-import { ArgsWrapper } from 'ember-resources';
-import { Resource } from 'ember-resources/core';
+import { ArgsWrapper, Resource } from 'ember-resources';
 
 // https://open.spotify.com/playlist/3qaxO2Z99batsuhi12MDsn?si=865135aca7b64c32
 
@@ -49,7 +48,7 @@ export class PlaylistResource extends Resource<PlaylistArgs> {
   ): void {
     console.log(named);
 
-    this.load(named.playlist);
+    // this.load(named.playlist);
   }
 
   private async load(playlist: string) {

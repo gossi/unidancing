@@ -5,7 +5,6 @@
     <li><LinkTo @route='application'><strong>UniDance Coach</strong></LinkTo></li>
     <li><LinkTo @route='skills'>🎓 Fertigkeiten</LinkTo></li>
     <li><LinkTo @route='exercises'>💃 Übungen</LinkTo></li>
-    {{! <li><LinkTo @route='dance-mix'>Dance Mix</LinkTo></li> }}
   </ul>
 
   <ul>
@@ -18,15 +17,19 @@
             Spotify
             {{#if this.spotify.authed}}✅{{else}}❌{{/if}}
           </li>
-          <li><LinkTo @route='dance-mix'>Dance Mix</LinkTo></li>
+          <li {{on 'click' (fn this.openGame 'dance-mix')}}>Dance Mix</li>
         </ul>
       </details>
     </li>
   </ul>
 </nav>
 
-<main class='container' local-class='main'>
-  {{outlet}}
-</main>
+<div class='container' local-class='main grid'>
+  <main>
+    {{outlet}}
+  </main>
+
+  <Game />
+</div>
 
 <Player />

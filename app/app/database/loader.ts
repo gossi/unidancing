@@ -8,7 +8,7 @@ import skillsDb, { Skill } from './skills';
 
 export interface Databases {
   exercises: Exercise[];
-  skills: Skill;
+  skills: Skill[];
 }
 
 function ensureArray<T>(stringOrArray: T | T[]): T[] {

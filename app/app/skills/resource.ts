@@ -1,4 +1,4 @@
-import { Resource } from 'ember-resources/core';
+import { Resource } from 'ember-resources';
 import { service, Registry as Services } from '@ember/service';
 
 export function createSkillLinkBuilder(

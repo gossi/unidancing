@@ -7,7 +7,13 @@ import eq from 'ember-truth-helpers/helpers/equal';
 import { fn } from '@ember/helper';
 import styles from './playlist-chooser.css';
 
-export default class PlaylistChooserComponent extends Component {
+export interface PlaylistChooserSignature {
+  Args: {
+    select: (selection: SpotifyApi.PlaylistObjectSimplified) => void
+  }
+}
+
+export default class PlaylistChooserComponent extends Component<PlaylistChooserSignature> {
   @tracked selection?: SpotifyApi.PlaylistObjectSimplified;
 
   resource = usePlaylists(this);
@@ -34,4 +40,10 @@ export default class PlaylistChooserComponent extends Component {
 
     <button type='button' {{on 'click' (fn @select this.selection)}}>Select</button>
   </template>
+}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    PlaylistChooser: typeof PlaylistChooserComponent;
+  }
 }
