@@ -37,15 +37,9 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   @tracked playlistId?: string;
   @tracked counter?: number;
 
-  get resource(): PlaylistResource | undefined {
-    if (this.playlistId && this.spotify.authed) {
-      return PlaylistResource.from(this, () => ({
-        playlist: this.playlistId
-      }));
-    }
-
-    return undefined;
-  }
+  resource: PlaylistResource = PlaylistResource.from(this, () => ({
+    playlist: this.playlistId
+  }));
 
 
   @tracked tracks?: SpotifyApi.TrackObjectFull[];

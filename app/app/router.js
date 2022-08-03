@@ -19,4 +19,5 @@ Router.map(function () {
   this.route('exercises', { path: 'uebungen' }, function () {
     this.route('details', { path: '/:id' });
   });
+  this.route('games');
 });

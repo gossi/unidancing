@@ -16,6 +16,8 @@
             Connection Status:<br />
             Spotify
             {{#if this.spotify.authed}}✅{{else}}❌{{/if}}
+
+            {{#unless this.spotify.authed}}<LoginWithSpotify />{{/unless}}
           </li>
           <li {{on 'click' (fn this.openGame 'dance-mix')}}>Dance Mix</li>
         </ul>
@@ -29,7 +31,7 @@
     {{outlet}}
   </main>
 
-  <Game />
+  {{! <Game /> }}
 </div>
 
 <Player />
