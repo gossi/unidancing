@@ -1,10 +1,6 @@
 import Component from '@glimmer/component';
-import { service, Registry as Services } from '@ember/service';
-import {Game} from '../games/games';
+import { Game } from '../games/games';
 import DanceMix from '../games/dance-mix';
-import styles from './game.css';
-import { on } from '@ember/modifier';
-import {action} from '@ember/object';
 
 export interface GameSignature {
   Args: {
@@ -22,14 +18,8 @@ function findGame(game?: Game) {
 }
 
 export default class GameComponent extends Component<GameSignature> {
-  @service declare games: Services['games'];
-
   private get gameByArg() {
     return findGame(this.args.game);
-  }
-
-  private get gameByService() {
-    return findGame(this.games.game);
   }
 
   get Game() {
@@ -37,16 +27,7 @@ export default class GameComponent extends Component<GameSignature> {
       return this.gameByArg;
     }
 
-    if (this.gameByService) {
-      return this.gameByService;
-    }
-
     return undefined;
-  }
-
-  @action
-  close() {
-    this.games.close();
   }
 
   <template>

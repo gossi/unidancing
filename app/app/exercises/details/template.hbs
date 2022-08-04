@@ -1,7 +1,7 @@
 {{#let @model.exercise as |exercise|}}
   {{#if exercise}}
     <hgroup>
-      <h1>💃 {{exercise.title}}</h1>
+      <h1><Icon @icon='exercise' /> {{exercise.title}}</h1>
       <span local-class='tagline'>
         {{#each exercise.personal as |personal|}}
           {{format-personal personal text=true}}
@@ -46,13 +46,13 @@
                   <li>
                     {{#if see.url}}
                       <a href={{see.url}} target='_blank'>
-                        🌐
+                        <Icon @icon='link' />
                         {{if see.label see.label see.url}}
                       </a>
                     {{else}}
                       {{#let (@model.buildExerciseLink see.id) as |l|}}
                         <a href={{l.url}} {{on 'click' l.transitionTo}}>
-                          💃
+                          <Icon @icon='exercise' />
                           {{see.title}}
                         </a>
                       {{/let}}
@@ -72,7 +72,7 @@
                   <li>
                     {{#let (@model.buildSkillLink skill.id) as |l|}}
                       <a href={{l.url}} {{on 'click' l.transitionTo}}>
-                        🎓
+                        <Icon @icon='skill' />
                         {{skill.title}}
                       </a>
                     {{/let}}

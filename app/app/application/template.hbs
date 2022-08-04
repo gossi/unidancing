@@ -3,17 +3,25 @@
 <nav class='container-fluid' local-class='nav'>
   <ul>
     <li><LinkTo @route='application'><strong>UniDancing</strong></LinkTo></li>
-    <li><LinkTo @route='skills'>🎓
-        <span local-class='label'>Fertigkeiten</span></LinkTo></li>
-    <li><LinkTo @route='exercises'>💃
-        <span local-class='label'>Übungen</span></LinkTo></li>
+    <li>
+      <LinkTo @route='skills'>
+        <Icon @icon='skill' />
+        <span local-class='label'>Fertigkeiten</span>
+      </LinkTo>
+    </li>
+    <li>
+      <LinkTo @route='exercises'>
+        <Icon @icon='exercise' />
+        <span local-class='label'>Übungen</span>
+      </LinkTo>
+    </li>
   </ul>
 
   <ul>
     <li>
       <details role='list' dir='rtl'>
         <summary aria-haspopup='listbox' role='link'>
-          🎭
+          <Icon @icon='game' />
           <span local-class='label'>Games</span>
         </summary>
         <ul role='listbox' dir='ltr'>

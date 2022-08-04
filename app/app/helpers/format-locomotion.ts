@@ -1,14 +1,9 @@
 import { helper } from '@ember/component/helper';
 import { Locomotion } from '../database/exercises';
+import { getIcon, Icons } from '../components/icon';
 
 export function formatLocomotionIcon(locomotion: Locomotion) {
-  switch (locomotion) {
-    case 'pedes':
-      return '🦶';
-
-    case 'unicycle':
-      return '🚲';
-  }
+  return getIcon(locomotion as Icons);
 }
 
 export function formatLocomotionText(locomotion: Locomotion) {

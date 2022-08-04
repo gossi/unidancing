@@ -69,9 +69,6 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       return this.args[param];
     }
 
-    console.log(this.router.currentRoute);
-
-
     if (this.router.currentRoute.queryParams[param]) {
       return this.router.currentRoute.queryParams[param];
     }

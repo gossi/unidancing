@@ -1,17 +1,9 @@
 import { helper } from '@ember/component/helper';
 import { Personal } from '../database/exercises';
+import { getIcon, Icons } from '../components/icon';
 
 export function formatPersonalIcon(personal: Personal) {
-  switch (personal) {
-    case 'individual':
-      return '🧑';
-
-    case 'pair':
-      return '🧑‍🤝‍🧑';
-
-    case 'group':
-      return '👪';
-  }
+  return getIcon(personal as Icons);
 }
 
 export function formatPersonalText(personal: Personal) {

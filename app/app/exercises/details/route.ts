@@ -20,8 +20,6 @@ export default class ExerciseDetailsRoute extends Route {
   }
 
   buildGameLink = <K extends keyof Games>(game: K, params?: Games[K]) => {
-    console.log('create link', game, params);
-
     return this.linkManager.createUILink({
       route: this.router.currentRouteName,
       query: {

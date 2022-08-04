@@ -7,11 +7,25 @@
   & > * {
     margin: 0;
   }
+
+  p,
+  select {
+    max-width: 33%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
 .play {
-  --background-color: transparent;
-  --border-color: transparent;
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    --background-color: transparent;
+    --border-color: transparent;
+    --box-shadow: unset;
+  }
   display: inline;
   width: auto;
   padding: 0;

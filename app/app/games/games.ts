@@ -6,8 +6,6 @@ export enum Game {
 
 export type GameNames = keyof Games;
 
-console.log(DanceMixParam);
-
 export const ALL_GAME_PARAMS = [...Object.values(DanceMixParam)];
 
 export interface Games {

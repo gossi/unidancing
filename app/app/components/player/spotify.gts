@@ -10,6 +10,11 @@ import {tracked} from '@glimmer/tracking';
 import SpotifyPlayer from '../../player/spotify';
 import LoginWithSpotify from '../login-with-spotify';
 import pick from 'ember-composable-helpers/helpers/pick';
+import Icon, {Icons} from '../icon';
+
+function device2Icon(device: string) {
+  return device.toLowerCase() as Icons;
+}
 
 export default class SpotifyPlayerComponent extends Component {
   @service declare spotify: SpotifyService;
@@ -52,20 +57,23 @@ export default class SpotifyPlayerComponent extends Component {
           {{/if}}
         </p>
 
-        <div>
+
           <button type="button" {{on "click" this.player.toggle}} class={{styles.play}}>
             {{#if this.player.playing}}⏸️{{else}}▶️{{/if}}
           </button>
-        </div>
 
-        <div>
+
+
           <select {{on "change" (pick "target.value" this.selectDevice)}} class={{styles.devices}}>
             <option></option>
             {{#each this.devices as |device|}}
-              <option selected={{device.is_active}} value={{device.id}}>[{{device.type}}] {{device.name}}</option>
+              <option selected={{device.is_active}} value={{device.id}}>
+                <Icon @icon={{device2Icon device.type}}/>
+                {{device.name}}
+              </option>
             {{/each}}
           </select>
-        </div>
+
       </div>
     {{else}}
       <LoginWithSpotify />
