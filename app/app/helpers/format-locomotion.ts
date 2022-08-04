@@ -21,9 +21,7 @@ export function formatLocomotionText(locomotion: Locomotion) {
   }
 }
 
-const DEFAULT = { icon: true, text: false };
-
-export default helper(function (
+export function formatLocomotion(
   [locomotion]: [Locomotion],
   options: { icon: boolean; text: boolean }
 ) {
@@ -38,4 +36,25 @@ export default helper(function (
     out.push(formatLocomotionText(locomotion));
   }
   return out.join(' ');
-});
+}
+
+export interface FormatLocomotionSignature {
+  Args: {
+    Positional: [Locomotion];
+    Named: { icon?: boolean; text?: boolean };
+  };
+  Return: string;
+}
+
+const DEFAULT = { icon: true, text: false };
+
+const formatLocomotionHelper =
+  helper<FormatLocomotionSignature>(formatLocomotion);
+
+export default formatLocomotionHelper;
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    'format-locomotion': typeof formatLocomotionHelper;
+  }
+}

@@ -29,7 +29,7 @@ export function formatPersonalText(personal: Personal) {
 
 const DEFAULT = { icon: true, text: false };
 
-export default helper(function (
+export function formatPersonal(
   [personal]: [Personal],
   options: { icon: boolean; text: boolean }
 ) {
@@ -44,4 +44,22 @@ export default helper(function (
     out.push(formatPersonalText(personal));
   }
   return out.join(' ');
-});
+}
+
+export interface FormatPersonalSignature {
+  Args: {
+    Positional: [Personal];
+    Named: { icon?: boolean; text?: boolean };
+  };
+  Return: string;
+}
+
+const formatPersonalHelper = helper<FormatPersonalSignature>(formatPersonal);
+
+export default formatPersonalHelper;
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    'format-personal': typeof formatPersonalHelper;
+  }
+}

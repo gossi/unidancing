@@ -1,0 +1,12 @@
+{
+  "name": "skills",
+  "cwd": "./",
+  "src": "../skills/",
+  "filePattern": "**/*.md",
+  "ignore": "",
+  "dist": "data/skills.json",
+  "metadata": false,
+  "server": false,
+  "deterministicOrder": false,
+  "display": false
+}

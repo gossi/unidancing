@@ -1,15 +1,16 @@
 import Component from '@glimmer/component';
-import { LoginWithSpotify } from '../actions/login-with-spotify';
-import { command, commandFor } from 'ember-command';
 import { on } from '@ember/modifier';
-import config from 'unidance-coach/config/environment';
+import config from '@unidance-coach/app/config/environment';
+import {action} from '@ember/object';
+import { service, Registry as Services } from '@ember/service';
 
 export default class LoginWithSpotifyComponent extends Component {
+  @service declare router: Services['router'];
 
-  @command
-  loginWithSpotify = commandFor([
-    new LoginWithSpotify()
-  ]);
+  @action
+  loginWithSpotify() {
+    localStorage.setItem('redirectAfterLogin', this.router.currentURL);
+  }
 
   <template>
     <a

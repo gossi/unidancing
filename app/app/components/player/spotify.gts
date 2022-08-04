@@ -32,19 +32,19 @@ export default class SpotifyPlayerComponent extends Component {
 
   @action
   async loadPlayer() {
-    this.player.load();
+    await this.player.load();
     this.devices = (await this.spotify.client.getMyDevices()).devices;
 
     const activeDevice = this.devices.find(device => device.is_active);
 
-    if (!activeDevice && this.devices.length === 1) {
-      this.selectDevice(this.devices[0].id);
+    if (!this.player.playing && !activeDevice && this.devices.length === 1) {
+      this.selectDevice(this.devices[0].id as string);
     }
   }
 
   <template>
     {{#if this.spotify.authed}}
-      <div {{didInsert this.loadPlayer}} class="grid">
+      <div {{didInsert this.loadPlayer}} class={{styles.layout}}>
         <p>
           {{#if this.track}}
             <strong>{{this.track.name}}</strong><br>
@@ -53,14 +53,13 @@ export default class SpotifyPlayerComponent extends Component {
         </p>
 
         <div>
-          <button type="button" {{on "click" this.player.toggle}}>
-            {{#if this.player.playing}}Pause{{else}}Play{{/if}}
+          <button type="button" {{on "click" this.player.toggle}} class={{styles.play}}>
+            {{#if this.player.playing}}⏸️{{else}}▶️{{/if}}
           </button>
-
         </div>
 
         <div>
-          <select {{on "change" (pick "target.value" this.selectDevice)}}>
+          <select {{on "change" (pick "target.value" this.selectDevice)}} class={{styles.devices}}>
             <option></option>
             {{#each this.devices as |device|}}
               <option selected={{device.is_active}} value={{device.id}}>[{{device.type}}] {{device.name}}</option>

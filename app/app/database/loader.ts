@@ -1,57 +1,16 @@
-import exercisesDb, {
-  Exercise,
-  ExerciseWireFormat,
-  Locomotion,
-  Personal
-} from './exercises';
-import skillsDb, { Skill } from './skills';
+import exercisesDb from '@unidance-coach/database/exercises.json';
+import skillsDb from '@unidance-coach/database/skills.json';
+import { Exercise } from './exercises';
+import { Skill } from './skills';
+import DataService, { Databases } from '../services/data';
 
-export interface Databases {
-  exercises: Exercise[];
-  skills: Skill[];
-}
+export function load(service: DataService): Databases {
+  const skills = Object.values(skillsDb.data).map(
+    (skill) => new Skill(service, skill)
+  );
 
-function ensureArray<T>(stringOrArray: T | T[]): T[] {
-  return Array.isArray(stringOrArray) ? stringOrArray : [stringOrArray];
-}
-
-function resolveExercises(exercises: ExerciseWireFormat[]) {
-  return exercises.map((exercise) => {
-    if (exercise.see) {
-      exercise.see = exercise.see.map((see) => {
-        if (typeof see === 'string') {
-          return exercises.find((ex) => ex.id === see);
-        }
-
-        return see;
-      });
-    }
-
-    if (exercise.personal) {
-      exercise.personal = ensureArray<Personal>(exercise.personal);
-    }
-
-    if (exercise.locomotion) {
-      exercise.locomotion = ensureArray<Locomotion>(exercise.locomotion);
-    }
-
-    return exercise;
-  });
-}
-
-export function load(): Databases {
-  const skills = Object.values(skillsDb);
-
-  const exercises = resolveExercises(Object.values(exercisesDb)).map(
-    (exercise) => {
-      if (exercise.skills) {
-        exercise.skills = exercise.skills.map((skillId) => {
-          return skills.find((skill) => skill.id === skillId);
-        });
-      }
-
-      return exercise;
-    }
+  const exercises = Object.values(exercisesDb.data).map(
+    (exercise) => new Exercise(service, exercise)
   );
 
   return {

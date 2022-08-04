@@ -1,0 +1,96 @@
+{
+  "app": {
+    "config": "config/exercises.json",
+    "cwd": "./",
+    "deterministicOrder": false,
+    "display": false,
+    "dist": "data/exercises.json",
+    "filePattern": "**/*.md",
+    "ignore": "",
+    "port": 3001,
+    "server": false,
+    "src": "../exercises/",
+    "name": "exercises",
+    "metadata": false,
+    "version": "1.6.1"
+  },
+  "data": [
+    {
+      "id": "copycat",
+      "contents": "<p>Die Gruppe wird durch 1-2 abzählen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfläche. Die Hälfte der Gruppe macht vor, die anderen\nHälfte ahmt nach. Wer nachahmt, such sich jemanden aus, der etwas vormacht und\nkopiert die Bewegungen. Danach wechselt es, wer eben noch nachgeahmt hat, macht\netwas vor und umgekehrt. Man darf von keiner Person 2x hintereinander nachahmen.</p>\n",
+      "title": "Copycat",
+      "locomotion": "unicycle",
+      "personal": "pair",
+      "skills": [
+        "bewegungsrepertoire",
+        "bewegungssehen"
+      ],
+      "games": [
+        {
+          "name": "dance-mix",
+          "params": {
+            "duration": 40,
+            "pause": 10,
+            "amount": 4
+          }
+        }
+      ],
+      "excerpt": "<p>Die Gruppe wird durch 1-2 abz&#xE4;hlen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfl&#xE4;che. Die H&#xE4;lfte der Gruppe macht vor, die anderen\nH&#xE4;lfte ahmt nach. Wer nachahmt, such sich jemanden aus, der etwas vormacht und\nkopiert die Bewegungen. Danach wechselt es, wer eben noch nachgeahmt hat, macht\netwas vor und umgekehrt. Man darf von keiner Person 2x hintereinander nachahmen.</p>"
+    },
+    {
+      "id": "dance-mix",
+      "contents": "<p>Beim Dance Mix wird ein Satz Lieder für eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametrisierbar durch:</p>\n<ul>\n<li>Anzahl der Lieder</li>\n<li>Dauer des Liedes</li>\n<li>Dauer der Pause</li>\n</ul>\n<p>Es bietet die Möglichkeit für jeden Satz eine Aufgabe zu vergeben.</p>\n",
+      "title": "Dance Mix",
+      "locomotion": [
+        "unicycle",
+        "pedes"
+      ],
+      "excerpt": "<p>Beim Dance Mix wird ein Satz Lieder f&#xFC;r eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametrisierbar durch:</p>"
+    },
+    {
+      "id": "explore-impro-constellation",
+      "contents": "<p>Paare die zusammen herausfinden, welche Konstellationen sich für Pair\nImprovisation anbieten.</p>\n<p>In der Gruppe bilden sich Paare, die zusammen herausfinden – welche\nKonstellationen der beiden für Impro genutzt werden können. Welche Figuren\nfunktionieren? Welche nicht? Was kommunizieren die beiden? Wie funktioniert\nAnbieten? Wie funktioniert Annehmen?</p>\n<p>~ 5-10min Exploration<br>\n~ 5min Erfahrungen teilen<br>\n~ 5-10min Andere Erfahrungen ausprobieren<br></p>\n<p>Optionale Ergänzung:\n~ 5min Erneuter Austausch, evtl. Anreize durch Trainer (s.u.)<br>\n~ 5-10min erneute Ausprobieren</p>\n<p>Anreize:</p>\n<ul>\n<li>Position der Fahrer zueinander:<ul>\n<li>Frontal zueinander</li>\n<li>Parallel, minimal versetzt (ein Fahrer minimal vor dem Anderen)</li>\n</ul>\n</li>\n</ul>\n",
+      "title": "Exploration Pair Impro Konstellationen",
+      "locomotion": "unicycle",
+      "personal": "pair",
+      "tags": [
+        "improvisation",
+        "kommunikation"
+      ],
+      "see": [
+        "dance-mix"
+      ],
+      "excerpt": "<p>Paare die zusammen herausfinden, welche Konstellationen sich f&#xFC;r Pair\nImprovisation anbieten.</p>"
+    },
+    {
+      "id": "explore-music-interpretation",
+      "contents": "<p>Fahrer finden anhand von Aufgaben eigene musikalische Umsetzungen heraus.</p>\n<p>Gruppe ist auf der Fahrfläche verteilt. Als Musik wird der Dance-Mix eingesetzt\nund für jeden Satz gibt es eine Aufgabe. Die Aufgabe wird vor jedem Satz\ngestellt, der Dance Mix ist wie folgt parametrisiert:</p>\n<ul>\n<li>Anzahl der Lieder: 3</li>\n<li>Dauer des Liedes: 40sec</li>\n<li>Pause: 2sec</li>\n</ul>\n<p>Die Aufgaben lauten wie folgt:</p>\n<ul>\n<li>Melodie umsetzen</li>\n<li>Rhythmus umsetzen</li>\n<li>Analoge Umsetzung</li>\n<li>Kongruente Umsetzung</li>\n<li>Kontrastierende Umsetzung</li>\n</ul>\n<p>Wahlweise kann nach jedem Dance-Mix Satz eine Fragerunde gestartet werden:</p>\n<ul>\n<li>Was war schwer und warum?</li>\n<li>Wer konnte das &quot;Schwere&quot; und wie?</li>\n<li>Was hat bei der Umsetzung geholfen?</li>\n</ul>\n<p>Eine alternative, erweiterte Form dieser Übung ist ein längerer Satz mit Pause\nfür die Fragerunde. Sodass nach dieser Pause die Fahrer die Möglichkeit haben,\ndurch den Austausch in der Fragerunde das neue erlernte Wissen nochmal auszuprobieren.</p>\n",
+      "title": "Exploration Musikalischer Umsetzung",
+      "locomotion": "unicycle",
+      "see": [
+        "dance-mix"
+      ],
+      "skills": [
+        "musikalische-umsetzung"
+      ],
+      "excerpt": "<p>Fahrer finden anhand von Aufgaben eigene musikalische Umsetzungen heraus.</p>"
+    },
+    {
+      "id": "ja-genau-und-weil",
+      "contents": "<p>Eine Übung für zwei Spieler. Die beiden sitzen Schulter an Schulter auf zwei Stühlen und spielen quasi eine Person, und zwar einen Experten, der von seinem Fachgebiet, oder einen Erfinder, der von seiner sensationellen Erfindung erzählt. Was es ist, wird vom Publikum vorgegeben.</p>\n<p>Beide sprechen abwechselnd, wobei jeder den Satz seines Vorgängers bestätigend wiederholt und ergänzt.</p>\n<p>Beispiel:</p>\n<ul>\n<li>A: Ich bin Experte für Weißwürste.</li>\n<li>B: Ja genau, und weil ich Experte für Weißwürste bin, habe ich die Weißwürste genauestens untersucht.</li>\n<li>A: Ja genau, und weil ich die Weißwürste genauestens untersucht habe, habe ich entdeckt, dass sie dick machen.</li>\n<li>B: Ja genau, und weil die Weißwürste dick machen...</li>\n</ul>\n",
+      "title": "Ja genau, und weil...",
+      "personal": "pair",
+      "tags": [
+        "kommunikation",
+        "improvisation"
+      ],
+      "see": [
+        {
+          "url": "https://improwiki.com/de/wiki/improtheater/ja_genau_und_weil",
+          "label": "Improwiki"
+        }
+      ],
+      "excerpt": "<p>Eine &#xDC;bung f&#xFC;r zwei Spieler. Die beiden sitzen Schulter an Schulter auf zwei St&#xFC;hlen und spielen quasi eine Person, und zwar einen Experten, der von seinem Fachgebiet, oder einen Erfinder, der von seiner sensationellen Erfindung erz&#xE4;hlt. Was es ist, wird vom Publikum vorgegeben.</p>"
+    }
+  ]
+}

@@ -8,3 +8,9 @@ export interface PreventDefaultSignature {
 }
 
 export default class PreventDefaultHelper extends Helper<PreventDefaultSignature> {}
+
+declare module '@glint/environment-ember-loose/registry' {
+  export default interface Registry {
+    'prevent-default': typeof PreventDefaultHelper;
+  }
+}

@@ -2,7 +2,7 @@
 
 module.exports = function (environment) {
   let ENV = {
-    modulePrefix: 'unidance-coach',
+    modulePrefix: '@unidance-coach/app',
     environment,
     rootURL: '/',
     locationType: 'history',
@@ -46,7 +46,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.workerHostURL = 'https://unidance-coach.gossi.workers.dev';
+    ENV.workerHostURL = 'https://@unidance-coach/app.gossi.workers.dev';
   }
 
   return ENV;

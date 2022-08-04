@@ -3,7 +3,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import {
   PlaylistResource,
-  usePlaylist,
   getRandomTracks
 } from '../resources/spotify/playlist';
 import didInsert from 'ember-render-helpers/helpers/did-insert';
@@ -26,10 +25,31 @@ import set from 'ember-set-helper/helpers/set';
 import { fn } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-export interface DanceMixSignature {}
+export enum DanceMixParam {
+  Amount = 'amount',
+  Duration = 'duration',
+  Pause = 'pause'
+}
+
+export interface DanceMixParams {
+  [DanceMixParam.Amount]?: number;
+  [DanceMixParam.Duration]?: number;
+  [DanceMixParam.Pause]?: number;
+};
+
+const DEFAULTS = {
+  [DanceMixParam.Amount]: 5,
+  [DanceMixParam.Duration]: 30,
+  [DanceMixParam.Pause]: 1
+}
+
+export interface DanceMixSignature {
+  Args: DanceMixParams
+}
 
 export default class DanceMixComponent extends Component<DanceMixSignature> {
   @service declare spotify: Services['spotify'];
+  @service declare router: Services['router'];
   @service('player') declare playerService: Services['player'];
 
   player!: SpotifyPlayer;
@@ -41,8 +61,37 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
     playlist: this.playlistId
   }));
 
-
   @tracked tracks?: SpotifyApi.TrackObjectFull[];
+
+  // params
+  #getParam(param: DanceMixParam) {
+    if (this.args[param]) {
+      return this.args[param];
+    }
+
+    console.log(this.router.currentRoute);
+
+
+    if (this.router.currentRoute.queryParams[param]) {
+      return this.router.currentRoute.queryParams[param];
+    }
+
+    return DEFAULTS[param];
+  }
+
+  get amount() {
+    return this.#getParam(DanceMixParam.Amount);
+  }
+
+  get duration() {
+    return this.#getParam(DanceMixParam.Duration);
+  }
+
+  get pause() {
+    return this.#getParam(DanceMixParam.Pause);
+  }
+
+
   // @action
   // loadAnalytics() {
   //   const resources = this.tracks
@@ -135,6 +184,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   }
 
   <template>
+    <h1>Dance Mix</h1>
     {{#if this.spotify.authed}}
       {{didInsert this.selectPlayer}}
       {{didInsert this.readSettings}}
@@ -180,17 +230,17 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
           <form {{on "submit" (preventDefault this.start)}}>
             <label>
               Dauer pro Lied [sec]:
-              <input type="number" name="duration" value="30">
+              <input type="number" name="duration" value={{this.duration}}>
             </label>
 
             <label>
               Pause zwischen den Liedern [sec]:
-              <input type="number" name="pause" value="1">
+              <input type="number" name="pause" value={{this.pause}}>
             </label>
 
             <label>
               Lieder [Anzahl]:
-              <input type="number" name="amount" value="5">
+              <input type="number" name="amount" value={{this.amount}}>
             </label>
 
             <button type="submit">Start</button>

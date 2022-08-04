@@ -1,0 +1,12 @@
+{
+  "name": "exercises",
+  "cwd": "./",
+  "src": "../exercises/",
+  "filePattern": "**/*.md",
+  "ignore": "",
+  "dist": "data/exercises.json",
+  "metadata": false,
+  "server": false,
+  "deterministicOrder": false,
+  "display": false
+}

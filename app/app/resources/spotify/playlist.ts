@@ -46,15 +46,11 @@ export class PlaylistResource extends Resource<PlaylistArgs> {
     _positional: PlaylistArgs['positional'],
     named: PlaylistArgs['named']
   ): void {
-    console.log(named);
-
-    // this.load(named.playlist);
+    this.load(named.playlist);
   }
 
   private async load(playlist: string) {
     const response = await this.spotify.client.getPlaylist(playlist);
-
-    console.log(response);
 
     this.playlist = response;
   }

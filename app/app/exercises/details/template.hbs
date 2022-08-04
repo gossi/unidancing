@@ -19,6 +19,20 @@
 
     <div local-class='layout'>
       <section local-class='main'>
+        {{#if exercise.games}}
+          <header local-class='header'>
+            {{#each exercise.games as |game|}}
+              {{#let (@model.buildGameLink game.name game.params) as |link|}}
+                <a
+                  href={{link.url}}
+                  role='button'
+                  {{on 'click' link.transitionTo}}
+                >Dance Mix</a>
+              {{/let}}
+            {{/each}}
+          </header>
+        {{/if}}
+
         {{html-safe exercise.contents}}
       </section>
       <aside>

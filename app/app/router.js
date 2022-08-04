@@ -1,5 +1,5 @@
 import EmberRouter from '@ember/routing/router';
-import config from 'unidance-coach/config/environment';
+import config from '@unidance-coach/app/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -19,5 +19,5 @@ Router.map(function () {
   this.route('exercises', { path: 'uebungen' }, function () {
     this.route('details', { path: '/:id' });
   });
-  this.route('games');
+  this.route('games', { path: '/games/:id' });
 });

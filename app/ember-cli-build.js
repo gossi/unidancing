@@ -1,7 +1,7 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const path = require('path');
+const packageJson = require('./package');
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
@@ -10,16 +10,9 @@ module.exports = function (defaults) {
       includeExtensionInModulePath: true
     },
 
-    'ember-markdown-db': [
-      {
-        folder: path.resolve('../skills'),
-        file: 'database/skills.js'
-      },
-      {
-        folder: path.resolve('../exercises'),
-        file: 'database/exercises.js'
-      }
-    ]
+    autoImport: {
+      watchDependencies: Object.keys(packageJson.dependencies)
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -37,7 +30,7 @@ module.exports = function (defaults) {
 
   app.import('node_modules/@picocss/pico/css/pico.min.css');
 
-  return app.toTree();
-  // const { Webpack } = require('@embroider/webpack');
-  // return require('@embroider/compat').compatBuild(app, Webpack);
+  // return app.toTree();
+  const { Webpack } = require('@embroider/webpack');
+  return require('@embroider/compat').compatBuild(app, Webpack);
 };

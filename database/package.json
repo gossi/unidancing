@@ -1,0 +1,29 @@
+{
+  "name": "@unidance-coach/database",
+  "version": "0.0.0",
+  "private": true,
+  "license": "MIT",
+  "files": [
+    "data"
+  ],
+  "exports": {
+    "./exercises.json": "./data/exercises.json",
+    "./skills.json": "./data/skills.json"
+  },
+  "scripts": {
+    "build": "concurrently 'npm:build:*'",
+    "build:exercises": "markdown-json -c config/exercises.json",
+    "build:skills": "markdown-json -c config/skills.json",
+    "start": "concurrently 'npm:start:*'",
+    "start:exercises": "chokidar '../exercises/**/*.md' -c 'pnpm build:exercises' --initial",
+    "start:skills": "chokidar '../skills/**/*.md' -c 'pnpm build:skills' --initial"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^7.3.0",
+    "markdown-json": "^1.6.1"
+  },
+  "volta": {
+    "extends": "../package.json"
+  }
+}

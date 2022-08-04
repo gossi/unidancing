@@ -1,0 +1,17 @@
+{
+  "name": "unidance-coach",
+  "private": true,
+  "author": "gossi",
+  "scripts": {
+    "start": "turbo run start --parallel"
+  },
+  "devDependencies": {
+    "turbo": "^1.3.1"
+  },
+  "engines": {
+    "node": "14.* || >= 16.*"
+  },
+  "volta": {
+    "node": "16.16.0"
+  }
+}

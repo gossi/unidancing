@@ -21,11 +21,12 @@
     "module": "es6",
     "experimentalDecorators": true,
     "skipLibCheck": true,
+    "resolveJsonModule": true,
     "paths": {
-      "unidance-coach/tests/*": [
+      "@unidance-coach/app/tests/*": [
         "tests/*"
       ],
-      "unidance-coach/*": [
+      "@unidance-coach/app/*": [
         "app/*"
       ],
       "*": [
