@@ -1,10 +1,17 @@
-import { DanceMixParam, DanceMixParams } from './dance-mix';
+import DanceMix, { DanceMixParam, DanceMixParams } from './dance-mix';
+
+export function findGame(game?: Game) {
+  switch (game) {
+    case Game.DanceMix:
+      return DanceMix;
+  }
+
+  return undefined;
+}
 
 export enum Game {
   DanceMix = 'dance-mix'
 }
-
-export type GameNames = keyof Games;
 
 export const ALL_GAME_PARAMS = [...Object.values(DanceMixParam)];
 

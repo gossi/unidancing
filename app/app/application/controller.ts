@@ -1,9 +1,8 @@
 import Controller from '@ember/controller';
 import { service, Registry as Services } from '@ember/service';
 import { action } from '@ember/object';
-import { Game } from '../games/games';
+import { Game, ALL_GAME_PARAMS } from '../games/games';
 import { tracked } from '@glimmer/tracking';
-import { ALL_GAME_PARAMS } from '../games/games';
 import { set } from '@ember/object';
 
 export default class ApplicationController extends Controller {

@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
-import { Game } from '../games/games';
-import DanceMix from '../games/dance-mix';
+import { Game, findGame } from '../games/games';
 
 export interface GameSignature {
   Args: {
@@ -8,26 +7,9 @@ export interface GameSignature {
   }
 }
 
-function findGame(game?: Game) {
-  switch (game) {
-    case Game.DanceMix:
-      return DanceMix;
-  }
-
-  return undefined;
-}
-
 export default class GameComponent extends Component<GameSignature> {
-  private get gameByArg() {
-    return findGame(this.args.game);
-  }
-
   get Game() {
-    if (this.gameByArg) {
-      return this.gameByArg;
-    }
-
-    return undefined;
+    return findGame(this.args.game);
   }
 
   <template>
