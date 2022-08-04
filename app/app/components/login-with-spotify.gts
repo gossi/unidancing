@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
-import config from '@unidance-coach/app/config/environment';
+import config from '@unidancing/app/config/environment';
 import {action} from '@ember/object';
 import { service, Registry as Services } from '@ember/service';
 

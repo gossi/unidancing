@@ -1,8 +1,8 @@
 {
-  "name": "@unidance-coach/app",
+  "name": "@unidancing/app",
   "version": "0.0.0",
   "private": true,
-  "description": "Small description for @unidance-coach/app goes here",
+  "description": "Small description for @unidancing/app goes here",
   "repository": "",
   "license": "MIT",
   "author": "",
@@ -24,7 +24,7 @@
     "test:ember": "ember test"
   },
   "dependencies": {
-    "@unidance-coach/database": "^0.0.0"
+    "@unidancing/database": "^0.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.18.10",
@@ -84,7 +84,6 @@
     "ember-cli-terser": "^4.0.2",
     "ember-cli-typescript": "^5.1.0",
     "ember-cli-typescript-blueprints": "^3.0.0",
-    "ember-command": "^1.0.0",
     "ember-composable-helpers": "^5.0.0",
     "ember-concurrency": "^2.2.1",
     "ember-concurrency-ts": "^0.3.1",
@@ -96,7 +95,6 @@
     "ember-load-initializers": "^2.1.2",
     "ember-modifier": "^3.2.7",
     "ember-page-title": "^7.0.0",
-    "ember-query-params-service": "^0.7.3",
     "ember-qunit": "^5.1.5",
     "ember-render-helpers": "^0.2.0",
     "ember-resolver": "^8.0.3",

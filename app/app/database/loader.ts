@@ -1,5 +1,5 @@
-import exercisesDb from '@unidance-coach/database/exercises.json';
-import skillsDb from '@unidance-coach/database/skills.json';
+import exercisesDb from '@unidancing/database/exercises.json';
+import skillsDb from '@unidancing/database/skills.json';
 import { Exercise } from './exercises';
 import { Skill } from './skills';
 import DataService, { Databases } from '../services/data';

@@ -23,10 +23,10 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
-      "@unidance-coach/app/tests/*": [
+      "@unidancing/app/tests/*": [
         "tests/*"
       ],
-      "@unidance-coach/app/*": [
+      "@unidancing/app/*": [
         "app/*"
       ],
       "*": [

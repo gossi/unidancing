@@ -4,7 +4,7 @@ import {
   Locomotion,
   Personal,
   Game
-} from '@unidance-coach/database/exercises.json';
+} from '@unidancing/database/exercises.json';
 import { ensureArray } from './utils';
 import DataService from '../services/data';
 import { Skill } from './skills';

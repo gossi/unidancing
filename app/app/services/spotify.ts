@@ -4,7 +4,7 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import { deserialize } from '../utils/serde';
 import { task, timeout } from 'ember-concurrency';
 import { taskFor } from 'ember-concurrency-ts';
-import config from '@unidance-coach/app/config/environment';
+import config from '@unidancing/app/config/environment';
 
 interface SpotifyStorage {
   accessToken?: string;

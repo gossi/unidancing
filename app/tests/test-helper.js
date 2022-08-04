@@ -1,5 +1,5 @@
-import Application from '@unidance-coach/app/app';
-import config from '@unidance-coach/app/config/environment';
+import Application from '@unidancing/app/app';
+import config from '@unidancing/app/config/environment';
 import * as QUnit from 'qunit';
 import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';

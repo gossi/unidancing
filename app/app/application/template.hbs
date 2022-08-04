@@ -25,7 +25,7 @@
             {{#unless this.spotify.authed}}<LoginWithSpotify />{{/unless}}
           </li>
 
-          {{#let (this.linkFor this.Game.DanceMix) as |link|}}
+          {{#let (this.buildGameLink this.Game.DanceMix) as |link|}}
             <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a></li>
           {{/let}}
         </ul>
@@ -49,7 +49,6 @@
         >X</button>
         <Game @game={{this.game}} />
       </aside>
-
     {{/if}}
   </div>
 </div>

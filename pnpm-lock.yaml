@@ -54,7 +54,7 @@ importers:
       '@types/rsvp': ^4.0.4
       '@typescript-eslint/eslint-plugin': ^5.26.0
       '@typescript-eslint/parser': ^5.26.0
-      '@unidance-coach/database': ^0.0.0
+      '@unidancing/database': ^0.0.0
       broccoli-asset-rev: ^3.0.0
       case: ^1.6.3
       ember-auto-import: ^2.4.2
@@ -68,7 +68,6 @@ importers:
       ember-cli-terser: ^4.0.2
       ember-cli-typescript: ^5.1.0
       ember-cli-typescript-blueprints: ^3.0.0
-      ember-command: ^1.0.0
       ember-composable-helpers: ^5.0.0
       ember-concurrency: ^2.2.1
       ember-concurrency-ts: ^0.3.1
@@ -80,7 +79,6 @@ importers:
       ember-load-initializers: ^2.1.2
       ember-modifier: ^3.2.7
       ember-page-title: ^7.0.0
-      ember-query-params-service: ^0.7.3
       ember-qunit: ^5.1.5
       ember-render-helpers: ^0.2.0
       ember-resolver: ^8.0.3
@@ -107,7 +105,7 @@ importers:
       typescript: ^4.7.2
       webpack: ^5.74.0
     dependencies:
-      '@unidance-coach/database': link:../database
+      '@unidancing/database': link:../database
     devDependencies:
       '@babel/core': 7.18.10
       '@babel/eslint-parser': 7.18.9_xqt7ek4fk233nrovqiamjvck4u
@@ -166,7 +164,6 @@ importers:
       ember-cli-terser: 4.0.2
       ember-cli-typescript: 5.1.0
       ember-cli-typescript-blueprints: 3.0.0
-      ember-command: 1.0.0_qugndng5dfkp4si7rbdumyltwu
       ember-composable-helpers: 5.0.0
       ember-concurrency: 2.2.1_@babel+core@7.18.10
       ember-concurrency-ts: 0.3.1_ember-concurrency@2.2.1
@@ -178,7 +175,6 @@ importers:
       ember-load-initializers: 2.1.2_@babel+core@7.18.10
       ember-modifier: 3.2.7_@babel+core@7.18.10
       ember-page-title: 7.0.0
-      ember-query-params-service: 0.7.3
       ember-qunit: 5.1.5_m2vpijm5kklvqmlfibufmotnbi
       ember-render-helpers: 0.2.0
       ember-resolver: 8.0.3_@babel+core@7.18.10
@@ -221,7 +217,7 @@ importers:
       '@panva/oauth4webapi': ^1.1.3
       itty-router: ^2.6.1
       typescript: ^4.7.4
-      wrangler: ^2.0.23
+      wrangler: ^2.0.24
     dependencies:
       '@panva/oauth4webapi': 1.1.3
       itty-router: 2.6.1
@@ -2104,15 +2100,6 @@ packages:
     resolution: {integrity: sha512-tGRdvgC9/QMQSuSuJV45xoyhI0Pzjm7A9o/MVVA3HakXIImJbbzx/k/6dO9CUEQXIyS2y0fW6C1XaYOG7rY0FQ==}
     dev: true
 
-  /@ember-decorators/utils/6.1.1:
-    resolution: {integrity: sha512-0KqnoeoLKb6AyoSU65TRF5T85wmS4uDn06oARddwNPxxf/lt5jQlh41uX3W7V/fWL9tPu8x1L1Vvpc80MN1+YA==}
-    engines: {node: '>= 8.*'}
-    dependencies:
-      ember-cli-babel: 7.26.11
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@ember/edition-utils/1.2.0:
     resolution: {integrity: sha512-VmVq/8saCaPdesQmftPqbFtxJWrzxNGSQ+e8x8LLe3Hjm36pJ04Q8LeORGZkAeOhldoUX9seLGmSaHeXkIqoog==}
     dev: true
@@ -2607,13 +2594,6 @@ packages:
       '@glimmer/util': 0.84.2
       '@handlebars/parser': 2.0.0
       simple-html-tokenizer: 0.5.11
-    dev: true
-
-  /@glimmer/tracking/1.0.4:
-    resolution: {integrity: sha512-F+oT8I55ba2puSGIzInmVrv/8QA2PcK1VD+GWgFMhF6WC97D+uZX7BFg+a3s/2N4FVBq5KHE+QxZzgazM151Yw==}
-    dependencies:
-      '@glimmer/env': 0.1.7
-      '@glimmer/validator': 0.44.0
     dev: true
 
   /@glimmer/tracking/1.1.2:
@@ -8101,24 +8081,6 @@ packages:
       - whiskers
     dev: true
 
-  /ember-command/1.0.0_qugndng5dfkp4si7rbdumyltwu:
-    resolution: {integrity: sha512-QSMvA9jxTKvrq2tTZeAVHrzqO4IBtqK2ikAjXs9u//sd0+8/sWy4JH+bglv8acyKGNKDJr6nCIl51NQrzf6+kA==}
-    engines: {node: 12.* || >= 14}
-    dependencies:
-      ember-auto-import: 2.4.2_webpack@5.74.0
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.1.0
-      ember-cli-typescript: 5.1.0
-      ember-element-helper: 0.6.1_ember-source@4.6.0
-      ember-link: 1.3.1
-    transitivePeerDependencies:
-      - ember-source
-      - supports-color
-      - webpack
-      - webpack-cli
-      - webpack-command
-    dev: true
-
   /ember-compatibility-helpers/1.2.6_@babel+core@7.18.10:
     resolution: {integrity: sha512-2UBUa5SAuPg8/kRVaiOfTwlXdeVweal1zdNPibwItrhR0IvPrXpaqwJDlEZnWKEoB+h33V0JIfiWleSG6hGkkA==}
     engines: {node: 10.* || >= 12.*}
@@ -8206,20 +8168,6 @@ packages:
       - supports-color
     dev: true
 
-  /ember-element-helper/0.6.1_ember-source@4.6.0:
-    resolution: {integrity: sha512-YiOdAMlzYul4ulkIoNp8z7iHDfbT1fbut/9xGFRfxDwU/FmF8HtAUB2f1veu/w50HTeZNopa1OV2PCloZ76XlQ==}
-    engines: {node: 12.* || 14.* || >= 16}
-    peerDependencies:
-      ember-source: ^3.8 || 4
-    dependencies:
-      '@embroider/util': 1.8.3_ember-source@4.6.0
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.1.0
-      ember-source: 4.6.0_xc6oct4hcywdrbo4ned6ytbybm
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /ember-event-helpers/0.1.1:
     resolution: {integrity: sha512-fWcbWd4W4nRv8bbato8JB6oGRpATkR+oGYxMIqnfgTgPWaCS0ww7CuUVNpwg1TulojKMCuTXi8Fem2b1NSF1ZQ==}
     engines: {node: 8.* || >= 10.*}
@@ -8246,22 +8194,6 @@ packages:
       ember-source: 4.6.0_xc6oct4hcywdrbo4ned6ytbybm
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /ember-link/1.3.1:
-    resolution: {integrity: sha512-MPRX34xfY5PHPpZPOjFx4+J76ypvCGSpfsw17GlT3jCWCjyVk+gHG871YNZ808i0Z+k+4zgn+SL5FZVnDXRyzw==}
-    engines: {node: '>= 10.*'}
-    dependencies:
-      '@glimmer/tracking': 1.0.4
-      ember-auto-import: 1.12.2
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 5.7.2
-      ember-cli-typescript: 4.2.1
-      fast-json-stable-stringify: 2.1.0
-    transitivePeerDependencies:
-      - supports-color
-      - webpack-cli
-      - webpack-command
     dev: true
 
   /ember-link/2.0.0:
@@ -8320,23 +8252,6 @@ packages:
       ember-cli-babel: 7.26.11
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /ember-query-params-service/0.7.3:
-    resolution: {integrity: sha512-CRcj5C3xU+ETlWmPJL8xAA84qBmgsIIdLrmK74sWY+KVstM9vJM/sqfDL6p11TjSN/BrhvX5AmQNKXqNGvkOJQ==}
-    engines: {node: 14.* || >= 16}
-    dependencies:
-      '@ember-decorators/utils': 6.1.1
-      '@glimmer/tracking': 1.1.2
-      ember-auto-import: 1.12.2
-      ember-cli-babel: 7.26.11
-      ember-cli-htmlbars: 6.1.0
-      ember-cli-typescript: 4.2.1
-      qs: 6.11.0
-    transitivePeerDependencies:
-      - supports-color
-      - webpack-cli
-      - webpack-command
     dev: true
 
   /ember-qunit/5.1.5_m2vpijm5kklvqmlfibufmotnbi:

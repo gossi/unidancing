@@ -1,4 +1,4 @@
-import { Model as Base } from '@unidance-coach/database';
+import { Model as Base } from '@unidancing/database';
 
 export class Model {
   id: string;

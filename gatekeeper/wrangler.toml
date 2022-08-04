@@ -1,4 +1,4 @@
-name = "unidance-coach"
+name = "unidancing"
 main = "src/index.ts"
 compatibility_date = "2022-07-23"
 
@@ -6,6 +6,6 @@ compatibility_date = "2022-07-23"
 #port = 8787
 
 [vars]
-WORKER_ROOT = "https://unidance-coach.gossi.workers.dev"
-APP_ROOT = "https://unidance-coach.pages.dev"
+WORKER_ROOT = "https://unidancing.gossi.workers.dev"
+APP_ROOT = "https://unidancing.pages.dev"
 

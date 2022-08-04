@@ -8,7 +8,6 @@ import { set } from '@ember/object';
 
 export default class ApplicationController extends Controller {
   @service declare spotify: Services['spotify'];
-  @service declare games: Services['games'];
   @service declare linkManager: Services['link-manager'];
   @service declare router: Services['router'];
 
@@ -17,11 +16,6 @@ export default class ApplicationController extends Controller {
   queryParams = ['game', ...ALL_GAME_PARAMS];
 
   @tracked game?: Game;
-
-  @action
-  openGame(game: Game) {
-    this.games.open(game);
-  }
 
   @action
   close() {
@@ -34,7 +28,7 @@ export default class ApplicationController extends Controller {
     }
   }
 
-  linkFor = (game: Game) => {
+  buildGameLink = (game: Game) => {
     return this.linkManager.createUILink({
       route: this.router.currentRouteName,
       query: {

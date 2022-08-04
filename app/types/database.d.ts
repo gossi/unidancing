@@ -1,4 +1,4 @@
-declare module '@unidance-coach/database' {
+declare module '@unidancing/database' {
   export interface Model {
     id: string;
     title: string;
@@ -7,9 +7,9 @@ declare module '@unidance-coach/database' {
   }
 }
 
-declare module '@unidance-coach/database/exercises.json' {
-  import { Model } from '@unidance-coach/database';
-  import { Games } from '@unidance-coach/app/games/games';
+declare module '@unidancing/database/exercises.json' {
+  import { Model } from '@unidancing/database';
+  import { Games } from '@unidancing/app/games/games';
 
   type Personal = 'individual' | 'pair' | 'group';
   type Locomotion = 'unicycle' | 'pedes';
@@ -41,8 +41,8 @@ declare module '@unidance-coach/database/exercises.json' {
   export default database;
 }
 
-declare module '@unidance-coach/database/skills.json' {
-  import { Model } from '@unidance-coach/database';
+declare module '@unidancing/database/skills.json' {
+  import { Model } from '@unidancing/database';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface SkillWireFormat extends Model {}

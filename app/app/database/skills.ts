@@ -1,4 +1,4 @@
-import { SkillWireFormat } from '@unidance-coach/database/skills.json';
+import { SkillWireFormat } from '@unidancing/database/skills.json';
 import DataService from '../services/data';
 import { Model } from './base';
 
