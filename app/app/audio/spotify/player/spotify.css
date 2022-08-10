@@ -1,0 +1,40 @@
+.layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  & > * {
+    margin: 0;
+  }
+
+  p,
+  select {
+    max-width: 33%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+.play {
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    --background-color: transparent;
+    --border-color: transparent;
+    --box-shadow: unset;
+  }
+  display: inline;
+  width: auto;
+  padding: 0;
+  font-size: 3em;
+  line-height: 1em;
+  margin: 0;
+}
+
+.devices {
+  width: auto;
+  margin: 0;
+}
