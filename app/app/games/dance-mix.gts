@@ -20,27 +20,44 @@ import { dropTask, timeout } from 'ember-concurrency';
 import { taskFor } from 'ember-concurrency-ts';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
 import eq from 'ember-truth-helpers/helpers/equal';
+import not from 'ember-truth-helpers/helpers/not';
 import styles from './dance-mix.css';
 import set from 'ember-set-helper/helpers/set';
 import { fn } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
+enum Playlist {
+  Epic = 'epic',
+  Mood = 'mood'
+}
+
 export enum DanceMixParam {
   Amount = 'amount',
   Duration = 'duration',
-  Pause = 'pause'
+  Pause = 'pause',
+  Playlist = 'playlist',
+  PlaylistId = 'playlistId'
 }
 
 export interface DanceMixParams {
   [DanceMixParam.Amount]?: number;
   [DanceMixParam.Duration]?: number;
   [DanceMixParam.Pause]?: number;
+  [DanceMixParam.Playlist]?: Playlist;
+  [DanceMixParam.PlaylistId]?: string;
+};
+
+const PLAYLISTS: Record<Playlist, string> = {
+  epic: '3qaxO2Z99batsuhi12MDsn',
+  mood: '1IYCpukYnxGg2Yps59E9F6'
 };
 
 const DEFAULTS = {
   [DanceMixParam.Amount]: 5,
   [DanceMixParam.Duration]: 30,
-  [DanceMixParam.Pause]: 1
+  [DanceMixParam.Pause]: 1,
+  [DanceMixParam.Playlist]: undefined,
+  [DanceMixParam.PlaylistId]: undefined
 }
 
 export interface DanceMixSignature {
@@ -54,14 +71,48 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
 
   player!: SpotifyPlayer;
 
-  @tracked playlistId?: string;
+  @tracked selectedPlaylistId?: string;
   @tracked counter?: number;
+
+  get playlistId(): string | undefined {
+    if (this.selectedPlaylistId) {
+      return this.selectedPlaylistId;
+    }
+
+    const playlistId = this.#getParam(DanceMixParam.PlaylistId) as string;
+    if (playlistId) {
+      return playlistId;
+    }
+
+    const playlist = this.#getParam(DanceMixParam.Playlist) as Playlist;
+    if (playlist && PLAYLISTS[playlist]) {
+      return PLAYLISTS[playlist];
+    }
+
+    const savedPlaylist = localStorage.getItem('dance-playlist') as string
+    if (savedPlaylist) {
+      return savedPlaylist;
+    }
+
+    return undefined;
+  }
 
   resource: PlaylistResource = PlaylistResource.from(this, () => ({
     playlist: this.playlistId
   }));
 
   @tracked tracks?: SpotifyApi.TrackObjectFull[];
+
+  @tracked state?: 'choose-playlist';
+
+  get choosingPlaylist() {
+    return !this.playlistId || this.state === 'choose-playlist';
+  }
+
+  get playlistLocked() {
+    return this.#getParam(DanceMixParam.Playlist) !== undefined ||
+      this.#getParam(DanceMixParam.PlaylistId) !== undefined;
+  }
 
   // params
   #getParam(param: DanceMixParam) {
@@ -111,7 +162,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
 
   @action
   readSettings() {
-    this.playlistId = localStorage.getItem('dance-playlist') as string;
+    // this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
   }
 
   @action
@@ -119,7 +170,8 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
     const id = playlist.id;
     localStorage.setItem('dance-playlist', id);
 
-    this.playlistId = id;
+    this.selectedPlaylistId = id;
+    this.state = undefined;
   }
 
   @action
@@ -187,23 +239,27 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       {{didInsert this.readSettings}}
       {{willDestroy this.unloadPlayer}}
 
-      {{#if this.playlistId}}
+      {{#if this.choosingPlaylist}}
+        <PlaylistChooser @select={{this.selectPlaylist}} />
+      {{else if this.playlistId}}
         <div class="grid">
           <p>
             <strong>{{htmlSafe this.resource.playlist.name}}</strong><br>
             <small>{{htmlSafe this.resource.playlist.description}}</small>
           </p>
 
-          <div>
-            <button
-              type="button"
-              disabled={{this.mix.isRunning}}
-              class="outline"
-              {{on "click" (fn (set this "playlistId" undefined))}}
-            >
-              Playlist wechseln
-            </button>
-          </div>
+          {{#if (not this.playlistLocked)}}
+            <div>
+              <button
+                type="button"
+                disabled={{this.mix.isRunning}}
+                class="outline"
+                {{on "click" (fn (set this "state" 'choose-playlist'))}}
+              >
+                Playlist wechseln
+              </button>
+            </div>
+          {{/if}}
         </div>
 
         {{#if this.mix.isRunning}}
@@ -243,9 +299,6 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
             <button type="submit">Start</button>
           </form>
         {{/if}}
-
-      {{else}}
-        <PlaylistChooser @select={{this.selectPlaylist}} />
       {{/if}}
     {{else}}
       <LoginWithSpotify />

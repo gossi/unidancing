@@ -27,7 +27,9 @@
                   href={{link.url}}
                   role='button'
                   {{on 'click' link.transitionTo}}
-                >Dance Mix</a>
+                >
+                  {{#if game.label}}{{game.label}}{{else}}{{game.name}}{{/if}}
+                </a>
               {{/let}}
             {{/each}}
           </header>

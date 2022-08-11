@@ -91,6 +91,39 @@
         }
       ],
       "excerpt": "<p>Eine &#xDC;bung f&#xFC;r zwei Spieler. Die beiden sitzen Schulter an Schulter auf zwei St&#xFC;hlen und spielen quasi eine Person, und zwar einen Experten, der von seinem Fachgebiet, oder einen Erfinder, der von seiner sensationellen Erfindung erz&#xE4;hlt. Was es ist, wird vom Publikum vorgegeben.</p>"
+    },
+    {
+      "id": "mood-impro",
+      "contents": "<p>Emotionen in der Musik erkennen und durch Bewegungen ausdrücken.</p>\n<h2 id=\"individual\">Individual</h2>\n<p>Zunächst für sich selbst herausfinden, welche Stimmung ist im Lied? Die Stimmung adaptieren und ausdrücken.</p>\n<h2 id=\"pair\">Pair</h2>\n<p>Danach im Pair. Die Stimmung des Liedes verstehen? Was versteht der Partner? Emotionen zeigen und empathisch reagieren.</p>\n",
+      "title": "Mood Impro",
+      "locomotion": "unicycle",
+      "personal": [
+        "individual",
+        "pair"
+      ],
+      "games": [
+        {
+          "name": "dance-mix",
+          "label": "Individual",
+          "params": {
+            "duration": 35,
+            "pause": 3,
+            "amount": 4,
+            "playlist": "mood"
+          }
+        },
+        {
+          "name": "dance-mix",
+          "label": "Pair",
+          "params": {
+            "duration": 60,
+            "pause": 5,
+            "amount": 4,
+            "playlist": "mood"
+          }
+        }
+      ],
+      "excerpt": "<p>Emotionen in der Musik erkennen und durch Bewegungen ausdr&#xFC;cken.</p>"
     }
   ]
 }
