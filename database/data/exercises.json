@@ -17,7 +17,7 @@
   "data": [
     {
       "id": "copycat",
-      "contents": "<p>Die Gruppe wird durch 1-2 abzählen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfläche. Die Hälfte der Gruppe macht vor, die anderen\nHälfte ahmt nach. Wer nachahmt, such sich jemanden aus, der etwas vormacht und\nkopiert die Bewegungen. Danach wechselt es, wer eben noch nachgeahmt hat, macht\netwas vor und umgekehrt. Man darf von keiner Person 2x hintereinander nachahmen.</p>\n",
+      "contents": "<p>Die Gruppe wird durch 1-2 abzählen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfläche. Die Hälfte der Gruppe macht Bewegungen auf\nMusik vor, die andere Hälfte ahmt nach. Danach wechselt es, wer eben noch\nnachgeahmt hat, macht etwas vor und umgekehrt. Man darf von keiner Person 2x\nhintereinander nachahmen.</p>\n<p>Vor dem Start eines Liedes ruft der Spielleiter welche Gruppe (1 oder 2) mit\ndem vormachen an der Reihe ist. Diese Fahrer heben ihren Arm für eine gewisse\nZeit, sodass sich die Nachahmer einen Vormacher für dieses Lied aussuchen\nkönnen. Das vormachen beginnt mit dem Start der Musik.</p>\n",
       "title": "Copycat",
       "locomotion": "unicycle",
       "personal": "pair",
@@ -35,7 +35,7 @@
           }
         }
       ],
-      "excerpt": "<p>Die Gruppe wird durch 1-2 abz&#xE4;hlen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfl&#xE4;che. Die H&#xE4;lfte der Gruppe macht vor, die anderen\nH&#xE4;lfte ahmt nach. Wer nachahmt, such sich jemanden aus, der etwas vormacht und\nkopiert die Bewegungen. Danach wechselt es, wer eben noch nachgeahmt hat, macht\netwas vor und umgekehrt. Man darf von keiner Person 2x hintereinander nachahmen.</p>"
+      "excerpt": "<p>Die Gruppe wird durch 1-2 abz&#xE4;hlen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfl&#xE4;che. Die H&#xE4;lfte der Gruppe macht Bewegungen auf\nMusik vor, die andere H&#xE4;lfte ahmt nach. Danach wechselt es, wer eben noch\nnachgeahmt hat, macht etwas vor und umgekehrt. Man darf von keiner Person 2x\nhintereinander nachahmen.</p>"
     },
     {
       "id": "dance-mix",
@@ -48,8 +48,37 @@
       "excerpt": "<p>Beim Dance Mix wird ein Satz Lieder f&#xFC;r eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametrisierbar durch:</p>"
     },
     {
+      "id": "doubles",
+      "contents": "<p>Routine zu Zweit auf einem Einrad.</p>\n<p>Partnerweise zusammen gehen. Ein Einrad auswählen, auf dem Beide Fahren können (typischerweise das kleinere Einrad). Ein Partner ist der Einradfahrer, der andere der Tänzer. Während der Routine wird gewechselt.</p>\n<h2 id=\"aufgabe-1\">Aufgabe 1</h2>\n<p>Mit dem Partner mind. 4 sichere Einrad-Wechsel entwickeln. Der Einradfahrer wird zum Tänzer und umgekehrt.</p>\n<p>Zeit: ~30-45min</p>\n<h2 id=\"aufgabe-2\">Aufgabe 2</h2>\n<p>Zu zweit eine Double-Routine entwickeln. Bewegungen zwischen Einradfahrer und Tänzer synchronisieren. Einradfahrer kann sich auf dem Tänzer abstützen und somit Bewegungen auf der Stelle ausführen (ist sonst schwierig möglich). Einradfahrer und Tänzer wechseln sich ab mit den zuvor ausgedachten Wechseln.</p>\n<p>Zeit: 60min<br>\nMusik: Ed Sheeran – I see Fire<br>\nInspiration: Marissa Osata</p>\n<p>Zum Abschluss Aufführung Filmen</p>\n<h2 id=\"aufgabe-3-zugabe\">Aufgabe 3 (Zugabe)</h2>\n<p>Videoaufnahme analysieren, Langweilige Stellen identifizieren (wo passiert nichts?, wo passiert zu wenig?) Gegenmaßnahmen erarbeiten (Mehr Bewegungen, größere Bewegungen, etc.). Routine verbessern und erneut aufnehmen.</p>\n",
+      "title": "Doubles",
+      "locomotion": [
+        "unicycle",
+        "pedes"
+      ],
+      "personal": "pair",
+      "see": [
+        {
+          "url": "https://www.youtube.com/watch?v=10fpaWri-dY",
+          "label": "Thomas Tiercy & Basile Audergon @ UNICON 15"
+        },
+        {
+          "url": "https://www.youtube.com/watch?v=lLQGsbPnSUo",
+          "label": "Marissa Osata (I See Fire by Ed Sheeran)"
+        }
+      ],
+      "excerpt": "<p>Routine zu Zweit auf einem Einrad.</p>"
+    },
+    {
+      "id": "dynamik",
+      "contents": "<p>Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür.</p>\n<h2 id=\"einführung\">Einführung</h2>\n<p>Aufgabe ausführen, beobachten und im Anschluss in der Gruppe vorstellen, gemeinsam reflektieren, diskutieren und im Anschluss die Ideen Anderer ausprobieren.</p>\n<p>Beobachten:\nselbst-reflektorisch (intrinsisches), sowie fremd (extrinsisches) Beobachten.</p>\n<p>Musik: Imagine Dragons (best of)</p>\n<h2 id=\"1-runde\">1. Runde</h2>\n<ol>\n<li>Aufgabe: Dynamische Elemente ausprobieren (sehr grobe und freie Aufgabenstellung)</li>\n<li>Diskussion</li>\n<li>Ideen Anderer Ausprobieren</li>\n</ol>\n<h2 id=\"2-runde\">2. Runde</h2>\n<ol>\n<li>Aufgabe: In welchen anderen Kontexten* tritt „Dynamik“ noch auf? Was daraus lässt sich auf’s Einradfahren transferieren?</li>\n<li>Diskussion</li>\n<li>Ideen Anderer Ausprobieren</li>\n</ol>\n<p>evtl. mehrere Durchläufe, je nachdem wieviel Kontexte genannt werden</p>\n<ul>\n<li>Wie hilft uns die Physik? Kinematik (Kraft) vs. Dynamik (Kraftstoß + Impuls)</li>\n</ul>\n<h2 id=\"3-runde\">3. Runde</h2>\n<ol>\n<li>Aufgabe: Energielevel auf 25%, 50%, 75% und full out (100%).</li>\n<li>Aufgabe: Energielevel mit Tricks. Tanzen hat vorrang</li>\n</ol>\n<h2 id=\"steuerung-und-messverfahren\">Steuerung und Messverfahren</h2>\n<h3 id=\"steuerung\">Steuerung</h3>\n<p>Energielevel</p>\n<blockquote>\n<p>Fahr die Kür mal mit einem Energielevel von x%</p>\n</blockquote>\n<h3 id=\"messverfahren\">Messverfahren</h3>\n<p>Dynamik als Kenngröße für „interessante/ansprechende“ Küren?</p>\n<p>=&gt; Von dem, was die Musik hergibt + was der Fahrer kann, liegt die aktuelle Dynamik bei x%</p>\n",
+      "title": "Dynamik",
+      "locomotion": "unicycle",
+      "personal": "individiual",
+      "excerpt": "<p>Induktives, exploratives Training f&#xFC;r dynamische Elemente f&#xFC;r eine Einrad-K&#xFC;r.</p>"
+    },
+    {
       "id": "explore-impro-constellation",
-      "contents": "<p>Paare die zusammen herausfinden, welche Konstellationen sich für Pair\nImprovisation anbieten.</p>\n<p>In der Gruppe bilden sich Paare, die zusammen herausfinden – welche\nKonstellationen der beiden für Impro genutzt werden können. Welche Figuren\nfunktionieren? Welche nicht? Was kommunizieren die beiden? Wie funktioniert\nAnbieten? Wie funktioniert Annehmen?</p>\n<p>~ 5-10min Exploration<br>\n~ 5min Erfahrungen teilen<br>\n~ 5-10min Andere Erfahrungen ausprobieren<br></p>\n<p>Optionale Ergänzung:\n~ 5min Erneuter Austausch, evtl. Anreize durch Trainer (s.u.)<br>\n~ 5-10min erneute Ausprobieren</p>\n<p>Anreize:</p>\n<ul>\n<li>Position der Fahrer zueinander:<ul>\n<li>Frontal zueinander</li>\n<li>Parallel, minimal versetzt (ein Fahrer minimal vor dem Anderen)</li>\n</ul>\n</li>\n</ul>\n",
+      "contents": "<p>Paare die zusammen herausfinden, welche Konstellationen sich für Pair\nImprovisation anbieten.</p>\n<p>In der Gruppe bilden sich Paare, die zusammen herausfinden – welche\nKonstellationen der beiden für Impro genutzt werden können. Welche Figuren\nfunktionieren? Welche nicht? Was kommunizieren die beiden? Wie funktioniert\nAnbieten? Wie funktioniert Annehmen?</p>\n<p>~ 5-10min Exploration<br>\n~ 5min Reflektion / Erfahrungen teilen<br>\n~ 5-10min Andere Erfahrungen ausprobieren<br></p>\n<p>Optionale Ergänzung:\n~ 5min Erneuter Austausch, evtl. Anreize durch Trainer (s.u.)<br>\n~ 5-10min erneute Ausprobieren</p>\n<p>Anreize:</p>\n<ul>\n<li>Position der Fahrer zueinander:<ul>\n<li>Frontal zueinander</li>\n<li>Parallel, minimal versetzt (ein Fahrer minimal vor dem Anderen)</li>\n</ul>\n</li>\n</ul>\n",
       "title": "Exploration Pair Impro Konstellationen",
       "locomotion": "unicycle",
       "personal": "pair",
@@ -76,8 +105,25 @@
       "excerpt": "<p>Fahrer finden anhand von Aufgaben eigene musikalische Umsetzungen heraus.</p>"
     },
     {
+      "id": "ja-genau-und-dann",
+      "contents": "",
+      "title": "Ja genau, und dann...",
+      "personal": "pair",
+      "tags": [
+        "kommunikation",
+        "improvisation"
+      ],
+      "see": [
+        {
+          "url": "https://improwiki.com/de/wiki/improtheater/ja_genau_und_dann",
+          "label": "Improwiki"
+        }
+      ],
+      "excerpt": ""
+    },
+    {
       "id": "ja-genau-und-weil",
-      "contents": "<p>Eine Übung für zwei Spieler. Die beiden sitzen Schulter an Schulter auf zwei Stühlen und spielen quasi eine Person, und zwar einen Experten, der von seinem Fachgebiet, oder einen Erfinder, der von seiner sensationellen Erfindung erzählt. Was es ist, wird vom Publikum vorgegeben.</p>\n<p>Beide sprechen abwechselnd, wobei jeder den Satz seines Vorgängers bestätigend wiederholt und ergänzt.</p>\n<p>Beispiel:</p>\n<ul>\n<li>A: Ich bin Experte für Weißwürste.</li>\n<li>B: Ja genau, und weil ich Experte für Weißwürste bin, habe ich die Weißwürste genauestens untersucht.</li>\n<li>A: Ja genau, und weil ich die Weißwürste genauestens untersucht habe, habe ich entdeckt, dass sie dick machen.</li>\n<li>B: Ja genau, und weil die Weißwürste dick machen...</li>\n</ul>\n",
+      "contents": "<p>Eine Übung für zwei Fahrer. Die beiden Fahrer spielen zusammen <em>einen</em> Experten\neines speziellen Fachgebiets, oder als Erfinder, von seiner sensatiellen Erfindung zu\nerzählen. Dazu nutzen beide <em>ein</em> Einrad, dass das Forschungsobjekt oder eine\nbesondere Erfindung (hierbei) darstellt.</p>\n<p>Das Einrad wird dazu nicht befahren, sondern bespielt. Die Geschichte wird\nbildlich mit dem Einrad erzählt und mit Worten als Kommentar begleitet. Der\nKommentar beginnt damit immer mit den Worten &quot;Ja genau, und weil ...&quot; um den\nvorigen Satz aufzugreifen.</p>\n<p>Beispiel:</p>\n<ul>\n<li>A: Ich erforsche das Hüten von Schaafen</li>\n<li>B: Ja genau, und weil ich das Hüten von Schaafen erforsche, hab ich hier\nmeinen Hütehund mitgebracht</li>\n<li>A: Ja genau, und weil ich meinen Hütehund dabei hab, kann ich euch einige\nTricks zeigen, die ich ihm beigebracht habe</li>\n<li>B: Ja genau, und weil ...</li>\n</ul>\n",
       "title": "Ja genau, und weil...",
       "personal": "pair",
       "tags": [
@@ -90,7 +136,7 @@
           "label": "Improwiki"
         }
       ],
-      "excerpt": "<p>Eine &#xDC;bung f&#xFC;r zwei Spieler. Die beiden sitzen Schulter an Schulter auf zwei St&#xFC;hlen und spielen quasi eine Person, und zwar einen Experten, der von seinem Fachgebiet, oder einen Erfinder, der von seiner sensationellen Erfindung erz&#xE4;hlt. Was es ist, wird vom Publikum vorgegeben.</p>"
+      "excerpt": "<p>Eine &#xDC;bung f&#xFC;r zwei Fahrer. Die beiden Fahrer spielen zusammen <em>einen</em> Experten\neines speziellen Fachgebiets, oder als Erfinder, von seiner sensatiellen Erfindung zu\nerz&#xE4;hlen. Dazu nutzen beide <em>ein</em> Einrad, dass das Forschungsobjekt oder eine\nbesondere Erfindung (hierbei) darstellt.</p>"
     },
     {
       "id": "mood-impro",
@@ -124,6 +170,21 @@
         }
       ],
       "excerpt": "<p>Emotionen in der Musik erkennen und durch Bewegungen ausdr&#xFC;cken.</p>"
+    },
+    {
+      "id": "whiskeymixer",
+      "contents": "<p>Aufwärmspiel um den Kopf freizubekommen</p>\n<p>Uhrzeigersinn: <strong>Whiskeymixer</strong>\nRichtungswechsel: <strong>Messwechsel</strong>\nGegenuhrzeigersinn: <strong>Wachsmaske</strong></p>\n<p>Alle Spieler stellen sich im Kreis auf. Im Uhrzeigersinn wird das Wort &quot;Whiskeymixer&quot;\nmöglichst schnell herum gegeben. Sagt ein Spieler &quot;Messwechsel&quot;, wird die Richtung\ngewechselt und das Wort &quot;Wachsmaske&quot; in Gegenuhrzeigersinnrichtung weiter gesagt. Das\nA und O des Spiels ist dabei Geschwindigkeit: Zögert ein Spieler oder fängt an zu lachen,\nmuss er bzw. sie im Uhrzeigersinn einmal um den Kreis laufen.</p>\n",
+      "title": "Whiskeymixer",
+      "tags": [
+        "warmup"
+      ],
+      "see": [
+        {
+          "url": "https://improwiki.com/de/wiki/improtheater/whiskeymixer",
+          "label": "Improwiki"
+        }
+      ],
+      "excerpt": "<p>Aufw&#xE4;rmspiel um den Kopf freizubekommen</p>"
     }
   ]
 }

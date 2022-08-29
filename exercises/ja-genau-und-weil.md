@@ -9,13 +9,21 @@ see:
   label: Improwiki
 ---
 
-Eine Übung für zwei Spieler. Die beiden sitzen Schulter an Schulter auf zwei Stühlen und spielen quasi eine Person, und zwar einen Experten, der von seinem Fachgebiet, oder einen Erfinder, der von seiner sensationellen Erfindung erzählt. Was es ist, wird vom Publikum vorgegeben.
+Eine Übung für zwei Fahrer. Die beiden Fahrer spielen zusammen _einen_ Experten
+eines speziellen Fachgebiets, oder als Erfinder, von seiner sensatiellen Erfindung zu
+erzählen. Dazu nutzen beide _ein_ Einrad, dass das Forschungsobjekt oder eine
+besondere Erfindung (hierbei) darstellt.
 
-Beide sprechen abwechselnd, wobei jeder den Satz seines Vorgängers bestätigend wiederholt und ergänzt.
+Das Einrad wird dazu nicht befahren, sondern bespielt. Die Geschichte wird
+bildlich mit dem Einrad erzählt und mit Worten als Kommentar begleitet. Der
+Kommentar beginnt damit immer mit den Worten "Ja genau, und weil ..." um den
+vorigen Satz aufzugreifen.
 
 Beispiel:
 
-- A: Ich bin Experte für Weißwürste.
-- B: Ja genau, und weil ich Experte für Weißwürste bin, habe ich die Weißwürste genauestens untersucht.
-- A: Ja genau, und weil ich die Weißwürste genauestens untersucht habe, habe ich entdeckt, dass sie dick machen.
-- B: Ja genau, und weil die Weißwürste dick machen...
+- A: Ich erforsche das Hüten von Schaafen
+- B: Ja genau, und weil ich das Hüten von Schaafen erforsche, hab ich hier
+  meinen Hütehund mitgebracht
+- A: Ja genau, und weil ich meinen Hütehund dabei hab, kann ich euch einige
+  Tricks zeigen, die ich ihm beigebracht habe
+- B: Ja genau, und weil ...

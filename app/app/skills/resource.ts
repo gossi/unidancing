@@ -1,5 +1,6 @@
 import { Resource } from 'ember-resources';
 import { service, Registry as Services } from '@ember/service';
+import { Link } from 'ember-link';
 
 export function createSkillLinkBuilder(
   linkManager: Services['link-manager']

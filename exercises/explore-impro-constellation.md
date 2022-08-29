@@ -18,7 +18,7 @@ funktionieren? Welche nicht? Was kommunizieren die beiden? Wie funktioniert
 Anbieten? Wie funktioniert Annehmen?
 
 ~ 5-10min Exploration<br>
-~ 5min Erfahrungen teilen<br>
+~ 5min Reflektion / Erfahrungen teilen<br>
 ~ 5-10min Andere Erfahrungen ausprobieren<br>
 
 Optionale Ergänzung:
