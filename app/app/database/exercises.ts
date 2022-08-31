@@ -12,7 +12,7 @@ import { Model } from './base';
 
 type See = Link | Exercise;
 
-export { Locomotion, Personal, Game, See };
+export type { Locomotion, Personal, Game, See };
 
 export class Exercise extends Model {
   #service: DataService;

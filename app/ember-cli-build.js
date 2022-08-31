@@ -30,7 +30,7 @@ module.exports = function (defaults) {
 
   app.import('node_modules/@picocss/pico/css/pico.min.css');
 
-  return app.toTree();
-  // const { Webpack } = require('@embroider/webpack');
-  // return require('@embroider/compat').compatBuild(app, Webpack);
+  // return app.toTree();
+  const { Webpack } = require('@embroider/webpack');
+  return require('@embroider/compat').compatBuild(app, Webpack);
 };

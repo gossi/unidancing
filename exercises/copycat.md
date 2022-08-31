@@ -7,6 +7,7 @@ skills:
 - bewegungssehen
 games:
 - name: dance-mix
+  label: Dance Mix
   params:
     duration: 40
     pause: 10
