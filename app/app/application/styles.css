@@ -16,7 +16,7 @@
   border-bottom: 1px solid #000;
 
   .label {
-    @media (max-width: 455px) {
+    @media (max-width: 625px) {
       position: absolute;
       position: absolute !important;
       width: 1px !important;

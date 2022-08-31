@@ -20,4 +20,7 @@ Router.map(function () {
     this.route('details', { path: '/:id' });
   });
   this.route('games', { path: '/games/:id' });
+  this.route('choreography', function () {
+    this.route('measure');
+  });
 });

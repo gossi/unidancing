@@ -15,7 +15,8 @@ enum Icon {
   computer = '💻',
   tv = '🖥️',
   smartphone = '📱',
-  speaker = '🔈'
+  speaker = '🔈',
+  choreo = '📜'
 };
 
 export type Icons = keyof typeof Icon;

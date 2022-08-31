@@ -6,10 +6,6 @@
   "files": [
     "data"
   ],
-  "exports": {
-    "./exercises.json": "./data/exercises.json",
-    "./skills.json": "./data/skills.json"
-  },
   "scripts": {
     "build": "concurrently 'npm:build:*'",
     "build:exercises": "markdown-json -c config/exercises.json",
@@ -22,6 +18,10 @@
     "chokidar-cli": "^3.0.0",
     "concurrently": "^7.3.0",
     "markdown-json": "^1.6.1"
+  },
+  "exports": {
+    "./exercises.json": "./data/exercises.json",
+    "./skills.json": "./data/skills.json"
   },
   "volta": {
     "extends": "../package.json"
