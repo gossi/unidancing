@@ -16,6 +16,19 @@
   },
   "data": [
     {
+      "id": "bewegungsschlange",
+      "contents": "<p>Eine kleine Gruppe von Personen formt sicht zu einer Schlange, der Kopf macht\nBewegungen vor, der Körper macht sie nacht.</p>\n<p>Gruppierung von maximal 5 Personen. Die Personen jeder Gruppe laufen\nhintereinander. Die vorderste Person macht Bewegungen auf die laufende Musik\nvor, alle anderen der Gruppe imitieren diese. Bei Musikwechsel rückt die\nvorderste Person an das Ende der Schlange und die nun vorderste Person ist an\nder Reihe Bewegungen vorzumachen.</p>\n",
+      "title": "Bewegungsschlange",
+      "locomotion": "pedes",
+      "skills": [
+        "bewegungsrepertoire"
+      ],
+      "tags": [
+        "warmup"
+      ],
+      "excerpt": "<p>Eine kleine Gruppe von Personen formt sicht zu einer Schlange, der Kopf macht\nBewegungen vor, der K&#xF6;rper macht sie nacht.</p>"
+    },
+    {
       "id": "copycat",
       "contents": "<p>Die Gruppe wird durch 1-2 abzählen in zwei Gruppen aufgeteilt und fahren\nvermischt auf der Fahrfläche. Die Hälfte der Gruppe macht Bewegungen auf\nMusik vor, die andere Hälfte ahmt nach. Danach wechselt es, wer eben noch\nnachgeahmt hat, macht etwas vor und umgekehrt. Man darf von keiner Person 2x\nhintereinander nachahmen.</p>\n<p>Vor dem Start eines Liedes ruft der Spielleiter welche Gruppe (1 oder 2) mit\ndem vormachen an der Reihe ist. Diese Fahrer heben ihren Arm für eine gewisse\nZeit, sodass sich die Nachahmer einen Vormacher für dieses Lied aussuchen\nkönnen. Das vormachen beginnt mit dem Start der Musik.</p>\n",
       "title": "Copycat",
@@ -76,6 +89,16 @@
       "locomotion": "unicycle",
       "personal": "individiual",
       "excerpt": "<p>Induktives, exploratives Training f&#xFC;r dynamische Elemente f&#xFC;r eine Einrad-K&#xFC;r.</p>"
+    },
+    {
+      "id": "elemente",
+      "contents": "<p>Darstellen von natürlichen Elementen (Wasser, Wind, Feuer, Erde) durch den Körper in Gruppen.</p>\n<p>Die Gruppe wird in vier kleinere Gruppen unterteilt, mit jeweils etwa 3-5\nPersonen. Jede Gruppe bekommt ein Element zugewiesen und soll dieses durch\nBewegungen ausdrücken und eine kurze Choreographie erarbeiten. Zum Abschluss\npräsentierenn die Gruppen voreinander.</p>\n<p>Alternative: Es können je nach Gruppengröße auch mehr oder weniger Element\ngenutzt werden.</p>\n",
+      "title": "Elemente",
+      "locomotion": "pedes",
+      "skills": [
+        "bewegungsrepertoire"
+      ],
+      "excerpt": "<p>Darstellen von nat&#xFC;rlichen Elementen (Wasser, Wind, Feuer, Erde) durch den K&#xF6;rper in Gruppen.</p>"
     },
     {
       "id": "explore-impro-constellation",
@@ -140,6 +163,25 @@
       "excerpt": "<p>Eine &#xDC;bung f&#xFC;r zwei Fahrer. Die beiden Fahrer spielen zusammen <em>einen</em> Experten\neines speziellen Fachgebiets, oder als Erfinder, von seiner sensatiellen Erfindung zu\nerz&#xE4;hlen. Dazu nutzen beide <em>ein</em> Einrad, dass das Forschungsobjekt oder eine\nbesondere Erfindung (hierbei) darstellt.</p>"
     },
     {
+      "id": "michael-jackson-challenge",
+      "contents": "<p>Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer transferieren.</p>\n<h2 id=\"voraussetzung\">Voraussetzung</h2>\n<p>Doubles</p>\n<h2 id=\"setup\">Setup</h2>\n<p>Gruppierung 4-5 Personen, 2-3 Personen fahren auf dem Einrad, die anderen sind\nTänzer. Während der Routine wechseln sich Fahrer und Tänzer mit erdachten\nEinrad-Tausch ab.</p>\n<p>Jede Gruppe hat ein Gerät um Videos abzuspielen (Handy, Tablet oder Laptop). Die\nGruppe bekommt ein Michael Jackson Video zugeweisen.</p>\n<h2 id=\"aufgabe\">Aufgabe</h2>\n<p>Jede Gruppe schaut sich das zugewiesene Michael Jackson Video an. Die Gruppe\nsucht sich eine Sequenz für die eigene Choreographie aus. Diese Sequenz wird auf\ndas vorliegende Setup transferiert.</p>\n<ol>\n<li>Bewegungen im Video analysieren</li>\n<li>Bewegungen zunächst zu Fuß nachahmen und üben</li>\n<li>Transferarbeit der Bewegungen auf das Einrad</li>\n<li>Wechsel einbauen, Tänzer &lt;-&gt; Einradfahrer</li>\n</ol>\n<p>Das Ziel ist es einen Effekt zu erzeugen, dass Tänzer und Einradfahrer eine\nFront bilden.</p>\n<p>Als Hilfestellung sei gegeben, dass sich Einradfahrer auf den Tänzern festhalten\nkönnen, um auf der Stelle agieren zu können. Eine kreative Ausnutzung dieser\nSituation ist erwünscht.</p>\n<h2 id=\"empfohlene-videos\">Empfohlene Videos</h2>\n<ul>\n<li>Bad</li>\n<li>Beat It</li>\n<li>Thriller (schwer)</li>\n<li>Smooth Criminal</li>\n</ul>\n",
+      "title": "Michael Jackson Challenge",
+      "locomotion": [
+        "pedes",
+        "unicycle"
+      ],
+      "skills": [
+        "bewegungsrepertoire"
+      ],
+      "see": [
+        "doubles"
+      ],
+      "material": [
+        "Videoabspielgerät"
+      ],
+      "excerpt": "<p>Die Choreographien des legend&#xE4;ren Michael Jackson auf T&#xE4;nzer und Einradfahrer transferieren.</p>"
+    },
+    {
       "id": "mood-impro",
       "contents": "<p>Emotionen in der Musik erkennen und durch Bewegungen ausdrücken.</p>\n<h2 id=\"individual\">Individual</h2>\n<p>Zunächst für sich selbst herausfinden, welche Stimmung ist im Lied? Die Stimmung adaptieren und ausdrücken.</p>\n<h2 id=\"pair\">Pair</h2>\n<p>Danach im Pair. Die Stimmung des Liedes verstehen? Was versteht der Partner? Emotionen zeigen und empathisch reagieren.</p>\n",
       "title": "Mood Impro",
@@ -171,6 +213,16 @@
         }
       ],
       "excerpt": "<p>Emotionen in der Musik erkennen und durch Bewegungen ausdr&#xFC;cken.</p>"
+    },
+    {
+      "id": "steinmetz",
+      "contents": "<p>Formen von Emotionen</p>\n<p>Mindestens 3 Personen finden sich zu einer Gruppe zusammen, die Gruppen\nverteilen sich in der Halle. Eine Person ist der Steinmetz, die anderen Personen\nsind das &quot;Material“. Der Spielleiter gibt eine &quot;Figur“ (oder Emotion) vor; Der\nSteinmetz formt das Material um die gewünschte Vorgabe darzustellen. Danach\nbegeben sich die Steinmetze durch die Halle um die Kunstwerke der Anderen zu\nbetrachten. In der nächsten Runde wechselt der Steinmetz.</p>\n",
+      "title": "Steinmetz",
+      "locomotion": "pedes",
+      "skills": [
+        "emotionen"
+      ],
+      "excerpt": "<p>Formen von Emotionen</p>"
     },
     {
       "id": "whiskeymixer",
