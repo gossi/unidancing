@@ -1,23 +1,22 @@
 import Component from '@glimmer/component';
-import styles from './spotify.css';
+import styles from './ui.css';
 import { service, Registry as Services } from '@ember/service';
-import SpotifyService from '../../services/spotify';
 import { formatArtists } from '../../utils/spotify';
 import didInsert from '@ember/render-modifiers/modifiers/did-insert';
 import { on } from '@ember/modifier';
 import {action} from '@ember/object';
 import {tracked} from '@glimmer/tracking';
-import SpotifyPlayer from '../../player/spotify';
-import LoginWithSpotify from '../login-with-spotify';
+import SpotifyPlayer from './player';
+import LoginWithSpotify from '../../components/login-with-spotify';
 import pick from 'ember-composable-helpers/helpers/pick';
-import Icon, {Icons} from '../icon';
+import Icon, {Icons} from '../../components/icon';
 
 function device2Icon(device: string) {
   return device.toLowerCase() as Icons;
 }
 
 export default class SpotifyPlayerComponent extends Component {
-  @service declare spotify: SpotifyService;
+  @service declare spotify: Services['spotify'];
   @service('player') declare playerService: Services['player'];
 
   @tracked devices: SpotifyApi.UserDevice[] = [];

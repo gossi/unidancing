@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { service, Registry as Services } from '@ember/service';
-import SpotifyPlayer from '../player/spotify';
-import Spotify from './player/spotify';
+import SpotifyPlayer from '../audio/spotify/player';
+import SpotifyUI from '../audio/spotify/ui';
 import styles from './player.css';
 
 export default class PlayerComponent extends Component {
@@ -14,7 +14,7 @@ export default class PlayerComponent extends Component {
   <template>
     {{#if this.spotify}}
       <div class={{styles.player}}>
-        <Spotify />
+        <SpotifyUI />
       </div>
     {{/if}}
   </template>

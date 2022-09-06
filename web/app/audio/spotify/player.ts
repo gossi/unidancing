@@ -1,13 +1,12 @@
 import { action } from '@ember/object';
-import { service } from '@ember/service';
+import { service, Registry as Services } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import SpotifyService from '../services/spotify';
-import { Player } from './player';
-import { SpotifyTrackResource } from '../resources/spotify/track';
-import { useTrack } from '../resources/spotify/track';
+import { Player } from '../player';
+import { SpotifyTrackResource } from './resources/track';
+import { useTrack } from './resources/track';
 
 export default class SpotifyPlayer implements Player {
-  @service declare spotify: SpotifyService;
+  @service declare spotify: Services['spotify'];
 
   @tracked track?: SpotifyTrackResource;
   @tracked playing = false;
