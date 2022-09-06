@@ -94,3 +94,9 @@ export default class SpotifyService extends Service {
     this.refresh(refreshToken);
   }
 }
+
+declare module '@ember/service' {
+  interface Registry {
+    spotify: SpotifyService;
+  }
+}
