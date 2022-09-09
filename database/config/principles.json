@@ -1,0 +1,12 @@
+{
+  "name": "principles",
+  "cwd": "./",
+  "src": "../principles/",
+  "filePattern": "**/*.md",
+  "ignore": "",
+  "dist": "data/principles.json",
+  "metadata": false,
+  "server": false,
+  "deterministicOrder": false,
+  "display": false
+}

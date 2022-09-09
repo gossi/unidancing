@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { Exercise } from '../database/exercises';
 import { Skill } from '../database/skills';
+import { Principle } from '../database/principles';
 import { load } from '../database/loader';
 import { Model } from '../database/base';
 
@@ -8,12 +9,13 @@ export interface Databases {
   [key: string]: Model[];
   exercises: Exercise[];
   skills: Skill[];
+  principles: Principle[];
 }
 
 export default class DataService extends Service {
   #data: Databases = load(this);
 
-  find<K extends keyof Databases>(model: K): Databases[K] | undefined {
+  find<K extends keyof Databases>(model: K): Databases[K] {
     return this.#data[model];
   }
 

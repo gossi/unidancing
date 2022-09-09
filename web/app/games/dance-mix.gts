@@ -162,7 +162,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
 
   @action
   readSettings() {
-    // this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
+    this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
   }
 
   @action

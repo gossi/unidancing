@@ -6,3 +6,11 @@ body {
 main {
   --spacing: 0.35rem;
 }
+
+:root {
+  --background-alt: #f9fafb;
+
+  @media (prefers-color-scheme: dark) {
+    --background-alt: #18232c;
+  }
+}

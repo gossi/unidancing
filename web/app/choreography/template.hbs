@@ -1,10 +1,15 @@
-<header class='grid'>
+<header local-class='header'>
   <h1>Choreographie</h1>
 
   <nav>
     <ul>
       <li><LinkTo @route='choreography'>Übersicht</LinkTo></li>
+      <li><LinkTo @route='choreography.unidance-writing'>UniDance Writing</LinkTo></li>
+      <li><LinkTo @route='choreography.not-todo-list'>Not Todo List</LinkTo></li>
+      <li><LinkTo @route='choreography.control'>Trainingssteuerung</LinkTo></li>
       <li><LinkTo @route='choreography.measure'>Messverfahren</LinkTo></li>
     </ul>
   </nav>
 </header>
+
+{{outlet}}

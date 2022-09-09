@@ -21,6 +21,9 @@ Router.map(function () {
   });
   this.route('games', { path: '/games/:id' });
   this.route('choreography', function () {
+    this.route('not-todo-list');
+    this.route('unidance-writing');
+    this.route('control');
     this.route('measure');
   });
 });

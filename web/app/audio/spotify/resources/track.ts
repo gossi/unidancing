@@ -1,7 +1,7 @@
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import SpotifyService from '../../services/spotify';
 import { ArgsWrapper, Resource } from 'ember-resources';
+import { Registry as Services } from '@ember/service';
 
 interface TrackArgs extends ArgsWrapper {
   positional: [string];
@@ -12,7 +12,7 @@ interface TrackArgs extends ArgsWrapper {
 }
 
 export class SpotifyTrackResource extends Resource<TrackArgs> {
-  @service declare spotify: SpotifyService;
+  @service declare spotify: Services['spotify'];
 
   #cache: Map<string, Record<string, unknown>>;
 

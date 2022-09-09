@@ -54,3 +54,19 @@ declare module '@unidancing/database/skills.json' {
   export { SkillWireFormat };
   export default database;
 }
+
+declare module '@unidancing/database/principles.json' {
+  import { Model } from '@unidancing/database';
+
+  interface PrincipleWireFormat extends Model {
+    tags?: string[];
+    see?: string[];
+  }
+
+  declare const database: readonly {
+    data: Record<string, Skill>;
+  };
+
+  export { PrincipleWireFormat };
+  export default database;
+}

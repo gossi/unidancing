@@ -1,0 +1,60 @@
+.tag {
+  font-weight: 500;
+  font-size: 80%;
+  border-radius: 4px;
+  background-color: #F5F5F5;
+  padding: .1em .3em;
+  color: var(--contrast);
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--contrast-inverse);
+  }
+
+  &:not([aria-selected]) {
+    border: none;
+  }
+
+  &[data-tag="choreography"] {
+    background-color: aqua;
+  }
+
+  &[data-tag="artistry"] {
+    background-color: coral;
+  }
+
+  &[data-tag="tricks"] {
+    background-color: bisque;
+  }
+
+  &[data-tag="flow"] {
+    background-color: yellow;
+  }
+
+  &[data-tag="posture"] {
+    background-color: gold;
+  }
+
+  &[data-tag="misc"] {
+    background-color: greenyellow;
+  }
+}
+
+.principle {
+  summary {
+    display: flex;
+
+    & > span {
+      margin-inline-start: auto;
+    }
+  }
+
+  details&[open] > :is(summary, summary:not(:focus), summary:focus:not([role=button])) {
+    font-weight: 550;
+    color: unset;
+    margin-bottom: 1em;
+  }
+
+  & > *:not(summary) {
+    font-size: 80%;
+  }
+}

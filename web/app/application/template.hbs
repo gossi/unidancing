@@ -27,20 +27,21 @@
     <li>
       <details role='list' dir='rtl'>
         <summary aria-haspopup='listbox' role='link'>
-          <Icon @icon='game' />
-          <span local-class='label'>Games</span>
+          <span>
+            <Icon @icon='game' />
+            <span local-class='label'>Games</span>
+          </span>
         </summary>
         <ul role='listbox' dir='ltr'>
-          <li>
-            Connection Status:<br />
-            Spotify
-            {{#if this.spotify.authed}}✅{{else}}❌{{/if}}
-
-            {{#unless this.spotify.authed}}<LoginWithSpotify />{{/unless}}
-          </li>
-
           {{#let (this.buildGameLink this.Game.DanceMix) as |link|}}
             <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a></li>
+          {{/let}}
+
+          {{#let (link 'games' this.Game.Bingo) as |link|}}
+            <li><a
+                href={{link.url}}
+                {{on 'click' link.transitionTo}}
+              >Bingo</a></li>
           {{/let}}
         </ul>
       </details>
