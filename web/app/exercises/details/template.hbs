@@ -1,5 +1,6 @@
 {{#let @model.exercise as |exercise|}}
   {{#if exercise}}
+    {{page-title exercise.title}}
     <hgroup>
       <h1><Icon @icon='exercise' /> {{exercise.title}}</h1>
       <span local-class='tagline'>

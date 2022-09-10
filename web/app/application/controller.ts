@@ -6,6 +6,7 @@ import { tracked } from '@glimmer/tracking';
 import { set } from '@ember/object';
 
 export default class ApplicationController extends Controller {
+  @service declare spotify: Services['spotify'];
   @service declare linkManager: Services['link-manager'];
   @service declare router: Services['router'];
 

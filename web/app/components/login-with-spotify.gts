@@ -18,7 +18,9 @@ export default class LoginWithSpotifyComponent extends Component {
       {{on "click" this.loginWithSpotify}}
     >
       Login with Spotify
-    </a>
+    </a><br>
+    (Login mit Spotify benötigt derzeit noch eine manuelle Freischaltung, bitte
+    bei gossi melden).
   </template>
 }
 
