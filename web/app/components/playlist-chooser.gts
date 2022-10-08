@@ -24,6 +24,7 @@ export default class PlaylistChooserComponent extends Component<PlaylistChooserS
   }
 
   <template>
+    <div class={{styles.select}}>
     <h1>Playlist auswählen</h1>
 
     <ul class={{styles.playlist}}>
@@ -39,6 +40,7 @@ export default class PlaylistChooserComponent extends Component<PlaylistChooserS
     </ul>
 
     <button type='button' {{on 'click' (fn @select this.selection)}}>Select</button>
+    </div>
   </template>
 }
 

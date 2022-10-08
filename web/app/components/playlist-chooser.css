@@ -1,9 +1,18 @@
+.select {
+  display: flex;
+  flex-direction: column;
+}
+
 .playlist {
   list-style-type: none;
+  padding: 0;
+  border: 1px solid #000;
+  overflow-y: auto;
+  max-height: 40vh;
 
   [role='listitem'] {
     &[aria-selected] {
-      font-style: italic;
+      background-color: var(--table-row-stripped-background-color);
     }
   }
 }
