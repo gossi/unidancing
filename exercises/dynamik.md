@@ -8,10 +8,9 @@ Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür
 
 ## Einführung
 
-Aufgabe ausführen, beobachten und im Anschluss in der Gruppe vorstellen, gemeinsam reflektieren, diskutieren und im Anschluss die Ideen Anderer ausprobieren.
+Es wird eine Reihe von Aufgaben für die Gruppe gestellt. Nach der Ausübung werden die Beobachtungen/Erfahrungen der Gruppe vorgestellt, gemeinsam reflektiert, diskutiert und im Anschluss werden die Ideen der Anderen ausprobiert.
 
-Beobachten:
-selbst-reflektorisch (intrinsisches), sowie fremd (extrinsisches) Beobachten.
+Das "Beobachten" erfolgt selbst-reflektorisch (instrinsich) sowie durch fremde Perspective (extrinsisches).
 
 Musik: Imagine Dragons (best of)
 
@@ -29,23 +28,15 @@ Musik: Imagine Dragons (best of)
 
 evtl. mehrere Durchläufe, je nachdem wieviel Kontexte genannt werden
 
-* Wie hilft uns die Physik? Kinematik (Kraft) vs. Dynamik (Kraftstoß + Impuls)
+Möglicher Input durch den Übungsleiter in der Diskussionrunde:
+
+- Wie hilft uns die Physik? 
+- Kinematik (Kraft) vs. Dynamik (Kraftstoß + Impuls)
 
 ## 3. Runde
 
+Der _Energielevel_ ist eine Steuerungseinheit. Mit ~5-10% für Schemenhafte Bewegung hin zu 100% für vollen Einsatz.
+
 1. Aufgabe: Energielevel auf 25%, 50%, 75% und full out (100%).
-2. Aufgabe: Energielevel mit Tricks. Tanzen hat vorrang
+2. Aufgabe: Energielevel mit Tricks. Tanzen hat Vorrang
 
-## Steuerung und Messverfahren
-
-### Steuerung
-
-Energielevel
-
-> Fahr die Kür mal mit einem Energielevel von x%
-
-### Messverfahren
-
-Dynamik als Kenngröße für „interessante/ansprechende“ Küren?
-
-=> Von dem, was die Musik hergibt + was der Fahrer kann, liegt die aktuelle Dynamik bei x%

@@ -6,7 +6,7 @@ locomotion:
 ---
 
 Beim Dance Mix wird ein Satz Lieder für eine gewisse Zeit mit
-Pausen wiedergegeben. Der Satz ist parametrisierbar durch:
+Pausen wiedergegeben. Der Satz ist parametriesierbar durch:
 
 - Anzahl der Lieder
 - Dauer des Liedes

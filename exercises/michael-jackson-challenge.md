@@ -24,7 +24,7 @@ Tänzer. Während der Routine wechseln sich Fahrer und Tänzer mit erdachten
 Einrad-Tausch ab.
 
 Jede Gruppe hat ein Gerät um Videos abzuspielen (Handy, Tablet oder Laptop). Die
-Gruppe bekommt ein Michael Jackson Video zugeweisen.
+Gruppe bekommt ein Michael Jackson Video zugewiesen.
 
 ## Aufgabe
 
