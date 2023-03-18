@@ -59,7 +59,6 @@ router.get('/spotify/login', async (_req, env: Env) => {
 router.get('/spotify/logged', async (req, env: Env) => {
   const spotify = await getSpotifyClient(env);
   const result = await spotify.grantCode(req.url);
-  console.log(result);
 
   const redirectUrl = new URL(`${env.APP_ROOT}/auth/spotify`);
   redirectUrl.searchParams.set('access_token', result.access_token);
