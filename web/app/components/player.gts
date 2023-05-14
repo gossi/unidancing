@@ -1,18 +1,15 @@
 import Component from '@glimmer/component';
 import { service, Registry as Services } from '@ember/service';
-import SpotifyPlayer from '../audio/spotify/player';
 import SpotifyUI from '../audio/spotify/ui';
+import { Player } from '../audio/player';
 import styles from './player.css';
+import eq from 'ember-truth-helpers/helpers/equal';
 
 export default class PlayerComponent extends Component {
   @service declare player: Services['player'];
 
-  get spotify() {
-    return this.player.player instanceof SpotifyPlayer;
-  }
-
   <template>
-    {{#if this.spotify}}
+    {{#if (eq this.player.player Player.Spotify)}}
       <div class={{styles.player}}>
         <SpotifyUI />
       </div>

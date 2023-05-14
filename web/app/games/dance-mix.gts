@@ -1,26 +1,28 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { PlaylistResource, getRandomTracks } from '../resources/spotify/playlist';
-import didInsert from 'ember-render-helpers/helpers/did-insert';
-import willDestroy from 'ember-render-helpers/helpers/will-destroy';
+import {
+  PlaylistResource,
+  getRandomTracks
+} from '../audio/spotify/resources/playlist';
 import PlaylistChooser from '../components/playlist-chooser';
 import LoginWithSpotify from '../components/login-with-spotify';
 import { service, Registry as Services } from '@ember/service';
 import { on } from '@ember/modifier';
-import { useTrack } from '../resources/spotify/track';
-import { formatArtists } from '../utils/spotify';
-import SpotifyPlayer from '../audio/spotify/player';
-import { lookupPlayer } from '../audio/player';
-import { getOwner } from '@ember/owner';
+import {useTrack} from '../audio/spotify/resources/track';
+import {formatArtists} from '../utils/spotify';
 import { dropTask, timeout } from 'ember-concurrency';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
-import { eq, not } from 'ember-truth-helpers';
+import { eq, not, or } from 'ember-truth-helpers';
 import styles from './dance-mix.css';
 import set from 'ember-set-helper/helpers/set';
 import { fn } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
+import { createMachine } from 'xstate';
+import { useMachine } from 'ember-statecharts';
 import type Owner from '@ember/owner';
+import { registerDestructor } from '@ember/destroyable';
+import { Player } from '../audio/player';
 
 enum Playlist {
   Epic = 'epic',
@@ -56,6 +58,50 @@ const DEFAULTS = {
   [DanceMixParam.PlaylistId]: undefined
 };
 
+const DanceMixState = createMachine({
+  id: "Dance Mix",
+  initial: "preparing",
+  entry: ["selectPlayer", 'readSettings'],
+  states: {
+    preparing: {
+      on: {
+        play: {
+          target: "playing",
+        },
+        choosePlaylist: {
+          target: "choosing-playlist",
+        },
+      },
+    },
+    playing: {
+      exit: 'stop',
+      on: {
+        stop: {
+          target: "preparing",
+        },
+      },
+    },
+    "choosing-playlist": {
+      on: {
+        selectPlaylist: {
+          target: "preparing",
+        },
+      },
+    },
+  },
+  schema: {
+    context: {} as {},
+    events: {} as
+      | { type: "play" }
+      | { type: "stop" }
+      | { type: "choosePlaylist" }
+      | { type: "selectPlaylist" },
+  },
+  context: {},
+  predictableActionArguments: true,
+  preserveActionOrder: true,
+});
+
 export interface DanceMixSignature {
   Args: DanceMixParams;
 }
@@ -65,10 +111,22 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   @service declare router: Services['router'];
   @service('player') declare playerService: Services['player'];
 
-  player!: SpotifyPlayer;
-
   @tracked selectedPlaylistId?: string;
   @tracked counter?: number;
+
+  state = useMachine(this, () => {
+    const { stop, selectPlayer, readSettings } = this;
+
+    return {
+      machine: DanceMixState.withConfig({
+        actions: {
+          stop,
+          selectPlayer,
+          readSettings
+        }
+      })
+    }
+  })
 
   get playlistId(): string | undefined {
     if (this.selectedPlaylistId) {
@@ -90,7 +148,8 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       return savedPlaylist;
     }
 
-    return undefined;
+    // fallback to epic playlist
+    return PLAYLISTS[Playlist.Epic];
   }
 
   resource: PlaylistResource = PlaylistResource.from(this, () => ({
@@ -98,12 +157,6 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   }));
 
   @tracked tracks?: SpotifyApi.TrackObjectFull[];
-
-  @tracked state?: 'choose-playlist';
-
-  get choosingPlaylist() {
-    return !this.playlistId || this.state === 'choose-playlist';
-  }
 
   get playlistLocked() {
     return (
@@ -146,10 +199,10 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   //     .forEach(async res => await res.loadAnalysis());
   // }
 
-  @action
-  selectPlayer() {
-    this.player = lookupPlayer(SpotifyPlayer, getOwner(this) as Owner);
-    this.playerService.player = this.player;
+  constructor(owner: Owner, args: DanceMixSignature['Args']) {
+    super(owner, args);
+
+    registerDestructor(this, () => this.unloadPlayer());
   }
 
   @action
@@ -158,26 +211,32 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   }
 
   @action
+  selectPlayer() {
+    console.log('selectPlayer');
+
+    this.playerService.player = Player.Spotify;
+  }
+
+  @action
   readSettings() {
+    console.log('readSettings');
     this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
   }
 
   @action
   selectPlaylist(playlist: SpotifyApi.PlaylistObjectSimplified) {
+    console.log('selectPlaylist');
+
     const id = playlist.id;
     localStorage.setItem('dance-playlist', id);
 
     this.selectedPlaylistId = id;
-    this.state = undefined;
-  }
-
-  @action
-  selectTrack(track: SpotifyApi.TrackObjectFull) {
-    this.player.track = useTrack(this, { track });
+    this.state.send('selectPlaylist');
   }
 
   @action
   start(event: SubmitEvent) {
+    console.log('start');
     const data = new FormData(event.target as HTMLFormElement);
     const amount = Number.parseInt(data.get('amount') as string, 10);
 
@@ -191,6 +250,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       });
 
       this.tracks = tracks;
+      this.state.send('play');
     }
   }
 
@@ -218,7 +278,9 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       uris: [track.uri],
       position_ms: start
     });
-    this.selectTrack(track);
+    console.log('playTrack', this);
+
+    this.spotify.client.selectTrack(track);
 
     this.counter = duration;
 
@@ -230,34 +292,46 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
 
   @action
   stop() {
+
+
+
+    console.log('stop');
     this.playTrack.cancelAll();
     this.mix.cancelAll();
-    this.player.pause();
+
+    // check rebase for this:
+    // this.player.pause();
+    if (this.state.state?.matches('playing')) {
+      this.spotify.client.pause();
+    }
   }
 
   <template>
     <h1>Dance Mix</h1>
-    {{#if this.spotify.authed}}
-      {{didInsert this.selectPlayer}}
-      {{didInsert this.readSettings}}
-      {{willDestroy this.unloadPlayer}}
+    {{#if this.spotify.client.authenticated}}
 
-      {{#if this.choosingPlaylist}}
+      {{log this.state.state}}
+
+      {{#if (this.state.state.matches 'choosing-playlist')}}
         <PlaylistChooser @select={{this.selectPlaylist}} />
-      {{else if this.playlistId}}
-        <div class='grid'>
+      {{else if (or (this.state.state.matches 'preparing') (this.state.state.matches 'playing'))}}
+        <div class="grid">
           <p>
-            <strong>{{htmlSafe this.resource.playlist.name}}</strong><br />
-            <small>{{htmlSafe this.resource.playlist.description}}</small>
+            {{#if this.resource.playlist}}
+              <strong>{{htmlSafe this.resource.playlist.name}}</strong><br>
+              <small>{{htmlSafe (if this.resource.playlist.description
+              this.resource.playlist.description '')}}</small>
+            {{/if}}
           </p>
+
 
           {{#if (not this.playlistLocked)}}
             <div>
               <button
-                type='button'
-                disabled={{this.mix.isRunning}}
-                class='outline'
-                {{on 'click' (fn (set this 'state' 'choose-playlist'))}}
+                type="button"
+                disabled={{(this.state.state.matches 'playing')}}
+                class="outline"
+                {{on "click" (fn this.state.send 'choosePlaylist')}}
               >
                 Playlist wechseln
               </button>
@@ -265,12 +339,12 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
           {{/if}}
         </div>
 
-        {{#if this.mix.isRunning}}
-          <div class='grid'>
+        {{#if (this.state.state.matches 'playing')}}
+          <div class="grid">
             <ol class={{styles.tracks}}>
               {{#each this.tracks as |track|}}
-                <li aria-selected={{eq track this.player.track.data}}>
-                  {{track.name}}<br />
+                <li aria-selected={{eq track this.spotify.client.track.data}}>
+                  {{track.name}}<br>
                   <small>{{formatArtists track.artists}}</small>
                 </li>
               {{/each}}
@@ -279,7 +353,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
             <div>
               <p class={{styles.counter}}>{{this.counter}}</p>
 
-              <button type='button' {{on 'click' this.stop}}>Stop</button>
+              <button type="button" {{on "click" (fn this.state.send 'stop')}}>Stop</button>
             </div>
           </div>
         {{else}}

@@ -1,7 +1,10 @@
-import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { ArgsWrapper, Resource } from 'ember-resources';
-import { Registry as Services } from '@ember/service';
+import { service } from '@ember/service';
+
+import { Resource } from 'ember-resources';
+
+import type { Registry as Services } from '@ember/service';
+import type { ArgsWrapper } from 'ember-resources';
 
 interface TrackArgs extends ArgsWrapper {
   positional: [string];
@@ -22,9 +25,7 @@ export class SpotifyTrackResource extends Resource<TrackArgs> {
   constructor(owner: unknown) {
     super(owner);
 
-    const cache = JSON.parse(
-      localStorage.getItem('track-analysis') ?? '{}'
-    ) as object;
+    const cache = JSON.parse(localStorage.getItem('track-analysis') ?? '{}') as object;
 
     this.#cache = new Map(Object.entries(cache));
   }
@@ -42,7 +43,7 @@ export class SpotifyTrackResource extends Resource<TrackArgs> {
   }
 
   async load(id: string) {
-    this.data = await this.spotify.client.getTrack(id);
+    this.data = await this.spotify.client.api.getTrack(id);
   }
 
   async loadAnalysis() {
@@ -50,9 +51,7 @@ export class SpotifyTrackResource extends Resource<TrackArgs> {
       if (this.#cache.has(this.data.id)) {
         this.analysis = this.#cache.get(this.data.id);
       } else {
-        const analysis = await this.spotify.client.getAudioAnalysisForTrack(
-          this.data.id
-        );
+        const analysis = await this.spotify.client.api.getAudioAnalysisForTrack(this.data.id);
 
         if (analysis) {
           this.#cache.set(this.data.id, analysis);
@@ -65,6 +64,7 @@ export class SpotifyTrackResource extends Resource<TrackArgs> {
 
   private persistCache() {
     const cache = Object.fromEntries(this.#cache.entries());
+
     localStorage.setItem('track-analysis', JSON.stringify(cache));
   }
 }

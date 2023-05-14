@@ -1,7 +1,9 @@
-import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import SpotifyService from '../service';
+import { service } from '@ember/service';
+
 import { Resource } from 'ember-resources';
+
+import type SpotifyService from '../service';
 
 // https://open.spotify.com/playlist/3qaxO2Z99batsuhi12MDsn?si=865135aca7b64c32
 
@@ -17,7 +19,7 @@ export class PlaylistsResource extends Resource {
   private async load() {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    const response = await this.spotify.client.getUserPlaylists({
+    const response = await this.spotify.client.api.getUserPlaylists({
       limit: 50
     });
 

@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { usePlaylists } from '../resources/spotify/playlists';
+import { usePlaylists } from '../audio/spotify/resources/playlists';
 import { on } from '@ember/modifier';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';

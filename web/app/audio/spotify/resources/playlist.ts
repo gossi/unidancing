@@ -1,7 +1,10 @@
-import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import SpotifyService from '../service';
-import { ArgsWrapper, Resource } from 'ember-resources';
+import { service } from '@ember/service';
+
+import { Resource } from 'ember-resources';
+
+import type SpotifyService from '../service';
+import type { ArgsWrapper } from 'ember-resources';
 
 // https://open.spotify.com/playlist/3qaxO2Z99batsuhi12MDsn?si=865135aca7b64c32
 
@@ -20,6 +23,7 @@ export function getRandomTracks(
   amount = 5
 ): SpotifyApi.TrackObjectFull[] {
   const tracks: SpotifyApi.TrackObjectFull[] = [];
+
   while (tracks.length < amount) {
     const track = randomItem<SpotifyApi.TrackObjectFull>(list);
 
@@ -37,20 +41,15 @@ export class PlaylistResource extends Resource<PlaylistArgs> {
   @tracked playlist?: SpotifyApi.SinglePlaylistResponse;
 
   get tracks(): SpotifyApi.TrackObjectFull[] | undefined {
-    return this.playlist?.tracks?.items.map(
-      (tracks) => tracks.track as SpotifyApi.TrackObjectFull
-    );
+    return this.playlist?.tracks?.items.map((tracks) => tracks.track as SpotifyApi.TrackObjectFull);
   }
 
-  modify(
-    _positional: PlaylistArgs['positional'],
-    named: PlaylistArgs['named']
-  ): void {
+  modify(_positional: PlaylistArgs['positional'], named: PlaylistArgs['named']): void {
     this.load(named.playlist);
   }
 
   private async load(playlist: string) {
-    const response = await this.spotify.client.getPlaylist(playlist);
+    const response = await this.spotify.client.api.getPlaylist(playlist);
 
     this.playlist = response;
   }
@@ -61,6 +60,7 @@ export function usePlaylist(destroyable: object, args: PlaylistArgs['named']) {
 
   return PlaylistResource.from(destroyable, () => {
     console.log('from', args);
+
     return {
       playlist: (() => args.playlist)()
     };

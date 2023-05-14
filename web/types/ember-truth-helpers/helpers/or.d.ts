@@ -2,8 +2,8 @@
 import Helper from '@ember/component/helper';
 
 export interface OrHelperSignature {
-  Args: { Positional: [unknown] };
+  Args: { Positional: boolean[] };
   Return: boolean;
 }
 
-export default class OrHelper extends Helper<OrHelperSignature> {}
+export default class NotHelper extends Helper<OrHelperSignature> {}
