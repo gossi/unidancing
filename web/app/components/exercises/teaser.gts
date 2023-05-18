@@ -1,11 +1,12 @@
 import Component from '@glimmer/component';
-import {Exercise, Personal} from '../../exercises/entries';
+import { Exercise } from '../../database/exercises';
 import {Link} from 'ember-link';
 import { htmlSafe } from '@ember/template';
 import { on } from '@ember/modifier';
 import styles from './teaser.css';
 import {formatPersonalIcon} from '../../helpers/format-personal';
 import {formatLocomotionIcon} from '../../helpers/format-locomotion';
+import Icon from '../icon';
 
 export interface ExerciseTeaserSignature {
   Element: HTMLArticleElement;
@@ -20,12 +21,13 @@ export default class ExerciseTeaserComponent extends Component<ExerciseTeaserSig
     <article>
       <header class={{styles.header}}>
         <span>
-          💃
-        {{#let @link as |l|}}
-          <a href={{l.url}} {{on "click" l.transitionTo}}>
-            {{@exercise.title}}
-          </a>
-        {{/let}}
+          <Icon @icon="exercise"/>
+
+          {{#let @link as |l|}}
+            <a href={{l.url}} {{on "click" l.transitionTo}}>
+              {{@exercise.title}}
+            </a>
+          {{/let}}
         </span>
         <div>
           {{#each @exercise.tags as |tag|}}

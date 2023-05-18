@@ -1,0 +1,157 @@
+{
+  "app": {
+    "config": "config/moves.json",
+    "cwd": "./",
+    "deterministicOrder": false,
+    "display": false,
+    "dist": "data/moves.json",
+    "filePattern": "**/*.md",
+    "ignore": "",
+    "port": 3001,
+    "server": false,
+    "src": "../moves/",
+    "name": "moves",
+    "metadata": false,
+    "version": "1.6.1"
+  },
+  "data": [
+    {
+      "id": "arm-swings",
+      "contents": "<ul>\n<li>Mit 2 Händen eine schwere Kugel hochheben (~8kg)</li>\n<li>Kugel auf Schulter hochheben</li>\n<li>Kugel mit aller Wucht hoch in den Himmel werfen</li>\n</ul>\n",
+      "title": "Arm Swings",
+      "tags": [
+        "Power"
+      ],
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Y6zoZ7_wJgE?t=29"
+      },
+      "excerpt": ""
+    },
+    {
+      "id": "around-the-head",
+      "contents": "<p>a.k.a. die Model Pose!</p>\n<ul>\n<li>Rechte auf auf linkes Ohr (oder umgekehrt), der Unterarm liegt auf dem Kopf\nauf</li>\n<li>Die Hand am Ohr, hinter dem Kopf herumführen</li>\n<li>(mit dem Körper kombinieren)</li>\n</ul>\n<p>Variationen:</p>\n<ul>\n<li>Zwei Hände</li>\n<li>In Kombination mit Chest Rolls</li>\n</ul>\n",
+      "title": "Around the Head",
+      "see": [
+        "chest-roll"
+      ],
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Eqevr-ZtFPs?t=115"
+      },
+      "excerpt": "<p>a.k.a. die Model Pose!</p>"
+    },
+    {
+      "id": "chest-pop",
+      "contents": "<ul>\n<li>Brustkorb diagonal nach oben bewegen (als würde jemand an einem Seil ziehen)</li>\n<li>Bauch festmachen</li>\n<li>POWER !<ul>\n<li>Als würde man mit der Brust gegen eine unsichtbare Wand schlagen</li>\n<li>Oder einen Ball zurück donnern</li>\n</ul>\n</li>\n</ul>\n<p>Variationen:</p>\n<ul>\n<li>Double Chest Pop</li>\n</ul>\n",
+      "title": "Chest Pop",
+      "tags": [
+        "Power"
+      ],
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Y6zoZ7_wJgE?t=64"
+      },
+      "excerpt": "<p>Variationen:</p>"
+    },
+    {
+      "id": "chest-roll",
+      "contents": "<ul>\n<li>Einatmen</li>\n<li>Schultern zurück ziehen</li>\n<li>Luft in den Magen drücken (Schultern und Bustkorb formen eine Höhle)</li>\n<li>von vorne beginnen</li>\n</ul>\n",
+      "title": "Chest Roll",
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Eqevr-ZtFPs?t=32"
+      },
+      "excerpt": ""
+    },
+    {
+      "id": "circular-chest-roll",
+      "contents": "<ul>\n<li>Burst zur Seite</li>\n<li>Brust nach vorne</li>\n<li>Brust zur anderen Seite drücken</li>\n<li>Höhle formen (Schultern kommen nach vorne)</li>\n</ul>\n<p>Fokus auf Schultern!</p>\n",
+      "title": "Circular Chest Roll",
+      "see": [
+        "chest-roll"
+      ],
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Eqevr-ZtFPs?t=66"
+      },
+      "excerpt": "<p>Fokus auf Schultern!</p>"
+    },
+    {
+      "id": "flappy-arm-kick",
+      "contents": "<ul>\n<li>Oberkörper zurück lehnen</li>\n<li>Arme:<ul>\n<li>Wie Chicken Arme flattern<ul>\n<li><ul>\n<li>oder -</li>\n</ul>\n</li>\n</ul>\n</li>\n<li>Wie einen Mantel ausziehen, mit beiden Armen gleichzeitig (Mantel fallen\nlassen)</li>\n</ul>\n</li>\n<li>Ellebogen berühren den Körper</li>\n<li>2x schnell &quot;flattern&quot;</li>\n<li>Dabei ein Bein kicken</li>\n</ul>\n",
+      "title": "Flappy Arm Kick",
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/QWQR5iuCY9o?t=228"
+      },
+      "excerpt": ""
+    },
+    {
+      "id": "juicin",
+      "contents": "<ul>\n<li>Rock Torso backwards</li>\n<li>zur linken und rechten Seite lehnen (zu Fuß: Gewichtsverlagerung)</li>\n<li>Rocking nur auf einer Seite</li>\n<li>Arme = Die Arme der anderen Seite nutzen</li>\n<li>In den Händen haltet ihr Pfannenwender und flippt Burger Patties</li>\n</ul>\n",
+      "title": "Juice / Juicin / Swag me Out",
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/QWQR5iuCY9o?t=96"
+      },
+      "excerpt": ""
+    },
+    {
+      "id": "no-no-soft-hands",
+      "contents": "<ul>\n<li>Hände über den Kopf halten, Handflächen schauen zur Decke (wie beim Pritschen\nim Volleyball)</li>\n<li>Hände zueinander bewegen, sie kreuzen auf Brusthöhe; die Handgelenke steuern</li>\n<li>Die Hände wieder nach außen fließen lassen; die Handgelenke steuern</li>\n</ul>\n<p>Die 3 Bewegungen von oben nach unten:</p>\n<ol>\n<li>öffnen</li>\n<li>kreuzen</li>\n<li>öffnen</li>\n</ol>\n",
+      "title": "No No Soft Hands",
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Eqevr-ZtFPs?t=157"
+      },
+      "excerpt": "<p>Die 3 Bewegungen von oben nach unten:</p>"
+    },
+    {
+      "id": "pointing",
+      "contents": "<ul>\n<li>Eine Hand auf die Brust, Ellebogen auf Schulterhöhe</li>\n<li>Anderer Arm pointed (zeigt)</li>\n<li>Bonus: Handgelenk dippt nach unten</li>\n</ul>\n<p>Variationen:</p>\n<ul>\n<li>Schnell und langsam</li>\n</ul>\n",
+      "title": "Pointing",
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Eqevr-ZtFPs?t=253"
+      },
+      "excerpt": "<p>Variationen:</p>"
+    },
+    {
+      "id": "shoulder-pound",
+      "contents": "<ul>\n<li>Oberkörper leicht nach hinten und zur Seite lehnen, Brustkorb schaut zum Himmel</li>\n<li>Äußeren Arm bzw. Hand zur anderen Schulter bringen</li>\n<li>Schulter zur Hand bringen (mit der Schulter die Hand wegschubsen)</li>\n</ul>\n<p>(geht auch ohne Hand)</p>\n",
+      "title": "Shoulder Pound",
+      "tags": [
+        "power"
+      ],
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Y6zoZ7_wJgE?t=221"
+      },
+      "excerpt": "<p>(geht auch ohne Hand)</p>"
+    },
+    {
+      "id": "shouler-tap",
+      "contents": "<ul>\n<li>Arme mit leichtem Arm-Rumpf-Winkel hängen lassen</li>\n<li>Shimmy shoulders<ul>\n<li>Arme nach vorne und hinten flattern lassen</li>\n<li>Schultern bewegen sich vor und zurück</li>\n</ul>\n</li>\n</ul>\n<p>Variation</p>\n<ul>\n<li>Oberkörper klappen</li>\n</ul>\n",
+      "title": "Schoulder Tap",
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/QWQR5iuCY9o?t=156"
+      },
+      "excerpt": "<p>Variation</p>"
+    },
+    {
+      "id": "side-kick",
+      "contents": "<ul>\n<li>Knie auf Hüfthöhe anheben</li>\n<li>Hände zum stoppen nutzen (direkt am Knie, nicht auf dem Oberschenkel)</li>\n<li>Bein diagonal wegkicken</li>\n</ul>\n<p>Auf dem Einrad:</p>\n<ul>\n<li>Mini 180° Kurve fahren und stop machen</li>\n<li>Während die Pedale ganz unten am Totpunkt positioniert ist, den Kick machen</li>\n</ul>\n",
+      "title": "Side Kick",
+      "tags": [
+        "power"
+      ],
+      "video": {
+        "type": "youtube",
+        "url": "https://youtu.be/Y6zoZ7_wJgE?t=121"
+      },
+      "excerpt": "<p>Auf dem Einrad:</p>"
+    }
+  ]
+}

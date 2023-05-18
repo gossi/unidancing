@@ -4,11 +4,11 @@ import { Link } from 'ember-link';
 
 export function createSkillLinkBuilder(
   linkManager: Services['link-manager']
-): (exercise: string) => Link {
-  return (exercise: string): Link => {
+): (skill: string) => Link {
+  return (skill: string): Link => {
     return linkManager.createUILink({
       route: 'skills.details',
-      models: [exercise]
+      models: [skill]
     });
   };
 }

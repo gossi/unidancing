@@ -11,10 +11,12 @@
     "build:exercises": "markdown-json -c config/exercises.json",
     "build:skills": "markdown-json -c config/skills.json",
     "build:principles": "markdown-json -c config/principles.json",
+    "build:moves": "markdown-json -c config/moves.json",
     "start": "concurrently 'npm:start:*'",
     "start:exercises": "chokidar '../exercises/**/*.md' -c 'pnpm build:exercises' --initial",
     "start:skills": "chokidar '../skills/**/*.md' -c 'pnpm build:skills' --initial",
-    "start:principles": "chokidar '../principles/**/*.md' -c 'pnpm build:principles' --initial"
+    "start:principles": "chokidar '../principles/**/*.md' -c 'pnpm build:principles' --initial",
+    "start:moves": "chokidar '../moves/**/*.md' -c 'pnpm build:moves' --initial"
   },
   "devDependencies": {
     "chokidar-cli": "^3.0.0",
@@ -24,7 +26,8 @@
   "exports": {
     "./exercises.json": "./data/exercises.json",
     "./skills.json": "./data/skills.json",
-    "./principles.json": "./data/principles.json"
+    "./principles.json": "./data/principles.json",
+    "./moves.json": "./data/moves.json"
   },
   "volta": {
     "extends": "../package.json"

@@ -1,0 +1,12 @@
+{
+  "name": "moves",
+  "cwd": "./",
+  "src": "../moves/",
+  "filePattern": "**/*.md",
+  "ignore": "",
+  "dist": "data/moves.json",
+  "metadata": false,
+  "server": false,
+  "deterministicOrder": false,
+  "display": false
+}
