@@ -2,7 +2,8 @@ import Component from '@glimmer/component';
 
 enum Icon {
   skill = '🎓',
-  exercise = '💃',
+  exercise = '🤼',
+  move = '💃',
   game = '🎭',
   link = '🌐',
   play = '▶️',

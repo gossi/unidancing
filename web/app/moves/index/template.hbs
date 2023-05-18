@@ -1,0 +1,7 @@
+{{page-title 'Moves'}}
+
+<h1>Moves</h1>
+
+{{#each @model as |entry|}}
+  <Moves::Teaser @move={{entry}} @link={{link 'moves.details' entry.id}} />
+{{/each}}

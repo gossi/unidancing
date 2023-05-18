@@ -53,13 +53,13 @@
     },
     {
       "id": "dance-mix",
-      "contents": "<p>Beim Dance Mix wird ein Satz Lieder für eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametrisierbar durch:</p>\n<ul>\n<li>Anzahl der Lieder</li>\n<li>Dauer des Liedes</li>\n<li>Dauer der Pause</li>\n</ul>\n<p>Es bietet die Möglichkeit für jeden Satz eine Aufgabe zu vergeben.</p>\n",
+      "contents": "<p>Beim Dance Mix wird ein Satz Lieder für eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametriesierbar durch:</p>\n<ul>\n<li>Anzahl der Lieder</li>\n<li>Dauer des Liedes</li>\n<li>Dauer der Pause</li>\n</ul>\n<p>Es bietet die Möglichkeit für jeden Satz eine Aufgabe zu vergeben.</p>\n",
       "title": "Dance Mix",
       "locomotion": [
         "unicycle",
         "pedes"
       ],
-      "excerpt": "<p>Beim Dance Mix wird ein Satz Lieder f&#xFC;r eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametrisierbar durch:</p>"
+      "excerpt": "<p>Beim Dance Mix wird ein Satz Lieder f&#xFC;r eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametriesierbar durch:</p>"
     },
     {
       "id": "doubles",
@@ -84,7 +84,7 @@
     },
     {
       "id": "dynamik",
-      "contents": "<p>Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür.</p>\n<h2 id=\"einführung\">Einführung</h2>\n<p>Aufgabe ausführen, beobachten und im Anschluss in der Gruppe vorstellen, gemeinsam reflektieren, diskutieren und im Anschluss die Ideen Anderer ausprobieren.</p>\n<p>Beobachten:\nselbst-reflektorisch (intrinsisches), sowie fremd (extrinsisches) Beobachten.</p>\n<p>Musik: Imagine Dragons (best of)</p>\n<h2 id=\"1-runde\">1. Runde</h2>\n<ol>\n<li>Aufgabe: Dynamische Elemente ausprobieren (sehr grobe und freie Aufgabenstellung)</li>\n<li>Diskussion</li>\n<li>Ideen Anderer Ausprobieren</li>\n</ol>\n<h2 id=\"2-runde\">2. Runde</h2>\n<ol>\n<li>Aufgabe: In welchen anderen Kontexten* tritt „Dynamik“ noch auf? Was daraus lässt sich auf’s Einradfahren transferieren?</li>\n<li>Diskussion</li>\n<li>Ideen Anderer Ausprobieren</li>\n</ol>\n<p>evtl. mehrere Durchläufe, je nachdem wieviel Kontexte genannt werden</p>\n<ul>\n<li>Wie hilft uns die Physik? Kinematik (Kraft) vs. Dynamik (Kraftstoß + Impuls)</li>\n</ul>\n<h2 id=\"3-runde\">3. Runde</h2>\n<ol>\n<li>Aufgabe: Energielevel auf 25%, 50%, 75% und full out (100%).</li>\n<li>Aufgabe: Energielevel mit Tricks. Tanzen hat vorrang</li>\n</ol>\n<h2 id=\"steuerung-und-messverfahren\">Steuerung und Messverfahren</h2>\n<h3 id=\"steuerung\">Steuerung</h3>\n<p>Energielevel</p>\n<blockquote>\n<p>Fahr die Kür mal mit einem Energielevel von x%</p>\n</blockquote>\n<h3 id=\"messverfahren\">Messverfahren</h3>\n<p>Dynamik als Kenngröße für „interessante/ansprechende“ Küren?</p>\n<p>=&gt; Von dem, was die Musik hergibt + was der Fahrer kann, liegt die aktuelle Dynamik bei x%</p>\n",
+      "contents": "<p>Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür.</p>\n<h2 id=\"einführung\">Einführung</h2>\n<p>Es wird eine Reihe von Aufgaben für die Gruppe gestellt. Nach der Ausübung werden die Beobachtungen/Erfahrungen der Gruppe vorgestellt, gemeinsam reflektiert, diskutiert und im Anschluss werden die Ideen der Anderen ausprobiert.</p>\n<p>Das &quot;Beobachten&quot; erfolgt selbst-reflektorisch (instrinsich) sowie durch fremde Perspective (extrinsisches).</p>\n<p>Musik: Imagine Dragons (best of)</p>\n<h2 id=\"1-runde\">1. Runde</h2>\n<ol>\n<li>Aufgabe: Dynamische Elemente ausprobieren (sehr grobe und freie Aufgabenstellung)</li>\n<li>Diskussion</li>\n<li>Ideen Anderer Ausprobieren</li>\n</ol>\n<h2 id=\"2-runde\">2. Runde</h2>\n<ol>\n<li>Aufgabe: In welchen anderen Kontexten* tritt „Dynamik“ noch auf? Was daraus lässt sich auf’s Einradfahren transferieren?</li>\n<li>Diskussion</li>\n<li>Ideen Anderer Ausprobieren</li>\n</ol>\n<p>evtl. mehrere Durchläufe, je nachdem wieviel Kontexte genannt werden</p>\n<p>Möglicher Input durch den Übungsleiter in der Diskussionrunde:</p>\n<ul>\n<li>Wie hilft uns die Physik? </li>\n<li>Kinematik (Kraft) vs. Dynamik (Kraftstoß + Impuls)</li>\n</ul>\n<h2 id=\"3-runde\">3. Runde</h2>\n<p>Der <em>Energielevel</em> ist eine Steuerungseinheit. Mit ~5-10% für Schemenhafte Bewegung hin zu 100% für vollen Einsatz.</p>\n<ol>\n<li>Aufgabe: Energielevel auf 25%, 50%, 75% und full out (100%).</li>\n<li>Aufgabe: Energielevel mit Tricks. Tanzen hat Vorrang</li>\n</ol>\n",
       "title": "Dynamik",
       "locomotion": "unicycle",
       "personal": "individiual",
@@ -99,6 +99,17 @@
         "bewegungsrepertoire"
       ],
       "excerpt": "<p>Darstellen von nat&#xFC;rlichen Elementen (Wasser, Wind, Feuer, Erde) durch den K&#xF6;rper in Gruppen.</p>"
+    },
+    {
+      "id": "emopost",
+      "contents": "<p>Kommunikation von Emotionen im Stil von Stille Post.</p>\n<p>Die Gruppe positioniert sich als Reihe oder im Kreis, sitzend oder stehend.</p>\n<p>In der Gruppe wird eine Person ausgewählt um eine Emotionen für die nächste Person non-verbal vorzuspielen. Bis auf die zweite Person schauen alle anderen in dieser Zeit weg und es besteht kein Blickkontakt.\nDie zweite Person ist an der Reihe die zuvor gesehene Emotion der nächsten Person vorzuspielen. So geht es reihum und die letzte Person spielt es vor Allen und errät daraufhin um welche Emotion es sich handelt. Die Person, die angefangen hat löst auf mit welcher Emotion begonnen wurde.</p>\n<p>Die Übung kann in Kleingruppen ~5 Personen oder der gesamten Gruppe erfolgen. In der Kleingruppe gibt es mehr Durchläufe und die einzelnen Fahrer spielen öfter.</p>\n<p>Als methodischer Aufbau bietet es sich an zuerst in Kleingruppen zu starten (sodass jeder eine Emotion gespielt hat) und danach in der Großgruppe einige Durchläufe zu spielen.</p>\n",
+      "title": "Emopost",
+      "locomotion": "pedes",
+      "personal": "group",
+      "skills": [
+        "emotionen"
+      ],
+      "excerpt": "<p>Kommunikation von Emotionen im Stil von Stille Post.</p>"
     },
     {
       "id": "explore-impro-constellation",
@@ -164,7 +175,7 @@
     },
     {
       "id": "michael-jackson-challenge",
-      "contents": "<p>Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer transferieren.</p>\n<h2 id=\"voraussetzung\">Voraussetzung</h2>\n<p>Doubles</p>\n<h2 id=\"setup\">Setup</h2>\n<p>Gruppierung 4-5 Personen, 2-3 Personen fahren auf dem Einrad, die anderen sind\nTänzer. Während der Routine wechseln sich Fahrer und Tänzer mit erdachten\nEinrad-Tausch ab.</p>\n<p>Jede Gruppe hat ein Gerät um Videos abzuspielen (Handy, Tablet oder Laptop). Die\nGruppe bekommt ein Michael Jackson Video zugeweisen.</p>\n<h2 id=\"aufgabe\">Aufgabe</h2>\n<p>Jede Gruppe schaut sich das zugewiesene Michael Jackson Video an. Die Gruppe\nsucht sich eine Sequenz für die eigene Choreographie aus. Diese Sequenz wird auf\ndas vorliegende Setup transferiert.</p>\n<ol>\n<li>Bewegungen im Video analysieren</li>\n<li>Bewegungen zunächst zu Fuß nachahmen und üben</li>\n<li>Transferarbeit der Bewegungen auf das Einrad</li>\n<li>Wechsel einbauen, Tänzer &lt;-&gt; Einradfahrer</li>\n</ol>\n<p>Das Ziel ist es einen Effekt zu erzeugen, dass Tänzer und Einradfahrer eine\nFront bilden.</p>\n<p>Als Hilfestellung sei gegeben, dass sich Einradfahrer auf den Tänzern festhalten\nkönnen, um auf der Stelle agieren zu können. Eine kreative Ausnutzung dieser\nSituation ist erwünscht.</p>\n<h2 id=\"empfohlene-videos\">Empfohlene Videos</h2>\n<ul>\n<li>Bad</li>\n<li>Beat It</li>\n<li>Thriller (schwer)</li>\n<li>Smooth Criminal</li>\n</ul>\n",
+      "contents": "<p>Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer transferieren.</p>\n<h2 id=\"voraussetzung\">Voraussetzung</h2>\n<p>Doubles</p>\n<h2 id=\"setup\">Setup</h2>\n<p>Gruppierung 4-5 Personen, 2-3 Personen fahren auf dem Einrad, die anderen sind\nTänzer. Während der Routine wechseln sich Fahrer und Tänzer mit erdachten\nEinrad-Tausch ab.</p>\n<p>Jede Gruppe hat ein Gerät um Videos abzuspielen (Handy, Tablet oder Laptop). Die\nGruppe bekommt ein Michael Jackson Video zugewiesen.</p>\n<h2 id=\"aufgabe\">Aufgabe</h2>\n<p>Jede Gruppe schaut sich das zugewiesene Michael Jackson Video an. Die Gruppe\nsucht sich eine Sequenz für die eigene Choreographie aus. Diese Sequenz wird auf\ndas vorliegende Setup transferiert.</p>\n<ol>\n<li>Bewegungen im Video analysieren</li>\n<li>Bewegungen zunächst zu Fuß nachahmen und üben</li>\n<li>Transferarbeit der Bewegungen auf das Einrad</li>\n<li>Wechsel einbauen, Tänzer &lt;-&gt; Einradfahrer</li>\n</ol>\n<p>Das Ziel ist es einen Effekt zu erzeugen, dass Tänzer und Einradfahrer eine\nFront bilden.</p>\n<p>Als Hilfestellung sei gegeben, dass sich Einradfahrer auf den Tänzern festhalten\nkönnen, um auf der Stelle agieren zu können. Eine kreative Ausnutzung dieser\nSituation ist erwünscht.</p>\n<h2 id=\"empfohlene-videos\">Empfohlene Videos</h2>\n<ul>\n<li>Bad</li>\n<li>Beat It</li>\n<li>Thriller (schwer)</li>\n<li>Smooth Criminal</li>\n</ul>\n",
       "title": "Michael Jackson Challenge",
       "locomotion": [
         "pedes",
@@ -213,6 +224,21 @@
         }
       ],
       "excerpt": "<p>Emotionen in der Musik erkennen und durch Bewegungen ausdr&#xFC;cken.</p>"
+    },
+    {
+      "id": "pantotion",
+      "contents": "<p>Non-Verbale Kommunikation von Emotionen (Senden und Empfangen)</p>\n<p>Es werden zufällige Paare gebildet (Partner A und B). Zum Start jeder Runde finden sich die Gruppen A und B. Der Trainer gibt jeder Gruppe eine Emotion. Mit dieser finden sich die Paare und verteilen sich im Raum. Ein Partner bleibt an einer Stelle stehen und bildet das Publikum, während der andere Partner die Emotion fahrend und non-verbal darstellt. Der stehende Partner errät die vorgespielte Emotion. Dann wechseln die Partner und das Gleiche erfolgt anders herum.\nDie Runden wiederholen sich entsprechend der vorbereiteten Emotionen.</p>\n",
+      "title": "Pantotion",
+      "locomotion": "unicycle",
+      "personal": "pair",
+      "skills": [
+        "emotionen",
+        "kommunikation"
+      ],
+      "material": [
+        "Liste mit Emotionen"
+      ],
+      "excerpt": "<p>Non-Verbale Kommunikation von Emotionen (Senden und Empfangen)</p>"
     },
     {
       "id": "steinmetz",

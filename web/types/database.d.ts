@@ -7,6 +7,40 @@ declare module '@unidancing/database' {
   }
 }
 
+declare module '@unidancing/database/moves.json' {
+  import { Model } from '@unidancing/database';
+  import { Games } from '@unidancing/app/games/games';
+
+  type Link = {
+    label: string;
+    url: string;
+  };
+
+  interface Game<K = keyof Games> {
+    name: K;
+    label?: string;
+    params?: Games[K];
+  }
+
+  interface MoveWireFormat extends Model {
+    tags?: string[];
+    see?: (string | Link)[];
+    skills?: string[];
+    video?: {
+      type: string;
+      url: string;
+    };
+    games?: Game[];
+  }
+
+  declare const database: readonly {
+    data: Record<string, MoveWireFormat>;
+  };
+
+  export { Link, Game, MoveWireFormat };
+  export default database;
+}
+
 declare module '@unidancing/database/exercises.json' {
   import { Model } from '@unidancing/database';
   import { Games } from '@unidancing/app/games/games';

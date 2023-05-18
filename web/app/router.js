@@ -19,6 +19,9 @@ Router.map(function () {
   this.route('exercises', { path: 'uebungen' }, function () {
     this.route('details', { path: '/:id' });
   });
+  this.route('moves', function () {
+    this.route('details', { path: '/:id' });
+  });
   this.route('games', { path: '/games/:id' });
   this.route('choreography', function () {
     this.route('not-todo-list');
