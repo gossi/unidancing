@@ -13,7 +13,7 @@ export default class ExerciseDetailsRoute extends Route {
   model({ id }: { id: string }) {
     return {
       move: this.resource.find(id),
-      buildExerciseLink: createMoveLinkBuilder(this.linkManager),
+      buildMoveLink: createMoveLinkBuilder(this.linkManager),
       buildSkillLink: createSkillLinkBuilder(this.linkManager),
       buildGameLink: this.buildGameLink
     };
