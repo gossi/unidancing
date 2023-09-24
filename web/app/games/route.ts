@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
-import { Game } from './games';
+
+import type { Game } from './games';
 
 export default class ExerciseDetailsRoute extends Route {
   model({ id }: { id: Game }) {

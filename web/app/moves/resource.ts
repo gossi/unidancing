@@ -1,6 +1,9 @@
+import { service } from '@ember/service';
+
 import { Resource } from 'ember-resources';
-import { service, Registry as Services } from '@ember/service';
-import { Link } from 'ember-link';
+
+import type { Registry as Services } from '@ember/service';
+import type { Link } from 'ember-link';
 
 export function createMoveLinkBuilder(
   linkManager: Services['link-manager']
@@ -8,7 +11,7 @@ export function createMoveLinkBuilder(
   return (move: string): Link => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-    return linkManager.createUILink({
+    return linkManager.createLink({
       route: 'moves.details',
       models: [move]
     });

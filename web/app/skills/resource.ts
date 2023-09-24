@@ -1,12 +1,15 @@
+import { service } from '@ember/service';
+
 import { Resource } from 'ember-resources';
-import { service, Registry as Services } from '@ember/service';
-import { Link } from 'ember-link';
+
+import type { Registry as Services } from '@ember/service';
+import type { Link } from 'ember-link';
 
 export function createSkillLinkBuilder(
   linkManager: Services['link-manager']
 ): (skill: string) => Link {
   return (skill: string): Link => {
-    return linkManager.createUILink({
+    return linkManager.createLink({
       route: 'skills.details',
       models: [skill]
     });

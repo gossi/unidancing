@@ -8,6 +8,7 @@ import didInsert from 'ember-render-helpers/helpers/did-insert';
 import {TrackedSet, TrackedObject} from 'tracked-built-ins';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
+import { next } from '@ember/runloop';
 import Icon from '../components/icon';
 import pick from 'ember-composable-helpers/helpers/pick';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
@@ -222,7 +223,7 @@ class Counters {
     this.load();
 
     if (Object.keys(this.counters).length === 0) {
-      this.init();
+      next(this, this.init);
     }
   }
 
@@ -319,9 +320,9 @@ export default class BingoComponent extends Component {
   @tracked game?: Bingo;
   counters = new Counters();
 
-  constructor(owner: unknown, args: {}) {
-    super(owner, args);
-  }
+  // constructor(owner: unknown, args: {}) {
+  //   super(owner, args);
+  // }
 
   @action
   setup() {

@@ -1,29 +1,26 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import {
-  PlaylistResource,
-  getRandomTracks
-} from '../resources/spotify/playlist';
+import { PlaylistResource, getRandomTracks } from '../resources/spotify/playlist';
 import didInsert from 'ember-render-helpers/helpers/did-insert';
 import willDestroy from 'ember-render-helpers/helpers/will-destroy';
 import PlaylistChooser from '../components/playlist-chooser';
 import LoginWithSpotify from '../components/login-with-spotify';
 import { service, Registry as Services } from '@ember/service';
 import { on } from '@ember/modifier';
-import {useTrack} from '../resources/spotify/track';
-import {formatArtists} from '../utils/spotify';
+import { useTrack } from '../resources/spotify/track';
+import { formatArtists } from '../utils/spotify';
 import SpotifyPlayer from '../audio/spotify/player';
-import {lookupPlayer} from '../audio/player';
+import { lookupPlayer } from '../audio/player';
 import { getOwner } from '@ember/owner';
 import { dropTask, timeout } from 'ember-concurrency';
-import { taskFor } from 'ember-concurrency-ts';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
 import { eq, not } from 'ember-truth-helpers';
 import styles from './dance-mix.css';
 import set from 'ember-set-helper/helpers/set';
 import { fn } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
+import type Owner from '@ember/owner';
 
 enum Playlist {
   Epic = 'epic',
@@ -44,7 +41,7 @@ export interface DanceMixParams {
   [DanceMixParam.Pause]?: number;
   [DanceMixParam.Playlist]?: Playlist;
   [DanceMixParam.PlaylistId]?: string;
-};
+}
 
 const PLAYLISTS: Record<Playlist, string> = {
   epic: '3qaxO2Z99batsuhi12MDsn',
@@ -57,10 +54,10 @@ const DEFAULTS = {
   [DanceMixParam.Pause]: 1,
   [DanceMixParam.Playlist]: undefined,
   [DanceMixParam.PlaylistId]: undefined
-}
+};
 
 export interface DanceMixSignature {
-  Args: DanceMixParams
+  Args: DanceMixParams;
 }
 
 export default class DanceMixComponent extends Component<DanceMixSignature> {
@@ -88,7 +85,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       return PLAYLISTS[playlist];
     }
 
-    const savedPlaylist = localStorage.getItem('dance-playlist') as string
+    const savedPlaylist = localStorage.getItem('dance-playlist') as string;
     if (savedPlaylist) {
       return savedPlaylist;
     }
@@ -109,18 +106,20 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
   }
 
   get playlistLocked() {
-    return this.#getParam(DanceMixParam.Playlist) !== undefined ||
-      this.#getParam(DanceMixParam.PlaylistId) !== undefined;
+    return (
+      this.#getParam(DanceMixParam.Playlist) !== undefined ||
+      this.#getParam(DanceMixParam.PlaylistId) !== undefined
+    );
   }
 
   // params
-  #getParam(param: DanceMixParam) {
+  #getParam<P extends DanceMixParam>(param: P): DanceMixParams[P] {
     if (this.args[param]) {
       return this.args[param];
     }
 
-    if (this.router.currentRoute.queryParams[param]) {
-      return this.router.currentRoute.queryParams[param];
+    if (this.router.currentRoute?.queryParams[param]) {
+      return this.router.currentRoute.queryParams[param] as DanceMixParams[P];
     }
 
     return DEFAULTS[param];
@@ -138,7 +137,6 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
     return this.#getParam(DanceMixParam.Pause);
   }
 
-
   // @action
   // loadAnalytics() {
   //   const resources = this.tracks
@@ -150,7 +148,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
 
   @action
   selectPlayer() {
-    this.player = lookupPlayer(SpotifyPlayer, getOwner(this));
+    this.player = lookupPlayer(SpotifyPlayer, getOwner(this) as Owner);
     this.playerService.player = this.player;
   }
 
@@ -186,7 +184,7 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
     if (this.resource.tracks) {
       const tracks = getRandomTracks(this.resource.tracks, amount);
 
-      taskFor(this.mix).perform({
+      this.mix.perform({
         duration: Number.parseInt(data.get('duration') as string, 10),
         pause: Number.parseInt(data.get('pause') as string, 10),
         tracks
@@ -196,21 +194,27 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
     }
   }
 
-  @dropTask *mix({tracks, duration, pause}: {
-    duration: number;
-    pause: number;
-    tracks: SpotifyApi.TrackObjectFull[];
-  }) {
-    for (const track of tracks) {
-      yield taskFor(this.playTrack).perform(track, duration);
-      this.player.pause();
-      yield timeout(pause * 1000);
+  mix = dropTask(
+    async ({
+      tracks,
+      duration,
+      pause
+    }: {
+      duration: number;
+      pause: number;
+      tracks: SpotifyApi.TrackObjectFull[];
+    }) => {
+      for (const track of tracks) {
+        await this.playTrack.perform(track, duration);
+        this.player.pause();
+        await timeout(pause * 1000);
+      }
     }
-  }
+  );
 
-  @dropTask *playTrack(track: SpotifyApi.TrackObjectFull, duration: number) {
+  playTrack = dropTask(async (track: SpotifyApi.TrackObjectFull, duration: number) => {
     const start = Math.round(track.duration_ms * 0.33);
-    yield this.player.play({
+    await this.player.play({
       uris: [track.uri],
       position_ms: start
     });
@@ -219,15 +223,15 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
     this.counter = duration;
 
     while (this.counter > 0) {
-      yield timeout(1000);
+      await timeout(1000);
       this.counter--;
     }
-  }
+  });
 
   @action
   stop() {
-    taskFor(this.playTrack).cancelAll();
-    taskFor(this.mix).cancelAll();
+    this.playTrack.cancelAll();
+    this.mix.cancelAll();
     this.player.pause();
   }
 
@@ -241,19 +245,19 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
       {{#if this.choosingPlaylist}}
         <PlaylistChooser @select={{this.selectPlaylist}} />
       {{else if this.playlistId}}
-        <div class="grid">
+        <div class='grid'>
           <p>
-            <strong>{{htmlSafe this.resource.playlist.name}}</strong><br>
+            <strong>{{htmlSafe this.resource.playlist.name}}</strong><br />
             <small>{{htmlSafe this.resource.playlist.description}}</small>
           </p>
 
           {{#if (not this.playlistLocked)}}
             <div>
               <button
-                type="button"
+                type='button'
                 disabled={{this.mix.isRunning}}
-                class="outline"
-                {{on "click" (fn (set this "state" 'choose-playlist'))}}
+                class='outline'
+                {{on 'click' (fn (set this 'state' 'choose-playlist'))}}
               >
                 Playlist wechseln
               </button>
@@ -262,11 +266,11 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
         </div>
 
         {{#if this.mix.isRunning}}
-          <div class="grid">
+          <div class='grid'>
             <ol class={{styles.tracks}}>
               {{#each this.tracks as |track|}}
                 <li aria-selected={{eq track this.player.track.data}}>
-                  {{track.name}}<br>
+                  {{track.name}}<br />
                   <small>{{formatArtists track.artists}}</small>
                 </li>
               {{/each}}
@@ -275,27 +279,27 @@ export default class DanceMixComponent extends Component<DanceMixSignature> {
             <div>
               <p class={{styles.counter}}>{{this.counter}}</p>
 
-              <button type="button" {{on "click" this.stop}}>Stop</button>
+              <button type='button' {{on 'click' this.stop}}>Stop</button>
             </div>
           </div>
         {{else}}
-          <form {{on "submit" (preventDefault this.start)}}>
+          <form {{on 'submit' (preventDefault this.start)}}>
             <label>
               Dauer pro Lied [sec]:
-              <input type="number" name="duration" value={{this.duration}}>
+              <input type='number' name='duration' value={{this.duration}} />
             </label>
 
             <label>
               Pause zwischen den Liedern [sec]:
-              <input type="number" name="pause" value={{this.pause}}>
+              <input type='number' name='pause' value={{this.pause}} />
             </label>
 
             <label>
               Lieder [Anzahl]:
-              <input type="number" name="amount" value={{this.amount}}>
+              <input type='number' name='amount' value={{this.amount}} />
             </label>
 
-            <button type="submit">Start</button>
+            <button type='submit'>Start</button>
           </form>
         {{/if}}
       {{/if}}
