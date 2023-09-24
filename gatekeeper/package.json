@@ -12,7 +12,7 @@
   },
   "private": true,
   "scripts": {
-    "start": "wrangler dev",
+    "_start": "wrangler dev",
     "deploy": "wrangler publish"
   },
   "volta": {

@@ -112,6 +112,12 @@
       "excerpt": "<p>Kommunikation von Emotionen im Stil von Stille Post.</p>"
     },
     {
+      "id": "emoretro",
+      "contents": "<p>Erkennen von Emotionen üben.</p>\n<p>Die Merkmale von verschiedenen Emotionen in der Gruppe durchgehen. Der\nÜbungsleiter fragt die Gruppe nach Merkmalen der unten stehenden Emotionen. Die\nErgebnisse werden gesammelt und besprochen. Der Übungsleiter ergänzt fehlende\nMerkmale.</p>\n<p>Freude:</p>\n<ul>\n<li>Körperhaltung; offen, größer</li>\n<li>Gesicht: lächeln, Augen schmal</li>\n<li>Blick: vorne, oben</li>\n</ul>\n<p>Angst/Panik:</p>\n<ul>\n<li>Körperhaltung: klein, Arme eng am Körper</li>\n<li>Gesicht: offener Mund, große Augen</li>\n<li>Blick: zu allen Seiten umschauen(d)</li>\n</ul>\n<p>Verlegenheit:</p>\n<ul>\n<li>Körperhaltung: klein, eng, verstecken</li>\n<li>Gesicht: 😬</li>\n<li>Blick: abgewandt, nach unten</li>\n</ul>\n<p>Ekel:</p>\n<ul>\n<li>Körperhaltung: zurückweichen, geschlossen, abwenden</li>\n<li>Gesicht: verzogen, hochgezogene Nase, schmale Augen</li>\n<li>Blick: vorne, unten</li>\n</ul>\n<p>Sehnsucht:</p>\n<ul>\n<li>Körperhaltung: Geschlossen, in die Ferne greifende Hand, schiefer Kopf</li>\n<li>Gesicht: Richtung verzweifelt, leicht offener Mund</li>\n<li>Blick: oben, vorne</li>\n</ul>\n",
+      "title": "Emoretro",
+      "excerpt": "<p>Erkennen von Emotionen &#xFC;ben.</p>"
+    },
+    {
       "id": "explore-impro-constellation",
       "contents": "<p>Paare die zusammen herausfinden, welche Konstellationen sich für Pair\nImprovisation anbieten.</p>\n<p>In der Gruppe bilden sich Paare, die zusammen herausfinden – welche\nKonstellationen der beiden für Impro genutzt werden können. Welche Figuren\nfunktionieren? Welche nicht? Was kommunizieren die beiden? Wie funktioniert\nAnbieten? Wie funktioniert Annehmen?</p>\n<p>~ 5-10min Exploration<br>\n~ 5min Reflektion / Erfahrungen teilen<br>\n~ 5-10min Andere Erfahrungen ausprobieren<br></p>\n<p>Optionale Ergänzung:\n~ 5min Erneuter Austausch, evtl. Anreize durch Trainer (s.u.)<br>\n~ 5-10min erneute Ausprobieren</p>\n<p>Anreize:</p>\n<ul>\n<li>Position der Fahrer zueinander:<ul>\n<li>Frontal zueinander</li>\n<li>Parallel, minimal versetzt (ein Fahrer minimal vor dem Anderen)</li>\n</ul>\n</li>\n</ul>\n",
       "title": "Exploration Pair Impro Konstellationen",
@@ -138,6 +144,12 @@
         "musikalische-umsetzung"
       ],
       "excerpt": "<p>Fahrer finden anhand von Aufgaben eigene musikalische Umsetzungen heraus.</p>"
+    },
+    {
+      "id": "gruppenemotionen",
+      "contents": "<p>Gruppenübung zum Wiedergeben und Erkennen von Emotionen</p>\n<p>Die Gruppe wird in Kleingruppen aufgeteilt. Die Anzahl der Gruppen entspricht\nder zu wiedergebenenden und zu erkennenden Emotionen.</p>\n<p>Jede Kleingruppe bekommt eine Emotionen zugewiesen (kann auch per Zufall\nerfolgen, indem die Emotionen auf einem Zettel in einem Behälter gezogen\nwerden). Zu den Emotionen kann der Übungsleiter Vorgaben bzw. Starthilfen\nmitgeben, die die Kleingruppe umzusetzen hat. Die Kleingruppen erarbeiten eine\nkurze Choreographie, um die zugewiesene Emotion darzustellen.</p>\n<p>Die Kleingruppen üben die Darstellung ihrer Emotion.</p>\n<p>Zum Ende zeigen die Kleingruppen ihr Aufführung und die restlichen Teilnehmer\nerraten die dargestellte Emotion.</p>\n",
+      "title": "Gruppenemotionen",
+      "excerpt": "<p>Gruppen&#xFC;bung zum Wiedergeben und Erkennen von Emotionen</p>"
     },
     {
       "id": "ja-genau-und-dann",
@@ -172,6 +184,18 @@
         }
       ],
       "excerpt": "<p>Eine &#xDC;bung f&#xFC;r zwei Fahrer. Die beiden Fahrer spielen zusammen <em>einen</em> Experten\neines speziellen Fachgebiets, oder als Erfinder, von seiner sensatiellen Erfindung zu\nerz&#xE4;hlen. Dazu nutzen beide <em>ein</em> Einrad, dass das Forschungsobjekt oder eine\nbesondere Erfindung (hierbei) darstellt.</p>"
+    },
+    {
+      "id": "locking-doubles",
+      "contents": "",
+      "title": "Locking Doubles",
+      "excerpt": ""
+    },
+    {
+      "id": "locking-introduction",
+      "contents": "<p>tbd</p>\n",
+      "title": "Locking Introduction",
+      "excerpt": "<p>tbd</p>"
     },
     {
       "id": "michael-jackson-challenge",
@@ -249,6 +273,21 @@
         "emotionen"
       ],
       "excerpt": "<p>Formen von Emotionen</p>"
+    },
+    {
+      "id": "tutting-introduction",
+      "contents": "<p>Intro into Tutting</p>\n<p>-&gt; siehe video</p>\n",
+      "title": "Tutting Introduction",
+      "excerpt": "<p>Intro into Tutting</p>"
+    },
+    {
+      "id": "uni-orchestra",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Unicycle Orchestra",
+      "skills": [
+        "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
     },
     {
       "id": "whiskeymixer",
