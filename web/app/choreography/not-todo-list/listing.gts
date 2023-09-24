@@ -3,7 +3,7 @@ import {tracked} from '@glimmer/tracking';
 import {PrinciplesResource} from '../resource';
 import {Tag, TAGS} from '../../database/principles';
 import styles from './listing.css';
-import eq from 'ember-truth-helpers/helpers/equal';
+import { eq } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
 import {action} from '@ember/object';
 import { htmlSafe } from '@ember/template';

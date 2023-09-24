@@ -6,7 +6,7 @@ import styles from './bingo.css';
 import { on } from '@ember/modifier';
 import didInsert from 'ember-render-helpers/helpers/did-insert';
 import {TrackedSet, TrackedObject} from 'tracked-built-ins';
-import eq from 'ember-truth-helpers/helpers/equal';
+import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import Icon from '../components/icon';
 import pick from 'ember-composable-helpers/helpers/pick';

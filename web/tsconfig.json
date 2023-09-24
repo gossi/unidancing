@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "es2020",
     "allowJs": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
     "noImplicitAny": true,
     "noImplicitThis": true,
@@ -40,9 +40,14 @@
     "types/**/*"
   ],
   "glint": {
-    "environment": ["ember-loose", "ember-template-imports"],
+    "environment": [
+      "ember-loose",
+      "ember-template-imports"
+    ],
     "transform": {
-      "include": ["app/**"]
+      "include": [
+        "app/**"
+      ]
     }
   }
 }

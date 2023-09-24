@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { usePlaylists } from '../resources/spotify/playlists';
 import { on } from '@ember/modifier';
-import eq from 'ember-truth-helpers/helpers/equal';
+import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import styles from './playlist-chooser.css';
 

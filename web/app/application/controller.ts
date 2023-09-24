@@ -5,9 +5,11 @@ import { Game, ALL_GAME_PARAMS } from '../games/games';
 import { tracked } from '@glimmer/tracking';
 import { set } from '@ember/object';
 
+import { LinkManagerService } from 'ember-link';
+
 export default class ApplicationController extends Controller {
   @service declare spotify: Services['spotify'];
-  @service declare linkManager: Services['link-manager'];
+  @service declare linkManager: LinkManagerService;
   @service declare router: Services['router'];
 
   Game = Game;
@@ -28,8 +30,8 @@ export default class ApplicationController extends Controller {
   }
 
   buildGameLink = (game: Game) => {
-    return this.linkManager.createUILink({
-      route: this.router.currentRouteName,
+    return this.linkManager.createLink({
+      route: this.router.currentRouteName as string,
       query: {
         game
       }

@@ -1,6 +1,6 @@
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import SpotifyService from '../../services/spotify';
+import SpotifyService from '../service';
 import { Resource } from 'ember-resources';
 
 // https://open.spotify.com/playlist/3qaxO2Z99batsuhi12MDsn?si=865135aca7b64c32
