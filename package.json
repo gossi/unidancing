@@ -3,7 +3,7 @@
   "private": true,
   "author": "gossi",
   "scripts": {
-    "start": "turbo run start --parallel",
+    "start": "turbo run start --filter @unidancing/app",
     "build": "turbo run build"
   },
   "devDependencies": {
@@ -14,6 +14,6 @@
   },
   "packageManager": "pnpm@7.8.0",
   "volta": {
-    "node": "16.16.0"
+    "node": "18.17.1"
   }
 }
