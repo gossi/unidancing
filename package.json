@@ -4,7 +4,7 @@
   "author": "gossi",
   "scripts": {
     "start": "turbo run start --filter @unidancing/app",
-    "build": "turbo run build"
+    "build": "turbo run build --filter @unidancing/app"
   },
   "devDependencies": {
     "turbo": "^1.10.14"
