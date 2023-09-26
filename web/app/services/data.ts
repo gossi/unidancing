@@ -1,10 +1,12 @@
 import Service from '@ember/service';
-import { Exercise } from '../database/exercises';
-import { Skill } from '../database/skills';
-import { Principle } from '../database/principles';
+
 import { load } from '../database/loader';
-import { Model } from '../database/base';
-import { Move } from '../database/moves';
+
+import type { Model } from '../database/base';
+import type { Exercise } from '../database/exercises';
+import type { Move } from '../database/moves';
+import type { Principle } from '../database/principles';
+import type { Skill } from '../database/skills';
 
 export interface Databases {
   [key: string]: Model[];
@@ -21,10 +23,7 @@ export default class DataService extends Service {
     return this.#data[model];
   }
 
-  findOne<K extends keyof Databases>(
-    model: K,
-    id: string
-  ): Databases[K][0] | undefined {
+  findOne<K extends keyof Databases>(model: K, id: string): Databases[K][0] | undefined {
     // yep, this Databases[K][0] type looks so damn wrong !!!
     return this.#data[model]?.find((model: Model) => model.id === id);
   }

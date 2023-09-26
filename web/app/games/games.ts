@@ -25,3 +25,5 @@ export const ALL_GAME_PARAMS = [...Object.values(DanceMixParam)];
 export interface Games {
   'dance-mix': DanceMixParams;
 }
+
+export type GameKey = keyof Games;

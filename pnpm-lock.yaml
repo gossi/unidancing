@@ -211,6 +211,9 @@ importers:
       ember-resources:
         specifier: ^6.4.0
         version: 6.4.0(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.1.0)(ember-concurrency@3.1.1)(ember-source@5.3.0)
+      ember-route-template:
+        specifier: ^1.0.1
+        version: 1.0.1
       ember-set-helper:
         specifier: ^2.0.1
         version: 2.0.1
@@ -8744,6 +8747,14 @@ packages:
 
   /ember-rfc176-data@0.3.17:
     resolution: {integrity: sha512-EVzTTKqxv9FZbEh6Ktw56YyWRAA0MijKvl7H8C06wVF+8f/cRRz3dXxa4nkwjzyVwx4rzKGuIGq77hxJAQhWWw==}
+    dev: true
+
+  /ember-route-template@1.0.1:
+    resolution: {integrity: sha512-zk8eePt+vjigiY7bawTpa5O/HPPXjPAxlPsk37LYSN+uiVrRAFcuq72oTggMfwIZfVZk+gqUAvlaUQBljSMTaw==}
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /ember-router-generator@2.0.0:

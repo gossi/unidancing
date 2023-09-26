@@ -5,13 +5,14 @@ import { createSkillLinkBuilder } from '../../skills/resource';
 import { createMoveLinkBuilder, MoveResource } from '../resource';
 
 import type { Games } from '../../games/games';
-import type { Registry as Services } from '@ember/service';
+import type RouterService from '@ember/routing/router-service';
+import type { LinkManagerService } from 'ember-link';
 
 export default class ExerciseDetailsRoute extends Route {
-  @service declare linkManager: Services['link-manager'];
-  @service declare router: Services['router'];
+  @service declare linkManager: LinkManagerService;
+  @service declare router: RouterService;
 
-  resource = MoveResource.from(this);
+  resource = MoveResource.from(this, () => []);
 
   model({ id }: { id: string }) {
     return {

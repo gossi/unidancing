@@ -81,6 +81,7 @@
     "ember-render-helpers": "^0.2.0",
     "ember-resolver": "^11.0.1",
     "ember-resources": "^6.4.0",
+    "ember-route-template": "^1.0.1",
     "ember-set-helper": "^2.0.1",
     "ember-source": "~5.3.0",
     "ember-statechart-component": "^6.1.2",

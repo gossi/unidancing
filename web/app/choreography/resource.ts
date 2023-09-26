@@ -10,7 +10,7 @@ import type { ArgsWrapper } from 'ember-resources';
 interface PrinciplesArgs extends ArgsWrapper {
   positional: [];
   named: {
-    tag: Tag;
+    tag?: Tag;
   };
 }
 

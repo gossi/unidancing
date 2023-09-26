@@ -1,11 +1,12 @@
-import Controller from '@ember/controller';
-import { service, Registry as Services } from '@ember/service';
-import { action } from '@ember/object';
-import { Game, ALL_GAME_PARAMS } from '../games/games';
 import { tracked } from '@glimmer/tracking';
-import { set } from '@ember/object';
+import Controller from '@ember/controller';
+import { action, set } from '@ember/object';
+import { service } from '@ember/service';
 
-import { LinkManagerService } from 'ember-link';
+import { ALL_GAME_PARAMS, Game } from '../games/games';
+
+import type { Registry as Services } from '@ember/service';
+import type { LinkManagerService } from 'ember-link';
 
 export default class ApplicationController extends Controller {
   @service declare spotify: Services['spotify'];

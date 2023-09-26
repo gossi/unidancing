@@ -5,30 +5,42 @@ import { createSkillLinkBuilder } from '../../skills/resource';
 import { createExerciseLinkBuilder, useExercise } from '../resource';
 
 import type { Games } from '../../games/games';
-import type { Registry as Services } from '@ember/service';
+import type RouterService from '@ember/routing/router-service';
+import type { Link, LinkManagerService } from 'ember-link';
 
-export default class ExerciseDetailsRoute extends Route {
-  @service declare linkManager: Services['link-manager'];
-  @service declare router: Services['router'];
+export type GameLinkBuilder<K extends keyof Games> = (game: K, params?: Games[K]) => Link;
 
-  resource = useExercise(this);
+export function createGameLinkBuilder<K extends keyof Games>(
+  linkManager: LinkManagerService,
+  router: RouterService
+): GameLinkBuilder<K> {
+  // console.log('route', route);
 
-  model({ id }: { id: string }) {
-    return {
-      exercise: this.resource.find(id),
-      buildExerciseLink: createExerciseLinkBuilder(this.linkManager),
-      buildSkillLink: createSkillLinkBuilder(this.linkManager),
-      buildGameLink: this.buildGameLink
-    };
-  }
-
-  buildGameLink = <K extends keyof Games>(game: K, params?: Games[K]) => {
-    return this.linkManager.createLink({
-      route: this.router.currentRouteName as string,
+  return (game: K, params?: Games[K]): Link => {
+    return linkManager.createLink({
+      route: router.currentRouteName as string,
       query: {
         game,
         ...params
       }
     });
   };
+}
+
+export default class ExerciseDetailsRoute extends Route {
+  @service declare linkManager: LinkManagerService;
+  @service declare router: RouterService;
+
+  resource = useExercise(this);
+
+  model({ id }: { id: string }) {
+    console.log('router', this.router.currentRouteName);
+
+    return {
+      exercise: this.resource.find(id),
+      buildExerciseLink: createExerciseLinkBuilder(this.linkManager),
+      buildSkillLink: createSkillLinkBuilder(this.linkManager),
+      buildGameLink: createGameLinkBuilder(this.linkManager, this.router)
+    };
+  }
 }
