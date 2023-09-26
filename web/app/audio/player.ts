@@ -1,13 +1,15 @@
 import { assert } from '@ember/debug';
-import { setOwner } from '@ember/application';
+import { setOwner } from '@ember/owner';
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
+
+import type Owner from '@ember/owner';
 
 export interface Player {
   toggle(): Promise<void> | void;
 }
 
-export function lookupPlayer(klass: object, owner: unknown) {
+export function lookupPlayer(klass: object, owner: Owner) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   const player = klass.getInstance();

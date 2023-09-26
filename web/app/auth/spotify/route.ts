@@ -1,4 +1,4 @@
-import Transition from '@ember/routing/-private/transition';
+import Transition from '@ember/routing/transition';
 import Route from '@ember/routing/route';
 import RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
@@ -29,8 +29,8 @@ export default class SpotifyAuthRoute extends Route {
   @service declare router: RouterService;
 
   activate(transition: Transition) {
-    if (Object.keys(transition.to.queryParams).length > 0) {
-      this.spotify.auth(deserialize(transition.to.queryParams));
+    if (Object.keys(transition.to?.queryParams).length > 0) {
+      this.spotify.auth(deserialize(transition.to?.queryParams));
 
       const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
 

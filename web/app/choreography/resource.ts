@@ -1,12 +1,16 @@
-import { ArgsWrapper, Resource } from 'ember-resources';
 import { tracked } from '@glimmer/tracking';
-import { service, Registry as Services } from '@ember/service';
-import { Tag, Principle } from '../database/principles';
+import { service } from '@ember/service';
+
+import { Resource } from 'ember-resources';
+
+import type { Principle, Tag } from '../database/principles';
+import type { Registry as Services } from '@ember/service';
+import type { ArgsWrapper } from 'ember-resources';
 
 interface PrinciplesArgs extends ArgsWrapper {
   positional: [];
   named: {
-    tag: Tag;
+    tag?: Tag;
   };
 }
 

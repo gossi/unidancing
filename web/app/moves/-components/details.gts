@@ -1,12 +1,13 @@
 import { Move } from '../../database/moves';
-import Icon from '../icon';
+import Icon from '../../components/icon';
 import { Games } from '../../games/games';
 import { Link } from 'ember-link';
-import type { TOC } from '@ember/component/template-only';
 import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 import styles from './details.css';
-import or from 'ember-truth-helpers/helpers/or';
+import { or } from 'ember-truth-helpers';
+
+import type { TOC } from '@ember/component/template-only';
 
 const parseUrl = (url: string) => {
   const embedUrl = new URL('https://www.youtube.com');
@@ -18,15 +19,15 @@ const parseUrl = (url: string) => {
   }
 
   return embedUrl.toString();
-}
+};
 
-interface MoveDetailsSignature {
+export interface MoveDetailsSignature {
   Args: {
     move: Move;
     buildGameLink: <K extends keyof Games>(game: K, params?: Games[K]) => Link;
     buildSkillLink: (skill: string) => Link;
     buildMoveLink: (move: string) => Link;
-  }
+  };
 }
 
 const MoveDetails: TOC<MoveDetailsSignature> = <template>
@@ -45,11 +46,7 @@ const MoveDetails: TOC<MoveDetailsSignature> = <template>
         <header class={{styles.header}}>
           {{#each @move.games as |game|}}
             {{#let (@buildGameLink game.name game.params) as |link|}}
-              <a
-                href={{link.url}}
-                role='button'
-                {{on 'click' link.transitionTo}}
-              >
+              <a href={{link.url}} role='button' {{on 'click' link.transitionTo}}>
                 {{#if game.label}}{{game.label}}{{else}}{{game.name}}{{/if}}
               </a>
             {{/let}}
@@ -123,12 +120,6 @@ const MoveDetails: TOC<MoveDetailsSignature> = <template>
       {{/if}}
     </aside>
   </div>
-</template>
+</template>;
 
 export default MoveDetails;
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    'Moves::Details': typeof MoveDetails;
-  }
-}

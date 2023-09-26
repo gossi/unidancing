@@ -8,8 +8,8 @@ declare module '@unidancing/database' {
 }
 
 declare module '@unidancing/database/moves.json' {
-  import { Model } from '@unidancing/database';
-  import { Games } from '@unidancing/app/games/games';
+  import type { Games } from '@unidancing/app/games/games';
+  import type { Model } from '@unidancing/database';
 
   type Link = {
     label: string;
@@ -37,13 +37,13 @@ declare module '@unidancing/database/moves.json' {
     data: Record<string, MoveWireFormat>;
   };
 
-  export { Link, Game, MoveWireFormat };
+  export { Game, Link, MoveWireFormat };
   export default database;
 }
 
 declare module '@unidancing/database/exercises.json' {
-  import { Model } from '@unidancing/database';
-  import { Games } from '@unidancing/app/games/games';
+  import type { Games } from '@unidancing/app/games/games';
+  import type { Model } from '@unidancing/database';
 
   type Personal = 'individual' | 'pair' | 'group';
   type Locomotion = 'unicycle' | 'pedes';
@@ -71,12 +71,12 @@ declare module '@unidancing/database/exercises.json' {
     data: Record<string, ExerciseWireFormat>;
   };
 
-  export { Personal, Locomotion, Link, Game, ExerciseWireFormat };
+  export { ExerciseWireFormat, Game, Link, Locomotion, Personal };
   export default database;
 }
 
 declare module '@unidancing/database/skills.json' {
-  import { Model } from '@unidancing/database';
+  import type { Model } from '@unidancing/database';
 
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface SkillWireFormat extends Model {}
@@ -90,7 +90,7 @@ declare module '@unidancing/database/skills.json' {
 }
 
 declare module '@unidancing/database/principles.json' {
-  import { Model } from '@unidancing/database';
+  import type { Model } from '@unidancing/database';
 
   interface PrincipleWireFormat extends Model {
     tags?: string[];

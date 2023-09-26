@@ -1,18 +1,19 @@
-import {
+import { Model } from './base';
+import { ensureArray } from './utils';
+
+import type DataService from '../services/data';
+import type { Skill } from './skills';
+import type {
   ExerciseWireFormat,
+  Game,
   Link,
   Locomotion,
-  Personal,
-  Game
+  Personal
 } from '@unidancing/database/exercises.json';
-import { ensureArray } from './utils';
-import DataService from '../services/data';
-import { Skill } from './skills';
-import { Model } from './base';
 
 type See = Link | Exercise;
 
-export type { Locomotion, Personal, Game, See };
+export type { Game, Locomotion, Personal, See };
 
 export class Exercise extends Model {
   #service: DataService;

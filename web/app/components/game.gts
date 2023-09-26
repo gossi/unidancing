@@ -4,7 +4,7 @@ import { Game, findGame } from '../games/games';
 export interface GameSignature {
   Args: {
     game?: Game;
-  }
+  };
 }
 
 export default class GameComponent extends Component<GameSignature> {

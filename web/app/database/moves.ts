@@ -1,7 +1,8 @@
-import { MoveWireFormat, Link, Game } from '@unidancing/database/moves.json';
-import DataService from '../services/data';
-import { Skill } from './skills';
 import { Model } from './base';
+
+import type DataService from '../services/data';
+import type { Skill } from './skills';
+import type { Game, Link, MoveWireFormat } from '@unidancing/database/moves.json';
 
 type See = Link | Move;
 

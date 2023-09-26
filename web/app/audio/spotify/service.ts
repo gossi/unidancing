@@ -3,7 +3,6 @@ import { tracked } from '@glimmer/tracking';
 import SpotifyWebApi from 'spotify-web-api-js';
 import { deserialize } from '../../utils/serde';
 import { task, timeout } from 'ember-concurrency';
-import { taskFor } from 'ember-concurrency-ts';
 import config from '@unidancing/app/config/environment';
 
 interface SpotifyStorage {
@@ -73,7 +72,7 @@ export default class SpotifyService extends Service {
     this.persist();
 
     if (refreshToken && expiresIn) {
-      taskFor(this.refresher).perform(
+      this.refresher.perform(
         refreshToken,
         Number.parseInt(expiresIn, 10) * 1000 - 300
       );
@@ -89,10 +88,10 @@ export default class SpotifyService extends Service {
     localStorage.setItem('spotify', JSON.stringify(this.#storage));
   }
 
-  @task *refresher(refreshToken: string, timer: number) {
-    yield timeout(timer);
+  refresher = task(async (refreshToken: string, timer: number) => {
+    await timeout(timer);
     this.refresh(refreshToken);
-  }
+  });
 }
 
 declare module '@ember/service' {

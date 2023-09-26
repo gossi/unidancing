@@ -22,7 +22,7 @@ enum Icon {
   trash = '🗑️',
   go = '➡️',
   check = '✅'
-};
+}
 
 export type Icons = keyof typeof Icon;
 
@@ -34,7 +34,7 @@ export function getIcon(icon: Icons) {
 export interface IconSignature {
   Args: {
     icon: Icons;
-  }
+  };
 }
 
 export default class IconComponent extends Component<IconSignature> {
