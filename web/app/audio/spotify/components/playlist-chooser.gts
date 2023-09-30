@@ -1,7 +1,7 @@
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { usePlaylists } from '../audio/spotify/resources/playlists';
+import { usePlaylists } from '../resources/playlists';
 import { on } from '@ember/modifier';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
@@ -13,7 +13,7 @@ export interface PlaylistChooserSignature {
   }
 }
 
-export default class PlaylistChooserComponent extends Component<PlaylistChooserSignature> {
+export default class PlaylistChooser extends Component<PlaylistChooserSignature> {
   @tracked selection?: SpotifyApi.PlaylistObjectSimplified;
 
   resource = usePlaylists(this);
@@ -44,8 +44,3 @@ export default class PlaylistChooserComponent extends Component<PlaylistChooserS
   </template>
 }
 
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    PlaylistChooser: typeof PlaylistChooserComponent;
-  }
-}

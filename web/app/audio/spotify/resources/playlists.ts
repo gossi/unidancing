@@ -28,7 +28,6 @@ export class PlaylistsResource extends Resource {
     // const response = await this.spotifyApi.getArtistAlbums(
     //   '43ZHCT0cAZBISjO8DG9PnE'
     // );
-    console.log(response);
   }
 }
 

@@ -3,6 +3,7 @@ import { service } from '@ember/service';
 
 import { Resource } from 'ember-resources';
 
+import type { Playlist } from '../domain-objects';
 import type SpotifyService from '../service';
 import type { ArgsWrapper } from 'ember-resources';
 
@@ -14,31 +15,10 @@ interface PlaylistArgs extends ArgsWrapper {
   };
 }
 
-function randomItem<T>(items: T[]) {
-  return items[Math.floor(Math.random() * items.length)];
-}
-
-export function getRandomTracks(
-  list: SpotifyApi.TrackObjectFull[],
-  amount = 5
-): SpotifyApi.TrackObjectFull[] {
-  const tracks: SpotifyApi.TrackObjectFull[] = [];
-
-  while (tracks.length < amount) {
-    const track = randomItem<SpotifyApi.TrackObjectFull>(list);
-
-    if (!tracks.includes(track)) {
-      tracks.push(track);
-    }
-  }
-
-  return tracks;
-}
-
 export class PlaylistResource extends Resource<PlaylistArgs> {
   @service declare spotify: SpotifyService;
 
-  @tracked playlist?: SpotifyApi.SinglePlaylistResponse;
+  @tracked playlist?: Playlist;
 
   get tracks(): SpotifyApi.TrackObjectFull[] | undefined {
     return this.playlist?.tracks?.items.map((tracks) => tracks.track as SpotifyApi.TrackObjectFull);
@@ -56,11 +36,7 @@ export class PlaylistResource extends Resource<PlaylistArgs> {
 }
 
 export function usePlaylist(destroyable: object, args: PlaylistArgs['named']) {
-  console.log('args', args);
-
   return PlaylistResource.from(destroyable, () => {
-    console.log('from', args);
-
     return {
       playlist: (() => args.playlist)()
     };

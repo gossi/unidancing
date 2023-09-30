@@ -4,11 +4,11 @@
 }
 
 .playlist {
-  list-style-type: none;
-  padding: 0;
   border: 1px solid #000;
-  overflow-y: auto;
+  list-style-type: none;
   max-height: 40vh;
+  overflow-y: auto;
+  padding: 0;
 
   [role='listitem'] {
     &[aria-selected] {

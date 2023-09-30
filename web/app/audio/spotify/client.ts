@@ -4,20 +4,20 @@ import { Resource } from 'ember-resources';
 import { useMachine } from 'ember-statecharts';
 import SpotifyWebApi from 'spotify-web-api-js';
 
-import { SpotifyEventNames, SpotifyMachine, SpotifyStateNames } from './machine';
+import { SpotifyEvent, SpotifyMachine, SpotifyState } from './machine';
 import { useTrack } from './resources/track';
 
-import type { SpotifyContext, SpotifyEvent, SpotifyState } from './machine';
-import type { SpotifyTrackResource } from './resources/track';
-
-import { action} from '@ember/object';
+import type { Device } from './domain-objects';
+import type { TrackResource } from './resources/track';
 
 export class SpotifyClient extends Resource {
-  @tracked devices: SpotifyApi.UserDevice[] = [];
-  @tracked device?: SpotifyApi.UserDevice;
-  @tracked track?: SpotifyTrackResource;
+  @tracked devices: Device[] = [];
+  @tracked device?: Device;
+  @tracked track?: TrackResource;
 
-  statechart = useMachine<SpotifyContext, any, SpotifyEvent, SpotifyState>(this, () => {
+  statechart = useMachine(this, () => {
+    const { loadDevices, autoselectDevice, loadPlayback } = this;
+
     return {
       machine: SpotifyMachine.withConfig({
         guards: {
@@ -26,32 +26,9 @@ export class SpotifyClient extends Resource {
           }
         },
         services: {
-          loadDevices: async () => {
-            this.devices = (await this.api.getMyDevices()).devices;
-            console.log('loadDevices', this.devices);
-
-          },
-          autoselectDevice: async () => {
-            this.device = this.devices.find((device) => device.is_active);
-
-            if (!this.device && this.devices.length === 1) {
-              const device = this.devices[0];
-
-              await this.api.transferMyPlayback([device.id as string]);
-              this.device = device;
-            }
-          },
-          loadPlayback: () => async (send) => {
-            const playing = await this.api.getMyCurrentPlayingTrack();
-
-            if (playing?.item) {
-              this.track = useTrack(this, { track: playing.item });
-            }
-
-            if (playing.is_playing) {
-              send(SpotifyEventNames.Play);
-            }
-          }
+          loadDevices,
+          autoselectDevice,
+          loadPlayback
         }
       })
     };
@@ -59,30 +36,55 @@ export class SpotifyClient extends Resource {
 
   api = new SpotifyWebApi();
 
+  // machine services
+  loadDevices = async () => {
+    this.devices = (await this.api.getMyDevices()).devices;
+  };
+
+  autoselectDevice = async () => {
+    const device =
+      // at first try to find the active device
+      this.devices.find((dev) => dev.is_active) ??
+      // if not found, see if there is only one, then pick that one
+      this.devices.length === 1
+        ? this.devices[0]
+        : undefined;
+
+    if (device) {
+      this.selectDevice(device);
+    }
+  };
+
+  loadPlayback = () => async () => {
+    const playing = await this.api.getMyCurrentPlayingTrack();
+
+    if (playing?.item) {
+      this.track = useTrack(this, { track: playing.item });
+    }
+
+    if (playing.is_playing) {
+      this.statechart.send(SpotifyEvent.Play);
+    }
+  };
+
   // exported states
 
   get authenticated() {
-    return this.statechart.state?.matches(SpotifyStateNames.Authenticated);
+    return this.statechart.state?.matches(SpotifyState.Authenticated);
   }
 
   get playing() {
-    console.log('playing?', this.statechart.state?.matches({
-      [SpotifyStateNames.Authenticated]: {
-        [SpotifyStateNames.Playback]: SpotifyStateNames.Playing
-      }
-    }));
-
     return this.statechart.state?.matches({
-      [SpotifyStateNames.Authenticated]: {
-        [SpotifyStateNames.Playback]: SpotifyStateNames.Playing
+      [SpotifyState.Authenticated]: {
+        [SpotifyState.Playback]: SpotifyState.Playing
       }
     });
   }
 
   get ready() {
     return this.statechart.state?.matches({
-      [SpotifyStateNames.Authenticated]: {
-        [SpotifyStateNames.Device]: SpotifyStateNames.Ready
+      [SpotifyState.Authenticated]: {
+        [SpotifyState.Device]: SpotifyState.Ready
       }
     });
   }
@@ -92,10 +94,10 @@ export class SpotifyClient extends Resource {
   authenticate = async (accessToken: string) => {
     try {
       this.api.setAccessToken(accessToken);
-      const me = await this.api.getMe();
-      console.log('me', me);
 
-      this.statechart.send(SpotifyEventNames.Authenticate);
+      await this.api.getMe();
+
+      this.statechart.send(SpotifyEvent.Authenticate);
 
       return true;
     } catch (e) {
@@ -107,12 +109,12 @@ export class SpotifyClient extends Resource {
 
   play = async (options?: SpotifyApi.PlayParameterObject) => {
     await this.api.play(options);
-    this.statechart.send(SpotifyEventNames.Play);
+    this.statechart.send(SpotifyEvent.Play);
   };
 
   pause = async () => {
     await this.api.pause();
-    this.statechart.send(SpotifyEventNames.Pause);
+    this.statechart.send(SpotifyEvent.Pause);
   };
 
   toggle = () => {
@@ -121,21 +123,20 @@ export class SpotifyClient extends Resource {
     } else {
       this.play();
     }
-  }
+  };
 
-  selectDevice = async (device: SpotifyApi.UserDevice) => {
+  selectDevice = async (device: Device) => {
     try {
       await this.api.transferMyPlayback([device.id as string]);
       this.device = device;
-      this.statechart.send(SpotifyEventNames.SelectDevice);
+      this.statechart.send(SpotifyEvent.SelectDevice);
       // eslint-disable-next-line no-empty
     } catch {}
   };
 
-  @action
-  selectTrack(track: SpotifyApi.TrackObjectFull) {
+  selectTrack = (track: SpotifyApi.TrackObjectFull) => {
     const resource = useTrack(this, { track });
+
     this.track = resource;
-    console.log('SpotifyClient.selectTrack', this.track, resource, track);
-  }
+  };
 }

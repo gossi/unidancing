@@ -1,4 +1,4 @@
-import * as oauth from '@panva/oauth4webapi';
+import * as oauth from 'oauth4webapi'
 
 interface OauthClientConfig {
   issuer: string;
@@ -6,6 +6,12 @@ interface OauthClientConfig {
   clientSecret: string;
   grantRedirectURI: string;
   scopes: string[];
+}
+
+interface GrantResponse {
+  access_token: string;
+  refresh_token: string;
+  expires_in: number;
 }
 
 class OauthClient {
@@ -50,7 +56,7 @@ class OauthClient {
     return loginUrl;
   }
 
-  async grantCode(url: string | URL) {
+  async grantCode(url: string | URL): Promise<GrantResponse> {
     const params = oauth.validateAuthResponse(
       this.#as,
       this.#client,
@@ -93,7 +99,7 @@ class OauthClient {
 
     // ... so do the somewhat hacky way. Same code as above, but no errors
     // and no validation :shrug:
-    const result = await response.json();
+    const result = await response.json() as GrantResponse;
 
     return result;
   }

@@ -1,9 +1,6 @@
 import { createMachine } from 'xstate';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-export interface SpotifyContext {}
-
-export enum SpotifyStateNames {
+export enum SpotifyState {
   Authenticated = 'authenticated',
   Unauthenticated = 'unauthenticated',
   Device = 'device',
@@ -16,7 +13,7 @@ export enum SpotifyStateNames {
   Paused = 'paused'
 }
 
-export enum SpotifyEventNames {
+export enum SpotifyEvent {
   Authenticate = 'authenticate',
   Unauthenticate = 'unauthenticate',
   Play = 'play',
@@ -27,150 +24,88 @@ export enum SpotifyEventNames {
   UnmountDevice = 'unmountDevice'
 }
 
-export type SpotifyEvent =
-  | { type: SpotifyEventNames.Authenticate }
-  | { type: SpotifyEventNames.Unauthenticate }
-  | { type: SpotifyEventNames.Play }
-  | { type: SpotifyEventNames.Pause }
-  | { type: SpotifyEventNames.LoadDevices }
-  | { type: SpotifyEventNames.DevicesLoaded }
-  | { type: SpotifyEventNames.SelectDevice }
-  | { type: SpotifyEventNames.UnmountDevice };
-
-export type SpotifyState =
-  | { value: SpotifyStateNames.Authenticated; context: SpotifyContext }
-  | { value: SpotifyStateNames.Unauthenticated; context: SpotifyContext }
-  | {
-      value: {
-        [SpotifyStateNames.Authenticated]: {
-          [SpotifyStateNames.Playback]: SpotifyStateNames.Paused;
-        };
-      };
-      context: SpotifyContext;
-    }
-  | {
-      value: {
-        [SpotifyStateNames.Authenticated]: {
-          [SpotifyStateNames.Playback]: SpotifyStateNames.Playing;
-        };
-      };
-      context: SpotifyContext;
-    }
-  | {
-      value: {
-        [SpotifyStateNames.Authenticated]: {
-          [SpotifyStateNames.Device]: SpotifyStateNames.Pending;
-        };
-      };
-      context: SpotifyContext;
-    }
-  | {
-      value: {
-        [SpotifyStateNames.Authenticated]: {
-          [SpotifyStateNames.Device]: SpotifyStateNames.Loading;
-        };
-      };
-      context: SpotifyContext;
-    }
-  | {
-      value: {
-        [SpotifyStateNames.Authenticated]: {
-          [SpotifyStateNames.Device]: SpotifyStateNames.Selecting;
-        };
-      };
-      context: SpotifyContext;
-    }
-  | {
-      value: {
-        [SpotifyStateNames.Authenticated]: {
-          [SpotifyStateNames.Device]: SpotifyStateNames.Ready;
-        };
-      };
-      context: SpotifyContext;
-    };
-
-export const SpotifyMachine = createMachine<SpotifyContext, SpotifyEvent, SpotifyState>(
+export const SpotifyMachine = createMachine(
   {
     id: 'spotify',
-    initial: SpotifyStateNames.Unauthenticated,
+    initial: SpotifyState.Unauthenticated,
     states: {
-      [SpotifyStateNames.Unauthenticated]: {
+      [SpotifyState.Unauthenticated]: {
         on: {
-          [SpotifyEventNames.Authenticate]: {
-            target: SpotifyStateNames.Authenticated
+          [SpotifyEvent.Authenticate]: {
+            target: SpotifyState.Authenticated
           }
         }
       },
-      [SpotifyStateNames.Authenticated]: {
+      [SpotifyState.Authenticated]: {
         type: 'parallel',
         states: {
-          [SpotifyStateNames.Device]: {
-            initial: SpotifyStateNames.Pending,
+          [SpotifyState.Device]: {
+            initial: SpotifyState.Pending,
             states: {
-              [SpotifyStateNames.Pending]: {
+              [SpotifyState.Pending]: {
                 on: {
-                  [SpotifyEventNames.LoadDevices]: {
-                    target: SpotifyStateNames.Loading
+                  [SpotifyEvent.LoadDevices]: {
+                    target: SpotifyState.Loading
                   },
                   '': [
-                    { target: SpotifyStateNames.Selecting, cond: 'hasDevices' },
-                    { target: SpotifyStateNames.Loading }
+                    { target: SpotifyState.Selecting, cond: 'hasDevices' },
+                    { target: SpotifyState.Loading }
                   ]
                 }
               },
-              [SpotifyStateNames.Loading]: {
+              [SpotifyState.Loading]: {
                 invoke: {
                   src: 'loadDevices',
                   onDone: {
-                    target: SpotifyStateNames.Selecting
+                    target: SpotifyState.Selecting
                   }
                 }
               },
-              [SpotifyStateNames.Selecting]: {
+              [SpotifyState.Selecting]: {
                 invoke: {
-                  src: 'autoselectDevice',
-                  onDone: {
-                    target: SpotifyStateNames.Ready
-                  }
+                  src: 'autoselectDevice'
                 },
                 on: {
-                  [SpotifyEventNames.SelectDevice]: {
-                    target: SpotifyStateNames.Ready
+                  [SpotifyEvent.SelectDevice]: {
+                    target: SpotifyState.Ready
                   }
                 }
               },
-              [SpotifyStateNames.Ready]: {
+              [SpotifyState.Ready]: {
                 on: {
-                  [SpotifyEventNames.UnmountDevice]: [
+                  [SpotifyEvent.SelectDevice]: {
+                    target: SpotifyState.Ready
+                  },
+                  [SpotifyEvent.UnmountDevice]: [
                     {
-                      target: SpotifyStateNames.Selecting,
+                      target: SpotifyState.Selecting,
                       cond: 'hasDevices'
                     },
                     {
-                      target: SpotifyStateNames.Loading
+                      target: SpotifyState.Loading
                     }
                   ]
                 }
               }
             }
           },
-          [SpotifyStateNames.Playback]: {
-            initial: SpotifyStateNames.Paused,
+          [SpotifyState.Playback]: {
+            initial: SpotifyState.Paused,
             invoke: {
               src: 'loadPlayback'
             },
             states: {
-              [SpotifyStateNames.Paused]: {
+              [SpotifyState.Paused]: {
                 on: {
-                  [SpotifyEventNames.Play]: {
-                    target: SpotifyStateNames.Playing
+                  [SpotifyEvent.Play]: {
+                    target: SpotifyState.Playing
                   }
                 }
               },
-              [SpotifyStateNames.Playing]: {
+              [SpotifyState.Playing]: {
                 on: {
-                  [SpotifyEventNames.Pause]: {
-                    target: SpotifyStateNames.Paused
+                  [SpotifyEvent.Pause]: {
+                    target: SpotifyState.Paused
                   }
                 }
               }
@@ -178,8 +113,8 @@ export const SpotifyMachine = createMachine<SpotifyContext, SpotifyEvent, Spotif
           }
         },
         on: {
-          [SpotifyEventNames.Unauthenticate]: {
-            target: SpotifyStateNames.Unauthenticated
+          [SpotifyEvent.Unauthenticate]: {
+            target: SpotifyState.Unauthenticated
           }
         }
       }

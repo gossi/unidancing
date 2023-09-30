@@ -1,9 +1,11 @@
-import Transition from '@ember/routing/transition';
 import Route from '@ember/routing/route';
-import RouterService from '@ember/routing/router-service';
 import { service } from '@ember/service';
-import SpotifyService from '../../services/spotify';
+
 import { deserialize } from '../../utils/serde';
+
+import type SpotifyService from '../../services/spotify';
+import type RouterService from '@ember/routing/router-service';
+import type Transition from '@ember/routing/transition';
 
 type RouteModel = object | string | number;
 type RouteArgs = Parameters<RouterService['urlFor']>;

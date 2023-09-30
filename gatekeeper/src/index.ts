@@ -21,9 +21,11 @@ export interface Env {
   // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
   // MY_BUCKET: R2Bucket;
 
-  SPOTIFY_REDIRECT_URI: string;
+  // SPOTIFY_REDIRECT_URI: string;
   SPOTIFY_CLIENT_ID: string;
   SPOTIFY_CLIENT_SECRET: string;
+  WORKER_ROOT: string;
+  APP_ROOT: string;
 }
 
 let spotifyClient: OauthClient;
@@ -33,7 +35,7 @@ async function getSpotifyClient(env: Env): Promise<OauthClient> {
       issuer: 'https://accounts.spotify.com',
       clientId: env.SPOTIFY_CLIENT_ID,
       clientSecret: env.SPOTIFY_CLIENT_SECRET,
-      grantRedirectURI: `${env.WORKER_ROOT}/spotify/logged`,
+      grantRedirectURI: `${env.WORKER_ROOT}/spotify/authenticated`,
       scopes: [
         'playlist-read-collaborative',
         'playlist-read-private',
@@ -53,19 +55,19 @@ const router = Router();
 router.get('/spotify/login', async (_req, env: Env) => {
   const spotify = await getSpotifyClient(env);
   const loginUrl = await spotify.getAuthorizationURL();
-  return Response.redirect(loginUrl);
+  return Response.redirect(loginUrl.toString());
 });
 
-router.get('/spotify/logged', async (req, env: Env) => {
+router.get('/spotify/authenticated', async (req, env: Env) => {
   const spotify = await getSpotifyClient(env);
   const result = await spotify.grantCode(req.url);
 
   const redirectUrl = new URL(`${env.APP_ROOT}/auth/spotify`);
   redirectUrl.searchParams.set('access_token', result.access_token);
   redirectUrl.searchParams.set('refresh_token', result.refresh_token);
-  redirectUrl.searchParams.set('expires_in', result.expires_in);
+  redirectUrl.searchParams.set('expires_in', `${result.expires_in}`);
 
-  return Response.redirect(redirectUrl);
+  return Response.redirect(redirectUrl.toString());
 });
 
 router.get('/spotify/refresh', async (req, env) => {
@@ -95,7 +97,7 @@ const corsHeaders = {
   'Access-Control-Max-Age': '86400'
 };
 
-function handleOptions(request) {
+function handleOptions(request: Request) {
   // Make sure the necessary headers are present
   // for this to be a valid pre-flight request
   const headers = request.headers;
@@ -116,6 +118,7 @@ function handleOptions(request) {
       )
     };
     return new Response(null, {
+      // @ts-ignore
       headers: respHeaders
     });
   } else {

@@ -14,7 +14,7 @@ interface TrackArgs extends ArgsWrapper {
   };
 }
 
-export class SpotifyTrackResource extends Resource<TrackArgs> {
+export class TrackResource extends Resource<TrackArgs> {
   @service declare spotify: Services['spotify'];
 
   #cache: Map<string, Record<string, unknown>>;
@@ -70,7 +70,5 @@ export class SpotifyTrackResource extends Resource<TrackArgs> {
 }
 
 export function useTrack(destroyable: object, args: TrackArgs['named']) {
-  return SpotifyTrackResource.from(destroyable, () => {
-    return args;
-  });
+  return TrackResource.from(destroyable, () => args);
 }

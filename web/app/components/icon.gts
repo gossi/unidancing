@@ -21,7 +21,8 @@ enum Icon {
   plus = '➕',
   trash = '🗑️',
   go = '➡️',
-  check = '✅'
+  check = '✅',
+  reload = '🔄'
 }
 
 export type Icons = keyof typeof Icon;
@@ -41,10 +42,4 @@ export default class IconComponent extends Component<IconSignature> {
   <template>
     {{getIcon @icon}}
   </template>
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    Icon: typeof IconComponent;
-  }
 }

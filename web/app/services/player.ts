@@ -1,3 +1,4 @@
-import { PlayerService } from '../audio/player';
+// @TODO rename this back to `audio.ts` when ember is cool with the service again
+import { AudioService } from '../audio';
 
-export default PlayerService;
+export default AudioService;

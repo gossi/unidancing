@@ -3,7 +3,6 @@ import Service from '@ember/service';
 import config from '@unidancing/app/config/environment';
 import { task, timeout } from 'ember-concurrency';
 
-// import SpotifyWebApi from 'spotify-web-api-js';
 import { deserialize } from '../../utils/serde';
 import { SpotifyClient } from './client';
 
@@ -12,6 +11,10 @@ interface SpotifyStorage {
   refreshToken?: string;
 }
 
+/**
+ * The Spotify service authenticates against their API and manages the
+ * connection.
+ */
 export default class SpotifyService extends Service {
   #storage: SpotifyStorage;
 
@@ -31,26 +34,6 @@ export default class SpotifyService extends Service {
 
   async restore() {
     console.log('SpotifyService.restore', this.#storage);
-
-    // try {
-    //   if (this.#storage.accessToken) {
-    //     this.client.setAccessToken(this.#storage.accessToken);
-    //     await this.client.getMe();
-    //     this.authed = true;
-    //   }
-    // } catch (e) {
-    //   this.client.setAccessToken(null);
-    //   delete this.#storage.accessToken;
-    // }
-
-    // if (!this.authed && this.#storage.refreshToken) {
-    //   await this.refresh(this.#storage.refreshToken);
-    //   if (!this.authed) {
-    //     delete this.#storage.refreshToken;
-    //   }
-    // }
-
-    // this.persist();
 
     if (this.#storage.accessToken) {
       await this.client.authenticate(this.#storage.accessToken);
@@ -88,10 +71,7 @@ export default class SpotifyService extends Service {
     this.persist();
 
     if (refreshToken && expiresIn) {
-      this.refresher.perform(
-        refreshToken,
-        Number.parseInt(expiresIn, 10) * 1000 - 300
-      );
+      this.refresher.perform(refreshToken, Number.parseInt(expiresIn, 10) * 1000 - 300);
     }
 
     if (accessToken) {

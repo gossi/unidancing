@@ -1,23 +1,15 @@
 .layout {
   display: flex;
-  gap: 2rem;
   flex-wrap: wrap;
+  gap: 2rem;
   justify-content: space-between;
 
   & > * {
     margin: 0;
   }
-
-  p,
-  select {
-    max-width: 33%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 }
 
-.play {
+.reload {
   &,
   &:hover,
   &:active,
@@ -26,15 +18,21 @@
     --border-color: transparent;
     --box-shadow: unset;
   }
+
   display: inline;
-  width: auto;
-  padding: 0;
   font-size: 3em;
   line-height: 1em;
   margin: 0;
+  padding: 0;
+  width: auto;
 }
 
 .devices {
-  width: auto;
-  margin: 0;
+  align-items: center;
+  display: flex;
+  gap: 8px;
+
+  & > * {
+    margin: 0;
+  }
 }
