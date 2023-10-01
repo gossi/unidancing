@@ -46,7 +46,7 @@ module.exports = function (environment) {
 
   if (environment === 'production') {
     // here you can enable a production-specific feature
-    ENV.workerHostURL = 'https://unidancing.gossi.workers.dev';
+    ENV.workerHostURL = 'https://connect.unidancing.art';
   }
 
   return ENV;
