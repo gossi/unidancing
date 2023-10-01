@@ -79,7 +79,6 @@ class OauthClient {
       throw new Error(); // Handle www-authenticate challenges as needed
     }
 
-    // this here would be the official way, but returns an error...
     const result = await oauth.processAuthorizationCodeOAuth2Response(
       this.#as,
       this.#client,
@@ -100,11 +99,6 @@ class OauthClient {
       this.#client,
       token
     );
-
-    // ... same as above... :/
-    // const result = await response.json();
-
-    // return result;
 
     const result = await oauth.processRefreshTokenResponse(
       this.#as,
