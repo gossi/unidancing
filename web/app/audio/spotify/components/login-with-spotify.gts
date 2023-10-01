@@ -2,10 +2,11 @@ import Component from '@glimmer/component';
 import { on } from '@ember/modifier';
 import config from '@unidancing/app/config/environment';
 import { action } from '@ember/object';
-import { service, Registry as Services } from '@ember/service';
+import { service } from '@ember/service';
+import type RouterService from '@ember/routing/router-service';
 
-export default class LoginWithSpotifyComponent extends Component {
-  @service declare router: Services['router'];
+export default class LoginWithSpotify extends Component {
+  @service declare router: RouterService;
 
   @action
   loginWithSpotify() {
@@ -18,10 +19,4 @@ export default class LoginWithSpotifyComponent extends Component {
     </a><br />
     (Login mit Spotify benötigt derzeit noch eine manuelle Freischaltung, bitte bei gossi melden).
   </template>
-}
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    LoginWithSpotify: typeof LoginWithSpotifyComponent;
-  }
 }

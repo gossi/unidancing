@@ -14,8 +14,6 @@ export function createGameLinkBuilder<K extends keyof Games>(
   linkManager: LinkManagerService,
   router: RouterService
 ): GameLinkBuilder<K> {
-  // console.log('route', route);
-
   return (game: K, params?: Games[K]): Link => {
     return linkManager.createLink({
       route: router.currentRouteName as string,
@@ -34,8 +32,6 @@ export default class ExerciseDetailsRoute extends Route {
   resource = useExercise(this);
 
   model({ id }: { id: string }) {
-    console.log('router', this.router.currentRouteName);
-
     return {
       exercise: this.resource.find(id),
       buildExerciseLink: createExerciseLinkBuilder(this.linkManager),

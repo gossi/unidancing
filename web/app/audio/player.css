@@ -1,10 +1,10 @@
 .player {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: var(--s0);
-  border-top: 1px solid #000;
   background-color: var(--card-background-color);
+  border-top: 1px solid #000;
+  bottom: 0;
+  padding: var(--s0);
+  position: fixed;
+  width: 100%;
 
   :global(.grid) :where(p, button, select) {
     margin-bottom: 0;

@@ -1,4 +1,4 @@
-import * as oauth from '@panva/oauth4webapi';
+import * as oauth from 'oauth4webapi'
 
 interface OauthClientConfig {
   issuer: string;
@@ -50,7 +50,7 @@ class OauthClient {
     return loginUrl;
   }
 
-  async grantCode(url: string | URL) {
+  async grantCode(url: string | URL): Promise<oauth.OAuth2TokenEndpointResponse> {
     const params = oauth.validateAuthResponse(
       this.#as,
       this.#client,
@@ -79,49 +79,39 @@ class OauthClient {
       throw new Error(); // Handle www-authenticate challenges as needed
     }
 
-    // this here would be the official way, but returns an error...
-    // const result = await oauth.processAuthorizationCodeOAuth2Response(
-    //   as,
-    //   spotify,
-    //   response
-    // );
+    const result = await oauth.processAuthorizationCodeOAuth2Response(
+      this.#as,
+      this.#client,
+      response
+    );
 
-    // if (oauth.isOAuth2Error(result)) {
-    //   console.log('error', result);
-    //   throw new Error(); // Handle OAuth 2.0 response body error
-    // }
-
-    // ... so do the somewhat hacky way. Same code as above, but no errors
-    // and no validation :shrug:
-    const result = await response.json();
+    if (oauth.isOAuth2Error(result)) {
+      console.error(result);
+      throw new Error(); // Handle OAuth 2.0 response body error
+    }
 
     return result;
   }
 
-  async refresh(token: string) {
+  async refresh(token: string): Promise<oauth.TokenEndpointResponse> {
     const response = await oauth.refreshTokenGrantRequest(
       this.#as,
       this.#client,
       token
     );
 
-    // ... same as above... :/
-    const result = await response.json();
+    const result = await oauth.processRefreshTokenResponse(
+      this.#as,
+      this.#client,
+      response
+    );
+
+    if (oauth.isOAuth2Error(result)) {
+      console.error(result);
+      throw new Error(); // Handle OAuth 2.0 response body error
+    }
 
     return result;
-
-    // const result = await oauth.processRefreshTokenResponse(
-    //   this.#as,
-    //   this.#client,
-    //   response
-    // );
-
-    // if (oauth.isOAuth2Error(result)) {
-    //   console.log('error', result);
-    //   throw new Error(); // Handle OAuth 2.0 response body error
-    // }
-
-    // return result;
   }
 }
 

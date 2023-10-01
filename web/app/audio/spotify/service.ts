@@ -1,47 +1,46 @@
 import Service from '@ember/service';
-import { tracked } from '@glimmer/tracking';
-import SpotifyWebApi from 'spotify-web-api-js';
-import { deserialize } from '../../utils/serde';
-import { task, timeout } from 'ember-concurrency';
+
 import config from '@unidancing/app/config/environment';
+import { task, timeout } from 'ember-concurrency';
+
+import { deserialize } from '../../utils/serde';
+import { SpotifyClient } from './client';
 
 interface SpotifyStorage {
   accessToken?: string;
   refreshToken?: string;
 }
 
+/**
+ * The Spotify service authenticates against their API and manages the
+ * connection.
+ */
 export default class SpotifyService extends Service {
-  @tracked authed = false;
   #storage: SpotifyStorage;
 
   redirectAfterLogin?: string;
 
-  client = new SpotifyWebApi();
+  client = SpotifyClient.from(this, () => []);
 
   constructor() {
     super();
 
     const data = localStorage.getItem('spotify');
+
     this.#storage = data ? JSON.parse(data) : {};
 
     this.restore();
   }
 
   async restore() {
-    try {
-      if (this.#storage.accessToken) {
-        this.client.setAccessToken(this.#storage.accessToken);
-        await this.client.getMe();
-        this.authed = true;
-      }
-    } catch (e) {
-      this.client.setAccessToken(null);
-      delete this.#storage.accessToken;
+    if (this.#storage.accessToken) {
+      await this.client.authenticate(this.#storage.accessToken);
     }
 
-    if (!this.authed && this.#storage.refreshToken) {
+    if (!this.client.authenticated && this.#storage.refreshToken) {
       await this.refresh(this.#storage.refreshToken);
-      if (!this.authed) {
+
+      if (!this.client.authenticated) {
         delete this.#storage.refreshToken;
       }
     }
@@ -51,36 +50,26 @@ export default class SpotifyService extends Service {
 
   async refresh(token: string) {
     try {
-      const response = await fetch(
-        `${config.workerHostURL}/spotify/refresh?token=${token}`
-      );
+      const response = await fetch(`${config.workerHostURL}/spotify/refresh?token=${token}`);
 
       if (response.status === 200) {
-        this.auth(deserialize(await response.json()));
+        this.authenticate(deserialize(await response.json()));
       }
     } catch (_e) {
       // do not do something here
     }
   }
 
-  auth({
-    accessToken,
-    refreshToken,
-    expiresIn
-  }: SpotifyStorage & { expiresIn?: string }) {
+  authenticate({ accessToken, refreshToken, expiresIn }: SpotifyStorage & { expiresIn?: string }) {
     this.#storage = { accessToken, refreshToken };
     this.persist();
 
     if (refreshToken && expiresIn) {
-      this.refresher.perform(
-        refreshToken,
-        Number.parseInt(expiresIn, 10) * 1000 - 300
-      );
+      this.refresher.perform(refreshToken, Number.parseInt(expiresIn, 10) * 1000 - 300);
     }
 
     if (accessToken) {
-      this.client.setAccessToken(accessToken);
-      this.authed = true;
+      this.client.authenticate(accessToken);
     }
   }
 
