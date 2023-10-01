@@ -3,14 +3,14 @@ import { service } from '@ember/service';
 
 import { Resource } from 'ember-resources';
 
+import type { Track } from '../domain-objects';
 import type { Registry as Services } from '@ember/service';
 import type { ArgsWrapper } from 'ember-resources';
 
 interface TrackArgs extends ArgsWrapper {
-  positional: [string];
   named: {
     id?: string;
-    track?: SpotifyApi.TrackObjectFull;
+    track?: Track;
   };
 }
 
@@ -19,7 +19,7 @@ export class TrackResource extends Resource<TrackArgs> {
 
   #cache: Map<string, Record<string, unknown>>;
 
-  @tracked data?: SpotifyApi.TrackObjectFull;
+  @tracked data?: Track;
   @tracked analysis?: Record<string, unknown>;
 
   constructor(owner: unknown) {
@@ -30,7 +30,7 @@ export class TrackResource extends Resource<TrackArgs> {
     this.#cache = new Map(Object.entries(cache));
   }
 
-  modify([id]: TrackArgs['positional'], { track }: TrackArgs['named']) {
+  modify(_pos: [], { track, id }: TrackArgs['named']) {
     // take from args
     if (track) {
       this.data = track;
@@ -67,8 +67,4 @@ export class TrackResource extends Resource<TrackArgs> {
 
     localStorage.setItem('track-analysis', JSON.stringify(cache));
   }
-}
-
-export function useTrack(destroyable: object, args: TrackArgs['named']) {
-  return TrackResource.from(destroyable, () => args);
 }

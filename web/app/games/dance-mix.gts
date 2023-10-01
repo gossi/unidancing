@@ -6,7 +6,8 @@ import {
   formatArtists,
   PlaylistResource,
   getRandomTracks,
-  SpotifyService
+  SpotifyService,
+  isReadyForPlayback
 } from '../audio/spotify';
 import { AudioPlayer, AudioService } from '../audio';
 import { service } from '@ember/service';
@@ -276,7 +277,11 @@ class Lobby extends Component<LobbySignature> {
         <input type='number' name='amount' value={{this.params.amount}} />
       </label>
 
-      <button type='submit'>Start</button>
+      {{#if (isReadyForPlayback)}}
+        <button type='submit'>Start</button>
+      {{else}}
+        Bitte Spotify Player auswählen
+      {{/if}}
     </form>
   </template>
 }
@@ -347,11 +352,9 @@ class Game extends Component<DanceMixSignature> {
     return PLAYLISTS[PlaylistOptions.Epic];
   }
 
-  playlist: PlaylistResource = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
+  playlist = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
 
   selectPlaylist = (playlist: SpotifyApi.PlaylistObjectSimplified) => {
-    console.log('selectPlaylist');
-
     const id = playlist.id;
     localStorage.setItem('dance-playlist', id);
 

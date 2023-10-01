@@ -33,8 +33,6 @@ export default class SpotifyService extends Service {
   }
 
   async restore() {
-    console.log('SpotifyService.restore', this.#storage);
-
     if (this.#storage.accessToken) {
       await this.client.authenticate(this.#storage.accessToken);
     }
@@ -51,8 +49,6 @@ export default class SpotifyService extends Service {
   }
 
   async refresh(token: string) {
-    console.log('SpotifyService.refresh with token', token);
-
     try {
       const response = await fetch(`${config.workerHostURL}/spotify/refresh?token=${token}`);
 
@@ -65,8 +61,6 @@ export default class SpotifyService extends Service {
   }
 
   authenticate({ accessToken, refreshToken, expiresIn }: SpotifyStorage & { expiresIn?: string }) {
-    console.log('SpotifyService.authenticate', { accessToken, refreshToken, expiresIn });
-
     this.#storage = { accessToken, refreshToken };
     this.persist();
 

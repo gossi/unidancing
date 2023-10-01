@@ -34,11 +34,3 @@ export class PlaylistResource extends Resource<PlaylistArgs> {
     this.playlist = response;
   }
 }
-
-export function usePlaylist(destroyable: object, args: PlaylistArgs['named']) {
-  return PlaylistResource.from(destroyable, () => {
-    return {
-      playlist: (() => args.playlist)()
-    };
-  });
-}

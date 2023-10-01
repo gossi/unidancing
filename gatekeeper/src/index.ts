@@ -64,7 +64,7 @@ router.get('/spotify/authenticated', async (req, env: Env) => {
 
   const redirectUrl = new URL(`${env.APP_ROOT}/auth/spotify`);
   redirectUrl.searchParams.set('access_token', result.access_token);
-  redirectUrl.searchParams.set('refresh_token', result.refresh_token);
+  redirectUrl.searchParams.set('refresh_token', result.refresh_token as string);
   redirectUrl.searchParams.set('expires_in', `${result.expires_in}`);
 
   return Response.redirect(redirectUrl.toString());

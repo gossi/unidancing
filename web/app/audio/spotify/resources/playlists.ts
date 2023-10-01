@@ -30,7 +30,3 @@ export class PlaylistsResource extends Resource {
     // );
   }
 }
-
-export function usePlaylists(destroyable: object) {
-  return PlaylistsResource.from(destroyable);
-}

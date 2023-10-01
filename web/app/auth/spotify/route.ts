@@ -32,8 +32,6 @@ export default class SpotifyAuthRoute extends Route {
 
   activate(transition: Transition) {
     if (Object.keys(transition.to?.queryParams).length > 0) {
-      console.log('SpotifyAuthRoute.activate qp', transition.to?.queryParams);
-
       this.spotify.authenticate(deserialize(transition.to?.queryParams));
 
       const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');

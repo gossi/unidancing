@@ -5,10 +5,9 @@ import { useMachine } from 'ember-statecharts';
 import SpotifyWebApi from 'spotify-web-api-js';
 
 import { SpotifyEvent, SpotifyMachine, SpotifyState } from './machine';
-import { useTrack } from './resources/track';
+import { TrackResource } from './resources/track';
 
-import type { Device } from './domain-objects';
-import type { TrackResource } from './resources/track';
+import type { Device, Track } from './domain-objects';
 
 export class SpotifyClient extends Resource {
   @tracked devices: Device[] = [];
@@ -59,7 +58,9 @@ export class SpotifyClient extends Resource {
     const playing = await this.api.getMyCurrentPlayingTrack();
 
     if (playing?.item) {
-      this.track = useTrack(this, { track: playing.item });
+      this.track = TrackResource.from(this, () => ({
+        track: playing.item
+      }));
     }
 
     if (playing.is_playing) {
@@ -134,9 +135,7 @@ export class SpotifyClient extends Resource {
     } catch {}
   };
 
-  selectTrack = (track: SpotifyApi.TrackObjectFull) => {
-    const resource = useTrack(this, { track });
-
-    this.track = resource;
+  selectTrack = (track: Track) => {
+    this.track = TrackResource.from(this, () => ({ track }));
   };
 }
