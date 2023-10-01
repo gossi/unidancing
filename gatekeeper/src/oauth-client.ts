@@ -8,12 +8,6 @@ interface OauthClientConfig {
   scopes: string[];
 }
 
-interface GrantResponse {
-  access_token: string;
-  refresh_token: string;
-  expires_in: number;
-}
-
 class OauthClient {
   #codeVerifier: string;
   #config: OauthClientConfig;
