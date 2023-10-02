@@ -3,6 +3,9 @@ title: Dance Mix
 locomotion: 
 - unicycle
 - pedes
+games:
+- name: dance-mix
+  label: Dance Mix
 ---
 
 Beim Dance Mix wird ein Satz Lieder für eine gewisse Zeit mit

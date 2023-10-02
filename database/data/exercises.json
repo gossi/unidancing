@@ -59,6 +59,12 @@
         "unicycle",
         "pedes"
       ],
+      "games": [
+        {
+          "name": "dance-mix",
+          "label": "Dance Mix"
+        }
+      ],
       "excerpt": "<p>Beim Dance Mix wird ein Satz Lieder f&#xFC;r eine gewisse Zeit mit\nPausen wiedergegeben. Der Satz ist parametriesierbar durch:</p>"
     },
     {

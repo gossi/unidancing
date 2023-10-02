@@ -2,6 +2,11 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const packageJson = require('./package');
+const { browsers } = require('@gossi/config-targets');
+
+function isProduction() {
+  return EmberApp.env() === 'production';
+}
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
@@ -19,29 +24,52 @@ module.exports = function (defaults) {
     }
   });
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
-
-  app.import('node_modules/@picocss/pico/css/pico.min.css');
-
-  // return app.toTree();
   const { Webpack } = require('@embroider/webpack');
 
   return require('@embroider/compat').compatBuild(app, Webpack, {
+    staticAddonTestSupportTrees: true,
+    staticAddonTrees: true,
+    staticHelpers: true,
+    staticModifiers: true,
+    staticComponents: true,
+    staticEmberSource: true,
+    splitAtRoutes: ['courses', 'skills', 'exercises', 'moves', 'choreography', 'training'],
     packagerOptions: {
       webpackConfig: {
-        devtool: process.env.CI ? 'source-map' : 'eval'
-      }
+        devtool: process.env.CI ? 'source-map' : 'eval',
+        module: {
+          rules: [
+            {
+              // exclude: /node_modules/,
+              // test: /\.css$/i,
+              test: /(node_modules\/\.embroider\/rewritten-app\/)(.*\.css)$/i,
+              use: [
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    // sourceMap: !isProduction()
+                    postcssOptions: {
+                      config: './postcss.config.js'
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      },
+      cssLoaderOptions: {
+        modules: {
+          localIdentName: isProduction() ? '[sha512:hash:base64:5]' : '[path][name]__[local]',
+          mode: (resourcePath) => {
+            const hostAppLocation = 'node_modules/.embroider/rewritten-app';
+
+            return resourcePath.includes(hostAppLocation) ? 'local' : 'global';
+          }
+        }
+        // sourceMap: !isProduction()
+      },
+      publicAssetURL: '/'
     }
   });
 };
