@@ -5,6 +5,7 @@ import { formatPersonal } from '../../helpers/format-personal';
 import { formatLocomotion } from '../../helpers/format-locomotion';
 import { htmlSafe } from '@ember/template';
 import { on } from '@ember/modifier';
+import styles from './styles.css';
 
 import type { Exercise } from '../../database/exercises';
 import type { GameLinkBuilder } from './route';
@@ -29,7 +30,7 @@ export default RouteTemplate<Signature>(<template>
 
       <hgroup>
         <h1><Icon @icon='exercise' /> {{exercise.title}}</h1>
-        <span local-class='tagline'>
+        <span class={{styles.tagline}}>
           {{#each exercise.personal as |personal|}}
             {{formatPersonal personal text=true}}
           {{/each}}
@@ -44,10 +45,10 @@ export default RouteTemplate<Signature>(<template>
         </span>
       </hgroup>
 
-      <div local-class='layout'>
-        <section local-class='main'>
+      <div class={{styles.layout}}>
+        <section class={{styles.main}}>
           {{#if exercise.games}}
-            <header local-class='header'>
+            <header class={{styles.header}}>
               {{#each exercise.games as |game|}}
                 {{#let (@model.buildGameLink game.name game.params) as |link|}}
                   <a

@@ -41,8 +41,8 @@
 
   aside {
     & > section {
-      border-radius: var(--border-radius);
       background: var(--card-background-color);
+      border-radius: var(--border-radius);
       box-shadow: var(--card-box-shadow);
       padding: 1rem;
     }

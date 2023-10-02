@@ -18,7 +18,7 @@ interface Signature {
 export default RouteTemplate<Signature>(<template>
   {{pageTitle 'UniDancing'}}
 
-  <nav class='container-fluid' local-class='nav'>
+  <nav class='container-fluid {{styles.nav}}'>
     <ul>
       <li><LinkTo @route='application'><strong>UniDancing</strong></LinkTo></li>
       <li>

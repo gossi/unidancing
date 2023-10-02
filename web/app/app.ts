@@ -1,4 +1,5 @@
 import '@picocss/pico/css/pico.min.css';
+import './assets/app.css';
 
 import Application from '@ember/application';
 
