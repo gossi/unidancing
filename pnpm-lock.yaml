@@ -73,6 +73,9 @@ importers:
       '@embroider/core':
         specifier: ^3.3.0
         version: 3.3.0(@glint/template@1.2.0)
+      '@embroider/router':
+        specifier: ^2.1.4
+        version: 2.1.4(@embroider/core@3.3.0)
       '@embroider/webpack':
         specifier: ^3.2.0
         version: 3.2.0(@embroider/core@3.3.0)(webpack@5.88.2)
@@ -121,9 +124,6 @@ importers:
       '@types/css-modules':
         specifier: ^1.0.2
         version: 1.0.3
-      '@types/ember-qunit':
-        specifier: ^6.1.1
-        version: 6.1.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.0)(ember-source@5.3.0)(qunit@2.20.0)
       '@types/htmlbars-inline-precompile':
         specifier: ^3.0.0
         version: 3.0.0
@@ -2436,6 +2436,21 @@ packages:
       - supports-color
     dev: true
 
+  /@embroider/router@2.1.4(@embroider/core@3.3.0):
+    resolution: {integrity: sha512-SLarR5x90Bg6YPljsp+/9YmLbU8chTsAoas4JWeF8jC1P4aecjm4RM163I2Colf4oDNW0w95z2M9pqZohf9ucQ==}
+    peerDependencies:
+      '@embroider/core': ^2.0.0||^3.0.0
+    peerDependenciesMeta:
+      '@embroider/core':
+        optional: true
+    dependencies:
+      '@ember/test-waiters': 3.0.2
+      '@embroider/addon-shim': 1.8.6
+      '@embroider/core': 3.3.0(@glint/template@1.2.0)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /@embroider/shared-internals@2.5.0(supports-color@8.1.1):
     resolution: {integrity: sha512-7qzrb7GVIyNqeY0umxoeIvjDC+ay1b+wb2yCVuYTUYrFfLAkLEy9FNI3iWCi3RdQ9OFjgcAxAnwsAiPIMZZ3pQ==}
     engines: {node: 12.* || 14.* || >= 16}
@@ -3429,19 +3444,6 @@ packages:
 
   /@types/css-modules@1.0.3:
     resolution: {integrity: sha512-dFJKRbgpu3sMsiDYX7dSL7ZMD/9q1UxbU/dZfIuVsIyRsST/agUNfR24biGeLOmh3YcdUmj71TadJ0mssFVNfA==}
-    dev: true
-
-  /@types/ember-qunit@6.1.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.0)(ember-source@5.3.0)(qunit@2.20.0):
-    resolution: {integrity: sha512-1g5A3vPKhvB/CuN/EP9rBLXYaJOjzKyLYWeBtNDEQNkTuG1dAo/Hg0CCixgbBgLlzaDP8mR/n1xpg8HqQ8SUKg==}
-    deprecated: This is a stub types definition. ember-qunit provides its own type definitions, so you do not need this installed.
-    dependencies:
-      ember-qunit: 8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.0)(ember-source@5.3.0)(qunit@2.20.0)
-    transitivePeerDependencies:
-      - '@ember/test-helpers'
-      - '@glint/template'
-      - ember-source
-      - qunit
-      - supports-color
     dev: true
 
   /@types/eslint-scope@3.7.5:
