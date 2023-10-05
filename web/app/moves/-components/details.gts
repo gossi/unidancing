@@ -1,5 +1,6 @@
 import { Move } from '../../database/moves';
 import Icon from '../../components/icon';
+import VideoPlayer from '../../components/video-player';
 import { Games } from '../../games/games';
 import { Link } from 'ember-link';
 import { on } from '@ember/modifier';
@@ -55,16 +56,7 @@ const MoveDetails: TOC<MoveDetailsSignature> = <template>
       {{/if}}
 
       {{#if @move.video}}
-        {{#let (parseUrl @move.video.url) as |url|}}
-          <iframe
-            class={{styles.player}}
-            src={{url}}
-            title='YouTube video player'
-            frameborder='0'
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
-            allowfullscreen
-          ></iframe>
-        {{/let}}
+        <VideoPlayer @url={{@move.video.url}} class={{styles.player}}/>
       {{/if}}
 
       {{htmlSafe @move.contents}}

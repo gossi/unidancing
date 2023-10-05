@@ -1,7 +1,7 @@
 {
   "name": "skills",
   "cwd": "./",
-  "src": "../skills/",
+  "src": "../content/skills/",
   "filePattern": "**/*.md",
   "ignore": "",
   "dist": "data/skills.json",

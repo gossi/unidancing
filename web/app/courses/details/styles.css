@@ -1,0 +1,42 @@
+.units {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+
+  article {
+    margin: 0;
+
+    & > header {
+      margin-bottom: calc(var(--block-spacing-vertical) * 0.75);
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  margin: var(--block-spacing-vertical) 0;
+}
+
+/* .lessons {
+  counter-reset: lesson;
+} */
+
+.lesson {
+  counter-increment: lesson;
+}
+
+.lesson::before {
+  content: counter(lesson) ". ";
+}
+
+.goals, .contents {
+  padding-inline-start: 1em;
+}
+
+.examples {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  margin-bottom: var(--typography-spacing-vertical);
+}

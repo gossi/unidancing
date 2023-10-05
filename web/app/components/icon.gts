@@ -4,6 +4,7 @@ enum Icon {
   skill = '🎓',
   exercise = '🤼',
   move = '💃',
+  course = '🎓',
   game = '🎭',
   link = '🌐',
   play = '▶️',

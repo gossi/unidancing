@@ -1,7 +1,7 @@
 {
   "name": "moves",
   "cwd": "./",
-  "src": "../moves/",
+  "src": "../content/moves/",
   "filePattern": "**/*.md",
   "ignore": "",
   "dist": "data/moves.json",
