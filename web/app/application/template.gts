@@ -22,9 +22,9 @@ export default RouteTemplate<Signature>(<template>
     <ul>
       <li><LinkTo @route='application'><strong>UniDancing</strong></LinkTo></li>
       <li>
-        <LinkTo @route='skills'>
-          <Icon @icon='skill' />
-          <span class={{styles.label}}>Fertigkeiten</span>
+        <LinkTo @route='moves'>
+          <Icon @icon='move' />
+          <span class={{styles.label}}>Moves</span>
         </LinkTo>
       </li>
       <li>
@@ -34,9 +34,9 @@ export default RouteTemplate<Signature>(<template>
         </LinkTo>
       </li>
       <li>
-        <LinkTo @route='moves'>
-          <Icon @icon='move' />
-          <span class={{styles.label}}>Moves</span>
+        <LinkTo @route='courses'>
+          <Icon @icon='course' />
+          <span class={{styles.label}}>Kurse</span>
         </LinkTo>
       </li>
       <li>

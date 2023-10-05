@@ -3,6 +3,7 @@ import Service from '@ember/service';
 import { load } from '../database/loader';
 
 import type { Model } from '../database/base';
+import type { Course } from '../database/courses';
 import type { Exercise } from '../database/exercises';
 import type { Move } from '../database/moves';
 import type { Principle } from '../database/principles';
@@ -14,6 +15,7 @@ export interface Databases {
   skills: Skill[];
   principles: Principle[];
   moves: Move[];
+  courses: Course[];
 }
 
 export default class DataService extends Service {

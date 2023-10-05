@@ -1,10 +1,10 @@
 {
-  "name": "principles",
+  "name": "courses",
   "cwd": "./",
-  "src": "../content/principles/",
+  "src": "../content/courses/",
   "filePattern": "**/*.md",
   "ignore": "",
-  "dist": "data/principles.json",
+  "dist": "data/courses.json",
   "metadata": false,
   "server": false,
   "deterministicOrder": false,

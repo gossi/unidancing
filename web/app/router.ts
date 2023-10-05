@@ -13,9 +13,10 @@ Router.map(function () {
     this.route('spotify');
   });
   this.route('courses', function () {
-    this.route('improvisation');
-    this.route('moves');
-    this.route('emotionen');
+    this.route('details', { path: '/:id' });
+    // this.route('improvisation');
+    // this.route('moves');
+    // this.route('emotionen');
   });
   this.route('skills', { path: 'fertigkeiten' }, function () {
     this.route('details', { path: '/:id' });

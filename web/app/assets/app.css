@@ -18,4 +18,8 @@ main {
   }
 }
 
+:target {
+  scroll-margin-block: calc(70px + 2ex);
+}
+
 

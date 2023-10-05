@@ -9,7 +9,7 @@
     "ignore": "",
     "port": 3001,
     "server": false,
-    "src": "../skills/",
+    "src": "../content/skills/",
     "name": "skills",
     "metadata": false,
     "version": "1.6.1"
