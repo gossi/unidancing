@@ -64,6 +64,10 @@ export default RouteTemplate<Signature>(<template>
             {{#let (link 'games' @controller.Game.Bingo) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Bingo</a></li>
             {{/let}}
+
+            {{#let (link 'games' @controller.Game.Loops) as |link|}}
+              <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a></li>
+            {{/let}}
           </ul>
         </details>
       </li>

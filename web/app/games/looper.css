@@ -1,0 +1,14 @@
+.loop {
+  --spacing: 0.5rem;
+
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  padding: var(--spacing);
+
+  button {
+    display: inline;
+    margin: 0;
+    width: auto;
+  }
+}

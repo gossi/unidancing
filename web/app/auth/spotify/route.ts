@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 import { deserialize } from '../../utils/serde';
 
 import type SpotifyService from '../../services/spotify';
+import type RouteInfo from '@ember/routing/route-info';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
 
@@ -31,8 +32,8 @@ export default class SpotifyAuthRoute extends Route {
   @service declare router: RouterService;
 
   activate(transition: Transition) {
-    if (Object.keys(transition.to?.queryParams).length > 0) {
-      this.spotify.authenticate(deserialize(transition.to?.queryParams));
+    if (Object.keys(transition.to?.queryParams as {}).length > 0) {
+      this.spotify.authenticate(deserialize(transition.to?.queryParams as {}));
 
       const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
 
@@ -44,10 +45,10 @@ export default class SpotifyAuthRoute extends Route {
 
         // ok, so "transitionTo(url)" will drop the query params, so let's do
         // this fancy thing here:
-        const route = this.router.recognize(routeURL);
+        const route = this.router.recognize(routeURL) as RouteInfo;
         const routeArgs = makeRouteArgs({
           name: route.name,
-          models: Object.values(route.params) as RouteModel[],
+          models: Object.values(route.params as {}) as RouteModel[],
           query: Object.keys(query).length > 0 ? query : undefined
         });
 

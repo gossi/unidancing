@@ -37,7 +37,7 @@ export class TrackResource extends Resource<TrackArgs> {
     }
 
     // ... anyway load from id
-    else if (id) {
+    else if (id && (!this.data || this.data?.id !== id)) {
       this.load(id);
     }
   }
