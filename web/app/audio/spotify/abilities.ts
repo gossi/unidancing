@@ -11,3 +11,9 @@ export const isReadyForPlayback = ability(({ services }) => () => {
 
   return spotify.client.ready;
 });
+
+export const isPlaying = ability(({ services }) => () => {
+  const { spotify } = services;
+
+  return spotify.client.playing;
+});

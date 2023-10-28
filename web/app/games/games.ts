@@ -1,11 +1,13 @@
 import Bingo from './bingo';
 import DanceMix, { DanceMixParam } from './dance-mix';
+import Looper from './looper';
 
 import type { DanceMixParams } from './dance-mix';
 
 export enum Game {
   DanceMix = 'dance-mix',
-  Bingo = 'bingo'
+  Bingo = 'bingo',
+  Loops = 'loops'
 }
 
 export function findGame(game?: Game) {
@@ -15,6 +17,9 @@ export function findGame(game?: Game) {
 
     case Game.Bingo:
       return Bingo;
+
+    case Game.Loops:
+      return Looper;
   }
 
   return undefined;
