@@ -1,5 +1,5 @@
 import RouteTemplate from 'ember-route-template';
-import pageTitle from 'ember-page-title/helpers/page-title';
+import { pageTitle } from 'ember-page-title';
 import Icon from '../../components/icon';
 import { formatPersonal } from '../../helpers/format-personal';
 import { formatLocomotion } from '../../helpers/format-locomotion';

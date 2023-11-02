@@ -1,5 +1,5 @@
 import RouteTemplate from 'ember-route-template';
-import pageTitle from 'ember-page-title/helpers/page-title';
+import { pageTitle } from 'ember-page-title';
 import styles from './styles.css';
 import type { Course } from '../../database/courses';
 import type { Link } from 'ember-link';
