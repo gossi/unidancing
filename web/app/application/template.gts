@@ -1,5 +1,5 @@
 import RouteTemplate from 'ember-route-template';
-import pageTitle from 'ember-page-title/helpers/page-title';
+import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
 import Icon from '../components/icon';
 import { Player } from '../audio';

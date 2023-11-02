@@ -1,5 +1,5 @@
 import RouteTemplate from 'ember-route-template';
-import pageTitle from 'ember-page-title/helpers/page-title';
+import { pageTitle } from 'ember-page-title';
 import { htmlSafe } from '@ember/template';
 import type { Skill } from '../../database/skills';
 
