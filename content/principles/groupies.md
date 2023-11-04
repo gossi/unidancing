@@ -1,7 +1,7 @@
 ---
 title: Kreischende Groupies
 tags:
-- misc
+- competition
 ---
 
 tbd.

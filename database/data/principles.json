@@ -16,6 +16,15 @@
   },
   "data": [
     {
+      "id": "adult-as-junior",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Erwachsene fahren auf Kinder Thema",
+      "tags": [
+        "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
       "id": "arabesque-hand-on-seat",
       "contents": "<p>Ein Folgefehler zu Standup mit Hand am Sattel, ist die Hand am Sattel während der Arabesque. Wird die Hand zum Sattel geführt, beugt sich der Oberkörper (und/oder verwringt sich) und macht es  beinahe unmöglich das nötige Hohlkreuz einzunehmen, darüber den Oberkörper unter Spannung zu setzen, die das freie Bein hält um darüber die charakteristische Bogenspannung für die Arabesque herzustellen.</p>\n<p>Weiter verhindert es, dass der Oberkörper parallel zum Boden gehalten wird. Die Hand zum Sattel leitet eine Längsachsenrotation des Oberkörpers ein. Werden der gleiche Fuß und Hand (z.B. beide links oder beide rechts) genutzt, eröffnet es dem Körper ein &quot;aufdrehen&quot; gen Himmel, wodurch die eine stabile, stützende Haltung des Oberkörpers verhindert wird.</p>\n<p>Als Daumenregel gilt: Die Hand am Sattel macht die Arabesque kaputt.</p>\n",
       "title": "Arabesque mit Hand am Sattel",
@@ -42,6 +51,15 @@
       "excerpt": "<p>Das <strong>Hauptmerkmal der Arabesque ist die Bogenspannung</strong>, die sich von Fu&#xDF; &#xFC;ber H&#xFC;fte bis zum Kopf zeigt. Daraus folgt, wenn <em>keine Bogenspannung</em> sichtbar ist, handelt es sich <em>nicht</em> um <em>eine Arabesque</em>.</p>"
     },
     {
+      "id": "arabesque-pushed",
+      "contents": "<p>Man hält das Messer ja auch nicht an der Schneide fest!</p>\n<p>tbd.</p>\n",
+      "title": "Arabesque am Fuß geschoben",
+      "tags": [
+        "tricks"
+      ],
+      "excerpt": "<p>Man h&#xE4;lt das Messer ja auch nicht an der Schneide fest!</p>"
+    },
+    {
       "id": "arm-motions-repeat",
       "contents": "<p>Durch Armbewegungen lässt sich die Musik am intuitivsten umsetzen. Küren wirken <strong>monoton</strong> und <strong>langweilig</strong>, wenn es die gleichen Armbewegungen über die Kür weg verteilt sind.</p>\n",
       "title": "Armbewegungen wiederholen sich während der Kür auffällig",
@@ -66,7 +84,8 @@
       "contents": "<p>Der musikalische Untermalung der Kür werden ebensowenig Ungereimtheiten geduldet, wie der Kür selbst.</p>\n",
       "title": "Musikschnitt ist hörbar",
       "tags": [
-        "misc"
+        "misc",
+        "flow"
       ],
       "excerpt": "<p>Der musikalische Untermalung der K&#xFC;r werden ebensowenig Ungereimtheiten geduldet, wie der K&#xFC;r selbst.</p>"
     },
@@ -102,7 +121,18 @@
       "contents": "<p>tbd.</p>\n",
       "title": "Kostüm macht Probleme",
       "tags": [
-        "misc"
+        "misc",
+        "flow"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "diagonal-arms",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Diagonale Armhaltung verwringt Oberkörper",
+      "tags": [
+        "tricks",
+        "posture"
       ],
       "excerpt": "<p>tbd.</p>"
     },
@@ -130,7 +160,27 @@
       "contents": "<p>tbd.</p>\n",
       "title": "Fraktionenklatschen",
       "tags": [
-        "misc"
+        "competition"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "gossip-more-interesting",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Gespräche auf der Tribüne sind spannender als die Kür",
+      "tags": [
+        "competition",
+        "choreography",
+        "artistry"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "grin-from-stock",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Grinsen aus dem Regal",
+      "tags": [
+        "artistry"
       ],
       "excerpt": "<p>tbd.</p>"
     },
@@ -139,7 +189,7 @@
       "contents": "<p>tbd.</p>\n",
       "title": "Kreischende Groupies",
       "tags": [
-        "misc"
+        "competition"
       ],
       "excerpt": "<p>tbd.</p>"
     },
@@ -172,6 +222,35 @@
       "excerpt": "<p>Wird eine Bewegung einzig aus dem Grund einer Textstelle umgesetzt wird, ist das oftmals deplatziert und/oder nicht im Stile der restlichen Bewegungen und sollte vermieden werden.</p>"
     },
     {
+      "id": "moderator-needed",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Moderator statt Kür für sich sprechen lassen",
+      "tags": [
+        "artistry",
+        "choreography",
+        "competition"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "moderator-reads-announcer-sheet",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Moderator liest vom Moderationsbogen vor",
+      "tags": [
+        "competition"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "moderator-trash-talk",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Moderator labert Mumpitz",
+      "tags": [
+        "competition"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
       "id": "music-charts",
       "contents": "<p>tbd.</p>\n",
       "title": "Fahrer fährt zu Dirty Dancing / Fluch der Karibik / Phantom der Oper / Frozen / ...",
@@ -195,6 +274,15 @@
       "title": "Nationale Lieder auf internationaler Meisterschaft",
       "tags": [
         "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "no-authentic",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Auftreten ist nicht authentisch",
+      "tags": [
+        "artistry"
       ],
       "excerpt": "<p>tbd.</p>"
     },
@@ -226,6 +314,15 @@
       "excerpt": "<p>tbd.</p>"
     },
     {
+      "id": "no-energy",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Kür hat niedrigen Energielevel",
+      "tags": [
+        "artistry"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
       "id": "no-prop-handling",
       "contents": "<p>tbd.</p>\n",
       "title": "Fahrer kann mit Requisit nicht umgehen",
@@ -239,7 +336,8 @@
       "contents": "",
       "title": "Fahrer ist mit Kostüm überfordert",
       "tags": [
-        "misc"
+        "misc",
+        "flow"
       ],
       "excerpt": ""
     },
@@ -275,7 +373,8 @@
       "contents": "<p>Deutliche zu viele (pre)hops zwischen, bevor und während Hopping-Kombinationen.</p>\n",
       "title": "Ewig viele (Pre)hops",
       "tags": [
-        "tricks"
+        "tricks",
+        "flow"
       ],
       "excerpt": "<p>Deutliche zu viele (pre)hops zwischen, bevor und w&#xE4;hrend Hopping-Kombinationen.</p>"
     },
@@ -293,7 +392,8 @@
       "contents": "<p>tbd.</p>\n",
       "title": "Fahrer kann Ärger über Stürze nicht verbergen",
       "tags": [
-        "misc"
+        "misc",
+        "flow"
       ],
       "excerpt": "<p>tbd.</p>"
     },
@@ -416,6 +516,15 @@
       "excerpt": "<p>tbd.</p>"
     },
     {
+      "id": "theme-as-word-in-song",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Thema wird im Lied als Wort besungen",
+      "tags": [
+        "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
       "id": "too-many-songs",
       "contents": "<p>tbd.</p>\n",
       "title": "Kür hat zu viele Lieder",
@@ -425,11 +534,32 @@
       "excerpt": "<p>tbd.</p>"
     },
     {
+      "id": "transhumance",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Herdenwanderung",
+      "tags": [
+        "competition"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
       "id": "tricks-for-counts",
       "contents": "<p>tbd.</p>\n",
       "title": "Die Tricks sind in der Kür damit es viele sind, nicht weil die Tricks passen",
       "tags": [
         "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "tricks-interrupt-performance",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Tricks unterbrechen Performance",
+      "tags": [
+        "tricks",
+        "choreography",
+        "artistry",
+        "flow"
       ],
       "excerpt": "<p>tbd.</p>"
     },
@@ -460,6 +590,35 @@
       "title": "Ein Musikvideo wird umgesetzt (… keiner kennt’s)",
       "tags": [
         "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "useless-humans",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Unnötige Menschen auf der Fahrfläche",
+      "tags": [
+        "choreography",
+        "artistry"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "useless-prop",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Requisit verschwindet sofort",
+      "tags": [
+        "choreography"
+      ],
+      "excerpt": "<p>tbd.</p>"
+    },
+    {
+      "id": "wringed-torso",
+      "contents": "<p>tbd.</p>\n",
+      "title": "Oberkörper verwringt",
+      "tags": [
+        "tricks",
+        "posture"
       ],
       "excerpt": "<p>tbd.</p>"
     },
