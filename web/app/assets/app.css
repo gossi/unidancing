@@ -11,7 +11,7 @@ main {
 }
 
 :root {
-  --background-alt: #f9fafb;
+  --background-alt: rgb(219 219 219 / 89.4%);
 
   @media (prefers-color-scheme: dark) {
     --background-alt: #18232c;
