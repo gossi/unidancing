@@ -1,7 +1,8 @@
-import { PrincipleWireFormat } from '@unidancing/database/principles.json';
-import DataService from '../services/data';
 import { Model } from './base';
 import { ensureArray } from './utils';
+
+import type DataService from '../services/data';
+import type { PrincipleWireFormat } from '@unidancing/database/principles.json';
 
 export enum Tag {
   Choreo = 'choreography',
@@ -9,6 +10,7 @@ export enum Tag {
   Tricks = 'tricks',
   Flow = 'flow',
   Posture = 'posture',
+  Competition = 'competition',
   Misc = 'misc'
 }
 

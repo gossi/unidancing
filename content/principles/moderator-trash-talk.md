@@ -1,5 +1,5 @@
 ---
-title: Fraktionenklatschen
+title: Moderator labert Mumpitz
 tags:
 - competition
 ---

@@ -404,9 +404,11 @@ export default class BingoComponent extends Component {
           <ul>
             <li>Aktuelles Spiel:</li>
             {{#if this.game.finished}}
-              <li><button type="button" class="btn btn-outline-success mr-2" {{on "click"  this.newGame}}>Neues Spiel</button></li>
+              <li><button type="button" class="btn btn-outline-success mr-2" {{on "click"  this.newGame}}>Nochmal Spielen</button></li>
+            {{else}}
+              <li><button type="button" class="btn btn-outline-info float-right"
+              {{on "click" this.reset}}>Neues Spiel</button></li>
             {{/if}}
-            <li><button type="button" class="btn btn-outline-info float-right" {{on "click" this.reset}}>Reset</button></li>
           </ul>
         {{/if}}
       </nav>

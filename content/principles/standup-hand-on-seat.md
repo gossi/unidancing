@@ -2,7 +2,7 @@
 title: Stand up Tricks mit Hand am Sattel
 tags:
 - tricks
-	see:
+see:
 - arabesque-no-bowtension
 - arabesque-hand-on-seat
 ---

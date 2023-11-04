@@ -1,10 +1,10 @@
 .tag {
-  font-weight: 500;
-  font-size: 80%;
-  border-radius: 4px;
   background-color: #F5F5F5;
-  padding: .1em .3em;
+  border-radius: 4px;
   color: var(--contrast);
+  font-size: 80%;
+  font-weight: 500;
+  padding: .1em .3em;
 
   @media (prefers-color-scheme: dark) {
     color: var(--contrast-inverse);
@@ -34,6 +34,10 @@
     background-color: gold;
   }
 
+  &[data-tag="competition"] {
+    background-color: paleturquoise;
+  }
+
   &[data-tag="misc"] {
     background-color: greenyellow;
   }
@@ -48,9 +52,9 @@
     }
   }
 
-  details&[open] > :is(summary, summary:not(:focus), summary:focus:not([role=button])) {
-    font-weight: 550;
+  details&[open] > :is(summary, summary:not(:focus), summary:focus:not([role="button"])) {
     color: unset;
+    font-weight: 550;
     margin-bottom: 1em;
   }
 
