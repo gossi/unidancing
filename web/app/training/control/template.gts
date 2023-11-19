@@ -5,4 +5,6 @@ export default RouteTemplate(<template>
   {{pageTitle "Trainingssteuerung"}}
 
   <h2>Trainingssteuerung</h2>
+
+  tbd.
 </template>);

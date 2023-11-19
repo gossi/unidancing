@@ -34,6 +34,11 @@ Router.map(function () {
   });
   this.route('training', function () {
     this.route('control');
-    this.route('diagnostics');
+    this.route('diagnostics', function () {
+      this.route('time-tracking');
+      this.route('body-language');
+    });
+    this.route('tools');
+    this.route('games');
   });
 });
