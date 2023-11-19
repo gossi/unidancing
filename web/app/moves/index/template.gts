@@ -16,6 +16,8 @@ export default RouteTemplate<Signature>(<template>
 
   <h1>Moves</h1>
 
+  <p>Spezielle Auswahl von Bewegungen und Körpertechniken für Einradfahrer, die deiner Kür Charakter verleihen.</p>
+
   {{#each @model as |entry|}}
     <Teaser @move={{entry}} @link={{link 'moves.details' entry.id}} />
   {{/each}}

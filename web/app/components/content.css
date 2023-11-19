@@ -1,0 +1,23 @@
+.card {
+  background: var(--card-background-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-box-shadow);
+  padding: var(--block-spacing-vertical) var(--block-spacing-horizontal);
+}
+
+.section {
+  header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+  }
+}
+
+.title {
+  color: var(--typography-main);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 26px;
+  margin: 0;
+}

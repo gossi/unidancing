@@ -1,0 +1,18 @@
+.features {
+  --min: 25ch;
+  --gap: 1rem;
+
+  display: grid;
+  grid-gap: var(--gap);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+
+  h2 {
+    --font-size: 20px;
+
+    margin-bottom: revert;
+  }
+}
+
+.list {
+  padding-left: 1em;
+}

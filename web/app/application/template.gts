@@ -45,6 +45,12 @@ export default RouteTemplate<Signature>(<template>
           <span class={{styles.label}}>Choreographie</span>
         </LinkTo>
       </li>
+      <li>
+        <LinkTo @route='training'>
+          <Icon @icon='training' />
+          <span class={{styles.label}}>Training</span>
+        </LinkTo>
+      </li>
     </ul>
 
     <ul>

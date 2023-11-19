@@ -14,6 +14,8 @@ export default RouteTemplate(<template>
         <li><LinkTo @route='training'>Übersicht</LinkTo></li>
         <li><LinkTo @route='training.control'>Steuerung</LinkTo></li>
         <li><LinkTo @route='training.diagnostics'>Diagnostik</LinkTo></li>
+        <li><LinkTo @route='training.tools'>Hilfsmittel</LinkTo></li>
+        <li><LinkTo @route='training.games'>Spiele</LinkTo></li>
       </ul>
     </nav>
   </header>

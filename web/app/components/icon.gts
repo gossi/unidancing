@@ -1,6 +1,10 @@
 import Component from '@glimmer/component';
 
 enum Icon {
+  learn = '🏫',
+  training = '🏋️', // '🏆',
+  motion = '🏃',
+  literature = '📚',
   skill = '🎓',
   exercise = '🤼',
   move = '💃',
