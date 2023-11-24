@@ -327,6 +327,10 @@ function random(pmf: number[]) {
   return cdf.findIndex((el) => rand <= el);
 }
 
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
 const PLAYLISTS: Record<string, string> = {
   epic: '3qaxO2Z99batsuhi12MDsn',
   surprise: '7FDu1kevbWvjA2dC9KNkWW'
@@ -460,7 +464,7 @@ class Game extends Component {
   };
 
   dance = async (context: Context, { track }: { track: Track; type: 'dance' }) => {
-    await this.playTrack(track);
+    await this.playTrack(track, context.duration);
 
     // timer
     this.counter = context.duration;
@@ -498,8 +502,13 @@ class Game extends Component {
     return getRandomTrack(playlist.tracks as Track[]);
   }
 
-  playTrack = async (track: Track) => {
-    const start = Math.round(track.duration_ms * 0.33);
+  playTrack = async (track: Track, duration: number) => {
+    const offset = randomNumber(15, 50) / 100;
+    const preferredStart = track.duration_ms * offset;
+    const minStart = track.duration_ms - (duration * 1000);
+    const effectiveStart = Math.min(preferredStart, minStart);
+    const start = Math.max(0, effectiveStart);
+
     await this.spotify.client.play({
       uris: [track.uri],
       position_ms: start
