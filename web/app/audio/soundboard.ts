@@ -17,17 +17,20 @@ export class SoundBoard {
 
     audio.src = src;
     audio.classList.add(styles.soundboard);
+    audio.dataset.name = name;
     document.body.appendChild(audio);
 
     this.#effects.set(name, audio);
   }
 
-  play(name: string) {
+  play(name: string): Promise<void> | undefined {
     if (this.#effects.has(name)) {
       const audio = this.#effects.get(name) as HTMLAudioElement;
 
-      audio.play();
+      return audio.play();
     }
+
+    return undefined;
   }
 }
 

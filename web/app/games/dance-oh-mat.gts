@@ -13,7 +13,7 @@ import {
 } from '../audio/spotify';
 import { on } from '@ember/modifier';
 import { dropTask, timeout } from 'ember-concurrency';
-import type { Track } from '../audio/spotify';
+import type { Track, Device } from '../audio/spotify';
 import type { TOC } from '@ember/component/template-only';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
 import { createMachine, assign } from 'xstate';
@@ -168,12 +168,11 @@ const LOBBY_TRACK_ID = '7IiurNiwebWtRFrMUojN04';
 const playLobby = async (track: Track, client: SpotifyClient) => {
   await client.play({
     uris: [track.uri]
-    // position_ms: start
   });
 };
 
 const playEffect = async (name: string, soundboard: SoundBoard) => {
-  soundboard.play(name);
+  return soundboard.play(name);
 };
 
 interface LobbySignature {
@@ -238,8 +237,8 @@ class Manual extends Component {
     await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
   };
 
-  playEffect = (name: string) => {
-    playEffect(name, this.audio.soundboard);
+  playEffect = async (name: string) => {
+    await playEffect(name, this.audio.soundboard);
   };
 
   togglePlay = async () => {
@@ -381,8 +380,8 @@ class Game extends Component {
     await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
   };
 
-  playEffect = (name: string) => {
-    playEffect(name, this.audio.soundboard);
+  playEffect = async (name: string) => {
+    await playEffect(name, this.audio.soundboard);
   };
 
   toggleManual = () => {
@@ -421,6 +420,7 @@ class Game extends Component {
     this.counter = 5;
     this.song = undefined;
 
+    const devicesPromise = this.spotify.client.api.getMyDevices();
     await this.playLobby();
     await timeout(1100);
     await this.countDown.perform();
@@ -430,9 +430,32 @@ class Game extends Component {
     const playlist = coinToss === 0 ? this.dancePlaylist : this.surprisePlaylist;
     const track = this.findTrack(playlist);
 
-    await this.spotify.client.pause();
-    this.playEffect(coinToss === 0 ? 'countDown' : 'surprise');
-    await timeout(500);
+    /*
+      Somehow, the effect will not play:
+      - when the sound is via bluetooth
+      - when spotify is paused
+      - then there is no effect sound
+
+      Exact reason is unclear, but it could be a race-condition for the sound of
+      being either off (spotify pause) vs on (playing the effect), which for the
+      bluetooth speaker may be the spotify pause that is the winner.
+
+      No idea tbh.
+
+      The workaroun:
+      - fetch the volume from spotify
+      - mute spotify
+      - restore volume
+    */
+
+    const devicesResponse = await devicesPromise;
+    const volume = (devicesResponse.devices.find(device => device.is_active) as Device).volume_percent as number;
+
+    await this.spotify.client.setVolume(0);
+    await this.playEffect(coinToss === 0 ? 'countDown' : 'surprise');
+
+    await timeout(1000);
+    await this.spotify.client.setVolume(volume);
     this.machine.send('dance', { track });
   };
 
@@ -462,8 +485,8 @@ class Game extends Component {
     };
   });
 
-  selectSong = (song: number) => {
-    this.playEffect('select');
+  selectSong = async (song: number) => {
+    await this.playEffect('select');
     this.song = song;
   };
 
@@ -486,7 +509,7 @@ class Game extends Component {
   };
 
   stop = async () => {
-    this.countDown.cancelAll();
+    await this.countDown.cancelAll();
     await this.spotify.client.pause();
 
     this.machine.send('stop');
