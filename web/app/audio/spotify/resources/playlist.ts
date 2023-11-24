@@ -3,11 +3,9 @@ import { service } from '@ember/service';
 
 import { Resource } from 'ember-resources';
 
-import type { Playlist } from '../domain-objects';
+import type { Playlist, Track } from '../domain-objects';
 import type SpotifyService from '../service';
 import type { ArgsWrapper } from 'ember-resources';
-
-// https://open.spotify.com/playlist/3qaxO2Z99batsuhi12MDsn?si=865135aca7b64c32
 
 interface PlaylistArgs extends ArgsWrapper {
   named: {
@@ -18,18 +16,22 @@ interface PlaylistArgs extends ArgsWrapper {
 export class PlaylistResource extends Resource<PlaylistArgs> {
   @service declare spotify: SpotifyService;
 
+  declare playlistId: string;
+
   @tracked playlist?: Playlist;
 
-  get tracks(): SpotifyApi.TrackObjectFull[] | undefined {
-    return this.playlist?.tracks?.items.map((tracks) => tracks.track as SpotifyApi.TrackObjectFull);
+  get tracks(): Track[] | undefined {
+    return this.playlist?.tracks?.items.map((tracks) => tracks.track as Track);
   }
 
   modify(_positional: PlaylistArgs['positional'], named: PlaylistArgs['named']): void {
-    this.load(named.playlist);
+    this.playlistId = named.playlist;
+
+    this.load();
   }
 
-  private async load(playlist: string) {
-    const response = await this.spotify.client.api.getPlaylist(playlist);
+  async load() {
+    const response = await this.spotify.client.api.getPlaylist(this.playlistId);
 
     this.playlist = response;
   }

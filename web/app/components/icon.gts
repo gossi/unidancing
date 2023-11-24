@@ -27,7 +27,8 @@ enum Icon {
   trash = '🗑️',
   go = '➡️',
   check = '✅',
-  reload = '🔄'
+  reload = '🔄',
+  info = 'ℹ️'
 }
 
 export type Icons = keyof typeof Icon;

@@ -2,6 +2,10 @@
   padding-bottom: 6rem;
   padding-top: 4rem;
 
+  main {
+    position: relative;
+  }
+
   &[data-game] main {
     @media (width <= 992px) {
       display: none;

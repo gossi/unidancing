@@ -18,4 +18,4 @@ export { formatArtists } from './helpers';
 // music
 export * from './abilities';
 export * from './domain-objects';
-export { getRandomTracks } from './tracks';
+export { getRandomTrack, getRandomTracks } from './tracks';

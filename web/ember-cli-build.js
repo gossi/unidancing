@@ -54,6 +54,13 @@ module.exports = function (defaults) {
                   }
                 }
               ]
+            },
+            {
+              test: /.wav$/,
+              type: 'asset/resource',
+              generator: {
+                filename: 'sounds/[hash][ext][query]'
+              }
             }
           ]
         }
