@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { AudioPlayer, AudioService } from '../audio';
+import { AudioPlayer, AudioService, playSound } from '../audio';
 import {
   WithSpotify,
   SpotifyService,
@@ -9,7 +9,9 @@ import {
   SpotifyClient,
   isReadyForPlayback,
   PlaylistResource,
-  getRandomTrack
+  getRandomTrack,
+  playTrack,
+  playTrackForDancing
 } from '../audio/spotify';
 import { on } from '@ember/modifier';
 import { dropTask, timeout } from 'ember-concurrency';
@@ -24,7 +26,7 @@ import styles from './dance-oh-mat.css';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
 import { fn, array } from '@ember/helper';
-import type { SoundBoard } from '../audio/soundboard';
+import { getOwner } from '@ember/owner';
 
 export enum DanceOhMatParam {
   Rounds = 'rounds',
@@ -171,10 +173,6 @@ const playLobby = async (track: Track, client: SpotifyClient) => {
   });
 };
 
-const playEffect = async (name: string, soundboard: SoundBoard) => {
-  return soundboard.play(name);
-};
-
 interface LobbySignature {
   Args: Partial<GameParams> & {
     play: (params: GameParams) => void;
@@ -237,10 +235,6 @@ class Manual extends Component {
     await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
   };
 
-  playEffect = async (name: string) => {
-    await playEffect(name, this.audio.soundboard);
-  };
-
   togglePlay = async () => {
     if (this.spotify.client.playing) {
       this.spotify.client.pause();
@@ -278,7 +272,7 @@ class Manual extends Component {
       <li>
         Songauswahl eingeben
 
-        <button type='button' {{on 'click' (fn this.playEffect 'select')}}>
+        <button type='button' {{on 'click' (fn (playSound) 'select')}}>
           Eingabe
         </button>
       </li>
@@ -288,11 +282,11 @@ class Manual extends Component {
       <li>
         Die Runde startet mit<br>
 
-        <button type='button' {{on 'click' (fn this.playEffect 'countDown')}}>
+        <button type='button' {{on 'click' (fn (playSound) 'countDown')}}>
           Tanzbarer Song
         </button>
 
-        <button type='button' {{on 'click' (fn this.playEffect 'surprise')}}>
+        <button type='button' {{on 'click' (fn (playSound) 'surprise')}}>
           Überraschung
         </button>
       </li>
@@ -325,10 +319,6 @@ function random(pmf: number[]) {
   );
   const rand = Math.random();
   return cdf.findIndex((el) => rand <= el);
-}
-
-function randomNumber(min, max) {
-  return Math.random() * (max - min) + min;
 }
 
 const PLAYLISTS: Record<string, string> = {
@@ -380,13 +370,13 @@ class Game extends Component {
 
   lobbyTrack = TrackResource.from(this, () => []);
 
-  playLobby = async () => {
-    await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
-  };
+  // playLobby = async () => {
+  //   await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
+  // };
 
-  playEffect = async (name: string) => {
-    await playEffect(name, this.audio.soundboard);
-  };
+  playSound = playSound(getOwner(this) as Owner);
+  playTrack = playTrack(getOwner(this) as Owner);
+  playTrackForDancing = playTrackForDancing(getOwner(this) as Owner);
 
   toggleManual = () => {
     if (this.machine.state?.matches('manual')) {
@@ -398,7 +388,7 @@ class Game extends Component {
 
   countDown = dropTask(async () => {
     while ((this.counter as number) > 0) {
-      this.playEffect('counter');
+      this.playSound('counter');
       await timeout(1000);
       (this.counter as number)--;
     }
@@ -425,7 +415,7 @@ class Game extends Component {
     this.song = undefined;
 
     const devicesPromise = this.spotify.client.api.getMyDevices();
-    await this.playLobby();
+    await this.playTrack(this.lobbyTrack.data as Track);
     await timeout(1100);
     await this.countDown.perform();
 
@@ -446,7 +436,7 @@ class Game extends Component {
 
       No idea tbh.
 
-      The workaroun:
+      The workaround:
       - fetch the volume from spotify
       - mute spotify
       - restore volume
@@ -456,7 +446,7 @@ class Game extends Component {
     const volume = (devicesResponse.devices.find(device => device.is_active) as Device).volume_percent as number;
 
     await this.spotify.client.setVolume(0);
-    await this.playEffect(coinToss === 0 ? 'countDown' : 'surprise');
+    await this.playSound(coinToss === 0 ? 'countDown' : 'surprise');
 
     await timeout(1000);
     await this.spotify.client.setVolume(volume);
@@ -464,7 +454,8 @@ class Game extends Component {
   };
 
   dance = async (context: Context, { track }: { track: Track; type: 'dance' }) => {
-    await this.playTrack(track, context.duration);
+    await this.playTrackForDancing(track, context.duration);
+    this.spotify.client.selectTrack(track);
 
     // timer
     this.counter = context.duration;
@@ -490,7 +481,7 @@ class Game extends Component {
   });
 
   selectSong = async (song: number) => {
-    await this.playEffect('select');
+    await this.playSound('select');
     this.song = song;
   };
 
@@ -501,21 +492,6 @@ class Game extends Component {
   findTrack(playlist: PlaylistResource) {
     return getRandomTrack(playlist.tracks as Track[]);
   }
-
-  playTrack = async (track: Track, duration: number) => {
-    const offset = randomNumber(15, 50) / 100;
-    const preferredStart = track.duration_ms * offset;
-    const minStart = track.duration_ms - (duration * 1000);
-    const effectiveStart = Math.min(preferredStart, minStart);
-    const start = Math.max(0, effectiveStart);
-
-    await this.spotify.client.play({
-      uris: [track.uri],
-      position_ms: start
-    });
-
-    this.spotify.client.selectTrack(track);
-  };
 
   stop = async () => {
     await this.countDown.cancelAll();
