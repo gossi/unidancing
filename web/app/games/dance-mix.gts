@@ -7,7 +7,8 @@ import {
   PlaylistResource,
   getRandomTracks,
   SpotifyService,
-  isReadyForPlayback
+  isReadyForPlayback,
+  playTrackForDancing
 } from '../audio/spotify';
 import { AudioPlayer, AudioService } from '../audio';
 import { service } from '@ember/service';
@@ -24,7 +25,8 @@ import type Owner from '@ember/owner';
 import { registerDestructor } from '@ember/destroyable';
 import type RouterService from '@ember/routing/router-service';
 import type { TOC } from '@ember/component/template-only';
-import type { Playlist } from '../audio/spotify';
+import type { Playlist, Track } from '../audio/spotify';
+import { getOwner } from '@ember/owner';
 
 enum PlaylistOptions {
   Epic = 'epic',
@@ -135,7 +137,9 @@ class Play extends Component<PlaySignature> {
   @service declare spotify: SpotifyService;
 
   @tracked counter?: number;
-  @tracked declare tracks: SpotifyApi.TrackObjectFull[];
+  @tracked declare tracks: Track[];
+
+  playTrackForDancing = playTrackForDancing(getOwner(this) as Owner);
 
   constructor(owner: Owner, args: PlaySignature['Args']) {
     super(owner, args);
@@ -165,35 +169,46 @@ class Play extends Component<PlaySignature> {
     }: {
       duration: number;
       pause: number;
-      tracks: SpotifyApi.TrackObjectFull[];
+      tracks: Track[];
     }) => {
       for (const track of tracks) {
-        await this.playTrack.perform(track, duration);
+        // start track
+        await this.playTrackForDancing(track, duration);
+        this.spotify.client.selectTrack(track);
+
+        // start countdown
+        this.counter = duration;
+        while (this.counter > 0) {
+          await timeout(1000);
+          this.counter--;
+        }
+
+        // pause
         this.spotify.client.pause();
         await timeout(pause * 1000);
       }
     }
   );
 
-  playTrack = dropTask(async (track: SpotifyApi.TrackObjectFull, duration: number) => {
-    const start = Math.round(track.duration_ms * 0.33);
-    await this.spotify.client.play({
-      uris: [track.uri],
-      position_ms: start
-    });
+  // playTrack = dropTask(async (track: SpotifyApi.TrackObjectFull, duration: number) => {
+  //   const start = Math.round(track.duration_ms * 0.33);
+  //   await this.spotify.client.play({
+  //     uris: [track.uri],
+  //     position_ms: start
+  //   });
 
-    this.spotify.client.selectTrack(track);
+  //   this.spotify.client.selectTrack(track);
 
-    this.counter = duration;
+  //   this.counter = duration;
 
-    while (this.counter > 0) {
-      await timeout(1000);
-      this.counter--;
-    }
-  });
+  //   while (this.counter > 0) {
+  //     await timeout(1000);
+  //     this.counter--;
+  //   }
+  // });
 
   stop = async () => {
-    await this.playTrack.cancelAll();
+    // await this.playTrack.cancelAll();
     await this.mix.cancelAll();
 
     this.finish();
