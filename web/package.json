@@ -20,8 +20,7 @@
     "lint:js:fix": "eslint . --fix",
     "lint:types": "tsc --noEmit",
     "start": "ember serve",
-    "test": "npm-run-all lint test:*",
-    "test:ember": "ember test"
+    "test": "ember test"
   },
   "dependencies": {
     "@unidancing/database": "workspace:*"
@@ -114,6 +113,7 @@
     "prettier-plugin-ember-template-tag": "^1.1.0",
     "qunit": "^2.20.0",
     "qunit-dom": "^2.0.0",
+    "qunit-theme-ember": "^0.2.0",
     "sinon": "^17.0.1",
     "spotify-web-api-js": "^1.5.2",
     "tracked-built-ins": "^3.3.0",

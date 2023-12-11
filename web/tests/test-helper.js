@@ -5,6 +5,7 @@ import { setApplication } from '@ember/test-helpers';
 import { setup } from 'qunit-dom';
 import { start } from 'ember-qunit';
 import setupSinon from 'ember-sinon-qunit';
+import 'qunit-theme-ember/qunit.css';
 
 setApplication(Application.create(config.APP));
 
