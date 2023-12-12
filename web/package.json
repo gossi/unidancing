@@ -11,7 +11,10 @@
     "test": "tests"
   },
   "scripts": {
-    "build": "ember build --environment=production",
+    "dev": "tinacms dev -c 'ember s'",
+    "build": "pnpm build:ember && pnpm build:tina",
+    "build:tina": "PROD=true tinacms build",
+    "build:ember": "ember build --environment=production",
     "lint": "concurrently -g 'npm:lint:*(!fix)'",
     "lint:fix": "concurrently -g 'npm:lint:*:fix'",
     "lint:hbs": "ember-template-lint .",
@@ -23,7 +26,9 @@
     "test": "ember test"
   },
   "dependencies": {
-    "@unidancing/database": "workspace:*"
+    "@tinacms/cli": "^1.5.39",
+    "@unidancing/database": "workspace:*",
+    "tinacms": "^1.5.28"
   },
   "devDependencies": {
     "@babel/core": "^7.22.20",
@@ -52,6 +57,7 @@
     "@picocss/pico": "^1.5.10",
     "@types/css-modules": "^1.0.2",
     "@types/htmlbars-inline-precompile": "^3.0.0",
+    "@types/node": "^20.8.0",
     "@types/qunit": "^2.19.6",
     "@types/rsvp": "^4.0.4",
     "@types/sinon": "^17.0.2",
