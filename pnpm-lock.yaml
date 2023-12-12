@@ -46,13 +46,13 @@ importers:
   web:
     dependencies:
       '@tinacms/cli':
-        specifier: ^1.5.29
+        specifier: ^1.5.39
         version: 1.5.39(@babel/core@7.23.0)(@types/node@20.8.0)(react-dom@18.2.0)(react@18.2.0)(xstate@4.38.2)
       '@unidancing/database':
         specifier: workspace:*
         version: link:../database
       tinacms:
-        specifier: ^1.5.20
+        specifier: ^1.5.28
         version: 1.5.28(@babel/core@7.23.0)(react-dom@18.2.0)(react@18.2.0)
     devDependencies:
       '@babel/core':
@@ -134,7 +134,7 @@ importers:
         specifier: ^3.0.0
         version: 3.0.0
       '@types/node':
-        specifier: ^20.7.1
+        specifier: ^20.8.0
         version: 20.8.0
       '@types/qunit':
         specifier: ^2.19.6
@@ -374,7 +374,7 @@ packages:
       '@babel/parser': 7.23.0
       '@babel/runtime': 7.23.1
       '@babel/traverse': 7.23.0(supports-color@8.1.1)
-      '@babel/types': 7.23.0
+      '@babel/types': 7.23.5
       babel-preset-fbjs: 3.4.0(@babel/core@7.23.0)
       chalk: 4.1.2
       fb-watchman: 2.0.2
@@ -4318,7 +4318,7 @@ packages:
     dependencies:
       '@monaco-editor/loader': 1.4.0(monaco-editor@0.31.0)
       monaco-editor: 0.31.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
     dev: false
@@ -4332,7 +4332,7 @@ packages:
     dependencies:
       '@monaco-editor/loader': 1.4.0(monaco-editor@0.31.0)
       monaco-editor: 0.31.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
@@ -5857,7 +5857,7 @@ packages:
     resolution: {integrity: sha512-1hnUxxjd83EAxbL4a0JDJoD3Dao3hmjvyvyEV8PzWmLK3B9m9NPlW7GKjFyoWE8nM7HnXzPcmmSyOW8yOddSXw==}
     engines: {node: '>=10'}
     dependencies:
-      '@babel/types': 7.23.0
+      '@babel/types': 7.23.5
       entities: 4.5.0
     dev: false
 
@@ -13741,7 +13741,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.1
       compute-scroll-into-view: 1.0.20
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       react-is: 17.0.2
       tslib: 2.6.2
@@ -13754,7 +13754,7 @@ packages:
     dependencies:
       '@babel/runtime': 7.23.1
       compute-scroll-into-view: 1.0.20
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       react-is: 17.0.2
       tslib: 2.6.2
@@ -22015,7 +22015,7 @@ packages:
       lodash: 4.17.21
       lodash-es: 4.17.21
       material-colors: 1.2.6
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       reactcss: 1.2.3(react@17.0.2)
       tinycolor2: 1.6.0
@@ -22030,7 +22030,7 @@ packages:
       lodash: 4.17.21
       lodash-es: 4.17.21
       material-colors: 1.2.6
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       reactcss: 1.2.3(react@18.2.0)
       tinycolor2: 1.6.0
@@ -22046,7 +22046,7 @@ packages:
       create-react-class: 15.7.0
       moment: 2.29.4
       object-assign: 3.0.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
       react-onclickoutside: 6.13.0(react-dom@17.0.2)(react@17.0.2)
@@ -22062,7 +22062,7 @@ packages:
       create-react-class: 15.7.0
       moment: 2.29.4
       object-assign: 3.0.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-onclickoutside: 6.13.0(react-dom@18.2.0)(react@18.2.0)
@@ -22214,7 +22214,7 @@ packages:
       '@types/react-redux': 7.1.32
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2(react@17.0.2)
       react-is: 17.0.2
@@ -22236,7 +22236,7 @@ packages:
       '@types/react-redux': 7.1.32
       hoist-non-react-statics: 3.3.2
       loose-envify: 1.4.0
-      prop-types: 15.7.2
+      prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       react-is: 17.0.2
@@ -23425,7 +23425,7 @@ packages:
   /signed-varint@2.0.1:
     resolution: {integrity: sha512-abgDPg1106vuZZOvw7cFwdCABddfJRz5akcCcchzTbhyhYnsG31y4AlZEgp315T7W3nQq5P4xeOm186ZiPVFzw==}
     dependencies:
-      varint: 5.0.0
+      varint: 5.0.2
     dev: false
 
   /signedsource@1.0.0:

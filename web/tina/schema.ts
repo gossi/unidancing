@@ -55,6 +55,20 @@ const schema = defineSchema({
           isBody: true,
         }
       ]
+    },
+    {
+      name: 'tricks',
+      label: 'Tricks',
+      path: 'content/tricks',
+      fields: [
+        {
+          type: "string",
+          name: "title",
+          label: "Title",
+          isTitle: true,
+          required: true
+        }
+      ]
     }
   ]
 });
