@@ -12,8 +12,8 @@
   },
   "scripts": {
     "dev": "tinacms dev -c 'ember s'",
-    "build": "pnpm build:tina && pnpm build:ember",
-    "build:tina": "tinacms build",
+    "build": "pnpm build:ember && pnpm build:tina",
+    "build:tina": "PROD=true tinacms build",
     "build:ember": "ember build --environment=production",
     "lint": "concurrently -g 'npm:lint:*(!fix)'",
     "lint:fix": "concurrently -g 'npm:lint:*:fix'",
