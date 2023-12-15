@@ -1,7 +1,0 @@
----
-title: Emotionen
----
-
-## Basisemotionen
-
-## Emotionscluster
