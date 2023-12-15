@@ -5,7 +5,7 @@ const schema = defineSchema({
     {
       name: 'exercises',
       label: 'Exercises',
-      path: 'exercises',
+      path: 'content/exercises',
       fields: [
         {
           type: "string",
@@ -59,7 +59,7 @@ const schema = defineSchema({
     {
       name: 'tricks',
       label: 'Tricks',
-      path: 'tricks',
+      path: 'content/tricks',
       fields: [
         {
           type: "string",
