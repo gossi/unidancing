@@ -21,6 +21,10 @@ module.exports = function (defaults) {
 
     'ember-cli-babel': {
       enableTypeScriptTransform: true
+    },
+
+    finterprint: {
+      exlude: ['media/']
     }
   });
 
