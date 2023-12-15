@@ -6,7 +6,7 @@ const configWithCustomization = {
     ...config.media,
     tina: {
       ...config.media?.tina,
-      publicFolder: 'web/public'
+      publicFolder: '../web/public'
     }
   }
 };
