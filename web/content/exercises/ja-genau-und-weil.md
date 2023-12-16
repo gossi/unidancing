@@ -1,6 +1,7 @@
 ---
 title: Ja genau, und weil...
 personal: pair
+locomotion:
 tags:
 - kommunikation
 - improvisation

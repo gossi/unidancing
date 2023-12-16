@@ -1,6 +1,7 @@
 ---
 title: Ja genau, und dann...
 personal: pair
+locomotion:
 tags:
 - kommunikation
 - improvisation

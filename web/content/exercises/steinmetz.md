@@ -1,6 +1,7 @@
 ---
 title: Steinmetz
 locomotion: pedes
+personal: group
 skills:
 - emotionen
 ---

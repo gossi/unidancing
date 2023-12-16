@@ -2,6 +2,7 @@
 title: "Waacking: Rolls"
 art: Waacking
 locomotion: pedes
+personal: 
 video: https://youtu.youtube.com/watch?v=lTZm0GVg6as?t=228
 ---
 

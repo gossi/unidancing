@@ -31,9 +31,9 @@ export default class ExerciseDetailsRoute extends Route {
 
   resource = useExercise(this);
 
-  model({ id }: { id: string }) {
+  async model({ id }: { id: string }) {
     return {
-      exercise: this.resource.find(id),
+      exercise: await this.resource.find(id),
       buildExerciseLink: createExerciseLinkBuilder(this.linkManager),
       buildSkillLink: createSkillLinkBuilder(this.linkManager),
       buildGameLink: createGameLinkBuilder(this.linkManager, this.router)

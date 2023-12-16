@@ -1,5 +1,7 @@
 ---
 title: Gruppenemotionen
+locomotion:
+oersonal:
 ---
 
 Gruppenübung zum Wiedergeben und Erkennen von Emotionen

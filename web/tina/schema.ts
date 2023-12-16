@@ -18,6 +18,7 @@ const schema = defineSchema({
           label: 'Locomotion',
           name: 'locomotion',
           type: 'string',
+          list: true,
           options: [
             {
               value: 'pedes',
@@ -33,6 +34,8 @@ const schema = defineSchema({
           label: 'Personal',
           name: 'personal',
           type: 'string',
+          required: false,
+          list: true,
           options: [
             {
               value: 'individual',

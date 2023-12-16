@@ -1,5 +1,7 @@
 ---
 title: Whiskeymixer
+locomotion:
+personal: group
 tags:
 - warmup
 see:

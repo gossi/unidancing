@@ -2,6 +2,7 @@
 title: "Waacking: Overheads"
 art: Waacking
 locomotion: pedes
+personal: 
 video: https://www.youtube.com/watch?v=0qUj-OORN10
 ---
 

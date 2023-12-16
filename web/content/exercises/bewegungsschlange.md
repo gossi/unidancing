@@ -1,10 +1,13 @@
 ---
-title: Bewegungsschlange
-locomotion: pedes
 skills:
-- bewegungsrepertoire
+  - bewegungsrepertoire
 tags:
-- warmup
+  - warmup
+title: Bewegungsschlange
+locomotion:
+  - pedes
+personal:
+  - group
 ---
 
 Eine kleine Gruppe von Personen formt sicht zu einer Schlange, der Kopf macht

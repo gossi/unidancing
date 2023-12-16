@@ -5,7 +5,9 @@ import { useExercise } from '../resource';
 export default class ExerciseIndexRoute extends Route {
   resource = useExercise(this);
 
-  model() {
+  async model() {
+    await this.resource.findAll();
+
     return this.resource.exercises;
   }
 }

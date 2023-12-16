@@ -1,8 +1,11 @@
 ---
-title: Elemente
-locomotion: pedes
 skills:
-- bewegungsrepertoire
+  - bewegungsrepertoire
+title: Elemente
+locomotion:
+  - pedes
+personal:
+  - group
 ---
 
 Darstellen von natürlichen Elementen (Wasser, Wind, Feuer, Erde) durch den Körper in Gruppen.

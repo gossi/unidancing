@@ -9,6 +9,8 @@ see:
 - doubles
 material:
 - Videoabspielgerät
+personal:
+- group
 ---
 
 Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer transferieren.

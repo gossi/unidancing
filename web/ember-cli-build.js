@@ -3,6 +3,33 @@
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const packageJson = require('./package');
 const { browsers } = require('@gossi/config-targets');
+const { importSingleTs } = require('import-single-ts');
+const path = require('node:path');
+
+async function findUrls() {
+  const { client } = await importSingleTs(
+    path.resolve(__dirname, './tina/__generated__/client.ts')
+  );
+
+  // exercises
+  const exercisesResponse = await client.queries.exercisesConnection();
+  const exercises = exercisesResponse.data.exercisesConnection.edges.map((exercise) => {
+    return `/uebungen/${exercise.node._sys.filename}`;
+  });
+
+  console.log('exercises', exercises);
+
+  return [
+    '/',
+    '/courses',
+    '/fertigkeiten',
+    '/uebungen',
+    // ...exercises,
+    '/moves',
+    '/choreography',
+    '/training'
+  ];
+}
 
 function isProduction() {
   return EmberApp.env() === 'production';
@@ -26,11 +53,15 @@ module.exports = function (defaults) {
     finterprint: {
       exlude: ['media/']
     }
+
+    // prember: {
+    //   urls: findUrls
+    // }
   });
 
   const { Webpack } = require('@embroider/webpack');
 
-  return require('@embroider/compat').compatBuild(app, Webpack, {
+  const compiledApp = require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
     staticHelpers: true,
@@ -83,4 +114,7 @@ module.exports = function (defaults) {
       publicAssetURL: '/'
     }
   });
+
+  return compiledApp;
+  // return require('prember').prerender(app, compiledApp);
 };

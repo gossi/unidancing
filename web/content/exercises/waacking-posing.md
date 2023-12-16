@@ -2,6 +2,7 @@
 title: "Waacking: Posing"
 art: Waacking
 locomotion: pedes
+personal: 
 video: https://www.youtube.com/watch?v=AG74EpfwVuE
 ---
 

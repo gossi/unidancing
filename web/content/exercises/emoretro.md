@@ -1,5 +1,9 @@
 ---
 title: Emoretro
+locomotion:
+  - pedes
+personal:
+  - group
 ---
 
 Erkennen von Emotionen üben.
@@ -11,30 +15,30 @@ Merkmale.
 
 Freude:
 
-- Körperhaltung; offen, größer
-- Gesicht: lächeln, Augen schmal
-- Blick: vorne, oben
+* Körperhaltung; offen, größer
+* Gesicht: lächeln, Augen schmal
+* Blick: vorne, oben
 
 Angst/Panik:
 
-- Körperhaltung: klein, Arme eng am Körper
-- Gesicht: offener Mund, große Augen
-- Blick: zu allen Seiten umschauen(d)
+* Körperhaltung: klein, Arme eng am Körper
+* Gesicht: offener Mund, große Augen
+* Blick: zu allen Seiten umschauen(d)
 
 Verlegenheit:
 
-- Körperhaltung: klein, eng, verstecken
-- Gesicht: 😬
-- Blick: abgewandt, nach unten
+* Körperhaltung: klein, eng, verstecken
+* Gesicht: 😬
+* Blick: abgewandt, nach unten
 
 Ekel:
 
-- Körperhaltung: zurückweichen, geschlossen, abwenden
-- Gesicht: verzogen, hochgezogene Nase, schmale Augen
-- Blick: vorne, unten
+* Körperhaltung: zurückweichen, geschlossen, abwenden
+* Gesicht: verzogen, hochgezogene Nase, schmale Augen
+* Blick: vorne, unten
 
 Sehnsucht:
 
-- Körperhaltung: Geschlossen, in die Ferne greifende Hand, schiefer Kopf
-- Gesicht: Richtung verzweifelt, leicht offener Mund
-- Blick: oben, vorne
+* Körperhaltung: Geschlossen, in die Ferne greifende Hand, schiefer Kopf
+* Gesicht: Richtung verzweifelt, leicht offener Mund
+* Blick: oben, vorne

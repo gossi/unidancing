@@ -15,14 +15,18 @@ export class SoundBoard {
   }
 
   addSound(name: string, src: string) {
-    const audio = document.createElement('audio');
+    try {
+      const audio = document.createElement('audio');
 
-    audio.src = src;
-    audio.classList.add(styles.soundboard);
-    audio.dataset.name = name;
-    document.body.appendChild(audio);
-
-    this.#sounds.set(name, audio);
+      audio.src = src;
+      audio.classList.add(styles.soundboard);
+      audio.dataset.name = name;
+      document.body.appendChild(audio);
+      this.#sounds.set(name, audio);
+    } catch {
+      // fastboot will report on document to not be defined, but also doesn't let
+      // you check for it
+    }
   }
 
   play(name: string): Promise<void> | undefined {
