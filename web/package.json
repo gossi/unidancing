@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "tinacms dev -c 'ember s'",
-    "build": "pnpm build:ember && pnpm build:tina",
+    "build": "pnpm build:tina && pnpm build:ember",
     "build:tina": "PROD=true tinacms build",
     "build:ember": "ember build --environment=production",
     "lint": "concurrently -g 'npm:lint:*(!fix)'",
@@ -24,6 +24,7 @@
     "lint:types": "tsc --noEmit",
     "start": "ember serve",
     "start:tina": "tinacms dev",
+    "test:prebuild": "tinacms build --local --skip-cloud-checks",
     "test": "ember test"
   },
   "dependencies": {
