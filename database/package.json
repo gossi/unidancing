@@ -7,7 +7,7 @@
     "data"
   ],
   "scripts": {
-    "build": "concurrently 'npm:build:*'",
+    "_build": "concurrently 'npm:build:*'",
     "build:exercises": "markdown-json -c config/exercises.json",
     "build:skills": "markdown-json -c config/skills.json",
     "build:principles": "markdown-json -c config/principles.json",

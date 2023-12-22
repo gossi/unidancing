@@ -25,6 +25,12 @@ jobs:
     steps:
       - name: Setup
         uses: wyvox/action@v1
+
+      # build tina stuff
+      - name: Build Tina
+        run: pnpm exec tinacms build --local --skip-cloud-checks
+        working-directory: web
+
       # - name: Lint JS
       #   run: pnpm run -r --parallel --aggregate-output lint:js
       # - name: Lint Types
