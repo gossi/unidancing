@@ -1,12 +1,13 @@
 ---
 title: Emoretro
+excerpt: Erkennen von Emotionen üben.
 locomotion:
   - pedes
 personal:
   - group
+art: content/arts/acting.md
+technique: content/techniques/emotionen.md
 ---
-
-Erkennen von Emotionen üben.
 
 Die Merkmale von verschiedenen Emotionen in der Gruppe durchgehen. Der
 Übungsleiter fragt die Gruppe nach Merkmalen der unten stehenden Emotionen. Die

@@ -1,0 +1,5 @@
+.main {
+  iframe {
+    margin-bottom: var(--block-spacing-vertical);
+  }
+}

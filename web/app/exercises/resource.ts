@@ -1,51 +1,39 @@
-import { service } from '@ember/service';
+import { resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
-import { Resource } from 'ember-resources';
+import type { Exercise } from '.';
+import type { LinkManagerService } from 'ember-link';
 
-import type TinaService from '../services/tina';
-import type { Registry as Services } from '@ember/service';
-import type { Link } from 'ember-link';
+export const findExercises = resourceFactory(() => {
+  return resource(async ({ owner }): Promise<Exercise[]> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
 
-export function createExerciseLinkBuilder(
-  linkManager: Services['link-manager']
-): (exercise: string) => Link {
-  return (exercise: string): Link => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return linkManager.createLink({
+    const exercisesResponse = await tina.client.queries.exerciseConnection();
+
+    return exercisesResponse.data.exerciseConnection.edges?.map((ex) => ex?.node) as Exercise[];
+  });
+});
+
+export const findExercise = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Exercise> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    const ex = await tina.client.queries.exercise({ relativePath: `${id}.md` });
+
+    return ex.data.exercise as Exercise;
+  });
+});
+
+export const buildExerciseLink = resourceFactory((exercise: string) => {
+  return resource(({ owner }) => {
+    const { services } = sweetenOwner(owner);
+    const { linkManager } = services;
+
+    return (linkManager as LinkManagerService).createLink({
       route: 'exercises.details',
       models: [exercise]
     });
-  };
-}
-
-export class ExerciseResource extends Resource {
-  @service declare data: Services['data'];
-  @service declare tina: TinaService;
-
-  get exercises() {
-    return this.data.find('exercises');
-  }
-
-  async findAll() {
-    const exercisesResponse = await this.tina.client.queries.exercisesConnection();
-
-    const exercises = exercisesResponse.data.exercisesConnection.edges?.map((ex) => {
-      return { slug: ex?.node?._sys.filename };
-    });
-
-    console.log(exercises);
-  }
-
-  async find(id: string) {
-    const ex = await this.tina.client.queries.exercises({ relativePath: `${id}.md` });
-
-    console.log(ex);
-
-    return this.data.findOne('exercises', id);
-  }
-}
-
-export function useExercise(destroyable: object) {
-  return ExerciseResource.from(destroyable);
-}
+  });
+});

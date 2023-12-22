@@ -1,26 +1,25 @@
 import Component from '@glimmer/component';
-import {tracked} from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 import { v4 as uuid } from 'uuid';
-import {action} from '@ember/object';
 import styles from './bingo.css';
 import { on } from '@ember/modifier';
-import didInsert from 'ember-render-helpers/helpers/did-insert';
-import {TrackedSet, TrackedObject} from 'tracked-built-ins';
+import { TrackedSet, TrackedObject } from 'tracked-built-ins';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { next } from '@ember/runloop';
 import Icon from '../components/icon';
 import pick from 'ember-composable-helpers/helpers/pick';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
+import { use } from 'ember-resources';
 
-import { PrinciplesResource } from '../choreography/resource';
-import { Principle } from '../database/principles';
+import { findAwfulPractices } from '../choreography';
+import type { Awfulpractice } from '../choreography';
 
 import type { TOC } from '@ember/component/template-only';
 
 interface TileSignature {
   Args: {
-    principle: Principle;
+    principle: Awfulpractice;
     selected: boolean;
     winner: boolean;
     select: () => void;
@@ -32,16 +31,16 @@ const Tile: TOC<TileSignature> = <template>
     class={{styles.tile}}
     data-winner={{@winner}}
     aria-selected={{@selected}}
-    {{on "click" @select}}
+    {{on 'click' @select}}
   >
     {{@principle.title}}
   </div>
 </template>;
 
 class Bingo {
-  @tracked principles: Principle[];
-  @tracked selection: Set<Principle> = new TrackedSet();
-  @tracked winner: Set<Principle> = new TrackedSet();
+  @tracked principles: Awfulpractice[];
+  @tracked selection: Set<Awfulpractice> = new TrackedSet();
+  @tracked winner: Set<Awfulpractice> = new TrackedSet();
   @tracked finished: boolean = false;
 
   private static STORAGE_PRINCIPLES: string = 'bullshit_bingo.principles';
@@ -61,14 +60,14 @@ class Bingo {
       return;
     }
 
-    const principles = JSON.parse(data) as Principle[];
+    const principles = JSON.parse(data) as Awfulpractice[];
 
     if (principles) {
       const game = new Bingo(principles);
 
       if (selection) {
         for (const s of JSON.parse(selection)) {
-          game.selection.add(game.principles.find((p) => p.id === s.id) as Principle);
+          game.selection.add(game.principles.find((p) => p.id === s.id) as Awfulpractice);
         }
 
         game.checkForWin();
@@ -80,7 +79,7 @@ class Bingo {
     return;
   }
 
-  constructor(principles: Principle[]) {
+  constructor(principles: Awfulpractice[]) {
     this.principles = principles;
 
     // clear local storage for a fresh game
@@ -91,8 +90,7 @@ class Bingo {
     this.persistPrinciples();
   }
 
-  @action
-  select(principle: Principle) {
+  select = (principle: Awfulpractice) => {
     if (this.selection.has(principle)) {
       this.selection.delete(principle);
     } else {
@@ -174,13 +172,13 @@ class Bingo {
     }
 
     const lines = [rows, cols, cross].reduce((acc, val) => acc.concat(val), []);
-    const winnerLine = lines.findIndex((line) => line.every(v => v === true));
+    const winnerLine = lines.findIndex((line) => line.every((v) => v === true));
 
     if (winnerLine >= 0 && winnerLine <= 4) {
       return ['row', winnerLine + 1];
     } else if (winnerLine >= 5 && winnerLine <= 9) {
       return ['col', winnerLine + 1 - 5];
-    }  else if (winnerLine >= 10) {
+    } else if (winnerLine >= 10) {
       return ['cross', winnerLine - 10];
     }
 
@@ -201,7 +199,10 @@ class Bingo {
   }
 
   private persistSelection() {
-    window.localStorage.setItem(Bingo.STORAGE_SELECTION, JSON.stringify(Array.from(this.selection)));
+    window.localStorage.setItem(
+      Bingo.STORAGE_SELECTION,
+      JSON.stringify(Array.from(this.selection))
+    );
   }
 }
 
@@ -212,7 +213,6 @@ interface Counter {
 }
 
 class Counters {
-
   private static STORAGE_COUNTER: string = 'bullshit_bingo.counter';
   private static STORAGE_ACTIVE_COUNTER_ID: string = 'bullshit_bingo.active_counter_id';
 
@@ -253,16 +253,14 @@ class Counters {
     this.persistCounters();
   }
 
-  @action
-  activateCounter(id: string) {
+  activateCounter = (id: string) => {
     if (this.counters[id]) {
       this.activeCounter = this.counters[id];
       window.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
     }
   }
 
-  @action
-  renameCounter(id: string, name: string) {
+  renameCounter = (id: string, name: string) => {
     this.counters[id].name = name;
     // if (id === this.activeCounter.id) {
     //   this.activeCounter = this.counters[id];
@@ -278,13 +276,11 @@ class Counters {
     this.persistCounters();
   }
 
-  @action
-  incrementActiveCounter() {
+  incrementActiveCounter = () => {
     this.incrementCounter(this.activeCounter.id);
   }
 
-  @action
-  newCounter(name: string) {
+  newCounter = (name: string) => {
     const cnt = new TrackedObject({
       id: uuid(),
       name: name,
@@ -295,8 +291,7 @@ class Counters {
     this.persistCounters();
   }
 
-  @action
-  deleteCounter(id: string) {
+  deleteCounter = (id: string) => {
     delete this.counters[id];
     this.persistCounters();
   }
@@ -307,58 +302,53 @@ class Counters {
   }
 }
 
-
 function has(set: Set<unknown>, value: unknown): boolean {
   return set.has(value);
 }
 
 export default class BingoComponent extends Component {
-  principles = PrinciplesResource.from(this);
+  principlesLoader = use(this, findAwfulPractices);
 
-  @tracked gamePrinciples: Principle[] = [];
+  @tracked principles: Awfulpractice[] = [];
+
+  @tracked gamePrinciples: Awfulpractice[] = [];
   @tracked display: string = 'game';
   @tracked game?: Bingo;
   counters = new Counters();
 
-  // constructor(owner: unknown, args: {}) {
-  //   super(owner, args);
-  // }
+  constructor(owner: unknown, args: {}) {
+    super(owner, args);
 
-  @action
-  setup() {
     this.load();
   }
 
-  load() {
+  async load() {
+    this.principles = await this.principlesLoader.current;
+
     if (Bingo.hasSavegame()) {
       this.game = Bingo.loadSavegame();
     }
   }
 
-  @action
-  toggle() {
+  toggle = () => {
     this.display = this.display === 'game' ? 'counter' : 'game';
   }
 
-  @action
-  start() {
-    const principles = this.principles.all.sort(() => .5 - Math.random()).slice(0, 25);
+  start = () => {
+    const principles = this.principles.sort(() => 0.5 - Math.random()).slice(0, 25);
     this.game = new Bingo(principles);
   }
 
-  @action
-  reset() {
+  reset = () => {
     this.start();
   }
 
-  @action
-  newGame() {
+  newGame = () => {
     this.counters.incrementActiveCounter();
     this.start();
   }
 
-  @action
-  newCounter(event: SubmitEvent) {
+  newCounter = (event: SubmitEvent) => {
     const form = event.target as HTMLFormElement;
     const data = new FormData(form);
     const name = data.get('name') as string;
@@ -370,14 +360,12 @@ export default class BingoComponent extends Component {
   // ok, this here is needed in a comment: <span></span> - wtf?
 
   <template>
-    {{didInsert this.setup}}
-
     <div class={{styles.bingo}}>
       <nav>
         <ul>
           <li>
-            <button type="button" {{on "click" this.toggle}}>
-              {{#if (eq this.display "game")}}
+            <button type='button' {{on 'click' this.toggle}}>
+              {{#if (eq this.display 'game')}}
                 Zähler
               {{else}}
                 Spielen
@@ -392,7 +380,7 @@ export default class BingoComponent extends Component {
 
         {{#if (eq this.display 'game')}}
           <ul>
-            <li class="{{styles.bingoText}} {{if this.game.finished styles.bingoTextVisible}}">
+            <li class='{{styles.bingoText}} {{if this.game.finished styles.bingoTextVisible}}'>
               <span>B</span>
               <span>i</span>
               <span>n</span>
@@ -404,10 +392,17 @@ export default class BingoComponent extends Component {
           <ul>
             <li>Aktuelles Spiel:</li>
             {{#if this.game.finished}}
-              <li><button type="button" class="btn btn-outline-success mr-2" {{on "click"  this.newGame}}>Nochmal Spielen</button></li>
+              <li><button
+                  type='button'
+                  class='btn btn-outline-success mr-2'
+                  {{on 'click' this.newGame}}
+                >Nochmal Spielen</button></li>
             {{else}}
-              <li><button type="button" class="btn btn-outline-info float-right"
-              {{on "click" this.reset}}>Neues Spiel</button></li>
+              <li><button
+                  type='button'
+                  class='btn btn-outline-info float-right'
+                  {{on 'click' this.reset}}
+                >Neues Spiel</button></li>
             {{/if}}
           </ul>
         {{/if}}
@@ -426,46 +421,45 @@ export default class BingoComponent extends Component {
             {{/each}}
           </div>
         {{else}}
-          <button {{on "click" this.newGame}}>Neues Spiel</button>
+          <button {{on 'click' this.newGame}}>Neues Spiel</button>
         {{/if}}
       {{else}}
         <h2>Zähler</h2>
 
         <p>
-          Zähler können verwendet werden, um an bestimmten Ereignissen die
-          Bingos zu zählen (zum Beispiel der Videoanalyse vergangener Wettkämpfe).
+          Zähler können verwendet werden, um an bestimmten Ereignissen die Bingos zu zählen (zum
+          Beispiel der Videoanalyse vergangener Wettkämpfe).
         </p>
 
         <div class={{styles.counters}}>
           {{#each-in this.counters.counters as |id counter|}}
-            <div
-              class={{styles.counter}}
-              aria-selected={{eq id this.counters.activeCounter.id}}
-            >
+            <div class={{styles.counter}} aria-selected={{eq id this.counters.activeCounter.id}}>
               <input
-                type="text"
-                value="{{counter.name}}"
-                {{on "input" (pick "target.value" (fn this.counters.renameCounter id))}}
-              >
-              <span class="counter-count">{{counter.count}}</span>
+                type='text'
+                value='{{counter.name}}'
+                {{on 'input' (pick 'target.value' (fn this.counters.renameCounter id))}}
+              />
+              <span class='counter-count'>{{counter.count}}</span>
 
               {{#if (eq id this.counters.activeCounter.id)}}
-                <Icon @icon="check"/>
+                <Icon @icon='check' />
               {{else}}
-                <span {{on "click" (fn this.counters.activateCounter id)}}><Icon @icon="go"/></span>
+                <span {{on 'click' (fn this.counters.activateCounter id)}}><Icon
+                    @icon='go'
+                  /></span>
               {{/if}}
-              <span {{on "click" (fn this.counters.deleteCounter id)}}><Icon @icon="trash"/></span>
+              <span {{on 'click' (fn this.counters.deleteCounter id)}}><Icon @icon='trash' /></span>
             </div>
           {{/each-in}}
         </div>
 
         <h3>Neuer Zähler</h3>
 
-        <form {{on "submit" (preventDefault this.newCounter)}} class={{styles.new}}>
-          <label for="counter-new">Name für den Zähler</label>
+        <form {{on 'submit' (preventDefault this.newCounter)}} class={{styles.new}}>
+          <label for='counter-new'>Name für den Zähler</label>
 
-          <input id="counter-new" name="name">
-          <button type="submit"><Icon @icon="plus"/></button>
+          <input id='counter-new' name='name' />
+          <button type='submit'><Icon @icon='plus' /></button>
         </form>
 
       {{/if}}

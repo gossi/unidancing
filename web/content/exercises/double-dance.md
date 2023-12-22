@@ -1,14 +1,16 @@
 ---
-title: Doubles
-locomotion: 
-- unicycle
-- pedes
-personal: pair
-see:
-- url: https://www.youtube.com/watch?v=10fpaWri-dY
-  label: Thomas Tiercy & Basile Audergon @ UNICON 15
-- url: https://www.youtube.com/watch?v=lLQGsbPnSUo
-  label: Marissa Osata (I See Fire by Ed Sheeran)
+title: Double Dance
+excerpt: 'Choreo zu zweit auf einem Einrad, immer abwechselnd.'
+locomotion:
+  - pedes
+  - unicycle
+personal:
+  - pair
+links:
+  - label: Thomas Tiercy & Basile Audergon @ UNICON 15
+    url: 'https://www.youtube.com/watch?v=10fpaWri-dY'
+  - label: Marissa Osata (I See Fire by Ed Sheeran)
+    url: 'https://www.youtube.com/watch?v=lLQGsbPnSUo'
 ---
 
 Routine zu Zweit auf einem Einrad.
@@ -19,7 +21,7 @@ Partnerweise zusammen gehen. Ein Einrad auswählen, auf dem Beide Fahren können
 
 Mit dem Partner mind. 4 sichere Einrad-Wechsel entwickeln. Der Einradfahrer wird zum Tänzer und umgekehrt.
 
-Zeit: ~30-45min
+Zeit: \~30-45min
 
 ## Aufgabe 2
 

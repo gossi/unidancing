@@ -1,7 +1,6 @@
 ---
 title: Locking Introduction
-locomotion:
-personal:
+excerpt: Einführung in Locking.
 ---
 
 tbd

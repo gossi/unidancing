@@ -29,6 +29,9 @@
       "@unidancing/app/*": [
         "app/*"
       ],
+      "@/tina/*": [
+        "tina/__generated__/*"
+      ],
       "*": [
         "types/*"
       ]

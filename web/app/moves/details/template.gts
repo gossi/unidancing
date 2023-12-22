@@ -1,28 +1,23 @@
 import RouteTemplate from 'ember-route-template';
 import { pageTitle } from 'ember-page-title';
-import Details, { MoveDetailsSignature } from '../-components/details';
+import { load } from 'ember-async-data';
+import { MoveDetails } from '../-components';
+import { findMove } from '../resource';
 
 interface Signature {
   Args: {
-    model: MoveDetailsSignature['Args'];
-  };
+    model: {
+      id: string;
+    }
+  }
 }
 
 export default RouteTemplate<Signature>(<template>
-  {{#let @model.move as |move|}}
-    {{#if move}}
-      {{pageTitle move.title}}
+  {{#let (load (findMove @model.id)) as |r|}}
+    {{#if r.isResolved}}
+      {{pageTitle r.value.title}}
 
-      <Details
-        @move={{@model.move}}
-        @buildMoveLink={{@model.buildMoveLink}}
-        @buildSkillLink={{@model.buildSkillLink}}
-        @buildGameLink={{@model.buildGameLink}}
-      />
-    {{else}}
-      <h1>Not Found</h1>
-
-      <p>whoops</p>
+      <MoveDetails @move={{r.value}} />
     {{/if}}
   {{/let}}
 </template>);

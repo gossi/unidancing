@@ -1,78 +1,35 @@
 import { defineSchema } from 'tinacms';
+import { SkillCollection } from './collections/skill';
+import { TechniqueCollection } from './collections/technique';
+import { ArtCollection } from './collections/art';
+import { ExerciseCollection } from './collections/exercise';
+import { CourseCollection } from './collections/course';
+import { AwfulPracticeCollection } from './collections/aweful-practice';
+import { MoveCollection } from './collections/move';
 
 const schema = defineSchema({
   collections: [
-    {
-      name: 'exercises',
-      label: 'Exercises',
-      path: 'content/exercises',
-      fields: [
-        {
-          type: "string",
-          name: "title",
-          label: "Title",
-          isTitle: true,
-          required: true,
-        },
-        {
-          label: 'Locomotion',
-          name: 'locomotion',
-          type: 'string',
-          list: true,
-          options: [
-            {
-              value: 'pedes',
-              label: 'Pedes',
-            },
-            {
-              value: 'unicycle',
-              label: 'Unicycle',
-            },
-          ],
-        },
-        {
-          label: 'Personal',
-          name: 'personal',
-          type: 'string',
-          required: false,
-          list: true,
-          options: [
-            {
-              value: 'individual',
-              label: 'Individual',
-            },
-            {
-              value: 'pair',
-              label: 'Pair',
-            },
-            {
-              value: 'group',
-              label: 'Group'
-            }
-          ],
-        },
-        {
-          type: "rich-text",
-          name: "body",
-          label: "Body",
-          isBody: true,
-        }
-      ]
-    },
-    {
-      name: 'tricks',
-      label: 'Tricks',
-      path: 'content/tricks',
-      fields: [
-        {
-          type: "string",
-          name: "title",
-          label: "Title",
-          isTitle: true,
-          required: true
-        }
-      ]
-    }
+    SkillCollection,
+    TechniqueCollection,
+    ArtCollection,
+    MoveCollection,
+    ExerciseCollection,
+    CourseCollection,
+    AwfulPracticeCollection
+    // {
+    //   name: 'trick',
+    //   label: 'Tricks',
+    //   path: 'content/tricks',
+    //   fields: [
+    //     {
+    //       type: "string",
+    //       name: "title",
+    //       label: "Title",
+    //       isTitle: true,
+    //       required: true
+    //     }
+    //   ]
+    // }
   ]
 });
 

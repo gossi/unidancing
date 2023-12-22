@@ -1,11 +1,11 @@
 ---
 title: Ja genau, und dann...
-personal: pair
-locomotion:
+personal: 
+- pair
 tags:
 - kommunikation
 - improvisation
-see:
+links:
 - url: https://improwiki.com/de/wiki/improtheater/ja_genau_und_dann
   label: Improwiki
 ---

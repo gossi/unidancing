@@ -1,12 +1,12 @@
 ---
 title: Exploration von Moves
-locomotion: 
-- pedes
-- unicycle
-personal: individual
+excerpt: Aneignen von Moves.
+locomotion:
+  - pedes
+  - unicycle
+personal:
+  - individual
 ---
-
-Aneignen von Moves.
 
 ## 1. Discovery-Phase
 
@@ -14,8 +14,8 @@ Die Athleten versuchen sich an einer Vielzahl an Moves aus. Dazu verstreuen sich
 alle im Raum, prinzipiell alleine - aber in kleine Gruppen macht es sehr
 viel Spaß.
 
-- Wer kann, nutzt sein eigenes kreatives Potential
-- Wer nicht, findet Inspiration auf dem Boden (in Form von Karteikarten)
+* Wer kann, nutzt sein eigenes kreatives Potential
+* Wer nicht, findet Inspiration auf dem Boden (in Form von Karteikarten)
 
 Der Trainer bereitet dazu Karteikarten vor. Jede einzelne Karteikarte enthält
 eine kurze Anleitung zu einer Bewegung. Die Athleten setzen die Bewegung nach

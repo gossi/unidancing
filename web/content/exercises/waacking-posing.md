@@ -1,12 +1,11 @@
 ---
-title: "Waacking: Posing"
-art: Waacking
-locomotion: pedes
-personal: 
-video: https://www.youtube.com/watch?v=AG74EpfwVuE
+title: 'Waacking: Posing'
+excerpt: Posing im Waacking.
+locomotion:
+  - pedes
+art: content/arts/waacking.md
+video: 'https://www.youtube.com/watch?v=AG74EpfwVuE'
 ---
-
-Posing im Waacking
 
 3 Körperbereiche
 

@@ -11,3 +11,5 @@ export { default as Icon } from './icon';
 export { default as Section } from './section';
 // @ts-ignore
 export { default as VideoPlayer } from './video-player';
+// @ts-ignore
+export { default as TinaMarkdown } from './tina-markdown';

@@ -1,33 +1,39 @@
-import { service } from '@ember/service';
+import { resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
-import { Resource } from 'ember-resources';
+import type { Skill } from '.';
+import type { LinkManagerService } from 'ember-link';
 
-import type { Registry as Services } from '@ember/service';
-import type { Link } from 'ember-link';
+export const findSkills = resourceFactory(() => {
+  return resource(async ({ owner }): Promise<Skill[]> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
 
-export function createSkillLinkBuilder(
-  linkManager: Services['link-manager']
-): (skill: string) => Link {
-  return (skill: string): Link => {
-    return linkManager.createLink({
+    const skillsResponse = await tina.client.queries.skillConnection();
+
+    return skillsResponse.data.skillConnection.edges?.map((ex) => ex?.node) as Skill[];
+  });
+});
+
+export const findSkill = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Skill> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    const ex = await tina.client.queries.skill({ relativePath: `${id}.md` });
+
+    return ex.data.skill as Skill;
+  });
+});
+
+export const buildSkillLink = resourceFactory((skill: string) => {
+  return resource(({ owner }) => {
+    const { services } = sweetenOwner(owner);
+    const { linkManager } = services;
+
+    return (linkManager as LinkManagerService).createLink({
       route: 'skills.details',
       models: [skill]
     });
-  };
-}
-
-export class SkillResource extends Resource {
-  @service declare data: Services['data'];
-
-  get skills() {
-    return this.data.find('skills');
-  }
-
-  find(id: string) {
-    return this.data.findOne('skills', id);
-  }
-}
-
-export function useSkill(destroyable: object) {
-  return SkillResource.from(destroyable);
-}
+  });
+});

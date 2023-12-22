@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
+import { isSSR } from '../../helpers';
 import { deserialize } from '../../utils/serde';
 
 import type SpotifyService from '../../services/spotify';
@@ -32,6 +33,10 @@ export default class SpotifyAuthRoute extends Route {
   @service declare router: RouterService;
 
   activate(transition: Transition) {
+    if (isSSR()) {
+      return;
+    }
+
     if (Object.keys(transition.to?.queryParams as {}).length > 0) {
       this.spotify.authenticate(deserialize(transition.to?.queryParams as {}));
 

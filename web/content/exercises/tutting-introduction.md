@@ -1,7 +1,6 @@
 ---
 title: Tutting Introduction
-locomotion:
-personal:
+excerpt: Einführung in Tutting.
 ---
 
 Intro into Tutting

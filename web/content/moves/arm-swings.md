@@ -2,9 +2,7 @@
 title: Arm Swings
 tags:
 - Power
-video: 
-  type: youtube
-  url: https://youtu.be/Y6zoZ7_wJgE?t=29
+video: https://youtu.be/Y6zoZ7_wJgE?t=29
 ---
 
 - Mit 2 Händen eine schwere Kugel hochheben (~8kg)

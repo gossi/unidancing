@@ -14,9 +14,9 @@ Router.map(function () {
   });
   this.route('courses', function () {
     this.route('details', { path: '/:id' });
-    // this.route('improvisation');
-    // this.route('moves');
-    // this.route('emotionen');
+  });
+  this.route('arts', { path: 'kuenste' }, function () {
+    this.route('details', { path: '/:id' });
   });
   this.route('skills', { path: 'fertigkeiten' }, function () {
     this.route('details', { path: '/:id' });

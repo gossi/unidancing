@@ -1,18 +1,19 @@
 ---
-title: Ja genau, und weil...
-personal: pair
-locomotion:
+title: 'Ja genau, und weil...'
+excerpt: Übung für Zwei Spieler zum Lernen von Anbieten und Annehmen.
+personal:
+  - pair
 tags:
-- kommunikation
-- improvisation
-see:
-- url: https://improwiki.com/de/wiki/improtheater/ja_genau_und_weil
-  label: Improwiki
+  - kommunikation
+  - improvisation
+links:
+  - label: Improwiki
+    url: 'https://improwiki.com/de/wiki/improtheater/ja_genau_und_weil'
 ---
 
-Eine Übung für zwei Fahrer. Die beiden Fahrer spielen zusammen _einen_ Experten
+Eine Übung für zwei Fahrer. Die beiden Fahrer spielen zusammen *einen* Experten
 eines speziellen Fachgebiets, oder als Erfinder, von seiner sensatiellen Erfindung zu
-erzählen. Dazu nutzen beide _ein_ Einrad, dass das Forschungsobjekt oder eine
+erzählen. Dazu nutzen beide *ein* Einrad, dass das Forschungsobjekt oder eine
 besondere Erfindung (hierbei) darstellt.
 
 Das Einrad wird dazu nicht befahren, sondern bespielt. Die Geschichte wird
@@ -22,9 +23,9 @@ vorigen Satz aufzugreifen.
 
 Beispiel:
 
-- A: Ich erforsche das Hüten von Schaafen
-- B: Ja genau, und weil ich das Hüten von Schaafen erforsche, hab ich hier
+* A: Ich erforsche das Hüten von Schaafen
+* B: Ja genau, und weil ich das Hüten von Schaafen erforsche, hab ich hier
   meinen Hütehund mitgebracht
-- A: Ja genau, und weil ich meinen Hütehund dabei hab, kann ich euch einige
+* A: Ja genau, und weil ich meinen Hütehund dabei hab, kann ich euch einige
   Tricks zeigen, die ich ihm beigebracht habe
-- B: Ja genau, und weil ...
+* B: Ja genau, und weil ...

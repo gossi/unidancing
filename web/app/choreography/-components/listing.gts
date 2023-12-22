@@ -1,13 +1,15 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { PrinciplesResource } from '../resource';
-import { Tag, TAGS } from '../../database/principles';
+import { Tag, TAGS } from '..';
 import styles from './listing.css';
 import { eq } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
-import { htmlSafe } from '@ember/template';
+import { load } from 'ember-async-data';
+import { findAwfulPractices } from '../resource';
+import { TinaMarkdown } from '../../components';
 
 import type { TOC } from '@ember/component/template-only';
+import type { Maybe } from '@/tina/types';
 
 const TagUI: TOC<{
   Element: HTMLSpanElement;
@@ -24,12 +26,12 @@ const TagUI: TOC<{
   >{{@tag}}</span>
 </template>;
 
+const asTag = (tag: Maybe<string>): Tag => {
+  return tag as Tag;
+}
+
 export default class ChoreographyNotTodoList extends Component {
   @tracked tag?: Tag;
-
-  principles = PrinciplesResource.from(this, () => ({
-    tag: this.tag
-  }));
 
   filter = (tag: Tag) => {
     return () => {
@@ -54,19 +56,23 @@ export default class ChoreographyNotTodoList extends Component {
       {{/each}}
     </p>
 
-    {{#each this.principles.principles as |principle|}}
-      <details class={{styles.principle}}>
-        <summary>
-          {{principle.title}}
-          <span>
-            {{#each principle.tags as |tag|}}
-              <TagUI @tag={{tag}} />
-            {{/each}}
-          </span>
-        </summary>
+    {{#let (load (findAwfulPractices this.tag)) as |r|}}
+      {{#if r.isResolved}}
+        {{#each r.value as |principle|}}
+          <details class={{styles.principle}}>
+            <summary>
+              {{principle.title}}
+              <span>
+                {{#each principle.tags as |tag|}}
+                  <TagUI @tag={{asTag tag}} />
+                {{/each}}
+              </span>
+            </summary>
 
-        {{htmlSafe principle.contents}}
-      </details>
-    {{/each}}
+            <TinaMarkdown @content={{principle.body}}/>
+          </details>
+        {{/each}}
+      {{/if}}
+    {{/let}}
   </template>
 }

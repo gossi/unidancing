@@ -1,15 +1,14 @@
 ---
 title: Whiskeymixer
-locomotion:
-personal: group
+excerpt: Aufwärmspiel um den Kopf freizubekommen.
+personal:
+  - group
 tags:
-- warmup
-see:
-- url: https://improwiki.com/de/wiki/improtheater/whiskeymixer
-  label: Improwiki
+  - warmup
+links:
+  - label: Improwiki
+    url: 'https://improwiki.com/de/wiki/improtheater/whiskeymixer'
 ---
-
-Aufwärmspiel um den Kopf freizubekommen
 
 Uhrzeigersinn: **Whiskeymixer**
 Richtungswechsel: **Messwechsel**

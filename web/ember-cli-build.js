@@ -6,28 +6,64 @@ const { browsers } = require('@gossi/config-targets');
 const { importSingleTs } = require('import-single-ts');
 const path = require('node:path');
 
+// (globalThis || self).XMLHttpRequest = (globalThis || self).XMLHttpRequestShim;
+
 async function findUrls() {
   const { client } = await importSingleTs(
     path.resolve(__dirname, './tina/__generated__/client.ts')
   );
 
+  // arts
+  const artsResponse = await client.queries.artConnection();
+  const arts = artsResponse.data.artConnection.edges.map((art) => {
+    return `/kuenste/${art.node._sys.filename}`;
+  });
+
+  // courses
+  const coursesResponse = await client.queries.courseConnection();
+  const courses = coursesResponse.data.courseConnection.edges.map((course) => {
+    return `/courses/${course.node._sys.filename}`;
+  });
+
   // exercises
-  const exercisesResponse = await client.queries.exercisesConnection();
-  const exercises = exercisesResponse.data.exercisesConnection.edges.map((exercise) => {
+  const exercisesResponse = await client.queries.exerciseConnection();
+  const exercises = exercisesResponse.data.exerciseConnection.edges.map((exercise) => {
     return `/uebungen/${exercise.node._sys.filename}`;
   });
 
-  console.log('exercises', exercises);
+  // moves
+  const movesResponse = await client.queries.moveConnection();
+  const moves = movesResponse.data.moveConnection.edges.map((move) => {
+    return `/moves/${move.node._sys.filename}`;
+  });
+
+  // skills
+  const skillsResponse = await client.queries.skillConnection();
+  const skills = skillsResponse.data.skillConnection.edges.map((skill) => {
+    return `/fertigkeiten/${skill.node._sys.filename}`;
+  });
 
   return [
     '/',
+    '/kuenste',
+    ...arts,
     '/courses',
+    ...courses,
     '/fertigkeiten',
+    ...skills,
     '/uebungen',
-    // ...exercises,
+    ...exercises,
     '/moves',
+    ...moves,
     '/choreography',
-    '/training'
+    '/choreography/not-todo-list',
+    '/training',
+    '/training/control',
+    '/training/diagnostics',
+    '/training/diagnostics/time-tracking',
+    '/training/diagnostics/body-language',
+    '/training/tools',
+    '/training/games'
   ];
 }
 
@@ -52,11 +88,11 @@ module.exports = function (defaults) {
 
     finterprint: {
       exlude: ['media/']
-    }
+    },
 
-    // prember: {
-    //   urls: findUrls
-    // }
+    prember: {
+      urls: findUrls
+    }
   });
 
   const { Webpack } = require('@embroider/webpack');
@@ -71,7 +107,8 @@ module.exports = function (defaults) {
     splitAtRoutes: ['courses', 'skills', 'exercises', 'moves', 'choreography', 'training'],
     packagerOptions: {
       webpackConfig: {
-        devtool: process.env.CI ? 'source-map' : 'eval',
+        // devtool: process.env.CI ? 'source-map' : 'eval',
+        devtool: 'source-map',
         module: {
           rules: [
             {
@@ -115,6 +152,6 @@ module.exports = function (defaults) {
     }
   });
 
-  return compiledApp;
-  // return require('prember').prerender(app, compiledApp);
+  // return compiledApp;
+  return require('prember').prerender(app, compiledApp);
 };

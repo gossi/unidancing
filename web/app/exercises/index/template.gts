@@ -1,28 +1,19 @@
 import RouteTemplate from 'ember-route-template';
-import { pageTitle } from 'ember-page-title';
-import { link } from 'ember-link';
 import { LinkTo } from '@ember/routing';
-import Teaser from '../-components/teaser';
+import { load } from 'ember-async-data';
+import { ExerciseTeaser } from '../-components';
+import { findExercises } from '../resource';
 
-import type { Exercise } from '../../database/exercises';
-
-interface Signature {
-  Args: {
-    model: Exercise[];
-  }
-}
-
-export default RouteTemplate<Signature>(<template>
-  {{pageTitle 'Übungen'}}
-
+export default RouteTemplate(<template>
   <h1>Übungen</h1>
 
-  <p>Zum Lernen von <LinkTo @route="moves">Moves</LinkTo> und Körperkunst.</p>
+  <p>Zum Lernen von <LinkTo @route="moves">Moves</LinkTo> und <LinkTo @route="arts">Körperkünsten</LinkTo>.</p>
 
-  {{#each @model as |entry|}}
-    <Teaser
-      @exercise={{entry}}
-      @link={{link 'exercises.details' entry.id}}
-    />
-  {{/each}}
+  {{#let (load (findExercises)) as |r|}}
+    {{#if r.isResolved}}
+      {{#each r.value as |exercise|}}
+        <ExerciseTeaser @exercise={{exercise}} />
+      {{/each}}
+    {{/if}}
+  {{/let}}
 </template>);

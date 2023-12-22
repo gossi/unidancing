@@ -1,24 +1,12 @@
 ---
 title: Dynamik
+excerpt: 'Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür.'
 locomotion:
   - unicycle
 personal:
-  - i
-  - 'n'
-  - d
-  - i
-  - v
-  - i
-  - d
-  - i
-  - u
-  - a
-  - l
   - individual
   - group
 ---
-
-Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür.
 
 ## Einführung
 

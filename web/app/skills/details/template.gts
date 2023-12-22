@@ -1,24 +1,27 @@
 import RouteTemplate from 'ember-route-template';
 import { pageTitle } from 'ember-page-title';
-import { htmlSafe } from '@ember/template';
-import type { Skill } from '../../database/skills';
+import { TinaMarkdown } from '../../components';
+import { load } from 'ember-async-data';
+import { findSkill } from '../resource';
 
 interface Signature {
   Args: {
-    model: Skill;
+    model: {
+      id: string;
+    }
   }
 }
 
 export default RouteTemplate<Signature>(<template>
-  {{#if @model}}
-    {{pageTitle @model.title}}
+  {{#let (load (findSkill @model.id)) as |r|}}
+    {{#if r.isResolved}}
+      {{pageTitle r.value.title}}
 
-    <h1>{{@model.title}}</h1>
+      <section>
+        <h1>{{r.value.title}}</h1>
 
-    {{htmlSafe @model.contents}}
-  {{else}}
-    <h1>Not Found</h1>
-
-    <p>whoops</p>
-  {{/if}}
+        <TinaMarkdown @content={{r.value.body}} />
+      </section>
+    {{/if}}
+  {{/let}}
 </template>);

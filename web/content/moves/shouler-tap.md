@@ -1,8 +1,6 @@
 ---
 title: Schoulder Tap
-video:
-  type: youtube
-  url: https://youtu.be/QWQR5iuCY9o?t=156
+video: https://youtu.be/QWQR5iuCY9o?t=156
 ---
 
 - Arme mit leichtem Arm-Rumpf-Winkel hängen lassen
