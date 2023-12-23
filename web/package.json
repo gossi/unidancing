@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "@tinacms/cli": "^1.5.39",
-    "@unidancing/database": "workspace:*",
     "tinacms": "^1.5.28"
   },
   "devDependencies": {
