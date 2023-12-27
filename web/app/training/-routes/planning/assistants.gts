@@ -13,13 +13,11 @@ import type RouterService from '@ember/routing/router-service';
 
 export class TrainingPlanningGamesRoute extends Route<{}> {
   @service declare linkManager: LinkManagerService;
-  @service declare router: RouterService;
-
-  Game = Game;
+  @service('router') declare emberRouter: RouterService;
 
   buildGameLink = (game: Game) => {
     return this.linkManager.createLink({
-      route: this.router.currentRouteName as string,
+      route: this.emberRouter.currentRouteName as string,
       query: {
         game
       }
@@ -34,7 +32,7 @@ export class TrainingPlanningGamesRoute extends Route<{}> {
     <ul>
       {{#let (this.buildGameLink Game.DanceMix) as |link|}}
         <li>
-          <a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a><br>
+          <a href={{link.url}} {{on 'click' link.open}}>Dance Mix</a><br>
           Super Mix zum Freestylen. Einmal anschalten und die Jukebox geht los.
           Wechselt den Song für genügend Abwechselung. Super Training für die
           ganze Gruppe.

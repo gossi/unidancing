@@ -4,6 +4,7 @@ module.exports = function () {
       return {
         ...defaultGlobals,
         ...{
+          URL,
           AbortController,
           AbortSignal,
           fetch,

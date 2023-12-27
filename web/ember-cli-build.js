@@ -56,12 +56,13 @@ async function findUrls() {
     '/choreography',
     '/choreography/not-todo-list',
     '/training',
+    '/training/planning',
+    '/training/planning/assistants',
+    '/training/planning/games',
     '/training/control',
     '/training/diagnostics',
     '/training/diagnostics/time-tracking',
-    '/training/diagnostics/body-language',
-    '/training/tools',
-    '/training/games'
+    '/training/diagnostics/body-language'
   ];
 }
 
