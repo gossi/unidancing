@@ -5,7 +5,7 @@ import { getIcon } from '../components/icon';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
 import type { Icons } from '../components/icon';
-import type { Locomotion, Personal } from '../database/exercises';
+import type { Locomotion, Personal } from './-types';
 import type { Maybe } from '@/tina/types';
 
 const DEFAULT = { icon: true, text: false };

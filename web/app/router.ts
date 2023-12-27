@@ -33,12 +33,14 @@ Router.map(function () {
     this.route('unidance-writing');
   });
   this.route('training', function () {
+    this.route('planning', function () {
+      this.route('assistants');
+      this.route('games');
+    });
     this.route('control');
     this.route('diagnostics', function () {
       this.route('time-tracking');
       this.route('body-language');
     });
-    this.route('tools');
-    this.route('games');
   });
 });

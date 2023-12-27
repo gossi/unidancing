@@ -2,11 +2,9 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const packageJson = require('./package');
-const { browsers } = require('@gossi/config-targets');
+// const { browsers } = require('@gossi/config-targets');
 const { importSingleTs } = require('import-single-ts');
 const path = require('node:path');
-
-// (globalThis || self).XMLHttpRequest = (globalThis || self).XMLHttpRequestShim;
 
 async function findUrls() {
   const { client } = await importSingleTs(
@@ -103,7 +101,9 @@ module.exports = function (defaults) {
     staticHelpers: true,
     staticModifiers: true,
     staticComponents: true,
-    staticEmberSource: true,
+    // staticEmberSource: true,
+    // see: https://github.com/ember-fastboot/ember-cli-fastboot/issues/925#issuecomment-1859135364
+    staticEmberSource: false,
     splitAtRoutes: ['courses', 'skills', 'exercises', 'moves', 'choreography', 'training'],
     packagerOptions: {
       webpackConfig: {

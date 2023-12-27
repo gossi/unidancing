@@ -20,9 +20,9 @@ export const findSkill = resourceFactory((id: string) => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const ex = await tina.client.queries.skill({ relativePath: `${id}.md` });
+    const skill = await tina.client.queries.skill({ relativePath: `${id}.md` });
 
-    return ex.data.skill as Skill;
+    return skill.data.skill as Skill;
   });
 });
 

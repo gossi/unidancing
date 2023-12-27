@@ -5,6 +5,7 @@ module.exports = function () {
         ...defaultGlobals,
         ...{
           AbortController,
+          AbortSignal,
           fetch,
           Headers: typeof Headers !== 'undefined' ? Headers : undefined
         }

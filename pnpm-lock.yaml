@@ -217,6 +217,9 @@ importers:
       ember-page-title:
         specifier: ^8.1.0
         version: 8.1.0(ember-source@5.4.0)
+      ember-polaris-routing:
+        specifier: 0.1.0
+        version: 0.1.0(tracked-built-ins@3.3.0)
       ember-qunit:
         specifier: ^8.0.1
         version: 8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.0)(ember-source@5.4.0)(qunit@2.20.0)
@@ -250,6 +253,9 @@ importers:
       ember-sweet-owner:
         specifier: ^0.1.1
         version: 0.1.1
+      ember-tasks:
+        specifier: ^0.5.1
+        version: 0.5.1(tracked-built-ins@3.3.0)
       ember-template-imports:
         specifier: ^3.4.2
         version: 3.4.2
@@ -14752,6 +14758,17 @@ packages:
       - supports-color
     dev: true
 
+  /ember-polaris-routing@0.1.0(tracked-built-ins@3.3.0):
+    resolution: {integrity: sha512-f8b2ZVlq/sSaWK7B2xlnT78gw+LO+mM1RyLt8iGgMKTwAYBa10pppzs1OOFQDLXNnnP/SHKE1j1Jx6DxaTIGUA==}
+    peerDependencies:
+      tracked-built-ins: ^3.3.0
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
+      tracked-built-ins: 3.3.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /ember-qunit@8.0.1(@ember/test-helpers@3.2.0)(@glint/template@1.2.0)(ember-source@5.4.0)(qunit@2.20.0):
     resolution: {integrity: sha512-13PtywHNPTQKkDW4o8QRkJvcdsZr8hRyvh6xh/YLAX8+HaRLd3nPL8mBF4O/Kur/DAj3QWLvjzktZ2uRNGSh3A==}
     peerDependencies:
@@ -14972,6 +14989,17 @@ packages:
     dependencies:
       '@embroider/addon-shim': 1.8.6
       inflection: 2.0.1
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
+  /ember-tasks@0.5.1(tracked-built-ins@3.3.0):
+    resolution: {integrity: sha512-PhfHuOjUkkXI6kT/0b2f7UsK7dJoZbpSN2ttxrvY8tWCETYvaf2qjDgeT5hUrJcO1KkG58egBt0gheGTZTepPA==}
+    peerDependencies:
+      tracked-built-ins: ^3.3.0
+    dependencies:
+      '@embroider/addon-shim': 1.8.6
+      tracked-built-ins: 3.3.0
     transitivePeerDependencies:
       - supports-color
     dev: true

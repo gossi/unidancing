@@ -63,6 +63,8 @@ export const buildGameLink = resourceFactory(
   }
 );
 
+export type AllGameParams = DanceMixParams;
+
 export const ALL_GAME_PARAMS = [...Object.values(DanceMixParam)];
 
 export interface Games {

@@ -13,11 +13,6 @@ export default defineConfig({
   branch,
   clientId: process.env.TINA_CLIENT_ID,
   token: process.env.TINA_TOKEN,
-
-  // build: {
-  //   outputFolder: "admin",
-  //   publicFolder: "public",
-  // },
   build: {
     outputFolder: "admin",
     publicFolder: prod ? "dist" : 'public',

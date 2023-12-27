@@ -1,9 +1,0 @@
-.layout {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s0);
-
-  ul {
-    padding-left: calc(var(--spacing) * 2);
-  }
-}
