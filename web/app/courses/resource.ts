@@ -7,11 +7,24 @@ import type { LinkManagerService } from 'ember-link';
 export const findCourses = resourceFactory(() => {
   return resource(async ({ owner }): Promise<Course[]> => {
     const { services } = sweetenOwner(owner);
-    const { tina } = services;
+    const { tina, fastboot } = services;
+
+    const cached = fastboot.shoebox.retrieve('courses') as Course[];
+
+    console.log('cached', cached);
+
+    if (cached) {
+      return cached;
+    }
 
     const courseResponse = await tina.client.queries.courseConnection();
+    const courses = courseResponse.data.courseConnection.edges?.map((ex) => ex?.node) as Course[];
 
-    return courseResponse.data.courseConnection.edges?.map((ex) => ex?.node) as Course[];
+    if (fastboot.isFastBoot) {
+      fastboot.shoebox.put('courses', courses);
+    }
+
+    return courses;
   });
 });
 

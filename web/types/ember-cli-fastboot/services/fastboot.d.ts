@@ -86,7 +86,7 @@ export default class FastBoot extends Service {
 }
 
 declare module '@ember/service' {
-  interface ServiceRegistry {
+  interface Registry {
     fastboot: FastBoot;
   }
 }

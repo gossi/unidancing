@@ -13,21 +13,21 @@ import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 export class CourseIndexRoute extends Route<{ id: string }> {
   @service declare fastboot: FastbootService;
 
-  get courses() {
-    const promise = use(this, findCourses()).current;
+  promise = use(this, findCourses()).current;
 
+  get load() {
     if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
+      this.fastboot.deferRendering(this.promise);
     }
 
-    return Task.promise(promise);
+    return Task.promise(this.promise);
   }
 
   <template>
     {{pageTitle 'Kurse'}}
     <h1>Kurse</h1>
 
-    {{#let this.courses as |r|}}
+    {{#let this.load as |r|}}
       {{#if r.resolved}}
         {{#each r.value as |course|}}
           <article>

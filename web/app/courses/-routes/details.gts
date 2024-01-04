@@ -13,18 +13,18 @@ import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 export class CourseDetailsRoute extends Route<{ id: string }> {
   @service declare fastboot: FastbootService;
 
-  get course() {
-    const promise = use(this, findCourse(this.params.id)).current;
+  promise = use(this, findCourse(this.params.id)).current;
 
+  get load() {
     if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
+      this.fastboot.deferRendering(this.promise);
     }
 
-    return Task.promise(promise);
+    return Task.promise(this.promise);
   }
 
   <template>
-    {{#let this.course as |r|}}
+    {{#let this.load as |r|}}
       {{#if r.resolved}}
         {{pageTitle r.value.title}}
 
