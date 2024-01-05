@@ -4,6 +4,11 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  ember-cli-fastboot@4.1.2:
+    hash: bvcvi27tvg3nuodowhybdukcxa
+    path: patches/ember-cli-fastboot@4.1.2.patch
+
 importers:
 
   .:
@@ -174,7 +179,7 @@ importers:
         version: 3.3.2(ember-cli@5.4.1)
       ember-cli-fastboot:
         specifier: ^4.1.2
-        version: 4.1.2
+        version: 4.1.2(patch_hash=bvcvi27tvg3nuodowhybdukcxa)
       ember-cli-htmlbars:
         specifier: ^6.3.0
         version: 6.3.0
@@ -14096,7 +14101,7 @@ packages:
       - supports-color
     dev: true
 
-  /ember-cli-fastboot@4.1.2:
+  /ember-cli-fastboot@4.1.2(patch_hash=bvcvi27tvg3nuodowhybdukcxa):
     resolution: {integrity: sha512-cC2ET8AbRTssA4sg9qF9KLX9N/Xnwa7kS0PKZADMMOUXtuBF4jmgnXsjzlvIE+lgWcwK4tc6udgwpMeNMkOg7w==}
     engines: {node: 14.* || 16.* || >=18}
     dependencies:
@@ -14124,6 +14129,7 @@ packages:
       - supports-color
       - utf-8-validate
     dev: true
+    patched: true
 
   /ember-cli-get-component-path-option@1.0.0:
     resolution: {integrity: sha512-k47TDwcJ2zPideBCZE8sCiShSxQSpebY2BHcX2DdipMmBox5gsfyVrbKJWIHeSTTKyEUgmBIvQkqTOozEziCZA==}

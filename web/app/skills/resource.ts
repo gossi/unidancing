@@ -1,6 +1,8 @@
 import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
 
+import { cacheResult } from '../utils/data';
+
 import type { Skill } from '.';
 import type { LinkManagerService } from 'ember-link';
 
@@ -9,9 +11,11 @@ export const findSkills = resourceFactory(() => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const skillsResponse = await tina.client.queries.skillConnection();
+    return cacheResult('skills', owner, async () => {
+      const skillsResponse = await tina.client.queries.skillConnection();
 
-    return skillsResponse.data.skillConnection.edges?.map((ex) => ex?.node) as Skill[];
+      return skillsResponse.data.skillConnection.edges?.map((ex) => ex?.node) as Skill[];
+    });
   });
 });
 
@@ -20,9 +24,11 @@ export const findSkill = resourceFactory((id: string) => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const skill = await tina.client.queries.skill({ relativePath: `${id}.md` });
+    return cacheResult(`skill-${id}`, owner, async () => {
+      const skill = await tina.client.queries.skill({ relativePath: `${id}.md` });
 
-    return skill.data.skill as Skill;
+      return skill.data.skill as Skill;
+    });
   });
 });
 

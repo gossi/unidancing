@@ -4,6 +4,7 @@ import { service } from '@ember/service';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 import { LinkTo } from '@ember/routing';
+import { cached } from '@glimmer/tracking';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
@@ -13,7 +14,8 @@ import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 export class CourseIndexRoute extends Route<{ id: string }> {
   @service declare fastboot: FastbootService;
 
-  get skills() {
+  @cached
+  get load() {
     const promise = use(this, findSkills()).current;
 
     if (this.fastboot.isFastBoot) {
@@ -28,7 +30,7 @@ export class CourseIndexRoute extends Route<{ id: string }> {
 
     <h1>Fertigkeiten</h1>
 
-    {{#let this.skills as |r|}}
+    {{#let this.load as |r|}}
       {{#if r.resolved}}
         <ul>
           {{#each r.value as |skill|}}

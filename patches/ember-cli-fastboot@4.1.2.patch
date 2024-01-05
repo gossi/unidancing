@@ -1,0 +1,69 @@
+diff --git a/addon/services/fastboot.js b/addon/services/fastboot.js
+index 78d4be01a543cc1bdf6bc0823abbb5d5a41b7b0b..3eaa8db4c985c38d14d64eeb03c7f8da166096a4 100644
+--- a/addon/services/fastboot.js
++++ b/addon/services/fastboot.js
+@@ -31,26 +31,33 @@ const RequestObject = EObject.extend({
+   })
+ });
+ 
+-const Shoebox = EObject.extend({
++class Shoebox {
++  #fastboot;
++  #props = new Map();
++
++  constructor(fastboot) {
++    this.#fastboot = fastboot;
++  }
++
+   put(key, value) {
+-    assert('shoebox.put is only invoked from the FastBoot rendered application', this.get('fastboot.isFastBoot'));
++    assert('shoebox.put is only invoked from the FastBoot rendered application', this.#fastboot.isFastBoot);
+     assert('the provided key is a string', typeof key === 'string');
+ 
+-    let fastbootInfo = this.get('fastboot._fastbootInfo');
++    let fastbootInfo = this.#fastboot._fastbootInfo;
+     if (!fastbootInfo.shoebox) { fastbootInfo.shoebox = {}; }
+ 
+     fastbootInfo.shoebox[key] = value;
+-  },
++  }
+ 
+   retrieve(key) {
+-    if (this.get('fastboot.isFastBoot')) {
+-      let shoebox = this.get('fastboot._fastbootInfo.shoebox');
++    if (this.#fastboot.isFastBoot) {
++      let shoebox = this.#fastboot._fastbootInfo.shoebox;
+       if (!shoebox) { return; }
+ 
+       return shoebox[key];
+     }
+ 
+-    let shoeboxItem = this.get(key);
++    let shoeboxItem = this.#props.get(key);
+     if (shoeboxItem) { return shoeboxItem; }
+ 
+     let el = document.querySelector(`#shoebox-${key}`);
+@@ -59,11 +66,12 @@ const Shoebox = EObject.extend({
+     if (!valueString) { return; }
+ 
+     shoeboxItem = JSON.parse(valueString);
+-    this.set(key, shoeboxItem);
++    // this.set(key, shoeboxItem);
++    this.#props.set(key, shoeboxItem);
+ 
+     return shoeboxItem;
+   }
+-});
++}
+ 
+ const FastBootService = Service.extend({
+   isFastBoot: typeof FastBoot !== 'undefined',
+@@ -78,7 +86,7 @@ const FastBootService = Service.extend({
+   init() {
+     this._super(...arguments);
+ 
+-    let shoebox = Shoebox.create({ fastboot: this });
++    let shoebox = new Shoebox(this);
+     this.set('shoebox', shoebox);
+   },
+ 

@@ -1,6 +1,8 @@
 import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
 
+import { cacheResult } from '../utils/data';
+
 import type { Move } from '.';
 import type { LinkManagerService } from 'ember-link';
 
@@ -9,9 +11,11 @@ export const findMoves = resourceFactory(() => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const movesResponse = await tina.client.queries.moveConnection();
+    return cacheResult('moves', owner, async () => {
+      const movesResponse = await tina.client.queries.moveConnection();
 
-    return movesResponse.data.moveConnection.edges?.map((ex) => ex?.node) as Move[];
+      return movesResponse.data.moveConnection.edges?.map((ex) => ex?.node) as Move[];
+    });
   });
 });
 
@@ -20,9 +24,11 @@ export const findMove = resourceFactory((id: string) => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const ex = await tina.client.queries.move({ relativePath: `${id}.md` });
+    return cacheResult(`move-${id}`, owner, async () => {
+      const ex = await tina.client.queries.move({ relativePath: `${id}.md` });
 
-    return ex.data.move as Move;
+      return ex.data.move as Move;
+    });
   });
 });
 

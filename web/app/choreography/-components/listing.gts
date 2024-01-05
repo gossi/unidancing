@@ -4,11 +4,15 @@ import { Tag, TAGS } from '..';
 import styles from './listing.css';
 import { eq } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
-import { load } from 'ember-async-data';
+import { use } from 'ember-resources';
 import { findAwfulPractices } from '../resource';
 import { TinaMarkdown } from '../../components';
+import { service } from '@ember/service';
+import { cached } from '@glimmer/tracking';
+import Task from 'ember-tasks';
 
 import type { TOC } from '@ember/component/template-only';
+import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 import type { Maybe } from '@/tina/types';
 
 const TagUI: TOC<{
@@ -31,6 +35,8 @@ const asTag = (tag: Maybe<string>): Tag => {
 }
 
 export default class ChoreographyNotTodoList extends Component {
+  @service declare fastboot: FastbootService;
+
   @tracked tag?: Tag;
 
   filter = (tag: Tag) => {
@@ -41,6 +47,17 @@ export default class ChoreographyNotTodoList extends Component {
         this.tag = tag;
       }
     };
+  }
+
+  @cached
+  get load() {
+    const promise = use(this, findAwfulPractices(this.tag)).current;
+
+    if (this.fastboot.isFastBoot) {
+      this.fastboot.deferRendering(promise);
+    }
+
+    return Task.promise(promise);
   }
 
   <template>
@@ -56,8 +73,8 @@ export default class ChoreographyNotTodoList extends Component {
       {{/each}}
     </p>
 
-    {{#let (load (findAwfulPractices this.tag)) as |r|}}
-      {{#if r.isResolved}}
+    {{#let this.load as |r|}}
+      {{#if r.resolved}}
         {{#each r.value as |principle|}}
           <details class={{styles.principle}}>
             <summary>

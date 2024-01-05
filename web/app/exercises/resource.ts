@@ -1,6 +1,8 @@
 import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
 
+import { cacheResult } from '../utils/data';
+
 import type { Exercise } from '.';
 import type { LinkManagerService } from 'ember-link';
 
@@ -9,9 +11,11 @@ export const findExercises = resourceFactory(() => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const exercisesResponse = await tina.client.queries.exerciseConnection();
+    return cacheResult('exercises', owner, async () => {
+      const exercisesResponse = await tina.client.queries.exerciseConnection();
 
-    return exercisesResponse.data.exerciseConnection.edges?.map((ex) => ex?.node) as Exercise[];
+      return exercisesResponse.data.exerciseConnection.edges?.map((ex) => ex?.node) as Exercise[];
+    });
   });
 });
 
@@ -20,9 +24,11 @@ export const findExercise = resourceFactory((id: string) => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const ex = await tina.client.queries.exercise({ relativePath: `${id}.md` });
+    return cacheResult(`exercise-${id}`, owner, async () => {
+      const ex = await tina.client.queries.exercise({ relativePath: `${id}.md` });
 
-    return ex.data.exercise as Exercise;
+      return ex.data.exercise as Exercise;
+    });
   });
 });
 

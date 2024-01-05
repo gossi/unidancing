@@ -1,6 +1,8 @@
 import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
 
+import { cacheResult } from '../utils/data';
+
 import type { Art } from '.';
 import type { LinkManagerService } from 'ember-link';
 
@@ -9,9 +11,11 @@ export const findArts = resourceFactory(() => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const artsResponse = await tina.client.queries.artConnection({ sort: 'title' });
+    return cacheResult('arts', owner, async () => {
+      const artsResponse = await tina.client.queries.artConnection({ sort: 'title' });
 
-    return artsResponse.data.artConnection.edges?.map((art) => art?.node) as Art[];
+      return artsResponse.data.artConnection.edges?.map((art) => art?.node) as Art[];
+    });
   });
 });
 
@@ -20,11 +24,13 @@ export const findArt = resourceFactory((id: string) => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const artResponse = await tina.client.queries.art({ relativePath: `${id}.md` });
+    return cacheResult(`art-${id}`, owner, async () => {
+      const artResponse = await tina.client.queries.art({ relativePath: `${id}.md` });
 
-    // tina.client.queries.techniqueConnection({ filter: });
+      // tina.client.queries.techniqueConnection({ filter: });
 
-    return artResponse.data.art as Art;
+      return artResponse.data.art as Art;
+    });
   });
 });
 

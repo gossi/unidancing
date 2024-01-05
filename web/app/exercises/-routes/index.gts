@@ -4,6 +4,7 @@ import { findExercises } from '../resource';
 import { service } from '@ember/service';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
+import { cached } from '@glimmer/tracking';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 import { Route } from 'ember-polaris-routing';
@@ -14,7 +15,8 @@ export class ExercisesIndexRoute extends Route<{}> {
 
   findExercises = use(this, findExercises());
 
-  get exercises() {
+  @cached
+  get load() {
     const promise = this.findExercises.current;
 
     if (this.fastboot.isFastBoot) {
@@ -32,7 +34,7 @@ export class ExercisesIndexRoute extends Route<{}> {
       und
       <LinkTo @route='arts'>Körperkünsten</LinkTo>.</p>
 
-    {{#let this.exercises as |r|}}
+    {{#let this.load as |r|}}
       {{#if r.resolved}}
         {{#each r.value as |exercise|}}
           <ExerciseTeaser @exercise={{exercise}} />

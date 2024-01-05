@@ -1,30 +1,21 @@
 import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
 
+import { cacheResult } from '../utils/data';
+
 import type { Course } from '.';
 import type { LinkManagerService } from 'ember-link';
 
 export const findCourses = resourceFactory(() => {
   return resource(async ({ owner }): Promise<Course[]> => {
     const { services } = sweetenOwner(owner);
-    const { tina, fastboot } = services;
+    const { tina } = services;
 
-    const cached = fastboot.shoebox.retrieve('courses') as Course[];
+    return cacheResult('courses', owner, async () => {
+      const courseResponse = await tina.client.queries.courseConnection();
 
-    console.log('cached', cached);
-
-    if (cached) {
-      return cached;
-    }
-
-    const courseResponse = await tina.client.queries.courseConnection();
-    const courses = courseResponse.data.courseConnection.edges?.map((ex) => ex?.node) as Course[];
-
-    if (fastboot.isFastBoot) {
-      fastboot.shoebox.put('courses', courses);
-    }
-
-    return courses;
+      return courseResponse.data.courseConnection.edges?.map((ex) => ex?.node) as Course[];
+    });
   });
 });
 
@@ -33,9 +24,11 @@ export const findCourse = resourceFactory((id: string) => {
     const { services } = sweetenOwner(owner);
     const { tina } = services;
 
-    const courseResponse = await tina.client.queries.course({ relativePath: `${id}.md` });
+    return cacheResult(`course-${id}`, owner, async () => {
+      const courseResponse = await tina.client.queries.course({ relativePath: `${id}.md` });
 
-    return courseResponse.data.course as Course;
+      return courseResponse.data.course as Course;
+    });
   });
 });
 
