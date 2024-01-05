@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "tinacms dev -c 'ember s'",
-    "build": "pnpm build:ember && pnpm build:tina",
+    "build": "pnpm build:tina && pnpm build:ember && pnpm build:tina",
     "build:tina": "PROD=true tinacms build",
     "build:ember": "ember build --environment=production",
     "lint": "concurrently -g 'npm:lint:*(!fix)'",
