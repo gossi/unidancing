@@ -1,7 +1,11 @@
 ---
 title: Unicycle Orchestra
+locomotion:
+  - unicycle
+personal:
+  - group
 skills:
-  - choreography
+  - data: content/skills/choregraphy.md
 ---
 
 tbd.

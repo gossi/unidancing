@@ -1,35 +1,45 @@
-import { service } from '@ember/service';
+import { resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
-import { Resource } from 'ember-resources';
+import { cacheResult } from '../utils/data';
 
-import type { Registry as Services } from '@ember/service';
-import type { Link } from 'ember-link';
+import type { Exercise } from '.';
+import type { LinkManagerService } from 'ember-link';
 
-export function createExerciseLinkBuilder(
-  linkManager: Services['link-manager']
-): (exercise: string) => Link {
-  return (exercise: string): Link => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return linkManager.createLink({
+export const findExercises = resourceFactory(() => {
+  return resource(async ({ owner }): Promise<Exercise[]> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult('exercises', owner, async () => {
+      const exercisesResponse = await tina.client.queries.exerciseConnection();
+
+      return exercisesResponse.data.exerciseConnection.edges?.map((ex) => ex?.node) as Exercise[];
+    });
+  });
+});
+
+export const findExercise = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Exercise> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult(`exercise-${id}`, owner, async () => {
+      const ex = await tina.client.queries.exercise({ relativePath: `${id}.md` });
+
+      return ex.data.exercise as Exercise;
+    });
+  });
+});
+
+export const buildExerciseLink = resourceFactory((exercise: string) => {
+  return resource(({ owner }) => {
+    const { services } = sweetenOwner(owner);
+    const { linkManager } = services;
+
+    return (linkManager as LinkManagerService).createLink({
       route: 'exercises.details',
       models: [exercise]
     });
-  };
-}
-
-export class ExerciseResource extends Resource {
-  @service declare data: Services['data'];
-
-  get exercises() {
-    return this.data.find('exercises');
-  }
-
-  find(id: string) {
-    return this.data.findOne('exercises', id);
-  }
-}
-
-export function useExercise(destroyable: object) {
-  return ExerciseResource.from(destroyable);
-}
+  });
+});

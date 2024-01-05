@@ -2,3 +2,19 @@
   display: flex;
   justify-content: space-between;
 }
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--s0);
+  justify-content: space-between;
+
+  ul {
+    font-size: 80%;
+  }
+
+  li {
+    list-style-type: none;
+    text-wrap: nowrap;
+  }
+}

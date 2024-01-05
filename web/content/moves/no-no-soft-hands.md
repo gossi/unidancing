@@ -1,8 +1,6 @@
 ---
 title: No No Soft Hands
-video: 
-  type: youtube
-  url: https://youtu.be/Eqevr-ZtFPs?t=157
+video: https://youtu.be/Eqevr-ZtFPs?t=157
 ---
 
 - Hände über den Kopf halten, Handflächen schauen zur Decke (wie beim Pritschen

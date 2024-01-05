@@ -1,35 +1,45 @@
-import { service } from '@ember/service';
+import { resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
-import { Resource } from 'ember-resources';
+import { cacheResult } from '../utils/data';
 
-import type { Registry as Services } from '@ember/service';
-import type { Link } from 'ember-link';
+import type { Move } from '.';
+import type { LinkManagerService } from 'ember-link';
 
-export function createMoveLinkBuilder(
-  linkManager: Services['link-manager']
-): (move: string) => Link {
-  return (move: string): Link => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return linkManager.createLink({
+export const findMoves = resourceFactory(() => {
+  return resource(async ({ owner }): Promise<Move[]> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult('moves', owner, async () => {
+      const movesResponse = await tina.client.queries.moveConnection();
+
+      return movesResponse.data.moveConnection.edges?.map((ex) => ex?.node) as Move[];
+    });
+  });
+});
+
+export const findMove = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Move> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult(`move-${id}`, owner, async () => {
+      const ex = await tina.client.queries.move({ relativePath: `${id}.md` });
+
+      return ex.data.move as Move;
+    });
+  });
+});
+
+export const buildMoveLink = resourceFactory((move: string) => {
+  return resource(({ owner }) => {
+    const { services } = sweetenOwner(owner);
+    const { linkManager } = services;
+
+    return (linkManager as LinkManagerService).createLink({
       route: 'moves.details',
       models: [move]
     });
-  };
-}
-
-export class MoveResource extends Resource {
-  @service declare data: Services['data'];
-
-  get moves() {
-    return this.data.find('moves');
-  }
-
-  find(id: string) {
-    return this.data.findOne('moves', id);
-  }
-}
-
-// export function useExercise(destroyable: object) {
-//   return MoveResource.from(destroyable);
-// }
+  });
+});

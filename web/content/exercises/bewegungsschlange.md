@@ -1,10 +1,14 @@
 ---
 title: Bewegungsschlange
-locomotion: pedes
-skills:
-- bewegungsrepertoire
+excerpt: Aufwärmspiel mit lustigen Bewegungen.
+locomotion:
+  - pedes
+personal:
+  - group
 tags:
-- warmup
+  - warmup
+skills:
+  - data: content/skills/bewegungsrepertoire.md
 ---
 
 Eine kleine Gruppe von Personen formt sicht zu einer Schlange, der Kopf macht

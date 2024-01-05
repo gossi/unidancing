@@ -1,19 +1,19 @@
-import { Exercise } from '../../database/exercises';
-import { Link } from 'ember-link';
-import { htmlSafe } from '@ember/template';
 import { on } from '@ember/modifier';
 import styles from './teaser.css';
-import { formatPersonalIcon } from '../../helpers/format-personal';
-import { formatLocomotionIcon } from '../../helpers/format-locomotion';
+import { formatPersonalIcon, formatLocomotionIcon, asPersonal, asLocomotion } from '../-helpers';
 import Icon from '../../components/icon';
+import { buildExerciseLink } from '..';
+import { or } from 'ember-truth-helpers';
+import { buildSkillLink } from '../../skills/resource';
+import { asString } from '../../helpers';
 
 import type { TOC } from '@ember/component/template-only';
+import type { Exercise } from '..';
 
 export interface ExerciseTeaserSignature {
   Element: HTMLElement;
   Args: {
     exercise: Exercise;
-    link: Link;
   };
 }
 
@@ -23,7 +23,7 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
       <span>
         <Icon @icon='exercise' />
 
-        {{#let @link as |l|}}
+        {{#let (buildExerciseLink @exercise._sys.filename) as |l|}}
           <a href={{l.url}} {{on 'click' l.transitionTo}}>
             {{@exercise.title}}
           </a>
@@ -35,16 +35,44 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
         {{/each}}
 
         {{#each @exercise.locomotion as |locomotion|}}
-          {{formatLocomotionIcon locomotion}}
+          {{formatLocomotionIcon (asLocomotion locomotion)}}
         {{/each}}
 
         {{#each @exercise.personal as |personal|}}
-          {{formatPersonalIcon personal}}
+          {{formatPersonalIcon (asPersonal personal)}}
         {{/each}}
       </div>
     </header>
-    {{htmlSafe @exercise.excerpt}}
+
+    <div class={{styles.content}}>
+      <div>
+        {{@exercise.excerpt}}
+      </div>
+      <ul>
+        {{#if (or @exercise.art @exercise.technique @exercise.skills)}}
+
+          {{#if @exercise.art}}
+            <li><Icon @icon="art"/> {{@exercise.art.title}}</li>
+          {{/if}}
+
+          {{#if @exercise.technique}}
+            <li><Icon @icon="technique"/> {{@exercise.technique.title}}</li>
+          {{/if}}
+
+          {{#each @exercise.skills as |skill|}}
+            <li>
+              {{#let (buildSkillLink (asString skill.data._sys.filename)) as |l|}}
+                <Icon @icon='skill' />
+                <a href={{l.url}} {{on 'click' l.transitionTo}}>
+                  {{skill.data.title}}
+                </a>
+              {{/let}}
+            </li>
+          {{/each}}
+        {{/if}}
+      </ul>
+    </div>
   </article>
 </template>;
 
-export default ExerciseTeaser;
+export { ExerciseTeaser };

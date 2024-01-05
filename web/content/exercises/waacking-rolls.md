@@ -1,17 +1,17 @@
 ---
-title: "Waacking: Rolls"
-art: Waacking
-locomotion: pedes
-video: https://youtu.youtube.com/watch?v=lTZm0GVg6as?t=228
+title: 'Waacking: Rolls'
+excerpt: 'Rollen der Arme, sieht wild und eindrucksvoll aus.'
+locomotion:
+  - pedes
+art: content/arts/waacking.md
+video: 'https://youtu.youtube.com/watch?v=lTZm0GVg6as?t=228'
 ---
-
-Rollen der Arme, sieht wild und eindrucksvoll aus.
 
 ## Straight Rolls
 
-- Arme straight
-- Arme von unten zur Schulter hochrollen
-- und Overhead
+* Arme straight
+* Arme von unten zur Schulter hochrollen
+* und Overhead
 
 Ablauf:
 
@@ -21,9 +21,9 @@ Ablauf:
 
 ## Circular Rolls
 
-- Arme Diagonal
-- Arme werden kreisförmig nach oben geführt, in der ersten Phase werden die Arme gerollt
-- und dann ein Overhead
+* Arme Diagonal
+* Arme werden kreisförmig nach oben geführt, in der ersten Phase werden die Arme gerollt
+* und dann ein Overhead
 
 Ablauf:
 
@@ -33,12 +33,12 @@ Ablauf:
 
 ## Tail Rolls
 
-- Arme rückläufig, kreisförmig zur Schulter rollen
-- Dann die Arme in die fertige Overhead Position
-- Danach quasi die Angel werfen
+* Arme rückläufig, kreisförmig zur Schulter rollen
+* Dann die Arme in die fertige Overhead Position
+* Danach quasi die Angel werfen
 
 Ablauf:
 
-- 4x rechts
-- 4x links
-- 4x beide
+* 4x rechts
+* 4x links
+* 4x beide

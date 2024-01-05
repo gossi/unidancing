@@ -1,8 +1,6 @@
 ---
 title: Juice / Juicin / Swag me Out
-video:
-  type: youtube
-  url: https://youtu.be/QWQR5iuCY9o?t=96
+video: https://youtu.be/QWQR5iuCY9o?t=96
 ---
 
 - Rock Torso backwards

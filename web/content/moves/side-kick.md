@@ -2,9 +2,7 @@
 title: Side Kick
 tags:
 - power
-video:
-  type: youtube
-  url: https://youtu.be/Y6zoZ7_wJgE?t=121
+video: https://youtu.be/Y6zoZ7_wJgE?t=121
 ---
 
 - Knie auf Hüfthöhe anheben

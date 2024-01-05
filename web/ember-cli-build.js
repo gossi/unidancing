@@ -2,7 +2,69 @@
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 const packageJson = require('./package');
-const { browsers } = require('@gossi/config-targets');
+// const { browsers } = require('@gossi/config-targets');
+const { importSingleTs } = require('import-single-ts');
+const path = require('node:path');
+
+async function findUrls() {
+  const { client } = await importSingleTs(
+    path.resolve(__dirname, './tina/__generated__/client.ts')
+  );
+
+  // arts
+  const artsResponse = await client.queries.artConnection();
+  const arts = artsResponse.data.artConnection.edges.map((art) => {
+    return `/kuenste/${art.node._sys.filename}`;
+  });
+
+  // courses
+  const coursesResponse = await client.queries.courseConnection();
+  const courses = coursesResponse.data.courseConnection.edges.map((course) => {
+    return `/courses/${course.node._sys.filename}`;
+  });
+
+  // exercises
+  const exercisesResponse = await client.queries.exerciseConnection();
+  const exercises = exercisesResponse.data.exerciseConnection.edges.map((exercise) => {
+    return `/uebungen/${exercise.node._sys.filename}`;
+  });
+
+  // moves
+  const movesResponse = await client.queries.moveConnection();
+  const moves = movesResponse.data.moveConnection.edges.map((move) => {
+    return `/moves/${move.node._sys.filename}`;
+  });
+
+  // skills
+  const skillsResponse = await client.queries.skillConnection();
+  const skills = skillsResponse.data.skillConnection.edges.map((skill) => {
+    return `/fertigkeiten/${skill.node._sys.filename}`;
+  });
+
+  return [
+    '/',
+    '/kuenste',
+    ...arts,
+    '/courses',
+    ...courses,
+    '/fertigkeiten',
+    ...skills,
+    '/uebungen',
+    ...exercises,
+    '/moves',
+    ...moves,
+    '/choreography',
+    '/choreography/not-todo-list',
+    '/training',
+    '/training/planning',
+    '/training/planning/assistants',
+    '/training/planning/games',
+    '/training/control',
+    '/training/diagnostics',
+    '/training/diagnostics/time-tracking',
+    '/training/diagnostics/body-language'
+  ];
+}
 
 function isProduction() {
   return EmberApp.env() === 'production';
@@ -25,22 +87,29 @@ module.exports = function (defaults) {
 
     finterprint: {
       exlude: ['media/']
+    },
+
+    prember: {
+      urls: findUrls
     }
   });
 
   const { Webpack } = require('@embroider/webpack');
 
-  return require('@embroider/compat').compatBuild(app, Webpack, {
+  const compiledApp = require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
     staticAddonTrees: true,
     staticHelpers: true,
     staticModifiers: true,
     staticComponents: true,
-    staticEmberSource: true,
+    // staticEmberSource: true,
+    // see: https://github.com/ember-fastboot/ember-cli-fastboot/issues/925#issuecomment-1859135364
+    staticEmberSource: false,
     splitAtRoutes: ['courses', 'skills', 'exercises', 'moves', 'choreography', 'training'],
     packagerOptions: {
       webpackConfig: {
-        devtool: process.env.CI ? 'source-map' : 'eval',
+        // devtool: process.env.CI ? 'source-map' : 'eval',
+        devtool: 'source-map',
         module: {
           rules: [
             {
@@ -83,4 +152,7 @@ module.exports = function (defaults) {
       publicAssetURL: '/'
     }
   });
+
+  // return compiledApp;
+  return require('prember').prerender(app, compiledApp);
 };

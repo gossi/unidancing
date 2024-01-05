@@ -14,9 +14,9 @@ Router.map(function () {
   });
   this.route('courses', function () {
     this.route('details', { path: '/:id' });
-    // this.route('improvisation');
-    // this.route('moves');
-    // this.route('emotionen');
+  });
+  this.route('arts', { path: 'kuenste' }, function () {
+    this.route('details', { path: '/:id' });
   });
   this.route('skills', { path: 'fertigkeiten' }, function () {
     this.route('details', { path: '/:id' });
@@ -33,12 +33,14 @@ Router.map(function () {
     this.route('unidance-writing');
   });
   this.route('training', function () {
+    this.route('planning', function () {
+      this.route('assistants');
+      this.route('games');
+    });
     this.route('control');
     this.route('diagnostics', function () {
       this.route('time-tracking');
       this.route('body-language');
     });
-    this.route('tools');
-    this.route('games');
   });
 });

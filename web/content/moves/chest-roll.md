@@ -1,8 +1,6 @@
 ---
 title: Chest Roll
-video:
-  type: youtube
-  url: https://youtu.be/Eqevr-ZtFPs?t=32
+video: https://youtu.be/Eqevr-ZtFPs?t=32
 ---
 
 - Einatmen

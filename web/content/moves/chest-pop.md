@@ -2,9 +2,7 @@
 title: Chest Pop
 tags: 
 - Power
-video:
-  type: youtube
-  url: https://youtu.be/Y6zoZ7_wJgE?t=64
+video: https://youtu.be/Y6zoZ7_wJgE?t=64
 ---
 
 - Brustkorb diagonal nach oben bewegen (als würde jemand an einem Seil ziehen)

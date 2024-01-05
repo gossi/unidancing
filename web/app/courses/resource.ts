@@ -1,31 +1,45 @@
-import { service } from '@ember/service';
+import { resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
-import { Resource } from 'ember-resources';
+import { cacheResult } from '../utils/data';
 
-import type { Registry as Services } from '@ember/service';
-import type { Link } from 'ember-link';
+import type { Course } from '.';
+import type { LinkManagerService } from 'ember-link';
 
-export function createCourseLinkBuilder(
-  linkManager: Services['link-manager']
-): (exercise: string) => Link {
-  return (exercise: string): Link => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return linkManager.createLink({
-      route: 'courses.details',
-      models: [exercise]
+export const findCourses = resourceFactory(() => {
+  return resource(async ({ owner }): Promise<Course[]> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult('courses', owner, async () => {
+      const courseResponse = await tina.client.queries.courseConnection();
+
+      return courseResponse.data.courseConnection.edges?.map((ex) => ex?.node) as Course[];
     });
-  };
-}
+  });
+});
 
-export class CoursesResource extends Resource {
-  @service declare data: Services['data'];
+export const findCourse = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Course> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
 
-  get courses() {
-    return this.data.find('courses');
-  }
+    return cacheResult(`course-${id}`, owner, async () => {
+      const courseResponse = await tina.client.queries.course({ relativePath: `${id}.md` });
 
-  find(id: string) {
-    return this.data.findOne('courses', id);
-  }
-}
+      return courseResponse.data.course as Course;
+    });
+  });
+});
+
+export const buildCourseLink = resourceFactory((course: string) => {
+  return resource(({ owner }) => {
+    const { services } = sweetenOwner(owner);
+    const { linkManager } = services;
+
+    return (linkManager as LinkManagerService).createLink({
+      route: 'courses.details',
+      models: [course]
+    });
+  });
+});

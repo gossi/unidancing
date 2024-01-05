@@ -35,6 +35,10 @@
   flex-wrap: wrap;
   gap: 2rem;
 
+  iframe {
+    margin-bottom: var(--block-spacing-vertical);
+  }
+
   .main :where(dl, ol, ul) {
     --spacing: 1rem;
   }

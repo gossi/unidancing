@@ -3,6 +3,7 @@ import Service from '@ember/service';
 import config from '@unidancing/app/config/environment';
 import { task, timeout } from 'ember-concurrency';
 
+import { isSSR } from '../../helpers';
 import { deserialize } from '../../utils/serde';
 import { SpotifyClient } from './client';
 
@@ -16,7 +17,7 @@ interface SpotifyStorage {
  * connection.
  */
 export default class SpotifyService extends Service {
-  #storage: SpotifyStorage;
+  #storage: SpotifyStorage = {};
 
   redirectAfterLogin?: string;
 
@@ -25,11 +26,13 @@ export default class SpotifyService extends Service {
   constructor() {
     super();
 
-    const data = localStorage.getItem('spotify');
+    if (!isSSR()) {
+      const data = localStorage.getItem('spotify');
 
-    this.#storage = data ? JSON.parse(data) : {};
+      this.#storage = data ? JSON.parse(data) : {};
 
-    this.restore();
+      this.restore();
+    }
   }
 
   async restore() {
@@ -74,7 +77,9 @@ export default class SpotifyService extends Service {
   }
 
   persist() {
-    localStorage.setItem('spotify', JSON.stringify(this.#storage));
+    if (!isSSR()) {
+      localStorage.setItem('spotify', JSON.stringify(this.#storage));
+    }
   }
 
   refresher = task(async (refreshToken: string, timer: number) => {

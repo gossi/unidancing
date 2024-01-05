@@ -1,11 +1,11 @@
 ---
-title: "Waacking: Overheads"
-art: Waacking
-locomotion: pedes
-video: https://www.youtube.com/watch?v=0qUj-OORN10
+title: 'Waacking: Overheads'
+excerpt: Overheads zählen zu den Grundbewegungen im Waacking.
+locomotion:
+  - pedes
+art: content/arts/waacking.md
+video: 'https://www.youtube.com/watch?v=0qUj-OORN10'
 ---
-
-Overheads zählen zu den Grundbewegungen im Waacking
 
 ## Straight Overheads
 
@@ -18,9 +18,9 @@ Choreo: Overheads und seitlich (lines)
 
 Ablauf:
 
-- 4x rechts
-- 4x links
-- 4x beide
+* 4x rechts
+* 4x links
+* 4x beide
 
 ## Seitliche Overheads
 
@@ -32,5 +32,5 @@ Choreo: Seitliche Overheads und nach unten (lines)
 
 Ablauf:
 
-- 4x rechts
-- 4x links4x beide
+* 4x rechts
+* 4x links4x beide

@@ -1,8 +1,13 @@
 ---
 title: Gruppenemotionen
+excerpt: Gruppenübung zum Wiedergeben und Erkennen von Emotionen.
+locomotion:
+  - pedes
+personal:
+  - group
+art: content/arts/acting.md
+technique: content/techniques/emotionen.md
 ---
-
-Gruppenübung zum Wiedergeben und Erkennen von Emotionen
 
 Die Gruppe wird in Kleingruppen aufgeteilt. Die Anzahl der Gruppen entspricht
 der zu wiedergebenenden und zu erkennenden Emotionen.

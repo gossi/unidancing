@@ -1,11 +1,14 @@
 ---
 title: Steinmetz
-locomotion: pedes
+excerpt: Emotionen formen.
+locomotion:
+  - pedes
+personal:
+  - group
 skills:
-- emotionen
+  - data: content/skills/emotionen.md
+technique: content/techniques/emotionen.md
 ---
-
-Formen von Emotionen
 
 Mindestens 3 Personen finden sich zu einer Gruppe zusammen, die Gruppen
 verteilen sich in der Halle. Eine Person ist der Steinmetz, die anderen Personen

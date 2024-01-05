@@ -1,21 +1,24 @@
 ---
 title: Michael Jackson Challenge
-locomotion: 
-- pedes
-- unicycle
-skills:
-- bewegungsrepertoire
-see:
-- doubles
+excerpt: >-
+  Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer
+  transferieren.
+locomotion:
+  - pedes
+  - unicycle
+personal:
+  - group
 material:
-- Videoabspielgerät
+  - Videoabspielgerät
+skills:
+  - data: content/skills/bewegungsrepertoire.md
+exercises:
+  - data: content/exercises/double-dance.md
 ---
-
-Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer transferieren.
 
 ## Voraussetzung
 
-Doubles
+Double Dance.
 
 ## Setup
 
@@ -35,7 +38,7 @@ das vorliegende Setup transferiert.
 1. Bewegungen im Video analysieren
 2. Bewegungen zunächst zu Fuß nachahmen und üben
 3. Transferarbeit der Bewegungen auf das Einrad
-4. Wechsel einbauen, Tänzer <-> Einradfahrer
+4. Wechsel einbauen, Tänzer \<-> Einradfahrer
 
 Das Ziel ist es einen Effekt zu erzeugen, dass Tänzer und Einradfahrer eine
 Front bilden.
@@ -46,7 +49,7 @@ Situation ist erwünscht.
 
 ## Empfohlene Videos
 
-- Bad
-- Beat It
-- Thriller (schwer)
-- Smooth Criminal
+* Bad
+* Beat It
+* Thriller (schwer)
+* Smooth Criminal

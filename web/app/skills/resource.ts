@@ -1,33 +1,45 @@
-import { service } from '@ember/service';
+import { resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
-import { Resource } from 'ember-resources';
+import { cacheResult } from '../utils/data';
 
-import type { Registry as Services } from '@ember/service';
-import type { Link } from 'ember-link';
+import type { Skill } from '.';
+import type { LinkManagerService } from 'ember-link';
 
-export function createSkillLinkBuilder(
-  linkManager: Services['link-manager']
-): (skill: string) => Link {
-  return (skill: string): Link => {
-    return linkManager.createLink({
+export const findSkills = resourceFactory(() => {
+  return resource(async ({ owner }): Promise<Skill[]> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult('skills', owner, async () => {
+      const skillsResponse = await tina.client.queries.skillConnection();
+
+      return skillsResponse.data.skillConnection.edges?.map((ex) => ex?.node) as Skill[];
+    });
+  });
+});
+
+export const findSkill = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Skill> => {
+    const { services } = sweetenOwner(owner);
+    const { tina } = services;
+
+    return cacheResult(`skill-${id}`, owner, async () => {
+      const skill = await tina.client.queries.skill({ relativePath: `${id}.md` });
+
+      return skill.data.skill as Skill;
+    });
+  });
+});
+
+export const buildSkillLink = resourceFactory((skill: string) => {
+  return resource(({ owner }) => {
+    const { services } = sweetenOwner(owner);
+    const { linkManager } = services;
+
+    return (linkManager as LinkManagerService).createLink({
       route: 'skills.details',
       models: [skill]
     });
-  };
-}
-
-export class SkillResource extends Resource {
-  @service declare data: Services['data'];
-
-  get skills() {
-    return this.data.find('skills');
-  }
-
-  find(id: string) {
-    return this.data.findOne('skills', id);
-  }
-}
-
-export function useSkill(destroyable: object) {
-  return SkillResource.from(destroyable);
-}
+  });
+});

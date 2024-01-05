@@ -18,9 +18,3 @@ export default class GameComponent extends Component<GameSignature> {
     {{/if}}
   </template>
 }
-
-declare module '@glint/environment-ember-loose/registry' {
-  export default interface Registry {
-    Game: typeof GameComponent;
-  }
-}

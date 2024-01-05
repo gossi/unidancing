@@ -1,17 +1,21 @@
 ---
 title: Copycat
-locomotion: unicycle
-personal: pair
+excerpt: Bewegungen vor- und nachmachen.
+locomotion:
+  - unicycle
+personal:
+  - pair
+  - individual
 skills:
-- bewegungsrepertoire
-- bewegungssehen
+  - data: content/skills/bewegungsrepertoire.md
+  - data: content/skills/bewegungssehen.md
 games:
-- name: dance-mix
-  label: Dance Mix
-  params:
+  - name: dance-mix
+    label: Dance Mix
     duration: 40
     pause: 10
     amount: 4
+    _template: dancemix
 ---
 
 Die Gruppe wird durch 1-2 abzählen in zwei Gruppen aufgeteilt und fahren
