@@ -1,10 +1,9 @@
 import Service from '@ember/service';
 
 import config from '@unidancing/app/config/environment';
+import { deserialize, isSSR } from '@unidancing/utils';
 import { task, timeout } from 'ember-concurrency';
 
-import { isSSR } from '../../helpers';
-import { deserialize } from '../../utils/serde';
 import { SpotifyClient } from './client';
 
 interface SpotifyStorage {

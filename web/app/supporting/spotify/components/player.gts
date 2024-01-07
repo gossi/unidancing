@@ -6,7 +6,7 @@ import { on } from '@ember/modifier';
 import { action } from '@ember/object';
 import LoginWithSpotify from './login-with-spotify';
 import pick from 'ember-composable-helpers/helpers/pick';
-import Icon from '../../../components/icon';
+import { Icon } from '@unidancing/ui';
 import type { Device } from '../domain-objects';
 import { device2Icon } from '../helpers';
 import type SpotifyService from '../service';
