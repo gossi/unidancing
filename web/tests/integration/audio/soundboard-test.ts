@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import { playSound } from '@unidancing/app/audio';
+import { playSound } from '@unidancing/audio';
 import sinon from 'sinon';
 
 module('Integration | Audio | Soundboard', function (hooks) {

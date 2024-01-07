@@ -1,1 +1,1 @@
-export { PlanningGamesRoute as default } from '../../../training';
+export { PlanningGamesRoute as default } from '@unidancing/training';

@@ -1,1 +1,1 @@
-export { RootRoute as default } from '../choreography';
+export { RootRoute as default } from '@unidancing/choreography';

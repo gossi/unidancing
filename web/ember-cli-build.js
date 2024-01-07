@@ -1,7 +1,6 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const packageJson = require('./package');
 // const { browsers } = require('@gossi/config-targets');
 const { importSingleTs } = require('import-single-ts');
 const path = require('node:path');
@@ -77,9 +76,9 @@ module.exports = function (defaults) {
       includeExtensionInModulePath: true
     },
 
-    autoImport: {
-      watchDependencies: Object.keys(packageJson.dependencies)
-    },
+    // autoImport: {
+    //   watchDependencies: Object.keys(packageJson.dependencies)
+    // },
 
     'ember-cli-babel': {
       enableTypeScriptTransform: true
@@ -110,6 +109,28 @@ module.exports = function (defaults) {
       webpackConfig: {
         // devtool: process.env.CI ? 'source-map' : 'eval',
         devtool: 'source-map',
+        resolve: {
+          alias: {
+            // core
+            '@unidancing/arts': path.resolve(__dirname, 'app/core/arts'),
+            '@unidancing/assistants': path.resolve(__dirname, 'app/core/assistants'),
+            '@unidancing/choreography': path.resolve(__dirname, 'app/core/choreography'),
+            '@unidancing/courses': path.resolve(__dirname, 'app/core/courses'),
+            '@unidancing/exercises': path.resolve(__dirname, 'app/core/exercises'),
+            '@unidancing/games': path.resolve(__dirname, 'app/core/games'),
+            '@unidancing/home': path.resolve(__dirname, 'app/core/gome'),
+            '@unidancing/moves': path.resolve(__dirname, 'app/core/moves'),
+            '@unidancing/skills': path.resolve(__dirname, 'app/core/skills'),
+            '@unidancing/training': path.resolve(__dirname, 'app/core/training'),
+
+            // supporting
+            '@unidancing/audio': path.resolve(__dirname, 'app/supporting/audio'),
+            '@unidancing/spotify': path.resolve(__dirname, 'app/core/spotify'),
+            '@unidancing/tina': path.resolve(__dirname, 'app/core/tina'),
+            '@unidancing/ui': path.resolve(__dirname, 'app/core/ui'),
+            '@unidancing/utils': path.resolve(__dirname, 'app/core/utils')
+          }
+        },
         module: {
           rules: [
             {

@@ -1,1 +1,1 @@
-export { DiagnosticsRoute as default } from '../../training';
+export { DiagnosticsRoute as default } from '@unidancing/training';

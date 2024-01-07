@@ -1,1 +1,1 @@
-export { NotTodoListRoute as default } from '../../choreography';
+export { NotTodoListRoute as default } from '@unidancing/choreography';

@@ -1,1 +1,1 @@
-export { UniDancingWritingRoute as default } from '../../choreography';
+export { UniDancingWritingRoute as default } from '@unidancing/choreography';

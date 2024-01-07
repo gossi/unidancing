@@ -2,12 +2,14 @@ import RouteTemplate from 'ember-route-template';
 import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
 import Icon from '../components/icon';
-import { Player } from '../audio';
-import { link } from 'ember-link';
+import { Player } from '@unidancing/audio';
+// import { Player } from 'lalala';
 import ApplicationController from './controller';
-import { on } from '@ember/modifier';
-import Game from '../games/game';
 import styles from './styles.css';
+// import { on } from '@ember/modifier';
+// import { Game, buildGameLink, GameFactory } from '@unidancing/games';
+// import { Assistant, buildAssistantLink, AssistantFactory } from '@unidancing/assistants';
+// import { or } from 'ember-truth-helpers';
 
 interface Signature {
   Args: {
@@ -53,7 +55,7 @@ export default RouteTemplate<Signature>(<template>
       </li>
     </ul>
 
-    <ul>
+    {{!-- <ul>
       <li>
         <details role='list' dir='rtl'>
           <summary aria-haspopup='listbox' role='link'>
@@ -63,43 +65,47 @@ export default RouteTemplate<Signature>(<template>
             </span>
           </summary>
           <ul role='listbox' dir='ltr'>
-            {{#let (@controller.buildGameLink @controller.Game.DanceMix) as |link|}}
+            {{#let (buildAssistantLink Assistant.DanceMix) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a></li>
             {{/let}}
 
-            {{#let (link 'games' @controller.Game.DanceOhMat) as |link|}}
+            {{#let (buildGameLink Game.DanceOhMat) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Oh! Mat</a></li>
             {{/let}}
 
-            {{#let (link 'games' @controller.Game.Bingo) as |link|}}
+            {{#let (buildGameLink Game.Bingo) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Bingo</a></li>
             {{/let}}
 
-            {{#let (link 'games' @controller.Game.Loops) as |link|}}
+            {{#let (buildAssistantLink Assistant.Looper) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a></li>
             {{/let}}
           </ul>
         </details>
       </li>
-    </ul>
+    </ul> --}}
   </nav>
 
   <div class='container'>
-    <div class='grid {{styles.main}}' data-game={{@controller.game}}>
+    <div class='grid {{styles.main}}' {{!-- data-game={{@controller.game}} --}}>
       <main>
         {{outlet}}
       </main>
 
-      {{#if @controller.game}}
+      {{!-- {{#if (or @controller.game @controller.assistant)}}
         <aside>
           <button
             type='button'
             class='secondary outline {{styles.close}}'
             {{on 'click' @controller.close}}
           >X</button>
-          <Game @game={{@controller.game}} />
+          {{#if @controller.game}}
+            <GameFactory @game={{@controller.game}} />
+          {{else if @controller.assistant}}
+            <AssistantFactory @assistant={{@controller.assistant}}/>
+          {{/if}}
         </aside>
-      {{/if}}
+      {{/if}} --}}
     </div>
   </div>
 

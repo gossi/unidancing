@@ -23,14 +23,68 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
+      /*
+        The core
+      */
+      "@unidancing/arts": [
+        "app/core/arts"
+      ],
+      "@unidancing/assistants": [
+        "app/core/assistants"
+      ],
+      "@unidancing/choreography": [
+        "app/core/choreography"
+      ],
+      "@unidancing/courses": [
+        "app/core/courses"
+      ],
+      "@unidancing/exercises": [
+        "app/core/exercises"
+      ],
+      "@unidancing/games": [
+        "app/core/games"
+      ],
+      "@unidancing/home": [
+        "app/core/home"
+      ],
+      "@unidancing/moves": [
+        "app/core/moves"
+      ],
+      "@unidancing/skills": [
+        "app/core/skills"
+      ],
+      "@unidancing/training": [
+        "app/core/training"
+      ],
+      /*
+        Supporting
+      */
+      "@unidancing/audio": [
+        "app/supporting/audio"
+      ],
+      "@unidancing/spotify": [
+        "app/supporting/spotify"
+      ],
+      "@unidancing/tina": [
+        "app/supporting/tina"
+      ],
+      "@unidancing/ui": [
+        "app/supporting/ui"
+      ],
+      "@unidancing/utils": [
+        "app/supporting/utils"
+      ],
+      "@/tina/*": [
+        "tina/__generated__/*"
+      ],
+      /*
+        App
+      */
       "@unidancing/app/tests/*": [
         "tests/*"
       ],
       "@unidancing/app/*": [
         "app/*"
-      ],
-      "@/tina/*": [
-        "tina/__generated__/*"
       ],
       "*": [
         "types/*"

@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import { playTrack } from '@unidancing/app/audio/spotify';
+import { playTrack } from '@unidancing/spotify';
 import sinon from 'sinon';
 
 import { RADIOACTIVE } from '../../../fixtures/spotify/tracks';
