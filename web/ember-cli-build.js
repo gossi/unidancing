@@ -112,23 +112,26 @@ module.exports = function (defaults) {
         resolve: {
           alias: {
             // core
-            '@unidancing/arts': path.resolve(__dirname, 'app/core/arts'),
-            '@unidancing/assistants': path.resolve(__dirname, 'app/core/assistants'),
-            '@unidancing/choreography': path.resolve(__dirname, 'app/core/choreography'),
-            '@unidancing/courses': path.resolve(__dirname, 'app/core/courses'),
-            '@unidancing/exercises': path.resolve(__dirname, 'app/core/exercises'),
-            '@unidancing/games': path.resolve(__dirname, 'app/core/games'),
-            '@unidancing/home': path.resolve(__dirname, 'app/core/gome'),
-            '@unidancing/moves': path.resolve(__dirname, 'app/core/moves'),
-            '@unidancing/skills': path.resolve(__dirname, 'app/core/skills'),
-            '@unidancing/training': path.resolve(__dirname, 'app/core/training'),
+            '@unidancing/arts': path.resolve(__dirname, 'app/domain/core/arts'),
+            '@unidancing/assistants': path.resolve(__dirname, 'app/domain/core/assistants'),
+            '@unidancing/choreography': path.resolve(__dirname, 'app/domain/core/choreography'),
+            '@unidancing/courses': path.resolve(__dirname, 'app/domain/core/courses'),
+            '@unidancing/exercises': path.resolve(__dirname, 'app/domain/core/exercises'),
+            '@unidancing/games': path.resolve(__dirname, 'app/domain/core/games'),
+            '@unidancing/home': path.resolve(__dirname, 'app/domain/core/gome'),
+            '@unidancing/moves': path.resolve(__dirname, 'app/domain/core/moves'),
+            '@unidancing/skills': path.resolve(__dirname, 'app/domain/core/skills'),
+            '@unidancing/training': path.resolve(__dirname, 'app/domain/core/training'),
 
             // supporting
-            '@unidancing/audio': path.resolve(__dirname, 'app/supporting/audio'),
-            '@unidancing/spotify': path.resolve(__dirname, 'app/core/spotify'),
-            '@unidancing/tina': path.resolve(__dirname, 'app/core/tina'),
-            '@unidancing/ui': path.resolve(__dirname, 'app/core/ui'),
-            '@unidancing/utils': path.resolve(__dirname, 'app/core/utils')
+            '@unidancing/audio': path.resolve(__dirname, 'app/domain/supporting/audio'),
+            '@unidancing/spotify': path.resolve(__dirname, 'app/domain/supporting/spotify'),
+            '@unidancing/tina': path.resolve(__dirname, 'app/domain/supporting/tina'),
+            '@unidancing/ui': path.resolve(__dirname, 'app/domain/supporting/ui'),
+            '@unidancing/utils': path.resolve(__dirname, 'app/domain/supporting/utils'),
+
+            // libs
+            '@/tina': path.resolve(__dirname, 'tina/__generated__')
           }
         },
         module: {

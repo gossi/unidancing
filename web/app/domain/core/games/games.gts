@@ -1,10 +1,5 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
 import Bingo from './bingo/bingo';
-// @ts-ignore
 import { DanceOhMat, DanceOhMatParam } from './dance-oh-mat/dance-oh-mat';
-
-// @ts-ignore
 import type { DanceOhMatParams } from './dance-oh-mat/dance-oh-mat';
 
 export enum Game {

@@ -27,52 +27,52 @@
         The core
       */
       "@unidancing/arts": [
-        "app/core/arts"
+        "app/domain/core/arts"
       ],
       "@unidancing/assistants": [
-        "app/core/assistants"
+        "app/domain/core/assistants"
       ],
       "@unidancing/choreography": [
-        "app/core/choreography"
+        "app/domain/core/choreography"
       ],
       "@unidancing/courses": [
-        "app/core/courses"
+        "app/domain/core/courses"
       ],
       "@unidancing/exercises": [
-        "app/core/exercises"
+        "app/domain/core/exercises"
       ],
       "@unidancing/games": [
-        "app/core/games"
+        "app/domain/core/games"
       ],
       "@unidancing/home": [
-        "app/core/home"
+        "app/domain/core/home"
       ],
       "@unidancing/moves": [
-        "app/core/moves"
+        "app/domain/core/moves"
       ],
       "@unidancing/skills": [
-        "app/core/skills"
+        "app/domain/core/skills"
       ],
       "@unidancing/training": [
-        "app/core/training"
+        "app/domain/core/training"
       ],
       /*
         Supporting
       */
       "@unidancing/audio": [
-        "app/supporting/audio"
+        "app/domain/supporting/audio"
       ],
       "@unidancing/spotify": [
-        "app/supporting/spotify"
+        "app/domain/supporting/spotify"
       ],
       "@unidancing/tina": [
-        "app/supporting/tina"
+        "app/domain/supporting/tina"
       ],
       "@unidancing/ui": [
-        "app/supporting/ui"
+        "app/domain/supporting/ui"
       ],
       "@unidancing/utils": [
-        "app/supporting/utils"
+        "app/domain/supporting/utils"
       ],
       "@/tina/*": [
         "tina/__generated__/*"
