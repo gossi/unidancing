@@ -1,1 +1,1 @@
-export { RootRoute as default } from '@unidancing/training';
+export { RootRoute as default } from '../domain/core/training';

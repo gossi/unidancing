@@ -2,7 +2,7 @@ import { pageTitle } from 'ember-page-title';
 import { service } from '@ember/service';
 import { on } from '@ember/modifier';
 
-import { Assistant, buildAssistantLink } from '@unidancing/assistants';
+import { Assistant, buildAssistantLink } from '../../../assistants';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';

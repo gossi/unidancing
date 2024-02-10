@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import { AudioPlayer, AudioService, playSound } from '@unidancing/audio';
+import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
 import {
   WithSpotify,
   SpotifyService,
@@ -12,15 +12,15 @@ import {
   getRandomTrack,
   playTrack,
   playTrackForDancing
-} from '@unidancing/spotify';
+} from '../../../supporting/spotify';
 import { on } from '@ember/modifier';
 import { dropTask, timeout } from 'ember-concurrency';
-import type { Track, Device } from '@unidancing/spotify';
+import type { Track, Device } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
 import { createMachine, assign } from 'xstate';
 import { useMachine } from 'ember-statecharts';
-import { Icon } from '@unidancing/ui';
+import { Icon } from '../../../supporting/ui';
 import { registerDestructor } from '@ember/destroyable';
 import styles from './dance-oh-mat.css';
 import type Owner from '@ember/owner';

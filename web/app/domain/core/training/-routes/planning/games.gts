@@ -3,7 +3,7 @@ import { link } from 'ember-link';
 import { on } from '@ember/modifier';
 import { LinkTo } from '@ember/routing';
 
-import { Game } from '@unidancing/games';
+import { Game } from '../../../games';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';

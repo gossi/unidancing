@@ -1,15 +1,14 @@
 import RouteTemplate from 'ember-route-template';
 import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
-import { Icon } from '@unidancing/ui';
-import { Player } from '@unidancing/audio';
-// import { Player } from 'lalala';
+import { Icon } from '../domain/supporting/ui';
+import { Player } from '../domain/supporting/audio';
 import ApplicationController from './controller';
 import styles from './styles.css';
-// import { on } from '@ember/modifier';
-// import { Game, buildGameLink, GameFactory } from '@unidancing/games';
-// import { Assistant, buildAssistantLink, AssistantFactory } from '@unidancing/assistants';
-// import { or } from 'ember-truth-helpers';
+import { on } from '@ember/modifier';
+import { Game, buildGameLink, GameFactory } from '../domain/core/games';
+import { Assistant, buildAssistantLink, AssistantFactory } from '../domain/core/assistants';
+import { or } from 'ember-truth-helpers';
 
 interface Signature {
   Args: {
@@ -55,7 +54,7 @@ export default RouteTemplate<Signature>(<template>
       </li>
     </ul>
 
-    {{!-- <ul>
+    <ul>
       <li>
         <details role='list' dir='rtl'>
           <summary aria-haspopup='listbox' role='link'>
@@ -83,16 +82,16 @@ export default RouteTemplate<Signature>(<template>
           </ul>
         </details>
       </li>
-    </ul> --}}
+    </ul>
   </nav>
 
   <div class='container'>
-    <div class='grid {{styles.main}}' {{!-- data-game={{@controller.game}} --}}>
+    <div class='grid {{styles.main}}' data-game={{@controller.game}}>
       <main>
         {{outlet}}
       </main>
 
-      {{!-- {{#if (or @controller.game @controller.assistant)}}
+      {{#if (or @controller.game @controller.assistant)}}
         <aside>
           <button
             type='button'
@@ -105,7 +104,7 @@ export default RouteTemplate<Signature>(<template>
             <AssistantFactory @assistant={{@controller.assistant}}/>
           {{/if}}
         </aside>
-      {{/if}} --}}
+      {{/if}}
     </div>
   </div>
 

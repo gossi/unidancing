@@ -1,12 +1,12 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-import { deserialize, isSSR } from '@unidancing/utils';
+import { deserialize, isSSR } from '../../utils';
 
+import type { SpotifyService } from '../service';
 import type RouteInfo from '@ember/routing/route-info';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
-import type { SpotifyService } from '@unidancing/spotify';
 
 type RouteModel = object | string | number;
 type RouteArgs = Parameters<RouterService['urlFor']>;
@@ -27,7 +27,7 @@ function makeRouteArgs({
   return [name, ...models];
 }
 
-export default class SpotifyAuthRoute extends Route {
+export class SpotifyAuthRoute extends Route {
   @service declare spotify: SpotifyService;
   @service declare router: RouterService;
 

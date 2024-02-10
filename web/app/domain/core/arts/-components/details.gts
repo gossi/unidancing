@@ -1,5 +1,5 @@
-import { VideoPlayer } from '@unidancing/ui';
-import { TinaMarkdown } from '@unidancing/tina';
+import { VideoPlayer } from '../../../supporting/ui';
+import { TinaMarkdown } from '../../../supporting/tina';
 import styles from './details.css';
 
 import type { Art } from '..';

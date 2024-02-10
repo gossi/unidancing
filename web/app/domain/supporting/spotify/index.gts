@@ -1,11 +1,14 @@
 export { SpotifyClient } from './client';
-export { default as SpotifyService } from './service';
+export { SpotifyService } from './service';
+
+// routes
+export { SpotifyAuthRoute } from './routes/auth';
 
 // components
-export { default as LoginWithSpotify } from './components/login-with-spotify';
-export { default as SpotifyPlayer } from './components/player';
-export { default as PlaylistChooser } from './components/playlist-chooser';
-export { default as WithSpotify } from './components/with-spotify';
+export { LoginWithSpotify } from './components/login-with-spotify';
+export { SpotifyPlayer } from './components/player';
+export { PlaylistChooser } from './components/playlist-chooser';
+export { WithSpotify } from './components/with-spotify';
 
 // resources
 export { PlaylistResource } from './resources/playlist';

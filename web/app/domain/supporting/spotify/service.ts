@@ -1,9 +1,9 @@
 import Service from '@ember/service';
 
 import config from '@unidancing/app/config/environment';
-import { deserialize, isSSR } from '@unidancing/utils';
 import { task, timeout } from 'ember-concurrency';
 
+import { deserialize, isSSR } from '../utils';
 import { SpotifyClient } from './client';
 
 interface SpotifyStorage {
@@ -15,7 +15,7 @@ interface SpotifyStorage {
  * The Spotify service authenticates against their API and manages the
  * connection.
  */
-export default class SpotifyService extends Service {
+export class SpotifyService extends Service {
   #storage: SpotifyStorage = {};
 
   redirectAfterLogin?: string;

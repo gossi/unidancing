@@ -1,4 +1,4 @@
-import { SpotifyPlayer } from '@unidancing/spotify';
+import { SpotifyPlayer } from '../../spotify';
 import { AudioPlayer } from '../service';
 import styles from './player.css';
 import { ability } from 'ember-ability';

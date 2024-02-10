@@ -1,4 +1,6 @@
-import type { Icons } from '../../components/icon';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { Icons } from '../ui';
 
 export function formatArtists(artists: SpotifyApi.ArtistObjectSimplified[]) {
   return artists.map((artist) => artist.name).join(', ');

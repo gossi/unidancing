@@ -1,5 +1,5 @@
 import { LinkTo } from '@ember/routing';
-import { Features } from '@unidancing/ui';
+import { Features } from '../../../../supporting/ui';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';

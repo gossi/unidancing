@@ -5,7 +5,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import type RouterService from '@ember/routing/router-service';
 
-export default class LoginWithSpotify extends Component {
+export class LoginWithSpotify extends Component {
   @service declare router: RouterService;
 
   @action

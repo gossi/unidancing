@@ -1,11 +1,11 @@
 import { on } from '@ember/modifier';
 import styles from './teaser.css';
 import { formatPersonalIcon, formatLocomotionIcon, asPersonal, asLocomotion } from '../-helpers';
-import { Icon } from '@unidancing/ui';
+import { Icon } from '../../../supporting/ui';
 import { buildExerciseLink } from '..';
 import { or } from 'ember-truth-helpers';
-import { buildSkillLink } from '@unidancing/skills';
-import { asString } from '@unidancing/utils';
+import { buildSkillLink } from '../../skills';
+import { asString } from '../../../supporting/utils';
 
 import type { TOC } from '@ember/component/template-only';
 import type { Exercise } from '..';

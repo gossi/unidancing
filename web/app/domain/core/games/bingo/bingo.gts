@@ -7,13 +7,13 @@ import { TrackedSet, TrackedObject } from 'tracked-built-ins';
 import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
 import { next } from '@ember/runloop';
-import { Icon } from '@unidancing/ui';
+import { Icon } from '../../../supporting/ui';
 import pick from 'ember-composable-helpers/helpers/pick';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
 import { use } from 'ember-resources';
 
-import { findAwfulPractices } from '@unidancing/choreography';
-import type { Awfulpractice } from '@unidancing/choreography';
+import { findAwfulPractices } from '../../choreography';
+import type { Awfulpractice } from '../../choreography';
 
 import type { TOC } from '@ember/component/template-only';
 

@@ -4,15 +4,15 @@ import { service } from '@ember/service';
 import { formatArtists } from '../helpers';
 import { on } from '@ember/modifier';
 import { action } from '@ember/object';
-import LoginWithSpotify from './login-with-spotify';
+import { LoginWithSpotify } from './login-with-spotify';
 import pick from 'ember-composable-helpers/helpers/pick';
-import { Icon } from '@unidancing/ui';
+import { Icon } from '../../ui';
 import type { Device } from '../domain-objects';
 import { device2Icon } from '../helpers';
-import type SpotifyService from '../service';
+import type { SpotifyService } from '../service';
 import { eq } from 'ember-truth-helpers';
 
-export default class SpotifyPlayer extends Component {
+export class SpotifyPlayer extends Component {
   @service declare spotify: SpotifyService;
 
   get client() {

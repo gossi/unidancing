@@ -23,57 +23,57 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
-      /*
-        The core
-      */
-      "@unidancing/arts": [
-        "app/domain/core/arts"
-      ],
-      "@unidancing/assistants": [
-        "app/domain/core/assistants"
-      ],
-      "@unidancing/choreography": [
-        "app/domain/core/choreography"
-      ],
-      "@unidancing/courses": [
-        "app/domain/core/courses"
-      ],
-      "@unidancing/exercises": [
-        "app/domain/core/exercises"
-      ],
-      "@unidancing/games": [
-        "app/domain/core/games"
-      ],
-      "@unidancing/home": [
-        "app/domain/core/home"
-      ],
-      "@unidancing/moves": [
-        "app/domain/core/moves"
-      ],
-      "@unidancing/skills": [
-        "app/domain/core/skills"
-      ],
-      "@unidancing/training": [
-        "app/domain/core/training"
-      ],
-      /*
-        Supporting
-      */
-      "@unidancing/audio": [
-        "app/domain/supporting/audio"
-      ],
-      "@unidancing/spotify": [
-        "app/domain/supporting/spotify"
-      ],
-      "@unidancing/tina": [
-        "app/domain/supporting/tina"
-      ],
-      "@unidancing/ui": [
-        "app/domain/supporting/ui"
-      ],
-      "@unidancing/utils": [
-        "app/domain/supporting/utils"
-      ],
+      // /*
+      //   The core
+      // */
+      // "@unidancing/arts": [
+      //   "app/domain/core/arts"
+      // ],
+      // "@unidancing/assistants": [
+      //   "app/domain/core/assistants"
+      // ],
+      // "@unidancing/choreography": [
+      //   "app/domain/core/choreography"
+      // ],
+      // "@unidancing/courses": [
+      //   "app/domain/core/courses"
+      // ],
+      // "@unidancing/exercises": [
+      //   "app/domain/core/exercises"
+      // ],
+      // "@unidancing/games": [
+      //   "app/domain/core/games"
+      // ],
+      // "@unidancing/home": [
+      //   "app/domain/core/home"
+      // ],
+      // "@unidancing/moves": [
+      //   "app/domain/core/moves"
+      // ],
+      // "@unidancing/skills": [
+      //   "app/domain/core/skills"
+      // ],
+      // "@unidancing/training": [
+      //   "app/domain/core/training"
+      // ],
+      // /*
+      //   Supporting
+      // */
+      // "@unidancing/audio": [
+      //   "app/domain/supporting/audio"
+      // ],
+      // "@unidancing/spotify": [
+      //   "app/domain/supporting/spotify"
+      // ],
+      // "@unidancing/tina": [
+      //   "app/domain/supporting/tina"
+      // ],
+      // "@unidancing/ui": [
+      //   "app/domain/supporting/ui"
+      // ],
+      // "@unidancing/utils": [
+      //   "app/domain/supporting/utils"
+      // ],
       "@/tina/*": [
         "tina/__generated__/*"
       ],

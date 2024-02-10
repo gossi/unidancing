@@ -1,1 +1,1 @@
-export { ControlRoute as default } from '@unidancing/training';
+export { ControlRoute as default } from '../../domain/core/training';

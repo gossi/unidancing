@@ -1,4 +1,4 @@
-import { VideoPlayer } from '@unidancing/ui';
+import { VideoPlayer } from '../../../supporting/ui';
 import { ExerciseTeaser } from '../../exercises';
 import styles from './details.css';
 

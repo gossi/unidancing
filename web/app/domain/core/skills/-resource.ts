@@ -1,7 +1,10 @@
-import { client } from '@unidancing/tina';
-import { cacheResult } from '@unidancing/utils';
 import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
+
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { client } from '../../supporting/tina';
+import { cacheResult } from '../../supporting/utils';
 
 import type { Skill } from './-types';
 import type { LinkManagerService } from 'ember-link';

@@ -9,11 +9,11 @@ import {
   SpotifyService,
   isReadyForPlayback,
   playTrackForDancing
-} from '@unidancing/spotify';
-import { AudioPlayer, AudioService } from '@unidancing/audio';
+} from '../../../supporting/spotify';
+import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import { service } from '@ember/service';
 import { on } from '@ember/modifier';
-import { dropTask, timeout } from 'ember-concurrency';
+import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import preventDefault from 'ember-event-helpers/helpers/prevent-default';
 import { eq, not } from 'ember-truth-helpers';
 import styles from './dance-mix.css';
@@ -25,7 +25,7 @@ import type Owner from '@ember/owner';
 import { registerDestructor } from '@ember/destroyable';
 import type RouterService from '@ember/routing/router-service';
 import type { TOC } from '@ember/component/template-only';
-import type { Playlist, Track } from '@unidancing/spotify';
+import type { Playlist, Track } from '../../../supporting/spotify';
 import { getOwner } from '@ember/owner';
 
 enum PlaylistOptions {
@@ -151,11 +151,17 @@ class Play extends Component<PlaySignature> {
     if (this.args.playlist.tracks) {
       this.tracks = getRandomTracks(this.args.playlist.tracks, this.args.amount);
 
-      await this.mix.perform({
-        duration: this.args.duration,
-        pause: this.args.pause,
-        tracks: this.tracks
-      });
+      try {
+        await this.mix.perform({
+          duration: this.args.duration,
+          pause: this.args.pause,
+          tracks: this.tracks
+        });
+      } catch (e) {
+        if (!didCancel(e)) {
+          throw e;
+        }
+      }
 
       this.finish();
     }

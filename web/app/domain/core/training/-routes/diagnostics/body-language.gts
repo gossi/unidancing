@@ -1,7 +1,7 @@
 import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
 import styles from './styles.css';
-import { Features, Section } from '@unidancing/ui';
+import { Features, Section } from '../../../../supporting/ui';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';

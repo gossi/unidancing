@@ -1,1 +1,1 @@
-export { DetailsRoute as default } from '@unidancing/exercises';
+export { DetailsRoute as default } from '../../domain/core/exercises';

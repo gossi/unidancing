@@ -13,7 +13,7 @@ export interface PlaylistChooserSignature {
   }
 }
 
-export default class PlaylistChooser extends Component<PlaylistChooserSignature> {
+export class PlaylistChooser extends Component<PlaylistChooserSignature> {
   @tracked selection?: SpotifyApi.PlaylistObjectSimplified;
 
   resource = PlaylistsResource.from(this);

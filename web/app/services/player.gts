@@ -1,4 +1,6 @@
 // @TODO rename this back to `audio.ts` when ember is cool with the service again
-import { AudioService } from '@unidancing/audio';
+
+// @ts-ignore
+import { AudioService } from '../domain/supporting/audio';
 
 export default AudioService;

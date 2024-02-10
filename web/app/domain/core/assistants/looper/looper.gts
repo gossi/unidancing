@@ -8,14 +8,14 @@ import styles from './looper.css';
 import { registerDestructor } from '@ember/destroyable';
 import { eq } from 'ember-truth-helpers';
 
-import { AudioPlayer, AudioService } from '@unidancing/audio';
+import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
   WithSpotify,
   SpotifyService,
   TrackResource,
   formatArtists
-} from '@unidancing/spotify';
-import type { Track } from '@unidancing/spotify';
+} from '../../../supporting/spotify';
+import type { Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 
 interface Loop {

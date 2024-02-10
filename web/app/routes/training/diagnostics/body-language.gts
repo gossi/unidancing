@@ -1,1 +1,1 @@
-export { DiagnosticsBodyLanguageRoute as default } from '@unidancing/training';
+export { DiagnosticsBodyLanguageRoute as default } from '../../../domain/core/training';

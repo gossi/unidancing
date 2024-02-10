@@ -1,12 +1,12 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { getIcon } from '@unidancing/ui';
+import { getIcon } from '../../supporting/ui';
 
-import type { Locomotion, Personal } from './-types';
-import type { Maybe } from '@/tina/types';
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import type { Icons } from '@unidancing/ui';
+import type { Icons } from '../../supporting/ui';
+import type { Locomotion, Personal } from './-types';
+import type { Maybe } from '@/tina/types';
 
 const DEFAULT = { icon: true, text: false };
 

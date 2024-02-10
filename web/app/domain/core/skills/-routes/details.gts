@@ -1,5 +1,5 @@
 import { pageTitle } from 'ember-page-title';
-import { TinaMarkdown } from '@unidancing/tina';
+import { TinaMarkdown } from '../../../supporting/tina';
 import { findSkill } from '../-resource';
 import { service } from '@ember/service';
 import { use } from 'ember-resources';

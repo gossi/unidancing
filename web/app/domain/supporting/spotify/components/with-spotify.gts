@@ -1,4 +1,4 @@
-import LoginWithSpotify from './login-with-spotify';
+import { LoginWithSpotify } from './login-with-spotify';
 import type { TOC } from '@ember/component/template-only';
 import { isAuthenticated } from '../abilities';
 
@@ -10,4 +10,4 @@ const WithSpotify: TOC<{ Blocks: { default: [] }}> = <template>
   {{/if}}
 </template>
 
-export default WithSpotify;
+export { WithSpotify };

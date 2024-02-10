@@ -6,7 +6,7 @@ import { eq } from 'ember-truth-helpers';
 import { on } from '@ember/modifier';
 import { use } from 'ember-resources';
 import { findAwfulPractices } from '../-resource';
-import { TinaMarkdown } from '@unidancing/tina';
+import { TinaMarkdown } from '../../../supporting/tina';
 import { service } from '@ember/service';
 import { cached } from '@glimmer/tracking';
 import Task from 'ember-tasks';

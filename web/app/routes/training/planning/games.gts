@@ -1,1 +1,1 @@
-export { PlanningGamesRoute as default } from '@unidancing/training';
+export { PlanningGamesRoute as default } from '../../../domain/core/training';

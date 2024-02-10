@@ -1,4 +1,5 @@
-import { SpotifyService } from '@unidancing/spotify';
+// @ts-ignore
+import { SpotifyService } from '../domain/supporting/spotify';
 
 export default SpotifyService;
 

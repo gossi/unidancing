@@ -1,1 +1,1 @@
-export { HomeRoute as default } from '@unidancing/home';
+export { HomeRoute as default } from '../domain/core/home';

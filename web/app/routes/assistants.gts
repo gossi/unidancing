@@ -1,1 +1,1 @@
-export { AssistantsRoute as default } from '@unidancing/assistants';
+export { AssistantsRoute as default } from '../domain/core/assistants';

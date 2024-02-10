@@ -1,1 +1,1 @@
-export { PlanningIndexRoute as default } from '@unidancing/training';
+export { PlanningIndexRoute as default } from '../../../domain/core/training';

@@ -1,13 +1,13 @@
-import { Icon, VideoPlayer } from '@unidancing/ui';
-import { asString } from '@unidancing/utils';
+import { Icon, VideoPlayer } from '../../../supporting/ui';
+import { asString } from '../../../supporting/utils';
 import { formatPersonal, formatLocomotion, asPersonal, asLocomotion } from '../-helpers';
 import { on } from '@ember/modifier';
 import styles from './details.css';
-import { TinaMarkdown } from '@unidancing/tina';
+import { TinaMarkdown } from '../../../supporting/tina';
 import { or } from 'ember-truth-helpers';
 import { buildExerciseLink } from '../-resource';
-import { buildGameLink } from '@unidancing/games';
-import { buildSkillLink } from '@unidancing/skills';
+import { buildGameLink } from '../../games';
+import { buildSkillLink } from '../../skills';
 
 import type { Exercise, ExerciseGamesDancemix } from '..';
 import type { Maybe } from '@/tina/types';

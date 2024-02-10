@@ -1,9 +1,9 @@
-import { Icon, VideoPlayer } from '@unidancing/ui';
-import { TinaMarkdown } from '@unidancing/tina';
+import { Icon, VideoPlayer } from '../../../supporting/ui';
+import { TinaMarkdown } from '../../../supporting/tina';
 
 import { on } from '@ember/modifier';
 import styles from './details.css';
-import { asString } from '@unidancing/utils';
+import { asString } from '../../../supporting/utils';
 import { buildMoveLink } from '../-resource';
 
 import type { Move } from '..';

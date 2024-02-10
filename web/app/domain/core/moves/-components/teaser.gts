@@ -1,6 +1,6 @@
 import { on } from '@ember/modifier';
 import styles from './teaser.css';
-import { Icon } from '@unidancing/ui';
+import { Icon } from '../../../supporting/ui';
 import { buildMoveLink } from '../-resource';
 
 import type { Move } from '..';

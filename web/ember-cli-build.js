@@ -115,24 +115,24 @@ module.exports = function (defaults) {
         devtool: 'source-map',
         resolve: {
           alias: {
-            // core
-            '@unidancing/arts': path.resolve(__dirname, 'app/domain/core/arts'),
-            '@unidancing/assistants': path.resolve(__dirname, 'app/domain/core/assistants'),
-            '@unidancing/choreography': path.resolve(__dirname, 'app/domain/core/choreography'),
-            '@unidancing/courses': path.resolve(__dirname, 'app/domain/core/courses'),
-            '@unidancing/exercises': path.resolve(__dirname, 'app/domain/core/exercises'),
-            '@unidancing/games': path.resolve(__dirname, 'app/domain/core/games'),
-            '@unidancing/home': path.resolve(__dirname, 'app/domain/core/home'),
-            '@unidancing/moves': path.resolve(__dirname, 'app/domain/core/moves'),
-            '@unidancing/skills': path.resolve(__dirname, 'app/domain/core/skills'),
-            '@unidancing/training': path.resolve(__dirname, 'app/domain/core/training'),
+            // // core
+            // '@unidancing/arts': path.resolve(__dirname, 'app/domain/core/arts'),
+            // '@unidancing/assistants': path.resolve(__dirname, 'app/domain/core/assistants'),
+            // '@unidancing/choreography': path.resolve(__dirname, 'app/domain/core/choreography'),
+            // '@unidancing/courses': path.resolve(__dirname, 'app/domain/core/courses'),
+            // '@unidancing/exercises': path.resolve(__dirname, 'app/domain/core/exercises'),
+            // '@unidancing/games': path.resolve(__dirname, 'app/domain/core/games'),
+            // '@unidancing/home': path.resolve(__dirname, 'app/domain/core/home'),
+            // '@unidancing/moves': path.resolve(__dirname, 'app/domain/core/moves'),
+            // '@unidancing/skills': path.resolve(__dirname, 'app/domain/core/skills'),
+            // '@unidancing/training': path.resolve(__dirname, 'app/domain/core/training'),
 
-            // supporting
-            '@unidancing/audio': path.resolve(__dirname, 'app/domain/supporting/audio'),
-            '@unidancing/spotify': path.resolve(__dirname, 'app/domain/supporting/spotify'),
-            '@unidancing/tina': path.resolve(__dirname, 'app/domain/supporting/tina'),
-            '@unidancing/ui': path.resolve(__dirname, 'app/domain/supporting/ui'),
-            '@unidancing/utils': path.resolve(__dirname, 'app/domain/supporting/utils'),
+            // // supporting
+            // '@unidancing/audio': path.resolve(__dirname, 'app/domain/supporting/audio'),
+            // '@unidancing/spotify': path.resolve(__dirname, 'app/domain/supporting/spotify'),
+            // '@unidancing/tina': path.resolve(__dirname, 'app/domain/supporting/tina'),
+            // '@unidancing/ui': path.resolve(__dirname, 'app/domain/supporting/ui'),
+            // '@unidancing/utils': path.resolve(__dirname, 'app/domain/supporting/utils'),
 
             // libs
             '@/tina': path.resolve(__dirname, 'tina/__generated__')

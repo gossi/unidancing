@@ -1,1 +1,1 @@
-export { IndexRoute as default } from '@unidancing/exercises';
+export { IndexRoute as default } from '../../domain/core/exercises';
