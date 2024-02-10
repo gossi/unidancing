@@ -1,9 +1,10 @@
+import Helper from '@ember/component/helper';
+
 import type {
   HelperCallback,
-  PositionalParameters,
-  NamedParameters
+  NamedParameters,
+  PositionalParameters
 } from 'ember-render-helpers/types';
-import Helper from '@ember/component/helper';
 
 export interface DidInsertSignature {
   Args: {

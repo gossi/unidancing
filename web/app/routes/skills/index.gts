@@ -1,1 +1,1 @@
-export { IndexRoute as default } from '../../skills';
+export { IndexRoute as default } from '../../domain/core/skills';

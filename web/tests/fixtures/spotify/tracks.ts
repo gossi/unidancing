@@ -1,4 +1,6 @@
-import type { Track } from '@unidancing/app/audio/spotify';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { Track } from '@unidancing/app/domain/supporting/spotify';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export const RADIOACTIVE: Track = {

@@ -1,1 +1,1 @@
-export { DetailsRoute as default } from '../../skills';
+export { DetailsRoute as default } from '../../domain/core/skills';

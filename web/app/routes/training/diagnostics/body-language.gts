@@ -1,1 +1,1 @@
-export { DiagnosticsBodyLanguageRoute as default } from '../../../training';
+export { DiagnosticsBodyLanguageRoute as default } from '../../../domain/core/training';

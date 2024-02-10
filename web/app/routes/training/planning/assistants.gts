@@ -1,1 +1,1 @@
-export { PlanningAssistantsRoute as default } from '../../../training';
+export { PlanningAssistantsRoute as default } from '../../../domain/core/training';

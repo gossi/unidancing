@@ -1,13 +1,14 @@
 import RouteTemplate from 'ember-route-template';
 import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
-import Icon from '../components/icon';
-import { Player } from '../audio';
-import { link } from 'ember-link';
+import { Icon } from '../domain/supporting/ui';
+import { Player } from '../domain/supporting/audio';
 import ApplicationController from './controller';
-import { on } from '@ember/modifier';
-import Game from '../games/game';
 import styles from './styles.css';
+import { on } from '@ember/modifier';
+import { Game, buildGameLink, GameFactory } from '../domain/core/games';
+import { Assistant, buildAssistantLink, AssistantFactory } from '../domain/core/assistants';
+import { or } from 'ember-truth-helpers';
 
 interface Signature {
   Args: {
@@ -63,19 +64,19 @@ export default RouteTemplate<Signature>(<template>
             </span>
           </summary>
           <ul role='listbox' dir='ltr'>
-            {{#let (@controller.buildGameLink @controller.Game.DanceMix) as |link|}}
+            {{#let (buildAssistantLink Assistant.DanceMix) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a></li>
             {{/let}}
 
-            {{#let (link 'games' @controller.Game.DanceOhMat) as |link|}}
+            {{#let (buildGameLink Game.DanceOhMat) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Oh! Mat</a></li>
             {{/let}}
 
-            {{#let (link 'games' @controller.Game.Bingo) as |link|}}
+            {{#let (buildGameLink Game.Bingo) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Bingo</a></li>
             {{/let}}
 
-            {{#let (link 'games' @controller.Game.Loops) as |link|}}
+            {{#let (buildAssistantLink Assistant.Looper) as |link|}}
               <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a></li>
             {{/let}}
           </ul>
@@ -90,14 +91,18 @@ export default RouteTemplate<Signature>(<template>
         {{outlet}}
       </main>
 
-      {{#if @controller.game}}
+      {{#if (or @controller.game @controller.assistant)}}
         <aside>
           <button
             type='button'
             class='secondary outline {{styles.close}}'
             {{on 'click' @controller.close}}
           >X</button>
-          <Game @game={{@controller.game}} />
+          {{#if @controller.game}}
+            <GameFactory @game={{@controller.game}} />
+          {{else if @controller.assistant}}
+            <AssistantFactory @assistant={{@controller.assistant}}/>
+          {{/if}}
         </aside>
       {{/if}}
     </div>

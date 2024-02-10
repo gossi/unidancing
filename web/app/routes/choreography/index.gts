@@ -1,1 +1,1 @@
-export { IndexRoute as default } from '../../choreography';
+export { IndexRoute as default } from '../../domain/core/choreography';

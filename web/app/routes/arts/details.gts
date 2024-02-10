@@ -1,1 +1,1 @@
-export { DetailsRoute as default } from '../../arts';
+export { DetailsRoute as default } from '../../domain/core/arts';

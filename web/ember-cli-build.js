@@ -1,7 +1,6 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
-const packageJson = require('./package');
 // const { browsers } = require('@gossi/config-targets');
 const { importSingleTs } = require('import-single-ts');
 const path = require('node:path');
@@ -77,9 +76,9 @@ module.exports = function (defaults) {
       includeExtensionInModulePath: true
     },
 
-    autoImport: {
-      watchDependencies: Object.keys(packageJson.dependencies)
-    },
+    // autoImport: {
+    //   watchDependencies: Object.keys(packageJson.dependencies)
+    // },
 
     'ember-cli-babel': {
       enableTypeScriptTransform: true
@@ -91,6 +90,10 @@ module.exports = function (defaults) {
 
     prember: {
       urls: findUrls
+    },
+
+    babel: {
+      plugins: [require.resolve('ember-concurrency/async-arrow-task-transform')]
     }
   });
 
@@ -110,6 +113,31 @@ module.exports = function (defaults) {
       webpackConfig: {
         // devtool: process.env.CI ? 'source-map' : 'eval',
         devtool: 'source-map',
+        resolve: {
+          alias: {
+            // // core
+            // '@unidancing/arts': path.resolve(__dirname, 'app/domain/core/arts'),
+            // '@unidancing/assistants': path.resolve(__dirname, 'app/domain/core/assistants'),
+            // '@unidancing/choreography': path.resolve(__dirname, 'app/domain/core/choreography'),
+            // '@unidancing/courses': path.resolve(__dirname, 'app/domain/core/courses'),
+            // '@unidancing/exercises': path.resolve(__dirname, 'app/domain/core/exercises'),
+            // '@unidancing/games': path.resolve(__dirname, 'app/domain/core/games'),
+            // '@unidancing/home': path.resolve(__dirname, 'app/domain/core/home'),
+            // '@unidancing/moves': path.resolve(__dirname, 'app/domain/core/moves'),
+            // '@unidancing/skills': path.resolve(__dirname, 'app/domain/core/skills'),
+            // '@unidancing/training': path.resolve(__dirname, 'app/domain/core/training'),
+
+            // // supporting
+            // '@unidancing/audio': path.resolve(__dirname, 'app/domain/supporting/audio'),
+            // '@unidancing/spotify': path.resolve(__dirname, 'app/domain/supporting/spotify'),
+            // '@unidancing/tina': path.resolve(__dirname, 'app/domain/supporting/tina'),
+            // '@unidancing/ui': path.resolve(__dirname, 'app/domain/supporting/ui'),
+            // '@unidancing/utils': path.resolve(__dirname, 'app/domain/supporting/utils'),
+
+            // libs
+            '@/tina': path.resolve(__dirname, 'tina/__generated__')
+          }
+        },
         module: {
           rules: [
             {

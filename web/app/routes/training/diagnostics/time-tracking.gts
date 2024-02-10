@@ -1,1 +1,1 @@
-export { DiagnosticsTimeTrackingRoute as default } from '../../../training';
+export { DiagnosticsTimeTrackingRoute as default } from '../../../domain/core/training';

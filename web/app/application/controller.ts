@@ -1,41 +1,37 @@
 import { tracked } from '@glimmer/tracking';
 import Controller from '@ember/controller';
-import { action, set } from '@ember/object';
-import { service } from '@ember/service';
+import { set } from '@ember/object';
 
-import { ALL_GAME_PARAMS, Game } from '../games/games';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { ALL_ASSISTANT_PARAMS } from '../domain/core/assistants';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { ALL_GAME_PARAMS } from '../domain/core/games';
 
-import type { Registry as Services } from '@ember/service';
-import type { LinkManagerService } from 'ember-link';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { Assistant } from '../domain/core/assistants';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import type { Game } from '../domain/core/games';
+
+const PARAMS = [...ALL_GAME_PARAMS, ...ALL_ASSISTANT_PARAMS];
 
 export default class ApplicationController extends Controller {
-  @service declare spotify: Services['spotify'];
-  @service declare linkManager: LinkManagerService;
-  @service declare router: Services['router'];
-
-  Game = Game;
-
-  queryParams = ['game', ...ALL_GAME_PARAMS];
-
+  // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // // @ts-ignore
+  queryParams = ['game', 'assistant', ...PARAMS];
   @tracked game?: Game;
-
-  @action
-  close() {
+  @tracked assistant?: Assistant;
+  close = () => {
     this.game = undefined;
+    this.assistant = undefined;
 
-    for (const param of ALL_GAME_PARAMS) {
+    for (const param of PARAMS) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       set(this, param, undefined);
     }
-  }
-
-  buildGameLink = (game: Game) => {
-    return this.linkManager.createLink({
-      route: this.router.currentRouteName as string,
-      query: {
-        game
-      }
-    });
   };
 }

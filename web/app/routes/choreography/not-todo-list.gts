@@ -1,1 +1,1 @@
-export { NotTodoListRoute as default } from '../../choreography';
+export { NotTodoListRoute as default } from '../../domain/core/choreography';

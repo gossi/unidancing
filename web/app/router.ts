@@ -12,6 +12,7 @@ Router.map(function () {
   this.route('auth', function () {
     this.route('spotify');
   });
+  this.route('assistants', { path: '/assistants/:assistant' });
   this.route('courses', function () {
     this.route('details', { path: '/:id' });
   });
@@ -27,7 +28,7 @@ Router.map(function () {
   this.route('moves', function () {
     this.route('details', { path: '/:id' });
   });
-  this.route('games', { path: '/games/:id' });
+  this.route('games', { path: '/games/:game' });
   this.route('choreography', function () {
     this.route('not-todo-list');
     this.route('unidance-writing');

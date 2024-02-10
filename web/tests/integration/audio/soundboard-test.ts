@@ -1,7 +1,9 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import { playSound } from '@unidancing/app/audio';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { playSound } from '@unidancing/app/domain/supporting/audio';
 import sinon from 'sinon';
 
 module('Integration | Audio | Soundboard', function (hooks) {
