@@ -90,6 +90,10 @@ module.exports = function (defaults) {
 
     prember: {
       urls: findUrls
+    },
+
+    babel: {
+      plugins: [require.resolve('ember-concurrency/async-arrow-task-transform')]
     }
   });
 
@@ -118,7 +122,7 @@ module.exports = function (defaults) {
             '@unidancing/courses': path.resolve(__dirname, 'app/domain/core/courses'),
             '@unidancing/exercises': path.resolve(__dirname, 'app/domain/core/exercises'),
             '@unidancing/games': path.resolve(__dirname, 'app/domain/core/games'),
-            '@unidancing/home': path.resolve(__dirname, 'app/domain/core/gome'),
+            '@unidancing/home': path.resolve(__dirname, 'app/domain/core/home'),
             '@unidancing/moves': path.resolve(__dirname, 'app/domain/core/moves'),
             '@unidancing/skills': path.resolve(__dirname, 'app/domain/core/skills'),
             '@unidancing/training': path.resolve(__dirname, 'app/domain/core/training'),
