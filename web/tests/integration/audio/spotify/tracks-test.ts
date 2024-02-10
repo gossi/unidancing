@@ -1,7 +1,9 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import { playTrack } from '@unidancing/spotify';
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
+import { playTrack } from '@unidancing/app/domain/supporting/spotify';
 import sinon from 'sinon';
 
 import { RADIOACTIVE } from '../../../fixtures/spotify/tracks';
