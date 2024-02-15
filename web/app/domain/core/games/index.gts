@@ -4,4 +4,4 @@ export type { GameLinkBuilder } from './resources';
 export { buildGameLink } from './resources';
 
 export { GameFactory } from './components/game-factory';
-export { GamesRoute } from './routes/games';
+export { default as GamesRoute } from './routes/games';

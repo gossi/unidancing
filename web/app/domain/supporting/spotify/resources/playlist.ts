@@ -1,11 +1,12 @@
 import { tracked } from '@glimmer/tracking';
-import { service } from '@ember/service';
 
+import { service } from 'ember-polaris-service';
 import { Resource, resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
 
+import { SpotifyService } from '../service';
+
 import type { Playlist, Track } from '../domain-objects';
-import type SpotifyService from '../service';
 import type { ArgsWrapper } from 'ember-resources';
 
 interface PlaylistArgs extends ArgsWrapper {
@@ -15,7 +16,7 @@ interface PlaylistArgs extends ArgsWrapper {
 }
 
 export class PlaylistResource extends Resource<PlaylistArgs> {
-  @service declare spotify: SpotifyService;
+  @service(SpotifyService) declare spotify: SpotifyService;
 
   declare playlistId: string;
 

@@ -86,7 +86,11 @@ export default RouteTemplate<Signature>(<template>
   </nav>
 
   <div class='container'>
-    <div class='grid {{styles.main}}' data-game={{@controller.game}}>
+    <div
+      class='grid {{styles.main}}'
+      data-game={{@controller.game}}
+      data-assistant={{@controller.assistant}}
+    >
       <main>
         {{outlet}}
       </main>
@@ -101,7 +105,7 @@ export default RouteTemplate<Signature>(<template>
           {{#if @controller.game}}
             <GameFactory @game={{@controller.game}} />
           {{else if @controller.assistant}}
-            <AssistantFactory @assistant={{@controller.assistant}}/>
+            <AssistantFactory @assistant={{@controller.assistant}} />
           {{/if}}
         </aside>
       {{/if}}

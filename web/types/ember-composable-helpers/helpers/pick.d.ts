@@ -4,6 +4,7 @@ export interface PickSignature {
   Args: {
     Positional: [path: string, handler: (value: unknown) => void];
   };
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   Return: (value: unknown) => void;
 }
 

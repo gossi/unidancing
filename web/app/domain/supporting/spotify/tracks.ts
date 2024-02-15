@@ -1,5 +1,7 @@
 import { action } from 'ember-command';
 
+import { SpotifyService } from './service';
+
 import type { Track } from './domain-objects';
 
 function randomItem<T>(items: T[]) {
@@ -24,8 +26,8 @@ export function getRandomTrack(list: Track[]): Track {
   return getRandomTracks(list, 1)[0];
 }
 
-export const playTrack = action(({ services }) => async (track: Track) => {
-  const client = services.spotify.client;
+export const playTrack = action(({ service }) => async (track: Track) => {
+  const client = service(SpotifyService).client;
 
   await client.play({
     uris: [track.uri]
@@ -37,9 +39,9 @@ function randomNumber(min: number, max: number) {
 }
 
 export const playTrackForDancing = action(
-  ({ services }) =>
+  ({ service }) =>
     async (track: Track, expectedDuration) => {
-      const client = services.spotify.client;
+      const client = service(SpotifyService).client;
 
       const offset = randomNumber(15, 50) / 100;
       const preferredStart = track.duration_ms * offset;

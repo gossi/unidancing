@@ -1,12 +1,12 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { dropTask, timeout } from 'ember-concurrency';
-import { service } from '@ember/service';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 import styles from './looper.css';
 import { registerDestructor } from '@ember/destroyable';
 import { eq } from 'ember-truth-helpers';
+import { service } from 'ember-polaris-service';
 
 import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
@@ -34,8 +34,8 @@ const data: Loop[] = [
 ];
 
 class Game extends Component {
-  @service declare spotify: SpotifyService;
-  @service('player') declare audio: AudioService;
+  @service(SpotifyService) declare spotify: SpotifyService;
+  @service(AudioService) declare audio: AudioService;
 
   @tracked latency = 250;
   @tracked loops: Required<Loop>[] = [];

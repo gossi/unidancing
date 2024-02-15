@@ -47,6 +47,7 @@ export const SpotifyMachine = createMachine(
                   [SpotifyEvent.LoadDevices]: {
                     target: SpotifyState.Loading
                   },
+                  // eslint-disable-next-line @typescript-eslint/naming-convention
                   '': [
                     { target: SpotifyState.Selecting, cond: 'hasDevices' },
                     { target: SpotifyState.Loading }

@@ -1,9 +1,11 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-import { deserialize, isSSR } from '../../utils';
+import { service as polarisService } from 'ember-polaris-service';
 
-import type { SpotifyService } from '../service';
+import { deserialize, isSSR } from '../../utils';
+import { SpotifyService } from '../service';
+
 import type RouteInfo from '@ember/routing/route-info';
 import type RouterService from '@ember/routing/router-service';
 import type Transition from '@ember/routing/transition';
@@ -28,7 +30,7 @@ function makeRouteArgs({
 }
 
 export class SpotifyAuthRoute extends Route {
-  @service declare spotify: SpotifyService;
+  @polarisService(SpotifyService) declare spotify: SpotifyService;
   @service declare router: RouterService;
 
   activate(transition: Transition) {

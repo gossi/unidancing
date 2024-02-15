@@ -1,10 +1,11 @@
 import { tracked } from '@glimmer/tracking';
-import { service } from '@ember/service';
 
+import { service } from 'ember-polaris-service';
 import { Resource } from 'ember-resources';
 
+import { SpotifyService } from '../service';
+
 import type { Track } from '../domain-objects';
-import type { Registry as Services } from '@ember/service';
 import type { ArgsWrapper } from 'ember-resources';
 
 interface TrackArgs extends ArgsWrapper {
@@ -15,7 +16,7 @@ interface TrackArgs extends ArgsWrapper {
 }
 
 export class TrackResource extends Resource<TrackArgs> {
-  @service declare spotify: Services['spotify'];
+  @service(SpotifyService) declare spotify: SpotifyService;
 
   #cache: Map<string, Record<string, unknown>>;
 

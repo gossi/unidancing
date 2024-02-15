@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-// @ts-ignore
 import { DanceMix, DanceMixParam } from './dance-mix/dance-mix';
-// @ts-ignore
 import { Looper } from './looper/looper';
 
-// @ts-ignore
 import type { DanceMixParams } from './dance-mix/dance-mix';
 
 export enum Assistant {

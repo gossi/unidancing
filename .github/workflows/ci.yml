@@ -19,9 +19,25 @@ env:
   CI: true
 
 jobs:
+  lint-js:
+    name: Lint (JS)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: wyvox/action@v1
+
+      # build tina stuff
+      - name: Build Tina
+        run: pnpm exec tinacms build --local --skip-cloud-checks
+        working-directory: web
+
+      - name: Lint
+        run: pnpm run lint:js
+        working-directory: web
+
   test:
     name: Test
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Setup
         uses: wyvox/action@v1

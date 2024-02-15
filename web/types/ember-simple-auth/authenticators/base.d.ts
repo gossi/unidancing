@@ -4,8 +4,8 @@ declare module 'ember-simple-auth/authenticators/base' {
   import Evented from '@ember/object/evented';
 
   class Base extends EmberObject.extend(Evented) {
-    authenticate(...args: any[]): Promise<unknown>;
-    invalidate(data?: object, ...args: any[]): Promise<void>;
+    authenticate(...args: unknown[]): Promise<unknown>;
+    invalidate(data?: object, ...args: unknown[]): Promise<void>;
     restore(data: object): Promise<unknown>;
   }
 

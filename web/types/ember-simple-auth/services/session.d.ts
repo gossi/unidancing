@@ -1,7 +1,8 @@
 /* eslint-disable no-unused-vars */
 import Evented from '@ember/object/evented';
-import Transition from '@ember/routing/-private/transition';
 import Service from '@ember/service';
+
+import type Transition from '@ember/routing/-private/transition';
 
 interface Data {
   authenticated: Record<string, unknown> & {
@@ -9,7 +10,6 @@ interface Data {
   };
 }
 
-// @ts-ignore
 class Session extends Service.extend(Evented) {
   /**
    * Triggered whenever the session is successfully authenticated. This happens
@@ -43,22 +43,18 @@ class Session extends Service.extend(Evented) {
 
   isAuthenticated: boolean;
   data: Data | null;
-  store: any;
-  attemptedTransition: any;
-  session: any;
+  store: unknown;
+  attemptedTransition: unknown;
+  session: unknown;
 
   setup(): Promise<void>;
 
-  // @ts-ignore
-  set(key: string, value: any): any;
-  authenticate(...args: any[]): Promise<unknown>;
-  invalidate(...args: any): Promise<unknown>;
-  authorize(...args: any[]): Promise<unknown>;
+  set(key: string, value: unknown): unknown;
+  authenticate(...args: unknown[]): Promise<unknown>;
+  invalidate(...args: unknown): Promise<unknown>;
+  authorize(...args: unknown[]): Promise<unknown>;
 
-  requireAuthentication(
-    transition: Transition,
-    routeOrCallback: string | (() => void)
-  ): boolean;
+  requireAuthentication(transition: Transition, routeOrCallback: string | (() => void)): boolean;
 
   prohibitAuthentication(routeOrCallback: string | (() => void)): boolean;
 
@@ -67,7 +63,6 @@ class Session extends Service.extend(Evented) {
 }
 
 declare module 'ember-simple-auth/services/session' {
-  // @ts-ignore
   export = Session;
 }
 
