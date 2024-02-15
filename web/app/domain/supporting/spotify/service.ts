@@ -1,10 +1,11 @@
-import Service from '@ember/service';
-
 import config from '@unidancing/app/config/environment';
 import { task, timeout } from 'ember-concurrency';
+import Service from 'ember-polaris-service';
 
 import { deserialize, isSSR } from '../utils';
 import { SpotifyClient } from './client';
+
+import type { Scope } from 'ember-polaris-service';
 
 interface SpotifyStorage {
   accessToken?: string;
@@ -22,8 +23,8 @@ export class SpotifyService extends Service {
 
   client = SpotifyClient.from(this, () => []);
 
-  constructor() {
-    super();
+  constructor(scope: Scope) {
+    super(scope);
 
     if (!isSSR()) {
       const data = localStorage.getItem('spotify');

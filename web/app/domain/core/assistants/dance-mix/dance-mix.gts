@@ -27,6 +27,7 @@ import type RouterService from '@ember/routing/router-service';
 import type { TOC } from '@ember/component/template-only';
 import type { Playlist, Track } from '../../../supporting/spotify';
 import { getOwner } from '@ember/owner';
+import { service as polarisService } from 'ember-polaris-service';
 
 enum PlaylistOptions {
   Epic = 'epic',
@@ -134,7 +135,7 @@ interface PlaySignature {
 }
 
 class Play extends Component<PlaySignature> {
-  @service declare spotify: SpotifyService;
+  @polarisService(SpotifyService) declare spotify: SpotifyService;
 
   @tracked counter?: number;
   @tracked declare tracks: Track[];
@@ -312,7 +313,7 @@ export interface DanceMixSignature {
 }
 
 class Game extends Component<DanceMixSignature> {
-  @service('player') declare audio: AudioService;
+  @polarisService(AudioService) declare audio: AudioService;
   @service declare router: RouterService;
 
   get getParam() {

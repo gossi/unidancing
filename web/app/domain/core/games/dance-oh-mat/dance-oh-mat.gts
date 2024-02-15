@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { service } from '@ember/service';
+import { service as polarisService } from 'ember-polaris-service';
 import { tracked } from '@glimmer/tracking';
 import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
 import {
@@ -46,6 +47,7 @@ const DEFAULTS = {
   [DanceOhMatParam.Rounds]: 4,
   [DanceOhMatParam.Duration]: 30
 };
+
 
 const getParam =
   <A extends DanceOhMatParams>(args: A, router: RouterService) =>
@@ -226,8 +228,8 @@ class Lobby extends Component<LobbySignature> {
 }
 
 class Manual extends Component {
-  @service declare spotify: SpotifyService;
-  @service('player') declare audio: AudioService;
+  @polarisService(SpotifyService) declare spotify: SpotifyService;
+  @polarisService(AudioService) declare audio: AudioService;
 
   lobbyTrack = TrackResource.from(this, () => ({ id: LOBBY_TRACK_ID }));
 
@@ -330,8 +332,8 @@ const PLAYLISTS: Record<string, string> = {
 // https://open.spotify.com/intl-de/track/7IiurNiwebWtRFrMUojN04
 
 class Game extends Component {
-  @service declare spotify: SpotifyService;
-  @service('player') declare audio: AudioService;
+  @polarisService(SpotifyService) declare spotify: SpotifyService;
+  @polarisService(AudioService) declare audio: AudioService;
 
   @tracked counter?: number;
   song?: number;

@@ -1,5 +1,6 @@
 import { tracked } from '@glimmer/tracking';
-import Service from '@ember/service';
+
+import Service from 'ember-polaris-service';
 
 import { SoundBoard } from './soundboard';
 
@@ -11,10 +12,4 @@ export class AudioService extends Service {
   @tracked player?: AudioPlayer;
 
   soundboard: SoundBoard = new SoundBoard();
-}
-
-declare module '@ember/service' {
-  interface Registry {
-    player: AudioService;
-  }
 }

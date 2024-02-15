@@ -138,7 +138,9 @@ export class SpotifyClient extends Resource {
   setVolume = async (volumePercent: number) => {
     try {
       await this.api.setVolume(volumePercent);
-    } catch {}
+    } catch {
+      // not empty
+    }
   };
 
   selectTrack = (track: Track) => {

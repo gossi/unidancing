@@ -1,5 +1,6 @@
 import { action } from 'ember-command';
 
+import { AudioService } from './service';
 import styles from './soundboard.css';
 import { countDown, counter, fail, select, surprise } from './sounds';
 
@@ -40,8 +41,8 @@ export class SoundBoard {
   }
 }
 
-export const playSound = action(({ services }) => async (name: string) => {
-  const soundboard = services.player.soundboard;
+export const playSound = action(({ service }) => async (name: string) => {
+  const soundboard = service(AudioService).soundboard;
 
   return soundboard.play(name);
 });

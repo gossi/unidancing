@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import styles from './player.css';
-import { service } from '@ember/service';
+import { service } from 'ember-polaris-service';
 import { formatArtists } from '../helpers';
 import { on } from '@ember/modifier';
 import { action } from '@ember/object';
@@ -9,11 +9,11 @@ import pick from 'ember-composable-helpers/helpers/pick';
 import { Icon } from '../../ui';
 import type { Device } from '../domain-objects';
 import { device2Icon } from '../helpers';
-import type { SpotifyService } from '../service';
+import { SpotifyService } from '../service';
 import { eq } from 'ember-truth-helpers';
 
 export class SpotifyPlayer extends Component {
-  @service declare spotify: SpotifyService;
+  @service(SpotifyService) declare spotify: SpotifyService;
 
   get client() {
     return this.spotify.client;

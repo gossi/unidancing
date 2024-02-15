@@ -6,7 +6,7 @@
     position: relative;
   }
 
-  &[data-game] main {
+  :is(&[data-game], &[data-assistant]) main {
     @media (width <= 992px) {
       display: none;
     }

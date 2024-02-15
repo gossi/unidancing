@@ -1,12 +1,10 @@
 import { SpotifyPlayer } from '../../spotify';
-import { AudioPlayer } from '../service';
+import { AudioPlayer, AudioService } from '../service';
 import styles from './player.css';
 import { ability } from 'ember-ability';
 
-const isSpotifyPlayer = ability(({ services }) => () => {
-  const { player } = services;
-
-  return player.player === AudioPlayer.Spotify;
+const isSpotifyPlayer = ability((sweetOwner) => () => {
+  return sweetOwner.service(AudioService).player === AudioPlayer.Spotify;
 });
 
 const Player = <template>

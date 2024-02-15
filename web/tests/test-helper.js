@@ -1,11 +1,13 @@
-import Application from '@unidancing/app/app';
-import config from '@unidancing/app/config/environment';
-import * as QUnit from 'qunit';
+import 'qunit-theme-ember/qunit.css';
+
 import { setApplication } from '@ember/test-helpers';
+import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
 import { start } from 'ember-qunit';
+
+import Application from '@unidancing/app/app';
+import config from '@unidancing/app/config/environment';
 import setupSinon from 'ember-sinon-qunit';
-import 'qunit-theme-ember/qunit.css';
 
 setApplication(Application.create(config.APP));
 
