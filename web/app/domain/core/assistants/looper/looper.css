@@ -1,14 +1,23 @@
 .loop {
   --spacing: 0.5rem;
 
-  align-items: center;
-  display: flex;
+  display: grid;
+  gap: 0.2em 0.8em;
+  grid-template-columns: auto 120px;
   justify-content: space-between;
   padding: var(--spacing);
+
+  time {
+    justify-self: end;
+  }
 
   button {
     display: inline;
     margin: 0;
     width: auto;
+  }
+
+  small {
+    color: var(--muted-color);
   }
 }
