@@ -9,11 +9,12 @@ export { LoginWithSpotify } from './components/login-with-spotify';
 export { SpotifyPlayer } from './components/player';
 export { PlaylistChooser } from './components/playlist-chooser';
 export { WithSpotify } from './components/with-spotify';
+export { SpotifyPlayButton } from './components/spotify-play-button';
 
 // resources
 export { PlaylistResource } from './resources/playlist';
 export { PlaylistsResource } from './resources/playlists';
-export { TrackResource } from './resources/track';
+export { TrackResource, findTrack } from './resources/track';
 
 // helpers
 export { formatArtists } from './helpers';

@@ -1,23 +1,54 @@
-.loop {
-  --spacing: 0.5rem;
-
+.card {
   display: grid;
-  gap: 0.2em 0.8em;
-  grid-template-columns: auto 120px;
-  justify-content: space-between;
-  padding: var(--spacing);
-
-  time {
-    justify-self: end;
-  }
-
-  button {
-    display: inline;
-    margin: 0;
-    width: auto;
-  }
+  padding: 0.5rem;
+  row-gap: 0.8rem;
 
   small {
     color: var(--muted-color);
+  }
+
+  .header {
+    display: grid;
+  }
+
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5em;
+  }
+}
+
+.loop {
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns: auto auto;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  time {
+    font-family: monospace;
+    font-size: 0.8em;
+  }
+
+  button {
+    margin: 0;
+    width: auto;
+  }
+}
+
+.playbutton {
+  --percent: -1%;
+
+  &[data-playing] {
+    background-image: linear-gradient(
+      to right,
+      rgb(0 0 0 / 15%) calc(var(--percent) - 1%),
+      rgb(0 0 0 / 55%) var(--percent),
+      transparent calc(var(--percent) + 1%)
+    );
   }
 }

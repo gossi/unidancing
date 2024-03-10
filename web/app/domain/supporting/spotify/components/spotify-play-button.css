@@ -1,0 +1,29 @@
+.playbutton {
+  --background-base: #1ed760;
+  --background-highlight: #1fdf64;
+  --background-press: #169c46;
+
+  align-items: center;
+  background-color: var(--background-base);
+  background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjQgMjQiPjxwYXRoIGZpbGw9ImJsYWNrIiBkPSJtNy4wNSAzLjYwNiAxMy40OSA3Ljc4OGEuNy43IDAgMCAxIDAgMS4yMTJMNy4wNSAyMC4zOTRBLjcuNyAwIDAgMSA2IDE5Ljc4OFY0LjIxMmEuNy43IDAgMCAxIDEuMDUtLjYwNnoiPjwvcGF0aD48L3N2Zz4=');
+  border-color: var(--background-base);
+  color: #000;
+  display: inline-flex;
+  gap: 0.25em;
+
+  svg {
+    aspect-ratio: 1;
+    fill: currentcolor;
+    width: 1em;
+  }
+
+  &:hover {
+    background-color: var(--background-highlight);
+    border-color: var(--background-highlight);
+  }
+
+  &:active {
+    background-color: var(--background-press);
+    border-color: var(--background-press);
+  }
+}
