@@ -73,6 +73,7 @@ export class TrackResource extends Resource<TrackArgs> {
 
 export const findTrack = resourceFactory((id: string) => {
   return resource(async ({ owner }): Promise<Track> => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
     const { service } = sweetenOwner(owner);
     const spotify = service(SpotifyService);
 
