@@ -1,7 +1,8 @@
 import { tracked } from '@glimmer/tracking';
 
 import { service } from 'ember-polaris-service';
-import { Resource } from 'ember-resources';
+import { Resource, resource, resourceFactory } from 'ember-resources';
+import { sweetenOwner } from 'ember-sweet-owner';
 
 import { SpotifyService } from '../service';
 
@@ -69,3 +70,13 @@ export class TrackResource extends Resource<TrackArgs> {
     localStorage.setItem('track-analysis', JSON.stringify(cache));
   }
 }
+
+export const findTrack = resourceFactory((id: string) => {
+  return resource(async ({ owner }): Promise<Track> => {
+    // eslint-disable-next-line @typescript-eslint/no-shadow
+    const { service } = sweetenOwner(owner);
+    const spotify = service(SpotifyService);
+
+    return await spotify.client.api.getTrack(id);
+  });
+});

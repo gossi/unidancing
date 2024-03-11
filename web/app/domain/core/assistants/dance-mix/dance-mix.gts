@@ -8,7 +8,8 @@ import {
   getRandomTracks,
   SpotifyService,
   isReadyForPlayback,
-  playTrackForDancing
+  playTrackForDancing,
+  SpotifyPlayButton
 } from '../../../supporting/spotify';
 import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import { service } from '@ember/service';
@@ -243,7 +244,8 @@ class Play extends Component<PlaySignature> {
       <div>
         <p class={{styles.counter}}>{{this.counter}}</p>
 
-        <button type='button' {{on 'click' this.stop}}>Stop</button>
+        <SpotifyPlayButton @intent="stop" {{on 'click' this.stop}}>Stop</SpotifyPlayButton>
+        {{!-- <button type='button' >Stop</button> --}}
       </div>
     </div>
   </template>
@@ -299,11 +301,10 @@ class Lobby extends Component<LobbySignature> {
         <input type='number' name='amount' value={{this.params.amount}} />
       </label>
 
-      {{#if (isReadyForPlayback)}}
-        <button type='submit'>Start</button>
-      {{else}}
-        Bitte Spotify Player auswählen
-      {{/if}}
+      {{#unless (isReadyForPlayback)}}
+        ⚠️ Bitte Spotify Player auswählen
+      {{/unless}}
+      <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
     </form>
   </template>
 }
