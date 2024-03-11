@@ -43,6 +43,8 @@
 .playbutton {
   --percent: -1%;
 
+  border-width: 0;
+
   &[data-playing] {
     background-image: linear-gradient(
       to right,

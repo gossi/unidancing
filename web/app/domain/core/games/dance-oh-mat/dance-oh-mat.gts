@@ -12,7 +12,8 @@ import {
   PlaylistResource,
   getRandomTrack,
   playTrack,
-  playTrackForDancing
+  playTrackForDancing,
+  SpotifyPlayButton
 } from '../../../supporting/spotify';
 import { on } from '@ember/modifier';
 import { dropTask, timeout } from 'ember-concurrency';
@@ -218,11 +219,11 @@ class Lobby extends Component<LobbySignature> {
         <input type='number' name='rounds' value={{this.params.rounds}} />
       </label>
 
-      {{#if (isReadyForPlayback)}}
-        <button type='submit'>Start</button>
-      {{else}}
-        Bitte Spotify Player auswählen
-      {{/if}}
+      {{#unless (isReadyForPlayback)}}
+        ⚠️ Bitte Spotify Player auswählen
+      {{/unless}}
+
+      <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
     </form>
   </template>
 }
@@ -537,7 +538,8 @@ class Game extends Component {
           </p>
         {{/if}}
 
-        <button type="button" class={{styles.stop}} {{on "click" this.stop}}>Stop</button>
+        <SpotifyPlayButton @intent="stop" class={{styles.stop}} {{on "click" this.stop}}>Stop</SpotifyPlayButton>
+        {{!-- <button type="button" class={{styles.stop}} {{on "click" this.stop}}>Stop</button> --}}
       </div>
     {{/if}}
   </template>

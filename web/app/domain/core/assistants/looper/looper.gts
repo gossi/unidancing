@@ -12,7 +12,8 @@ import {
   SpotifyService,
   formatArtists,
   findTrack,
-  SpotifyPlayButton
+  SpotifyPlayButton,
+isReadyForPlayback
 } from '../../../supporting/spotify';
 import type { Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
@@ -260,8 +261,9 @@ interface PlayButtonSignature {
 class PlayButton extends Component<PlayButtonSignature> {
   <template>
     <SpotifyPlayButton
-      @playing={{(isPlaying @loop)}}
+      @intent={{if (isPlaying @loop) 'stop'}}
       class={{styles.playbutton}}
+      data-playing={{(isPlaying @loop)}}
       {{on "click" (if (isPlaying @loop) (stop) (fn (start) @loop 0))}}
       {{!@glint-ignore}}
       {{(if (isPlaying @loop) (modifier applyPercentage (playingPercentage)))}}
@@ -272,12 +274,6 @@ class PlayButton extends Component<PlayButtonSignature> {
         Play
       {{/if}}
     </SpotifyPlayButton>
-    {{!-- {{#if (isPlaying @loop)}}
-      <SpotifyPlayButton class={{styles.playbutton}} {{on "click" (stop)}}
-      data-playing {{applyPercentage (playingPercentage)}}>Stop</SpotifyPlayButton>
-    {{else}}
-      <SpotifyPlayButton class={{styles.playbutton}} {{on "click" (fn (start) @loop 0)}}>Start</SpotifyPlayButton>
-    {{/if}} --}}
   </template>
 }
 
@@ -357,6 +353,10 @@ class Game extends Component {
 
   <template>
     <Latency />
+
+    {{#unless (isReadyForPlayback)}}
+      ⚠️ Bitte Spotify Player auswählen
+    {{/unless}}
 
     {{#each data as |loop|}}
       <LoopCard @loop={{loop}}/>
