@@ -6,10 +6,6 @@
   article {
     margin: 0;
 
-    & > header {
-      margin-bottom: calc(var(--block-spacing-vertical) * 0.75);
-    }
-
     p {
       margin: 0;
     }
@@ -24,6 +20,7 @@
 
 .lesson {
   counter-increment: lesson;
+  margin-top: calc(var(--pico-typography-spacing-vertical) * 1.5);
 }
 
 .lesson::before {
@@ -38,5 +35,5 @@
   display: grid;
   gap: 10px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  margin-bottom: var(--typography-spacing-vertical);
+  margin-bottom: var(--pico-typography-spacing-vertical);
 }

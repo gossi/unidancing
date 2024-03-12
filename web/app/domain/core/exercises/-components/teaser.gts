@@ -18,7 +18,7 @@ export interface ExerciseTeaserSignature {
 }
 
 const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
-  <article>
+  <article class={{styles.card}}>
     <header class={{styles.header}}>
       <span>
         <Icon @icon='exercise' />

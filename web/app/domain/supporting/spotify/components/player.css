@@ -14,9 +14,9 @@
   &:hover,
   &:active,
   &:focus {
-    --background-color: transparent;
-    --border-color: transparent;
-    --box-shadow: unset;
+    --pico-background-color: transparent;
+    --pico-border-color: transparent;
+    --pico-box-shadow: unset;
   }
 
   display: inline;

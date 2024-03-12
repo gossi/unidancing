@@ -1,8 +1,8 @@
 .card {
-  background: var(--card-background-color);
-  border-radius: var(--border-radius);
-  box-shadow: var(--card-box-shadow);
-  padding: var(--block-spacing-vertical) var(--block-spacing-horizontal);
+  background: var(--pico-card-background-color);
+  border-radius: var(--pico-border-radius);
+  box-shadow: var(--pico-card-box-shadow);
+  padding: var(--pico-block-spacing-vertical) var(--pico-block-spacing-horizontal);
 }
 
 .section {
@@ -15,7 +15,7 @@
 }
 
 .title {
-  color: var(--typography-main);
+  color: var(--pico-typography-main);
   font-size: 18px;
   font-weight: 500;
   line-height: 26px;
