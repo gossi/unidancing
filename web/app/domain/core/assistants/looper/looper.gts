@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
 import { cached, tracked } from '@glimmer/tracking';
-import { dropTask, timeout } from 'ember-concurrency';
+import { restartableTask, timeout } from 'ember-concurrency';
 import { on } from '@ember/modifier';
 import { fn } from '@ember/helper';
 import styles from './looper.css';
@@ -154,10 +154,6 @@ class LoopService extends Service {
   @tracked elapsedTime = 0;
 
   start = async (loop: LoopData, offset?: number) => {
-    if (this.playing) {
-      await this.stop();
-    }
-
     this.playing = loop;
 
     try {
@@ -165,7 +161,7 @@ class LoopService extends Service {
     } catch(_) {}
   }
 
-  play = dropTask(async (loop: LoopData, offset?: number) => {
+  play = restartableTask(async (loop: LoopData, offset?: number) => {
     this.spotify.client.selectTrack(loop.track);
 
     let max = (loop.end - loop.start) - this.latency;
@@ -191,20 +187,20 @@ class LoopService extends Service {
   });
 
   stop = async () => {
-    await this.play.cancelAll();
+    await this.play.last?.cancel();
     await this.spotify.client.pause();
     this.playing = undefined;
   };
 }
 
-const start = action(({ service }) => (loop: LoopData, offset: number = 0) => {
+const start = action(({ service }) => async (loop: LoopData, offset: number = 0) => {
   const loopService = service(LoopService);
-  loopService.start(loop, offset);
+  await loopService.start(loop, offset);
 });
 
-const stop = action(({ service }) => () => {
+const stop = action(({ service }) => async () => {
   const loopService = service(LoopService);
-  loopService.stop();
+  await loopService.stop();
 });
 
 const isPlaying = ability(({ service }) =>  (loop: LoopData) => {
@@ -260,20 +256,24 @@ interface PlayButtonSignature {
 
 class PlayButton extends Component<PlayButtonSignature> {
   <template>
-    <SpotifyPlayButton
-      @intent={{if (isPlaying @loop) 'stop'}}
-      class={{styles.playbutton}}
-      data-playing={{(isPlaying @loop)}}
-      {{on "click" (if (isPlaying @loop) (stop) (fn (start) @loop 0))}}
-      {{!@glint-ignore}}
-      {{(if (isPlaying @loop) (modifier applyPercentage (playingPercentage)))}}
-    >
-      {{#if (isPlaying @loop)}}
+    {{#if (isPlaying @loop)}}
+      <SpotifyPlayButton
+        @intent='stop'
+        class={{styles.playbutton}}
+        data-playing
+        {{on "click" (stop)}}
+        {{applyPercentage (playingPercentage)}}
+      >
         Stop
-      {{else}}
+      </SpotifyPlayButton>
+    {{else}}
+      <SpotifyPlayButton
+        class={{styles.playbutton}}
+        {{on "click" (fn (start) @loop 0)}}
+      >
         Play
-      {{/if}}
-    </SpotifyPlayButton>
+      </SpotifyPlayButton>
+    {{/if}}
   </template>
 }
 

@@ -413,7 +413,7 @@ class Game extends Component<DanceMixSignature> {
     {{else if (this.machine.state.matches 'preparing')}}
       <Header @playlist={{this.playlist.playlist}}>
         {{#if (not this.playlistLocked)}}
-          <div>
+
             <button
               type='button'
               disabled={{(this.machine.state.matches 'playing')}}
@@ -422,7 +422,7 @@ class Game extends Component<DanceMixSignature> {
             >
               Playlist wechseln
             </button>
-          </div>
+
         {{/if}}
       </Header>
       <Lobby @duration={{@duration}} @pause={{@pause}} @amount={{@amount}} @play={{this.play}} />

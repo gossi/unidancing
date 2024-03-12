@@ -41,46 +41,64 @@ export default RouteTemplate<Signature>(<template>
         </LinkTo>
       </li>
       <li>
-        <LinkTo @route='choreography'>
-          <Icon @icon='choreo' />
-          <span class={{styles.label}}>Choreographie</span>
-        </LinkTo>
-      </li>
-      <li>
-        <LinkTo @route='training'>
-          <Icon @icon='training' />
-          <span class={{styles.label}}>Training</span>
-        </LinkTo>
-      </li>
-    </ul>
-
-    <ul>
-      <li>
-        <details role='list' dir='rtl'>
-          <summary aria-haspopup='listbox' role='link'>
-            <span>
-              <Icon @icon='game' />
-              <span class={{styles.label}}>Games</span>
-            </span>
+        <details class="dropdown">
+          <summary role="link">
+            <Icon @icon='choreo' />
+            <span class={{styles.label}}>Choreographie</span>
           </summary>
-          <ul role='listbox' dir='ltr'>
-            {{#let (buildAssistantLink Assistant.DanceMix) as |link|}}
-              <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a></li>
-            {{/let}}
-
-            {{#let (buildGameLink Game.DanceOhMat) as |link|}}
-              <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Oh! Mat</a></li>
-            {{/let}}
-
-            {{#let (buildGameLink Game.Bingo) as |link|}}
-              <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Bingo</a></li>
-            {{/let}}
-
-            {{#let (buildAssistantLink Assistant.Looper) as |link|}}
-              <li><a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a></li>
-            {{/let}}
+          <ul dir="rtl">
+            <li><LinkTo @route='choreography'>Übersicht</LinkTo></li>
+            <li class={{styles.divider}}/>
+            <li><LinkTo @route='choreography.unidance-writing'>UniDance Writing</LinkTo></li>
+            <li><LinkTo @route='choreography.not-todo-list'>Not-Todo-Liste</LinkTo></li>
+            <li class={{styles.divider}}/>
+            <li class={{styles.title}}>Spiele</li>
+            <li>
+              {{#let (buildGameLink Game.Bingo) as |link|}}
+                <a href={{link.url}} {{on 'click' link.transitionTo}}>Bingo</a>
+              {{/let}}
+            </li>
           </ul>
         </details>
+      </li>
+      <li>
+        <details class="dropdown">
+          <summary role="link">
+            <Icon @icon='training' />
+            <span class={{styles.label}}>Training</span>
+          </summary>
+          <ul dir="rtl">
+            <li><LinkTo @route='training'>Übersicht</LinkTo></li>
+            <li class={{styles.divider}}/>
+            <li><LinkTo @route='training.planning'>Planung</LinkTo></li>
+            <li><LinkTo @route='training.control'>Steuerung</LinkTo></li>
+            <li><LinkTo @route='training.diagnostics'>Diagnostik</LinkTo></li>
+            <li class={{styles.divider}}/>
+            <li class={{styles.title}}>Assistenten</li>
+            <li>
+              {{#let (buildAssistantLink Assistant.DanceMix) as |link|}}
+                <a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a>
+              {{/let}}
+            </li>
+            <li>
+              {{#let (buildAssistantLink Assistant.Looper) as |link|}}
+                <a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a>
+              {{/let}}
+            </li>
+            <li class={{styles.title}}>Spiele</li>
+            <li>
+              {{#let (buildGameLink Game.DanceOhMat) as |link|}}
+                <a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Oh! Mat</a>
+              {{/let}}
+            </li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <LinkTo @route='arts'>
+          <Icon @icon='art' />
+          <span class={{styles.label}}>Künste</span>
+        </LinkTo>
       </li>
     </ul>
   </nav>

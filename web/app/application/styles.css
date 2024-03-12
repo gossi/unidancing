@@ -1,6 +1,6 @@
 .main {
   padding-bottom: 6rem;
-  padding-top: 4rem;
+  padding-top: 4.5rem;
 
   main {
     position: relative;
@@ -14,14 +14,22 @@
 }
 
 .nav {
-  background-color: var(--card-background-color);
+  background-color: var(--pico-card-background-color);
   border-bottom: 1px solid #000;
   position: fixed;
   top: 0;
   z-index: 1;
 
+  :is(& > ul > li > a, & > ul > li > details > [role="link"]):hover {
+    --pico-text-decoration: none;
+  }
+
+  details:global(.dropdown) summary::after {
+    transform: translateY(-0.2em);
+  }
+
   .label {
-    @media (width <= 810px) {
+    @media (width <= 780px) {
       border: 0 !important;
       clip: rect(0, 0, 0, 0) !important;
       height: 1px !important;
@@ -33,9 +41,23 @@
       width: 1px !important;
     }
   }
+
+  .divider {
+    border-bottom: 1px solid var(--pico-dropdown-border-color);
+    height: 0;
+    margin-block: calc(var(--pico-form-element-spacing-horizontal) * .5);
+    padding: 0;
+  }
+
+  .title {
+    color: var(--pico-muted-color);
+    font-size: 0.7em;
+    padding-block: calc(var(--pico-form-element-spacing-vertical) * .25);
+  }
 }
 
 .close {
   float: right;
-  width: auto;
+  font-size: 0.9em;
+  margin: 0;
 }

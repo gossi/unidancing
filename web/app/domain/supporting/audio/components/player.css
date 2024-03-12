@@ -1,5 +1,5 @@
 .player {
-  background-color: var(--card-background-color);
+  background-color: var(--pico-card-background-color);
   border-top: 1px solid #000;
   bottom: 0;
   padding: var(--s0);

@@ -10,6 +10,10 @@ main {
   --spacing: 0.35rem;
 }
 
+a {
+  --pico-text-decoration: none;
+}
+
 :root {
   --background-alt: rgb(219 219 219 / 89.4%);
 
