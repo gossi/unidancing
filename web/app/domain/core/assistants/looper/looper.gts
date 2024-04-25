@@ -143,6 +143,20 @@ const data: Loops = [
         end: 149846 // 149846
       }
     ]
+  },
+  // 75 bpm Easy Melodic Pop Backing Track for Drummers by Drumless Backing Tracks
+  // https://open.spotify.com/track/1aGz5VVyxzOcGcHbRtKkfL
+  {
+    id: 'drumless-melodic-pop',
+    trackId: '1aGz5VVyxzOcGcHbRtKkfL',
+    loops: [
+      {
+        name: 'short loop',
+        start: 47999,
+        end: 80006,
+        description: '10 Takte (3 als Intro)'
+      }
+    ]
   }
 ];
 
