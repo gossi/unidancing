@@ -103,14 +103,14 @@
 
   &[aria-selected] {
     /* background-color: var(--background-alt); */
-    background-color: var(--mark-background-color);
-    border-color: var(--mark-color);
-    color: var(--mark-color);
+    background-color: var(--pico-mark-background-color);
+    border-color: var(--pico-mark-color);
+    color: var(--pico-mark-color);
   }
 
   &[data-winner] {
     /* background-color: var(--background-alt); */
-    background-color: var(--mark-background-color);
+    background-color: var(--pico-mark-background-color);
     border-color: green;
     border-width: 2px;
   }
