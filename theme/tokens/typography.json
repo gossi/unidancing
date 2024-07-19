@@ -1,0 +1,198 @@
+{
+  "typography": {
+    "prose": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "16px",
+        "fontWeight": 400,
+        "letterSpacing": "0",
+        "lineHeight": 1.21,
+        "textTransform": "none"
+      },
+      "$description": "",
+      "$type": "typography"
+    },
+    "control": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "16px",
+        "fontWeight": 500,
+        "letterSpacing": "0",
+        "lineHeight": 1.21,
+        "textTransform": "none"
+      },
+      "$description": "For controls",
+      "$type": "typography"
+    },
+    "heading": {
+      "$value": {
+        "fontFamily": "Inter",
+        "fontSize": "24px",
+        "fontWeight": 400,
+        "letterSpacing": "-0.24px",
+        "lineHeight": 1.21,
+        "textTransform": "none"
+      },
+      "$description": "",
+      "$type": "typography"
+    },
+    "display": {
+      "$value": {
+        "fontFamily": "Inter Display",
+        "fontSize": "40px",
+        "fontWeight": 400,
+        "letterSpacing": "-0.8px",
+        "lineHeight": 1.17,
+        "textTransform": "none"
+      },
+      "$description": "",
+      "$type": "typography"
+    },
+    "main": {
+      "$value": [
+        {
+          "value": "#0e0d0e",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#ecebeb",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "Regular text color",
+      "$type": "color"
+    },
+    "inverse": {
+      "$value": [
+        {
+          "value": "#ecebeb",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#0e0d0e",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "Text color for more contrast (e.g. high-contrast or reduced)",
+      "$type": "color"
+    },
+    "subtle": {
+      "$value": [
+        {
+          "value": "#433e41",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#dbd8da",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "muted": {
+      "$value": [
+        {
+          "value": "#5e565a",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#aaa3a7",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "emphasize": {
+      "$value": [
+        {
+          "value": "#1bb166",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#7aebb2",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "selected": {
+      "background": {
+        "$value": [
+          {
+            "value": "#f2e7a6",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "#064626",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      }
+    },
+    "code": {
+      "text": {
+        "$value": [
+          {
+            "value": "{typography.subtle}",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "{typography.subtle}",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": ""
+      },
+      "background": {
+        "$value": [
+          {
+            "value": "{surface.container1}",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "{surface.container1}",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": ""
+      }
+    }
+  }
+}

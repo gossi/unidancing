@@ -1,0 +1,156 @@
+{
+  "indicator": {
+    "error": {
+      "subtle": {
+        "background": {
+          "$value": [
+            {
+              "value": "#e8a29c",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#e8a29c",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "border": {
+          "$value": [
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "text": {
+          "$value": [
+            {
+              "value": "#882920",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#882920",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
+      },
+      "supreme": {
+        "background": {
+          "$value": [
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "border": {
+          "$value": [
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "text": {
+          "$value": [
+            {
+              "value": "#ecebeb",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#ecebeb",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
+      },
+      "plain": {
+        "border": {
+          "$value": [
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#de7c73",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "text": {
+          "$value": [
+            {
+              "value": "#a93328",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#de7c73",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
+      }
+    }
+  }
+}
