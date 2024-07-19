@@ -1,4 +1,5 @@
 packages:
-  - 'web/'
-  - 'database/'
-  - 'gatekeeper/'
+  - theme/
+  - web/
+  - database/
+  - gatekeeper/

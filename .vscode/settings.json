@@ -1,4 +1,18 @@
 {
+  "eslint.format.enable": true,
+  "eslint.useESLintClass": true,
+  "eslint.probe": [
+    "javascript",
+    "typescript",
+    "html",
+    "markdown",
+    "glimmer-ts"
+  ],
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
   "[glimmer-ts]": {
     "editor.formatOnSave": true,
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"

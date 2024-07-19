@@ -1,5 +1,5 @@
 diff --git a/addon/services/fastboot.js b/addon/services/fastboot.js
-index 78d4be01a543cc1bdf6bc0823abbb5d5a41b7b0b..3eaa8db4c985c38d14d64eeb03c7f8da166096a4 100644
+index dfe7a30a7888e69a687bde5c9ecb2ebc7d17b9f0..039cab5dc90161dc6e684ca205ac7bab4e6c01fb 100644
 --- a/addon/services/fastboot.js
 +++ b/addon/services/fastboot.js
 @@ -31,26 +31,33 @@ const RequestObject = EObject.extend({
@@ -43,12 +43,11 @@ index 78d4be01a543cc1bdf6bc0823abbb5d5a41b7b0b..3eaa8db4c985c38d14d64eeb03c7f8da
      if (shoeboxItem) { return shoeboxItem; }
  
      let el = document.querySelector(`#shoebox-${key}`);
-@@ -59,11 +66,12 @@ const Shoebox = EObject.extend({
+@@ -59,11 +66,11 @@ const Shoebox = EObject.extend({
      if (!valueString) { return; }
  
      shoeboxItem = JSON.parse(valueString);
 -    this.set(key, shoeboxItem);
-+    // this.set(key, shoeboxItem);
 +    this.#props.set(key, shoeboxItem);
  
      return shoeboxItem;
@@ -58,7 +57,7 @@ index 78d4be01a543cc1bdf6bc0823abbb5d5a41b7b0b..3eaa8db4c985c38d14d64eeb03c7f8da
  
  const FastBootService = Service.extend({
    isFastBoot: typeof FastBoot !== 'undefined',
-@@ -78,7 +86,7 @@ const FastBootService = Service.extend({
+@@ -78,7 +85,7 @@ const FastBootService = Service.extend({
    init() {
      this._super(...arguments);
  

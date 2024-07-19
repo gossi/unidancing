@@ -1,6 +1,10 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+// eslint-disable-next-line n/no-missing-require
+const { HokuleaAssetLoaderWebpackPlugin } = require('@hokulea/ember/lib');
+// eslint-disable-next-line n/no-missing-require
+const theemoPlugin = require('ember-theemo/lib/webpack');
 // const { browsers } = require('@gossi/config-targets');
 const { importSingleTs } = require('import-single-ts');
 const path = require('node:path');
@@ -94,6 +98,10 @@ module.exports = function (defaults) {
 
     babel: {
       plugins: [require.resolve('ember-concurrency/async-arrow-task-transform')]
+    },
+
+    theemo: {
+      defaultTheme: 'unidancing'
     }
   });
 
@@ -113,6 +121,7 @@ module.exports = function (defaults) {
       webpackConfig: {
         // devtool: process.env.CI ? 'source-map' : 'eval',
         devtool: 'source-map',
+        plugins: [theemoPlugin(), new HokuleaAssetLoaderWebpackPlugin()],
         resolve: {
           alias: {
             // // core
