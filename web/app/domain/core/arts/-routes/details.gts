@@ -1,13 +1,14 @@
-import { pageTitle } from 'ember-page-title';
-import { ArtDetails } from '../-components';
-import { findArt } from '../-resource';
-import { service } from '@ember/service';
-import { use } from 'ember-resources';
-import Task from 'ember-tasks';
 import { cached } from '@glimmer/tracking';
+import { service } from '@ember/service';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
+
+import { ArtDetails } from '../-components';
+import { findArt } from '../-resource';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
@@ -30,9 +31,7 @@ export class CourseDetailsRoute extends Route<{ id: string }> {
       {{#if r.resolved}}
         {{pageTitle r.value.title}}
 
-        <div>
-          <ArtDetails @art={{r.value}} />
-        </div>
+        <ArtDetails @art={{r.value}} />
       {{/if}}
     {{/let}}
   </template>

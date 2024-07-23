@@ -1,7 +1,10 @@
 import { on } from '@ember/modifier';
-import styles from './teaser.css';
+
+import { Card } from '@hokulea/ember';
+
 import { Icon } from '../../../supporting/ui';
 import { buildMoveLink } from '../-resource';
+import styles from './teaser.css';
 
 import type { Move } from '..';
 import type { TOC } from '@ember/component/template-only';
@@ -13,7 +16,28 @@ export interface MoveTeaserSignature {
 }
 
 const MoveTeaser: TOC<MoveTeaserSignature> = <template>
-  <article>
+  <Card class={{styles.teaser}}>
+    <:header>
+      <span>
+        <Icon @icon='move' />
+
+        {{#let (buildMoveLink @move._sys.filename) as |l|}}
+          <a href={{l.url}} {{on 'click' l.transitionTo}}>
+            {{@move.title}}
+          </a>
+        {{/let}}
+      </span>
+      <div>
+        {{#each @move.tags as |tag|}}
+          <code>{{tag}}</code>
+        {{/each}}
+      </div>
+    </:header>
+    <:body>
+      {{@move.excerpt}}
+    </:body>
+  </Card>
+  {{!-- <article>
     <header class={{styles.header}}>
       <span>
         <Icon @icon='move' />
@@ -32,7 +56,7 @@ const MoveTeaser: TOC<MoveTeaserSignature> = <template>
     </header>
 
     {{@move.excerpt}}
-  </article>
+  </article> --}}
 </template>;
 
 export { MoveTeaser };

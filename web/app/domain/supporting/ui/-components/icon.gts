@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
 
+import { Icon as HokIcon } from '@hokulea/ember';
+
 enum Icon {
   learn = '🏫',
   training = '🏋️', // '🏆',
@@ -15,11 +17,11 @@ enum Icon {
   link = '🌐',
   play = '▶️',
   pause = '⏸️',
-  individual = '🧑',
-  pair = '🧑‍🤝‍🧑',
-  group = '👪',
-  pedes = '🦶',
-  unicycle = '🚲',
+  // individual = '🧑',
+  // pair = '🧑‍🤝‍🧑',
+  // group = '👪',
+  // pedes = '🦶',
+  // unicycle = '🚲',
   computer = '💻',
   tv = '🖥️',
   smartphone = '📱',
@@ -33,11 +35,22 @@ enum Icon {
   info = 'ℹ️'
 }
 
+enum HokuleaIcon {
+  pedes = 'footprints',
+  unicycle = 'unicycle',
+  individual = 'user',
+  pair = 'users',
+  group = 'users-three'
+}
+
 export type Icons = keyof typeof Icon;
 
 export function getIcon(icon: Icons) {
-  // @ts-ignore - oh kill me !
   return Icon[icon];
+}
+
+function getHokuleaIcon(icon: HokuleaIcon) {
+  return HokuleaIcon[icon];
 }
 
 export interface IconSignature {
@@ -47,7 +60,16 @@ export interface IconSignature {
 }
 
 export default class IconComponent extends Component<IconSignature> {
+  get icon() {
+    return getIcon(this.args.icon);
+  }
+
   <template>
-    {{getIcon @icon}}
+    {{#if this.icon}}
+      {{this.icon}}
+    {{else}}
+      hok icon: {{getHokuleaIcon @icon}}
+      <HokIcon @icon={{getHokuleaIcon @icon}}/>
+    {{/if}}
   </template>
 }

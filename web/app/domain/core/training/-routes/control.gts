@@ -1,15 +1,16 @@
 import { pageTitle } from 'ember-page-title';
-
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class TrainingControlRoute extends Route<{}> {
+import { Page } from '@hokulea/ember';
+
+export class TrainingControlRoute extends Route<object> {
   <template>
     {{pageTitle "Trainingssteuerung"}}
 
-    <h2>Trainingssteuerung</h2>
-
-    tbd.
+    <Page @title="Trainingssteuerung">
+      tbd.
+    </Page>
   </template>
 }
 

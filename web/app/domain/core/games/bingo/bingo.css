@@ -1,9 +1,16 @@
 .bingo {
   nav {
-    --form-element-spacing-vertical: 0.25em;
-    --form-element-spacing-horizontal: 0.5em;
-
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 0.25em;
+
+    ul {
+      display: flex;
+      list-style-type: none;
+      padding: 0;
+      align-items: center;
+      gap: var(--spacing-primitive0);
+    }
   }
 
   nav > ul > li {
@@ -22,6 +29,7 @@
   gap: 0.1em;
   text-transform: uppercase;
   transform: scale(0);
+  font-size: var(--s3);
 
   & > span:nth-child(1) {
     color: purple;
@@ -56,37 +64,15 @@
 .counters {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: var(--spacing-primitive0);
 }
 
-.counter {
-  --form-element-spacing-vertical: 0.25em;
-  --form-element-spacing-horizontal: 0.5em;
-  --spacing: 0;
+.form {
+  flex-direction: row;
+  align-items: flex-end;
 
-  align-items: center;
-  display: grid;
-  gap: 1em;
-  grid-template-columns: auto max-content max-content max-content;
-
-
-}
-
-.new {
-  --form-element-spacing-vertical: 0.25em;
-  --form-element-spacing-horizontal: 0.5em;
-
-  column-gap: 1em;
-  display: grid;
-  grid-template-columns: auto 40px;
-
-  label {
-    grid-column: 1 / span 2;
-  }
-
-  span {
-    font-size: 1.5em;
-    padding-left: 0.75rem;
+  & > div {
+    flex-grow: 1;
   }
 }
 
@@ -102,16 +88,16 @@
   text-align: center;
 
   &[aria-selected] {
-    /* background-color: var(--background-alt); */
-    background-color: var(--pico-mark-background-color);
-    border-color: var(--pico-mark-color);
-    color: var(--pico-mark-color);
+    background-color: var(--indicator-warning-subtle-background);
+    border-color: var(--indicator-warning-plain-border);
+    color: var(--indicator-warning-subtle-text);
   }
 
   &[data-winner] {
     /* background-color: var(--background-alt); */
-    background-color: var(--pico-mark-background-color);
-    border-color: green;
+    background-color: var(--indicator-success-subtle-background);
+    border-color: var(--indicator-success-subtle-border);
+    color: var(--indicator-success-subtle-text);
     border-width: 2px;
   }
 }

@@ -1,5 +1,6 @@
-import { buildArtLink } from '..';
 import { on } from '@ember/modifier';
+
+import { buildArtLink } from '..';
 
 import type { Art } from '..';
 import type { TOC } from '@ember/component/template-only';

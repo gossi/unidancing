@@ -1,13 +1,14 @@
-import { pageTitle } from 'ember-page-title';
-import { ExerciseDetails } from '../-components';
-import { findExercise } from '../-resource';
-import { service } from '@ember/service';
-import { use } from 'ember-resources';
-import Task from 'ember-tasks';
 import { cached } from '@glimmer/tracking';
+import { service } from '@ember/service';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
+
+import { ExerciseDetails } from '../-components';
+import { findExercise } from '../-resource';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 

@@ -2,12 +2,12 @@ import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class TrainingPlanningRoute extends Route<object> {
+export class MovesRootRoute extends Route<object> {
   <template>
-    {{pageTitle "Planung"}}
+    {{pageTitle 'Moves'}}
 
     {{outlet}}
   </template>
 }
 
-export default CompatRoute(TrainingPlanningRoute);
+export default CompatRoute(MovesRootRoute);

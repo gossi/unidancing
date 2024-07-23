@@ -1,11 +1,12 @@
-import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
-import Listing from '../-components/listing';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class ChoreographyNotTodoListRoute extends Route<{}> {
+import Listing from '../-components/listing';
+
+export class ChoreographyNotTodoListRoute extends Route<object> {
   <template>
     {{pageTitle 'Not Todo Liste'}}
 

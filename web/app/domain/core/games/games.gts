@@ -1,5 +1,6 @@
 import Bingo from './bingo/bingo';
 import { DanceOhMat, DanceOhMatParam } from './dance-oh-mat/dance-oh-mat';
+
 import type { DanceOhMatParams } from './dance-oh-mat/dance-oh-mat';
 
 export enum Game {

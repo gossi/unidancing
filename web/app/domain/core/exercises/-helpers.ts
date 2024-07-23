@@ -1,20 +1,27 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { getIcon } from '../../supporting/ui';
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import type { Icons } from '../../supporting/ui';
 import type { Locomotion, Personal } from './-types';
 import type { Maybe } from '@/tina/types';
 
-const DEFAULT = { icon: true, text: false };
-
-export function formatLocomotionIcon(locomotion: Locomotion) {
-  return getIcon(locomotion as Icons);
+const enum HokuleaIcon {
+  pedes = 'footprints',
+  unicycle = 'unicycle',
+  individual = 'user',
+  pair = 'users',
+  group = 'users-three'
 }
 
-export function formatLocomotionText(locomotion: Locomotion) {
+type Icons = keyof typeof HokuleaIcon;
+
+function getHokuleaIcon(icon: Icons) {
+  return HokuleaIcon[icon];
+}
+
+export function getLocomotionIcon(locomotion: Locomotion) {
+  return getHokuleaIcon(locomotion as unknown as Icons);
+}
+
+export function getLocomotionText(locomotion: Locomotion) {
   switch (locomotion) {
     case 'pedes':
       return 'per Pedes';
@@ -24,34 +31,15 @@ export function formatLocomotionText(locomotion: Locomotion) {
   }
 }
 
-export function formatLocomotion(
-  locomotion: Locomotion,
-  options: { icon?: boolean; text?: boolean }
-) {
-  options = { ...DEFAULT, ...options };
-
-  const out = [];
-
-  if (options.icon) {
-    out.push(formatLocomotionIcon(locomotion));
-  }
-
-  if (options.text) {
-    out.push(formatLocomotionText(locomotion));
-  }
-
-  return out.join(' ');
-}
-
 export function asLocomotion(locomotion?: Locomotion | string | Maybe<string>): Locomotion {
   return locomotion as Locomotion;
 }
 
-export function formatPersonalIcon(personal: Personal) {
-  return getIcon(personal as Icons);
+export function getPersonalIcon(personal: Personal) {
+  return getHokuleaIcon(personal as unknown as Icons);
 }
 
-export function formatPersonalText(personal: Personal) {
+export function getPersonalText(personal: Personal) {
   switch (personal) {
     case 'individual':
       return 'Einzel';
@@ -62,22 +50,6 @@ export function formatPersonalText(personal: Personal) {
     case 'group':
       return 'Gruppe';
   }
-}
-
-export function formatPersonal(personal: Personal, options: { icon?: boolean; text?: boolean }) {
-  options = { ...DEFAULT, ...options };
-
-  const out = [];
-
-  if (options.icon) {
-    out.push(formatPersonalIcon(personal));
-  }
-
-  if (options.text) {
-    out.push(formatPersonalText(personal));
-  }
-
-  return out.join(' ');
 }
 
 export function asPersonal(personal?: Personal | string | Maybe<string>): Personal {

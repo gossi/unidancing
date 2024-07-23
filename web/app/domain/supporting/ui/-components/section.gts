@@ -1,5 +1,6 @@
-import styles from './content.css';
 import { element } from 'ember-element-helper';
+
+import styles from './content.css';
 
 import type { TOC } from '@ember/component/template-only';
 import type { ComponentLike } from '@glint/template';

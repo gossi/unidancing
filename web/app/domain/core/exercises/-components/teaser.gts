@@ -1,14 +1,19 @@
 import { on } from '@ember/modifier';
-import styles from './teaser.css';
-import { formatPersonalIcon, formatLocomotionIcon, asPersonal, asLocomotion } from '../-helpers';
-import { Icon } from '../../../supporting/ui';
-import { buildExerciseLink } from '..';
-import { or } from 'ember-truth-helpers';
-import { buildSkillLink } from '../../skills';
-import { asString } from '../../../supporting/utils';
 
-import type { TOC } from '@ember/component/template-only';
+import { or } from 'ember-truth-helpers';
+
+import { Card } from '@hokulea/ember';
+
+import { Icon } from '../../../supporting/ui';
+import { asString } from '../../../supporting/utils';
+import { buildSkillLink } from '../../skills';
+import { buildExerciseLink } from '..';
+import { asLocomotion, asPersonal } from '../-helpers';
+import { FormatLocomotionIcon, FormatPersonalIcon } from './-formatters';
+import styles from './teaser.css';
+
 import type { Exercise } from '..';
+import type { TOC } from '@ember/component/template-only';
 
 export interface ExerciseTeaserSignature {
   Element: HTMLElement;
@@ -18,10 +23,10 @@ export interface ExerciseTeaserSignature {
 }
 
 const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
-  <article class={{styles.card}}>
-    <header class={{styles.header}}>
+  <Card class={{styles.card}}>
+    <:header>
       <span>
-        <Icon @icon='exercise' />
+        <Icon @icon="exercise" />
 
         {{#let (buildExerciseLink @exercise._sys.filename) as |l|}}
           <a href={{l.url}} {{on 'click' l.transitionTo}}>
@@ -35,16 +40,16 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
         {{/each}}
 
         {{#each @exercise.locomotion as |locomotion|}}
-          {{formatLocomotionIcon (asLocomotion locomotion)}}
+          <FormatLocomotionIcon @locomotion={{asLocomotion locomotion}}/>
         {{/each}}
 
         {{#each @exercise.personal as |personal|}}
-          {{formatPersonalIcon (asPersonal personal)}}
+          <FormatPersonalIcon @personal={{asPersonal personal}}/>
         {{/each}}
       </div>
-    </header>
+    </:header>
 
-    <div class={{styles.content}}>
+    <:body>
       <div>
         {{@exercise.excerpt}}
       </div>
@@ -71,8 +76,8 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
           {{/each}}
         {{/if}}
       </ul>
-    </div>
-  </article>
+    </:body>
+  </Card>
 </template>;
 
 export { ExerciseTeaser };

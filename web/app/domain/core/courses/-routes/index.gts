@@ -1,13 +1,16 @@
-import { pageTitle } from 'ember-page-title';
-import { findCourses } from '../-resource';
-import { service } from '@ember/service';
-import { use } from 'ember-resources';
-import Task from 'ember-tasks';
-import { LinkTo } from '@ember/routing';
 import { cached } from '@glimmer/tracking';
+import { LinkTo } from '@ember/routing';
+import { service } from '@ember/service';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
+
+import { Card,Page } from '@hokulea/ember';
+
+import { findCourses } from '../-resource';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
@@ -27,22 +30,27 @@ export class CourseIndexRoute extends Route<{ id: string }> {
 
   <template>
     {{pageTitle 'Kurse'}}
-    <h1>Kurse</h1>
 
-    {{#let this.load as |r|}}
-      {{#if r.resolved}}
-        {{#each r.value as |course|}}
-          <article>
-            <header><LinkTo
-                @route='courses.details'
-                @model={{course._sys.filename}}
-              >{{course.title}}</LinkTo></header>
+    <Page @title="Kurse">
+      {{#let this.load as |r|}}
+        {{#if r.resolved}}
+          {{#each r.value as |course|}}
+            <Card>
+              <:header>
+                <LinkTo
+                  @route='courses.details'
+                  @model={{course._sys.filename}}
+                >{{course.title}}</LinkTo>
+              </:header>
 
-            <p>{{course.description}}</p>
-          </article>
-        {{/each}}
-      {{/if}}
-    {{/let}}
+              <:body>
+                <p>{{course.description}}</p>
+              </:body>
+            </Card>
+          {{/each}}
+        {{/if}}
+      {{/let}}
+    </Page>
   </template>
 }
 
