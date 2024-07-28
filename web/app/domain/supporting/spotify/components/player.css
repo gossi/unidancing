@@ -1,38 +1,57 @@
 .layout {
   display: flex;
-  flex-wrap: wrap;
   gap: 2rem;
+  align-items: center;
   justify-content: space-between;
 
-  & > * {
-    margin: 0;
+  padding: var(--spacing-container-4);
+
+  strong, small {
+    text-overflow: ellipsis;
   }
 }
 
-.reload {
-  &,
-  &:hover,
-  &:active,
-  &:focus {
-    --pico-background-color: transparent;
-    --pico-border-color: transparent;
-    --pico-box-shadow: unset;
-  }
-
-  display: inline;
-  font-size: 3em;
-  line-height: 1em;
-  margin: 0;
-  padding: 0;
-  width: auto;
+.warning {
+  color: var(--indicator-warning-plain-text);
 }
 
-.devices {
-  align-items: center;
+.trigger {
+  padding: var(--spacing-primitive-4);
+  font-size: var(--s3);
+
+  &[data-need-device] {
+    color: var(--indicator-error-plain-text);
+  }
+
+  &[data-has-device] {
+    /* spotify green */
+    color: #1ed760;
+  }
+}
+
+.devices:popover-open {
+  position: sticky;
+  bottom: 5rem;
+  left: 100vw;
+
   display: flex;
-  gap: 8px;
+  flex-direction: column;
+  gap: var(--spacing-container-1);
 
-  & > * {
-    margin: 0;
+  margin-right: var(--spacing-container-1);
+
+  button {
+    justify-content: flex-start;
+    padding-inline: var(--spacing-primitive-4);
+
+    span:first-child {
+      font-size: var(--s1);
+    }
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

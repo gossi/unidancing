@@ -1,6 +1,6 @@
 .main {
-  padding-bottom: 6rem;
   padding-top: 4.5rem;
+  padding-bottom: 6rem;
 
   main {
     position: relative;
@@ -14,9 +14,10 @@
 }
 
 .label {
-  font-size: 80%;
   padding-block: var(--spacing-primitive-4);
   padding-inline: var(--spacing-primitive-3);
+
+  font-size: 80%;
   font-weight: 400;
   color: var(--typography-muted);
 }

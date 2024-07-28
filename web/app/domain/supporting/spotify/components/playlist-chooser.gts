@@ -1,10 +1,12 @@
-import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { PlaylistsResource } from '../resources/playlists';
-import { on } from '@ember/modifier';
-import { eq } from 'ember-truth-helpers';
 import { fn } from '@ember/helper';
+import { on } from '@ember/modifier';
+import { action } from '@ember/object';
+
+import { eq } from 'ember-truth-helpers';
+
+import { PlaylistsResource } from '../resources/playlists';
 import styles from './playlist-chooser.css';
 
 export interface PlaylistChooserSignature {

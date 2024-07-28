@@ -1,7 +1,9 @@
-import type { TOC } from '@ember/component/template-only';
-import styles from './spotify-play-button.css';
+import { eq,not } from 'ember-truth-helpers';
+
 import { isReadyForPlayback } from '../abilities';
-import { not, eq } from 'ember-truth-helpers';
+import styles from './spotify-play-button.css';
+
+import type { TOC } from '@ember/component/template-only';
 
 interface SpotifyPlayButtonSignature {
   Element: HTMLButtonElement;

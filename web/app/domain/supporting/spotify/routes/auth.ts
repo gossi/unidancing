@@ -38,8 +38,8 @@ export class SpotifyAuthRoute extends Route {
       return;
     }
 
-    if (Object.keys(transition.to?.queryParams as {}).length > 0) {
-      this.spotify.authenticate(deserialize(transition.to?.queryParams as {}));
+    if (Object.keys(transition.to?.queryParams as object).length > 0) {
+      this.spotify.authenticate(deserialize(transition.to?.queryParams as Record<string, unknown>));
 
       const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
 
@@ -54,15 +54,15 @@ export class SpotifyAuthRoute extends Route {
         const route = this.router.recognize(routeURL) as RouteInfo;
         const routeArgs = makeRouteArgs({
           name: route.name,
-          models: Object.values(route.params as {}) as RouteModel[],
+          models: Object.values(route.params as object) as RouteModel[],
           query: Object.keys(query).length > 0 ? query : undefined
         });
 
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore glint, wh00t ?
-        this.router.transitionTo(...routeArgs);
+        void this.router.transitionTo(...routeArgs);
       } else {
-        this.router.transitionTo('application');
+        void this.router.transitionTo('application');
       }
     }
   }

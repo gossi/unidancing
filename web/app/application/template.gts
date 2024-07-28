@@ -72,8 +72,7 @@ export default RouteTemplate<Signature>(<template>
   {{outlet}}
 
   {{#if (or @controller.game @controller.assistant)}}
-    <dialog data-game={{@controller.game}}
-    data-assistant={{@controller.assistant}} open>
+    <dialog data-game={{@controller.game}} data-assistant={{@controller.assistant}} open>
       <IconButton @icon="x" @label="Schließen" @importance="plain" @push={{@controller.close}} part="close" />
       {{#if @controller.game}}
         <GameFactory @game={{@controller.game}} />

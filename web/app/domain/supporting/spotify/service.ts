@@ -29,9 +29,9 @@ export class SpotifyService extends Service {
     if (!isSSR()) {
       const data = localStorage.getItem('spotify');
 
-      this.#storage = data ? JSON.parse(data) : {};
+      this.#storage = data ? (JSON.parse(data) as SpotifyStorage) : {};
 
-      this.restore();
+      void this.restore();
     }
   }
 
@@ -43,9 +43,7 @@ export class SpotifyService extends Service {
     if (!this.client.authenticated && this.#storage.refreshToken) {
       await this.refresh(this.#storage.refreshToken);
 
-      if (!this.client.authenticated) {
-        delete this.#storage.refreshToken;
-      }
+      delete this.#storage.refreshToken;
     }
 
     this.persist();
@@ -68,11 +66,11 @@ export class SpotifyService extends Service {
     this.persist();
 
     if (refreshToken && expiresIn) {
-      this.refresher.perform(refreshToken, Number.parseInt(expiresIn, 10) * 1000 - 300);
+      void this.refresher.perform(refreshToken, Number.parseInt(expiresIn, 10) * 1000 - 300);
     }
 
     if (accessToken) {
-      this.client.authenticate(accessToken);
+      void this.client.authenticate(accessToken);
     }
   }
 
@@ -84,7 +82,7 @@ export class SpotifyService extends Service {
 
   refresher = task(async (refreshToken: string, timer: number) => {
     await timeout(timer);
-    this.refresh(refreshToken);
+    await this.refresh(refreshToken);
   });
 }
 
