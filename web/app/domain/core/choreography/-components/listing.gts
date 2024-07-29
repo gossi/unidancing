@@ -27,9 +27,7 @@ const TagUI: TOC<{
 }> = <template>
   <span
     class={{styles.tag}}
-    data-tag={{@tag}}
-    aria-selected={{@selected}}
-    ...attributes
+    data-tag={{@tag}} ...attributes
   >{{@tag}}</span>
 </template>;
 

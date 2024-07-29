@@ -17,7 +17,7 @@ const SpotifyPlayButton: TOC<SpotifyPlayButtonSignature> = <template>
   <button
     type="button"
     class={{styles.playbutton}}
-    disabled={{(not (isReadyForPlayback))}}
+    disabled={{not (isReadyForPlayback)}}
     ...attributes
   >
     <svg viewBox="0 0 24 24">

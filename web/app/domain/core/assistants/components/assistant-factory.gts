@@ -1,5 +1,7 @@
 import Component from '@glimmer/component';
+
 import { findAssistant } from '../assistants';
+
 import type { Assistant } from '../assistants';
 
 export interface AssistantSignature {

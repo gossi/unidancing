@@ -32,8 +32,6 @@ export class PlaylistChooser extends Component<PlaylistChooserSignature> {
     <ul class={{styles.playlist}}>
       {{#each this.resource.playlists as |playlist|}}
         <li
-          role="listitem"
-          aria-selected={{eq playlist this.selection}}
           {{on "click" (fn this.select playlist)}}
         >
           {{playlist.name}}

@@ -101,7 +101,7 @@ const ExerciseDetails: TOC<ExerciseDetailsSignature> = <template>
 
                     {{#each @exercise.links as |see|}}
                       <li>
-                        <a href={{see.url}} target='_blank'>
+                        <a href={{see.url}} target='_blank' rel="noopener noreferrer">
                           <Icon @icon='link' />
                           {{if see.label see.label see.url}}
                         </a>

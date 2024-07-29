@@ -1,5 +1,6 @@
-import type { TOC } from '@ember/component/template-only';
 import styles from './video-player.css';
+
+import type { TOC } from '@ember/component/template-only';
 
 const parseUrl = (url: string) => {
   const embedUrl = new URL('https://www.youtube.com');
@@ -10,6 +11,7 @@ const parseUrl = (url: string) => {
     ? u.searchParams.get('v')
     // youtu.be/{id}
     : u.pathname;
+
   embedUrl.pathname = `embed/${id}`;
 
   if (u.searchParams.has('t')) {

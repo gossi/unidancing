@@ -40,6 +40,6 @@ const Tree: TOC<{ Args: { nodes: ArtNode[] } }> = <template>
   </ul>
 </template>;
 
-const ArtTree: TOC<ArtTreeSignature> = <template><Tree @nodes={{(listToTree @arts)}} /></template>;
+const ArtTree: TOC<ArtTreeSignature> = <template><Tree @nodes={{listToTree @arts}} /></template>;
 
 export { ArtTree };

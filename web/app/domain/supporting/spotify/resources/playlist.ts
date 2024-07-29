@@ -23,7 +23,7 @@ export class PlaylistResource extends Resource<PlaylistArgs> {
   @tracked playlist?: Playlist;
 
   get tracks(): Track[] | undefined {
-    return this.playlist?.tracks?.items.map((tracks) => tracks.track as Track);
+    return this.playlist?.tracks.items.map((tracks) => tracks.track as Track);
   }
 
   modify(_positional: PlaylistArgs['positional'], named: PlaylistArgs['named']): void {

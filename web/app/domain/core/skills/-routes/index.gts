@@ -1,13 +1,14 @@
-import { pageTitle } from 'ember-page-title';
-import { findSkills } from '../-resource';
-import { service } from '@ember/service';
-import { use } from 'ember-resources';
-import Task from 'ember-tasks';
-import { LinkTo } from '@ember/routing';
 import { cached } from '@glimmer/tracking';
+import { LinkTo } from '@ember/routing';
+import { service } from '@ember/service';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
+
+import { findSkills } from '../-resource';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 

@@ -77,7 +77,7 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
 
       <div class={{styles.units}}>
         {{#each lesson.exercises as |ex|}}
-          <ExerciseTeaser @exercise={{(asExercise ex.data)}} />
+          <ExerciseTeaser @exercise={{asExercise ex.data}} />
         {{/each}}
       </div>
     {{/each}}

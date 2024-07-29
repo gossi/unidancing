@@ -21,7 +21,7 @@ export class ChoreographyNotTodoListRoute extends Route<object> {
       bedient und hierbei schneidet UniDancing im Vergleich zu den etablierten
       Sportarten unterirdisch ab, genauer erklärt in <a
       href="https://einradfahren.de/uniscience/2016/10/23/die-freestyle-revolution-mach-kunst-kein-kitsch/"
-      target="_blank">Die Freestyle (R)evolution: Mach Kunst, kein Kitsch!</a>.<br>
+      target="_blank" rel="noopener noreferrer">Die Freestyle (R)evolution: Mach Kunst, kein Kitsch!</a>.<br>
 
       Über die Jahre haben sich
       <i>Dinge</i>

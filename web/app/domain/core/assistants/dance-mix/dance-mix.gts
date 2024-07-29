@@ -233,7 +233,7 @@ class Play extends Component<PlaySignature> {
     <div class={{styles.play}}>
       <ol class={{styles.tracks}}>
         {{#each this.tracks as |track|}}
-          <li aria-selected={{eq track this.spotify.client.track.data}}>
+          <li>
             {{track.name}}<br />
             <small>{{formatArtists track.artists}}</small>
           </li>
@@ -391,17 +391,17 @@ class Game extends Component<DanceMixSignature> {
       <PlaylistChooser @select={{this.selectPlaylist}} />
     {{else if (this.machine.state.matches "preparing")}}
       <Header @playlist={{this.playlist.playlist}}>
-        {{#if (not this.playlistLocked)}}
+        {{#unless this.playlistLocked}}
 
           <Button
             @importance="subtle"
-            @disabled={{(this.machine.state.matches "playing")}}
+            @disabled={{this.machine.state.matches "playing"}}
             @push={{fn this.machine.send "choosePlaylist"}}
           >
             Playlist wechseln
           </Button>
 
-        {{/if}}
+        {{/unless}}
       </Header>
       <Lobby @duration={{@duration}} @pause={{@pause}} @amount={{@amount}} @play={{this.play}} />
     {{else if (this.machine.state.matches "playing")}}
