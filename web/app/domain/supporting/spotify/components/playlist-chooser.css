@@ -1,18 +1,12 @@
-.select {
-  display: flex;
-  flex-direction: column;
-}
+.form {
+  overflow: hidden;
 
-.playlist {
-  border: 1px solid #000;
-  list-style-type: none;
-  max-height: 40vh;
-  overflow-y: auto;
-  padding: 0;
+  & > div {
+    overflow: hidden;
+  }
 
-  [role='listitem'] {
-    &[aria-selected] {
-      background-color: var(--table-row-stripped-background-color);
-    }
+  [role="listbox"] {
+    overflow: auto;
+    overscroll-behavior: contain;
   }
 }
