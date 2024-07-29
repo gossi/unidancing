@@ -7,7 +7,7 @@ import { next } from '@ember/runloop';
 
 import { use } from 'ember-resources';
 import { eq } from 'ember-truth-helpers';
-import { TrackedObject,TrackedSet } from 'tracked-built-ins';
+import { TrackedObject, TrackedSet } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
 
 import { Button, Form, Icon, IconButton } from '@hokulea/ember';
@@ -31,8 +31,8 @@ const Tile: TOC<TileSignature> = <template>
   <div
     class={{styles.tile}}
     data-winner={{@winner}}
-    aria-selected={{@selected}}
-    {{on 'click' @select}}
+    data-selected={{@selected}}
+    {{on "click" @select}}
   >
     {{@principle.title}}
   </div>
@@ -103,7 +103,7 @@ class Bingo {
     this.winner.clear();
 
     this.checkForWin();
-  }
+  };
 
   private checkForWin() {
     const winner = this.findWinner();
@@ -264,7 +264,7 @@ class Counters {
       this.activeCounter = this.counters[id];
       window.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
     }
-  }
+  };
 
   renameCounter = (id: string, name: string) => {
     this.counters[id].name = name;
@@ -272,7 +272,7 @@ class Counters {
     //   this.activeCounter = this.counters[id];
     // }
     this.persistCounters();
-  }
+  };
 
   incrementCounter(id: string) {
     this.counters[id].count++;
@@ -284,7 +284,7 @@ class Counters {
 
   incrementActiveCounter = () => {
     this.incrementCounter(this.activeCounter.id);
-  }
+  };
 
   newCounter = (name: string) => {
     const cnt = new TrackedObject({
@@ -295,12 +295,12 @@ class Counters {
 
     this.counters[cnt.id] = cnt;
     this.persistCounters();
-  }
+  };
 
   deleteCounter = (id: string) => {
     delete this.counters[id];
     this.persistCounters();
-  }
+  };
 
   persistCounters() {
     window.localStorage.setItem(Counters.STORAGE_COUNTER, JSON.stringify(this.counters));
@@ -312,17 +312,17 @@ function has(set: Set<unknown>, value: unknown): boolean {
   return set.has(value);
 }
 
-class CounterManager extends Component<{ Args: { counters: Counters; } }> {
+class CounterManager extends Component<{ Args: { counters: Counters } }> {
   newCounter = (data: { name: string }) => {
     const { name } = data;
 
     this.args.counters.newCounter(name);
     data.name = '';
-  }
+  };
 
-  renameCounter = (id: string, data: { name: string}) => {
+  renameCounter = (id: string, data: { name: string }) => {
     this.args.counters.renameCounter(id, data.name);
-  }
+  };
 
   <template>
     <div class={{styles.counters}}>
@@ -334,24 +334,39 @@ class CounterManager extends Component<{ Args: { counters: Counters; } }> {
       </p>
 
       {{#each-in @counters.counters as |id counter|}}
-        <Form @data={{hash name=counter.name}} @submit={{fn this.renameCounter id}} class={{styles.form}} as |f|>
-          <f.Text @name="name" @label={{concat "Zählerstand: " counter.count}}/>
+        <Form
+          @data={{hash name=counter.name}}
+          @submit={{fn this.renameCounter id}}
+          class={{styles.form}}
+          as |f|
+        >
+          <f.Text @name="name" @label={{concat "Zählerstand: " counter.count}} />
 
-          <f.Submit><Icon @icon="pencil"/></f.Submit>
+          <f.Submit><Icon @icon="pencil" /></f.Submit>
 
           {{#if (eq id @counters.activeCounter.id)}}
-            <IconButton @icon="check" @disabled={{true}} @label="Zähler aktiv"/>
+            <IconButton @icon="check" @disabled={{true}} @label="Zähler aktiv" />
           {{else}}
-            <IconButton @icon="arrow-right" @push={{fn @counters.activateCounter id}} @label="Zähler aktivieren"/>
+            <IconButton
+              @icon="arrow-right"
+              @push={{fn @counters.activateCounter id}}
+              @label="Zähler aktivieren"
+            />
           {{/if}}
 
-          <IconButton @intent="danger" @importance="subtle" @icon="trash" @push={{fn @counters.deleteCounter id}} @label="Zähler löschen" />
+          <IconButton
+            @intent="danger"
+            @importance="subtle"
+            @icon="trash"
+            @push={{fn @counters.deleteCounter id}}
+            @label="Zähler löschen"
+          />
         </Form>
       {{/each-in}}
 
       <h3>Neuer Zähler</h3>
 
-      <Form @data={{hash name=''}} @submit={{this.newCounter}} class="{{styles.form}}" as |f|>
+      <Form @data={{hash name=""}} @submit={{this.newCounter}} class="{{styles.form}}" as |f|>
         <f.Text @name="name" @label="Name für den Zähler" />
 
         <f.Submit><Icon @icon="plus" /></f.Submit>
@@ -386,22 +401,22 @@ export default class BingoComponent extends Component {
 
   toggle = () => {
     this.display = this.display === 'game' ? 'counter' : 'game';
-  }
+  };
 
   start = () => {
     const principles = this.principles.sort(() => 0.5 - Math.random()).slice(0, 25);
 
     this.game = new Bingo(principles);
-  }
+  };
 
   reset = () => {
     this.start();
-  }
+  };
 
   newGame = () => {
     this.counters.incrementActiveCounter();
     this.start();
-  }
+  };
 
   <template>
     <div class={{styles.bingo}}>
@@ -409,7 +424,7 @@ export default class BingoComponent extends Component {
         <ul>
           <li>
             <Button @spacing="-1" @push={{this.toggle}}>
-              {{#if (eq this.display 'game')}}
+              {{#if (eq this.display "game")}}
                 Zähler
               {{else}}
                 Spielen
@@ -422,9 +437,9 @@ export default class BingoComponent extends Component {
           </li>
         </ul>
 
-        {{#if (eq this.display 'game')}}
+        {{#if (eq this.display "game")}}
           <ul>
-            <li class='{{styles.bingoText}} {{if this.game.finished styles.bingoTextVisible}}'>
+            <li class="{{styles.bingoText}} {{if this.game.finished styles.bingoTextVisible}}">
               <span>B</span>
               <span>i</span>
               <span>n</span>
@@ -443,7 +458,7 @@ export default class BingoComponent extends Component {
         {{/if}}
       </nav>
 
-      {{#if (eq this.display 'game')}}
+      {{#if (eq this.display "game")}}
         {{#if this.game}}
           <div class={{styles.playfield}}>
             {{#each this.game.principles as |principle|}}
@@ -451,7 +466,7 @@ export default class BingoComponent extends Component {
                 @principle={{principle}}
                 @selected={{has this.game.selection principle}}
                 @winner={{has this.game.winner principle}}
-                @select={{(fn this.game.select principle)}}
+                @select={{fn this.game.select principle}}
               />
             {{/each}}
           </div>
