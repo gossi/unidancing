@@ -101,6 +101,7 @@
     "ember-source": "~5.10.0",
     "ember-statechart-component": "^6.1.2",
     "ember-statecharts": "^0.16.1",
+    "ember-stargate": "^0.6.0",
     "ember-svg-jar": "^2.4.9",
     "ember-sweet-owner": "^0.2.0",
     "ember-template-imports": "^4.1.1",

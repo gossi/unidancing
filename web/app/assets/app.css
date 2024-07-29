@@ -95,12 +95,6 @@ dialog:is([data-game], [data-assistant]) {
   background-color: var(--surface-popover);
   box-shadow: 0 0 3px 3px #00000028, 0 0 6px 6px #00000026;
 
-  & > header {
-    padding-block: var(--spacing-container0);
-    font-size: var(--s0);
-    font-weight: 700;
-  }
-
   [part="body"] {
     position: relative;
     padding: var(--spacing-container0);

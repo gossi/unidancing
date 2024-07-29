@@ -1,34 +1,38 @@
 import Component from '@glimmer/component';
-import { service } from '@ember/service';
-import { service as polarisService } from 'ember-polaris-service';
 import { tracked } from '@glimmer/tracking';
+import { registerDestructor } from '@ember/destroyable';
+import { array, fn } from '@ember/helper';
+import { on } from '@ember/modifier';
+import { getOwner } from '@ember/owner';
+import { service } from '@ember/service';
+
+import { dropTask, timeout } from 'ember-concurrency';
+import { service as polarisService } from 'ember-polaris-service';
+import Portal from 'ember-stargate/components/portal';
+import PortalTarget from 'ember-stargate/components/portal-target';
+import { useMachine } from 'ember-statecharts';
+import { assign, createMachine } from 'xstate';
+
+import { Button, Form, IconButton } from '@hokulea/ember';
+
 import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
 import {
-  WithSpotify,
-  SpotifyService,
-  TrackResource,
-  SpotifyClient,
-  isReadyForPlayback,
-  PlaylistResource,
   getRandomTrack,
+  MaybeSpotifyPlayerWarning,
+  PlaylistResource,
   playTrack,
   playTrackForDancing,
-  SpotifyPlayButton
+  SpotifyPlayButton,
+  SpotifyService,
+  TrackResource,
+  WithSpotify
 } from '../../../supporting/spotify';
-import { on } from '@ember/modifier';
-import { dropTask, timeout } from 'ember-concurrency';
-import type { Track, Device } from '../../../supporting/spotify';
-import type { TOC } from '@ember/component/template-only';
-import preventDefault from 'ember-event-helpers/helpers/prevent-default';
-import { createMachine, assign } from 'xstate';
-import { useMachine } from 'ember-statecharts';
-import { Icon } from '../../../supporting/ui';
-import { registerDestructor } from '@ember/destroyable';
 import styles from './dance-oh-mat.css';
+
+import type { Device, SpotifyClient, Track } from '../../../supporting/spotify';
+import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
-import { fn, array } from '@ember/helper';
-import { getOwner } from '@ember/owner';
 
 export enum DanceOhMatParam {
   Rounds = 'rounds',
@@ -49,7 +53,6 @@ const DEFAULTS = {
   [DanceOhMatParam.Duration]: 30
 };
 
-
 const getParam =
   <A extends DanceOhMatParams>(args: A, router: RouterService) =>
   <P extends DanceOhMatParam>(param: P): A[P] => {
@@ -65,6 +68,7 @@ const getParam =
   };
 
 type Context = { rounds: number; duration: number; roundsToGo: number };
+
 const Machine = createMachine(
   {
     context: {
@@ -141,7 +145,7 @@ const Machine = createMachine(
       events: {} as
         | { type: 'help' }
         | ({ type: 'play' } & GameParams)
-        | { type: 'dance'; track: {} }
+        | { type: 'dance'; track: Track }
         | { type: 'start' }
         | { type: 'finish' }
         | { type: 'stop' },
@@ -196,27 +200,37 @@ class Lobby extends Component<LobbySignature> {
     };
   }
 
-  start = (event: SubmitEvent) => {
-    const data = new FormData(event.target as HTMLFormElement);
+  start = (data: GameParams) => {
+    // const data = new FormData(event.target as HTMLFormElement);
 
-    const params: GameParams = {
-      duration: Number.parseInt(data.get('duration') as string, 10),
-      rounds: Number.parseInt(data.get('rounds') as string, 10)
-    };
+    // const params: GameParams = {
+    //   duration: Number.parseInt(data.get('duration') as string, 10),
+    //   rounds: Number.parseInt(data.get('rounds') as string, 10)
+    // };
 
-    this.args.play(params);
+    this.args.play(data);
   };
 
   <template>
-    <form {{on 'submit' (preventDefault this.start)}}>
+    <Form @data={{this.params}} @submit={{this.start}} as |f|>
+      <f.Number @name="duration" @label="Dauer pro Lied [sec]" />
+      <f.Number @name="rounds" @label="Runden [Anzahl]" />
+
+      <MaybeSpotifyPlayerWarning />
+
+      <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
+    </Form>
+
+    {{!--
+    <form {{on "submit" (preventDefault this.start)}}>
       <label>
         Dauer pro Lied [sec]:
-        <input type='number' name='duration' value={{this.params.duration}} />
+        <input type="number" name="duration" value={{this.params.duration}} />
       </label>
 
       <label>
         Runden [Anzahl]:
-        <input type='number' name='rounds' value={{this.params.rounds}} />
+        <input type="number" name="rounds" value={{this.params.rounds}} />
       </label>
 
       {{#unless (isReadyForPlayback)}}
@@ -224,7 +238,7 @@ class Lobby extends Component<LobbySignature> {
       {{/unless}}
 
       <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
-    </form>
+    </form> --}}
   </template>
 }
 
@@ -247,7 +261,7 @@ class Manual extends Component {
   };
 
   <template>
-    <h1>Anleitung</h1>
+    <h2>Anleitung</h2>
 
     <ol class={{styles.manual}}>
       <li>Es werden vier Runden gespielt, jede Runde wird zu einem Song getanzt.</li>
@@ -255,18 +269,18 @@ class Manual extends Component {
         <ul>
           <li>
             Musik zur Song Auswahl:
-            <button type='button' {{on 'click' this.togglePlay}}>
-              {{#if this.spotify.client.playing}}
-                <Icon @icon='pause' />
-              {{else}}
-                <Icon @icon='play' />
-              {{/if}}
-            </button>
+            <IconButton
+              @icon={{if this.spotify.client.playing "pause" "play"}}
+              @iconStyle="fill"
+              @push={{this.togglePlay}}
+              @label="Lobby Musik an/aus"
+              @spacing="-1"
+            />
           </li>
           <li>Die Auswahl dauert 5 Sekunden, der Countdown start</li>
           <li>
-            Auswahl aus 4 Songs:<br>
-            3x Chance auf "Tanzbaren Song"<br>
+            Auswahl aus 4 Songs:<br />
+            3x Chance auf "Tanzbaren Song"<br />
             1x Chance auf "Überraschung"
           </li>
         </ul>
@@ -275,23 +289,24 @@ class Manual extends Component {
       <li>
         Songauswahl eingeben
 
-        <button type='button' {{on 'click' (fn (playSound) 'select')}}>
+        <Button @spacing="-1" @push={{fn (playSound) "select"}}>
           Eingabe
-        </button>
+        </Button>
       </li>
       <li>
-        Ohne Songauswahl: <br>75% Chance auf Überraschung
+        Ohne Songauswahl:
+        <br />75% Chance auf Überraschung
       </li>
       <li>
-        Die Runde startet mit<br>
+        Die Runde startet mit<br />
 
-        <button type='button' {{on 'click' (fn (playSound) 'countDown')}}>
+        <Button @spacing="-1" @push={{fn (playSound) "countDown"}}>
           Tanzbarer Song
-        </button>
+        </Button>
 
-        <button type='button' {{on 'click' (fn (playSound) 'surprise')}}>
+        <Button @spacing="-1" @push={{fn (playSound) "surprise"}}>
           Überraschung
-        </button>
+        </Button>
       </li>
       <li><i>Dance!</i></li>
     </ol>
@@ -321,6 +336,7 @@ function random(pmf: number[]) {
     )(0)
   );
   const rand = Math.random();
+
   return cdf.findIndex((el) => rand <= el);
 }
 
@@ -339,13 +355,13 @@ class Game extends Component {
   @tracked counter?: number;
   song?: number;
 
-  dancePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS['epic'] }));
-  surprisePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS['surprise'] }));
+  dancePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.epic }));
+  surprisePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.surprise }));
 
   //
   // Boot
   //
-  constructor(owner: Owner, args: {}) {
+  constructor(owner: Owner, args: unknown) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;
@@ -418,6 +434,7 @@ class Game extends Component {
     this.song = undefined;
 
     const devicesPromise = this.spotify.client.api.getMyDevices();
+
     await this.playTrack(this.lobbyTrack.data as Track);
     await timeout(1100);
     await this.countDown.perform();
@@ -446,7 +463,8 @@ class Game extends Component {
     */
 
     const devicesResponse = await devicesPromise;
-    const volume = (devicesResponse.devices.find(device => device.is_active) as Device).volume_percent as number;
+    const volume = (devicesResponse.devices.find((device) => device.is_active) as Device)
+      .volume_percent as number;
 
     await this.spotify.client.setVolume(0);
     await this.playSound(coinToss === 0 ? 'countDown' : 'surprise');
@@ -504,30 +522,32 @@ class Game extends Component {
   };
 
   <template>
-    <button
-      type='button'
-      class='outline {{styles.info}}'
-      disabled={{this.machine.state.matches 'playing'}}
-      {{on 'click' this.toggleManual}}
-    >
-      <Icon @icon='info' />
-    </button>
+    <Portal @target="dance-oh-mat-header">
+      <IconButton
+        @icon="question"
+        @importance="plain"
+        @spacing="-1"
+        @disabled={{this.machine.state.matches "playing"}}
+        @push={{this.toggleManual}}
+        @label="Anleitung"
+      />
+    </Portal>
 
-    {{#if (this.machine.state.matches 'manual')}}
+    {{#if (this.machine.state.matches "manual")}}
       <Manual />
-    {{else if (this.machine.state.matches 'lobby')}}
-      <Lobby @play={{fn this.machine.send 'play'}} />
-    {{else if (this.machine.state.matches 'playing')}}
+    {{else if (this.machine.state.matches "lobby")}}
+      <Lobby @play={{fn this.machine.send "play"}} />
+    {{else if (this.machine.state.matches "playing")}}
       <div class={{styles.playing}}>
 
-        {{#if (this.machine.state.matches 'playing.selection')}}
+        {{#if (this.machine.state.matches "playing.selection")}}
           <p class={{styles.counter}}>{{this.counter}}</p>
 
           <div class={{styles.selection}}>
             {{#each (array 1 2 3 4) as |song|}}
-              <button type='button' {{on 'click' (fn this.selectSong song)}}>
+              <Button @push={{fn this.selectSong song}}>
                 {{song}}
-              </button>
+              </Button>
             {{/each}}
           </div>
         {{else}}
@@ -538,15 +558,19 @@ class Game extends Component {
           </p>
         {{/if}}
 
-        <SpotifyPlayButton @intent="stop" class={{styles.stop}} {{on "click" this.stop}}>Stop</SpotifyPlayButton>
-        {{!-- <button type="button" class={{styles.stop}} {{on "click" this.stop}}>Stop</button> --}}
+        <SpotifyPlayButton
+          @intent="stop"
+          class={{styles.stop}}
+          {{on "click" this.stop}}
+        >Stop</SpotifyPlayButton>
       </div>
     {{/if}}
   </template>
 }
 
-const DanceOhMat: TOC<{}> = <template>
-  <header class={{styles.header}}><h1>Dance Oh! Mat</h1></header>
+const DanceOhMat: TOC = <template>
+  <header class={{styles.header}}><h1>Dance Oh! Mat</h1>
+    <PortalTarget @name="dance-oh-mat-header" /></header>
   <WithSpotify>
     <Game />
   </WithSpotify>
