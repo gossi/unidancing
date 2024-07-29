@@ -18,7 +18,7 @@ import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
   findTrack,
   formatArtists,
-  isReadyForPlayback,
+  MaybeSpotifyPlayerWarning,
   SpotifyPlayButton,
   SpotifyService,
   WithSpotify
@@ -188,6 +188,7 @@ class LoopService extends Service {
 
     this.elapsedTime = offset ? (offset < 0 ? max + offset : offset) : 0;
 
+    // eslint-disable-next-line no-constant-condition
     while (true) {
       await this.spotify.client.play({
         uris: [loop.track.uri],
@@ -386,9 +387,7 @@ class Game extends Component {
   <template>
     <Latency />
 
-    {{#unless (isReadyForPlayback)}}
-      ⚠️ Bitte Spotify Player auswählen
-    {{/unless}}
+    <MaybeSpotifyPlayerWarning />
 
     {{#each data as |loop|}}
       <LoopCard @loop={{loop}} />

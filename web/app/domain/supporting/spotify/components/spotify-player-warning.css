@@ -10,6 +10,10 @@
   }
 }
 
+.warning {
+  color: var(--indicator-warning-plain-text);
+}
+
 .counter {
   position: sticky;
   top: 0;

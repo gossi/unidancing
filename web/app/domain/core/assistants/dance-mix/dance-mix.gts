@@ -13,13 +13,13 @@ import { useMachine } from 'ember-statecharts';
 import { eq, not } from 'ember-truth-helpers';
 import { createMachine } from 'xstate';
 
-import { Button, Form, Icon } from '@hokulea/ember';
+import { Button, Form } from '@hokulea/ember';
 
 import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
   formatArtists,
   getRandomTracks,
-  isReadyForPlayback,
+  MaybeSpotifyPlayerWarning,
   PlaylistChooser,
   PlaylistResource,
   playTrackForDancing,
@@ -278,12 +278,7 @@ class Lobby extends Component<LobbySignature> {
       <f.Number @name="pause" @label="Pause zwischen den Liedern [sec]" />
       <f.Number @name="amount" @label="Lieder [Anzahl]" />
 
-      {{#unless (isReadyForPlayback)}}
-        <p>
-          <Icon @icon="warning" @style="fill" class={{styles.warning}} />
-          Bitte Spotify Player auswählen
-        </p>
-      {{/unless}}
+      <MaybeSpotifyPlayerWarning />
 
       <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
     </Form>
