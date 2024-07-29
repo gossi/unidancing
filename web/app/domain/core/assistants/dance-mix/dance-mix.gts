@@ -269,14 +269,6 @@ class Lobby extends Component<LobbySignature> {
   }
 
   start = (data: GameParams) => {
-    // const data = new FormData(event.target as HTMLFormElement);
-
-    // const params: GameParams = {
-    //   duration: Number.parseInt(data.get('duration') as string, 10),
-    //   pause: Number.parseInt(data.get('pause') as string, 10),
-    //   amount: Number.parseInt(data.get('amount') as string, 10)
-    // };
-
     this.args.play(data);
   };
 
@@ -295,28 +287,6 @@ class Lobby extends Component<LobbySignature> {
 
       <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
     </Form>
-
-    {{!-- <form {{on "submit" (preventDefault this.start)}}>
-      <label>
-        Dauer pro Lied [sec]:
-        <input type="number" name="duration" value={{this.params.duration}} />
-      </label>
-
-      <label>
-        Pause zwischen den Liedern [sec]:
-        <input type="number" name="pause" value={{this.params.pause}} />
-      </label>
-
-      <label>
-        Lieder [Anzahl]:
-        <input type="number" name="amount" value={{this.params.amount}} />
-      </label>
-
-      {{#unless (isReadyForPlayback)}}
-        ⚠️ Bitte Spotify Player auswählen
-      {{/unless}}
-      <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
-    </form> --}}
   </template>
 }
 
