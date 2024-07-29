@@ -1,27 +1,32 @@
 import Component from '@glimmer/component';
 import { cached, tracked } from '@glimmer/tracking';
-import { restartableTask, timeout } from 'ember-concurrency';
-import { on } from '@ember/modifier';
-import { fn } from '@ember/helper';
-import styles from './looper.css';
 import { registerDestructor } from '@ember/destroyable';
+import { fn } from '@ember/helper';
+import { on } from '@ember/modifier';
+
+import { ability } from 'ember-ability';
+import { action } from 'ember-command';
+import { restartableTask, timeout } from 'ember-concurrency';
+import { modifier } from 'ember-modifier';
 import Service, { service } from 'ember-polaris-service';
-import { AudioPlayer, AudioService } from '../../../supporting/audio';
-import {
-  WithSpotify,
-  SpotifyService,
-  formatArtists,
-  findTrack,
-  SpotifyPlayButton,
-isReadyForPlayback
-} from '../../../supporting/spotify';
-import type { Track } from '../../../supporting/spotify';
-import type { TOC } from '@ember/component/template-only';
 import { resource, resourceFactory, use } from 'ember-resources';
 import Task from 'ember-tasks';
-import { action } from 'ember-command';
-import { ability } from 'ember-ability';
-import { modifier } from 'ember-modifier';
+
+import { Form } from '@hokulea/ember';
+
+import { AudioPlayer, AudioService } from '../../../supporting/audio';
+import {
+  findTrack,
+  formatArtists,
+  isReadyForPlayback,
+  SpotifyPlayButton,
+  SpotifyService,
+  WithSpotify
+} from '../../../supporting/spotify';
+import styles from './looper.css';
+
+import type { Track } from '../../../supporting/spotify';
+import type { TOC } from '@ember/component/template-only';
 
 const DEV = false;
 
@@ -55,20 +60,20 @@ interface LoopTrackData extends RawLoopTrackDescriptor {
 type Loops = RawLoopTrackDescriptor[];
 
 export const loadLoop = resourceFactory((loop: RawLoopTrackDescriptor) => {
-  return resource(async ({ use }): Promise<LoopTrackData> => {
-    const track = await use(findTrack(loop.trackId)).current;
+  return resource(async ({ use: useResource }): Promise<LoopTrackData> => {
+    const track = await useResource(findTrack(loop.trackId)).current;
 
     return {
       ...loop,
       track,
-      loops: loop.loops.map(lp => {
+      loops: loop.loops.map((lp) => {
         return {
           id: loop.id,
           track,
           ...lp,
           name: lp.name ?? 'default',
           duration: lp.end - lp.start
-        }
+        };
       })
     };
   });
@@ -77,13 +82,13 @@ export const loadLoop = resourceFactory((loop: RawLoopTrackDescriptor) => {
 const data: Loops = [
   // Radioactive by Imagine Dragons
   {
-    "id": "radioactive",
-    "trackId": "69yfbpvmkIaB10msnKT7Q5",
-    "loops": [
+    id: 'radioactive',
+    trackId: '69yfbpvmkIaB10msnKT7Q5',
+    loops: [
       {
-        "start": 27787,
-        "end": 82648,
-        "description": "verse + chorus"
+        start: 27787,
+        end: 82648,
+        description: 'verse + chorus'
       }
     ]
   },
@@ -97,26 +102,26 @@ const data: Loops = [
   // The Call
   // https://open.spotify.com/track/2iI556oF2qwtac9r1RzrXo
   {
-    "id": "the-call",
-    "trackId": "2iI556oF2qwtac9r1RzrXo",
-    "loops": [
+    id: 'the-call',
+    trackId: '2iI556oF2qwtac9r1RzrXo',
+    loops: [
       {
-        "name": "half-chorus+bridge",
-        "start": 70000,
-        "end": 130700,
-        "description": "half first chorus (4/4) + bridge (6/8)"
+        name: 'half-chorus+bridge',
+        start: 70000,
+        end: 130700,
+        description: 'half first chorus (4/4) + bridge (6/8)'
       },
       {
-        "name": "bridge",
-        "start": 90100,
-        "end": 130700,
-        "description": "bridge (6/8)"
+        name: 'bridge',
+        start: 90100,
+        end: 130700,
+        description: 'bridge (6/8)'
       },
       {
-        "name": "chorus+bridge",
-        "start": 54089,
-        "end": 130700,
-        "description": "full first chorus (4/4) + bridge (6/8)"
+        name: 'chorus+bridge',
+        start: 54089,
+        end: 130700,
+        description: 'full first chorus (4/4) + bridge (6/8)'
       }
     ]
   },
@@ -172,25 +177,30 @@ class LoopService extends Service {
 
     try {
       await this.play.perform(loop, offset);
-    } catch(_) {}
-  }
+      // eslint-disable-next-line no-empty
+    } catch {}
+  };
 
   play = restartableTask(async (loop: LoopData, offset?: number) => {
     this.spotify.client.selectTrack(loop.track);
 
-    let max = (loop.end - loop.start) - this.latency;
+    let max = loop.end - loop.start - this.latency;
+
     this.elapsedTime = offset ? (offset < 0 ? max + offset : offset) : 0;
 
     while (true) {
       await this.spotify.client.play({
         uris: [loop.track.uri],
+        // eslint-disable-next-line @typescript-eslint/naming-convention
         position_ms: loop.start + this.elapsedTime // elapsed time includes the duration offset
       });
 
       while (this.elapsedTime < max) {
-        max = (loop.end - loop.start) - this.latency;
+        max = loop.end - loop.start - this.latency;
+
         const rest = max - this.elapsedTime;
         const tick = rest <= 2000 ? rest : 1000;
+
         this.elapsedTime += tick;
 
         await timeout(tick);
@@ -209,27 +219,30 @@ class LoopService extends Service {
 
 const start = action(({ service }) => async (loop: LoopData, offset: number = 0) => {
   const loopService = service(LoopService);
+
   await loopService.start(loop, offset);
 });
 
 const stop = action(({ service }) => async () => {
   const loopService = service(LoopService);
+
   await loopService.stop();
 });
 
-const isPlaying = ability(({ service }) =>  (loop: LoopData) => {
+const isPlaying = ability(({ service }) => (loop: LoopData) => {
   const loopService = service(LoopService);
+
   return loopService.playing === loop;
 });
 
-const playingPercentage = ability(({ service }) =>  () => {
+const playingPercentage = ability(({ service }) => () => {
   const loopService = service(LoopService);
 
   if (!loopService.playing) {
     return 0;
   }
 
-  return Math.round(loopService.elapsedTime / loopService.playing.duration * 100);
+  return Math.round((loopService.elapsedTime / loopService.playing.duration) * 100);
 });
 
 const applyPercentage = modifier((element, [percentage]) => {
@@ -238,6 +251,7 @@ const applyPercentage = modifier((element, [percentage]) => {
 
 const formatDuration = (ms: number) => {
   if (ms < 0) ms = -ms;
+
   const time = {
     m: Math.floor(ms / 60000) % 60,
     s: Math.floor(ms / 1000) % 60,
@@ -252,49 +266,53 @@ class Latency extends Component {
 
   updateLatency = (event: Event) => {
     this.loop.latency = Number.parseFloat((event.target as HTMLInputElement).value);
+  };
+
+  get data() {
+    return {
+      latency: this.loop.latency
+    };
   }
 
   <template>
-    <label>
-      Latenz [ms]
-      <input type="text" value={{this.loop.latency}} {{on "change" this.updateLatency}}>
-    </label>
+    <details>
+      <summary>Einstellungen</summary>
+
+      <Form @data={{this.loop}} @dataMode="mutable" as |f|>
+        <f.Number @name="latency" @label="Latenz [ms]" />
+      </Form>
+    </details>
   </template>
 }
 
 interface PlayButtonSignature {
   Args: {
     loop: LoopData;
-  }
+  };
 }
 
-class PlayButton extends Component<PlayButtonSignature> {
-  <template>
-    {{#if (isPlaying @loop)}}
-      <SpotifyPlayButton
-        @intent='stop'
-        class={{styles.playbutton}}
-        data-playing
-        {{on "click" (stop)}}
-        {{applyPercentage (playingPercentage)}}
-      >
-        Stop
-      </SpotifyPlayButton>
-    {{else}}
-      <SpotifyPlayButton
-        class={{styles.playbutton}}
-        {{on "click" (fn (start) @loop 0)}}
-      >
-        Play
-      </SpotifyPlayButton>
-    {{/if}}
-  </template>
-}
+const PlayButton: TOC<PlayButtonSignature> = <template>
+  {{#if (isPlaying @loop)}}
+    <SpotifyPlayButton
+      @intent="stop"
+      class={{styles.playbutton}}
+      data-playing
+      {{on "click" (stop)}}
+      {{applyPercentage (playingPercentage)}}
+    >
+      Stop
+    </SpotifyPlayButton>
+  {{else}}
+    <SpotifyPlayButton class={{styles.playbutton}} {{on "click" (fn (start) @loop 0)}}>
+      Play
+    </SpotifyPlayButton>
+  {{/if}}
+</template>;
 
 interface LoopCardSignature {
   Args: {
     loop: RawLoopTrackDescriptor;
-  }
+  };
 }
 
 class LoopCard extends Component<LoopCardSignature> {
@@ -342,7 +360,7 @@ class LoopCard extends Component<LoopCardSignature> {
                   <SpotifyPlayButton {{on "click" (fn (start) loop -10000)}}>-10</SpotifyPlayButton>
                   <SpotifyPlayButton {{on "click" (fn (start) loop -5000)}}>-5</SpotifyPlayButton>
                 {{/if}}
-                <PlayButton @loop={{loop}}/>
+                <PlayButton @loop={{loop}} />
               </div>
             </div>
           {{/each}}
@@ -355,7 +373,7 @@ class LoopCard extends Component<LoopCardSignature> {
 class Game extends Component {
   @service(AudioService) declare audio: AudioService;
 
-  constructor(owner: unknown, args: {}) {
+  constructor(owner: unknown, args: unknown) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;
@@ -373,18 +391,17 @@ class Game extends Component {
     {{/unless}}
 
     {{#each data as |loop|}}
-      <LoopCard @loop={{loop}}/>
+      <LoopCard @loop={{loop}} />
     {{/each}}
   </template>
 }
 
-const Looper: TOC<{}> = <template>
+const Looper: TOC<object> = <template>
   <h1>Loops</h1>
 
   <WithSpotify>
-    <Game/>
+    <Game />
   </WithSpotify>
-</template>
-
+</template>;
 
 export { Looper };
