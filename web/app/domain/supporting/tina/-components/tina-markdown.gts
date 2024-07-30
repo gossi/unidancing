@@ -1,7 +1,9 @@
-import { element } from 'ember-element-helper';
-import type { TOC } from '@ember/component/template-only';
-import { eq, or } from 'ember-truth-helpers';
 import { htmlSafe } from '@ember/template';
+
+import { element } from 'ember-element-helper';
+import { eq, or } from 'ember-truth-helpers';
+
+import type { TOC } from '@ember/component/template-only';
 
 type TinaMarkdownContent = {
   type: string;
@@ -11,7 +13,7 @@ type TinaMarkdownContent = {
   url: string;
   // type = img
   caption: string;
-  // type = code_block | html | html_inline
+  // type = code_block | html | html_inline
   value: string;
 
   // anyway
@@ -47,8 +49,6 @@ function elementFor(type: string) {
     default:
       return type;
   }
-
-  return undefined;
 }
 
 function contentToNodes(content: TinaMarkdownContent | TinaMarkdownContent[]): TinaMarkdownContent[] {

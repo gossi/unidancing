@@ -1,0 +1,280 @@
+{
+  "control": {
+    "border-color": {
+      "$value": [
+        {
+          "value": "#dbd8da",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#433e41",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "background": {
+      "$value": [
+        {
+          "value": "#fbfbfb",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#1b191a",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "border-style": {
+      "$value": [
+        {
+          "value": "solid",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "solid",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "content"
+    },
+    "border-width": {
+      "$value": "2px",
+      "$description": "",
+      "$type": "dimension"
+    },
+    "text": {
+      "$value": [
+        {
+          "value": "{typography.main}",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "{typography.main}",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": ""
+    },
+    "placeholder": {
+      "$value": [
+        {
+          "value": "{typography.subtle}",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "{typography.subtle}",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": ""
+    },
+    "accent": {
+      "$value": [
+        {
+          "value": "#e41b8a",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#e41b8a",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "disabled": {
+      "text": {
+        "$value": [
+          {
+            "value": "{typography.muted}",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "{typography.muted}",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": ""
+      },
+      "background": {
+        "$value": [
+          {
+            "value": "#ecebeb",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "#2e2a2c",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      }
+    },
+    "hover": {
+      "background": {
+        "$value": [
+          {
+            "value": "#f76eb9",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "#720d45",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      }
+    },
+    "focus": {
+      "selected": {
+        "background": {
+          "$value": [
+            {
+              "value": "#f99fd1",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#4c002a",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
+      },
+      "stroke-color": {
+        "$value": [
+          {
+            "value": "#e41b8a",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "#e41b8a",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      },
+      "stroke-style": {
+        "$value": [
+          {
+            "value": "solid",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "solid",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "content"
+      },
+      "stroke-offset": {
+        "$value": "2px",
+        "$description": "",
+        "$type": "dimension"
+      },
+      "stroke-width": {
+        "$value": "2px",
+        "$description": "",
+        "$type": "dimension"
+      }
+    },
+    "active": {
+      "background": {
+        "$value": [
+          {
+            "value": "#ea48a1",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "#5b0b37",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      }
+    },
+    "selected": {
+      "background": {
+        "$value": [
+          {
+            "value": "#f4f3f3",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "#232122",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      }
+    }
+  }
+}

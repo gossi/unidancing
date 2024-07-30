@@ -1,10 +1,11 @@
 import { LinkTo } from '@ember/routing';
-import { Features, CardSection } from '../../../supporting/ui';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class TrainingIndexRoute extends Route<{}> {
+import { CardSection,Features } from '../../../supporting/ui';
+
+export class TrainingIndexRoute extends Route<object> {
   <template>
     <p>
       Materialien und Informationen zur Trainingsgestaltung und -auswertung.

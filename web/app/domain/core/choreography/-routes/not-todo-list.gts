@@ -1,11 +1,12 @@
-import { pageTitle } from 'ember-page-title';
 import { LinkTo } from '@ember/routing';
-import Listing from '../-components/listing';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class ChoreographyNotTodoListRoute extends Route<{}> {
+import Listing from '../-components/listing';
+
+export class ChoreographyNotTodoListRoute extends Route<object> {
   <template>
     {{pageTitle 'Not Todo Liste'}}
 
@@ -20,7 +21,7 @@ export class ChoreographyNotTodoListRoute extends Route<{}> {
       bedient und hierbei schneidet UniDancing im Vergleich zu den etablierten
       Sportarten unterirdisch ab, genauer erklärt in <a
       href="https://einradfahren.de/uniscience/2016/10/23/die-freestyle-revolution-mach-kunst-kein-kitsch/"
-      target="_blank">Die Freestyle (R)evolution: Mach Kunst, kein Kitsch!</a>.<br>
+      target="_blank" rel="noopener noreferrer">Die Freestyle (R)evolution: Mach Kunst, kein Kitsch!</a>.<br>
 
       Über die Jahre haben sich
       <i>Dinge</i>

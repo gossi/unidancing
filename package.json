@@ -3,6 +3,9 @@
   "private": true,
   "author": "gossi",
   "scripts": {
+    "clean": "pnpm run '/^clean:.*/'",
+    "clean:dist": "find . -not \\( -path './node_modules' -type d -prune \\) -name 'dist' -type d -exec rm -rf '{}' +",
+    "clean:node-modules": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "start": "turbo run start --filter @unidancing/app",
     "build": "turbo run build --filter @unidancing/app"
   },
@@ -18,7 +21,7 @@
   },
   "pnpm": {
     "patchedDependencies": {
-      "ember-cli-fastboot@4.1.2": "patches/ember-cli-fastboot@4.1.2.patch"
+      "ember-cli-fastboot@4.1.5": "patches/ember-cli-fastboot@4.1.5.patch"
     }
   }
 }

@@ -1,28 +1,27 @@
+import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
-import { LinkTo } from '@ember/routing';
-import styles from './styles.css';
-
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class TrainingRootRoute extends Route<{}> {
+import { Page } from '@hokulea/ember';
+
+export class TrainingRootRoute extends Route<object> {
   <template>
     {{pageTitle 'Training'}}
 
-    <header class={{styles.header}}>
-      <h1>Training</h1>
+    <Page>
+      <:title>Training</:title>
+      <:nav as |Item|>
+        <Item @link={{link 'training.index'}}>Übersicht</Item>
+        <Item @link={{link 'training.planning'}}>Planung</Item>
+        <Item @link={{link 'training.control'}}>Steuerung</Item>
+        <Item @link={{link 'training.diagnostics'}}>Diagnostik</Item>
+      </:nav>
 
-      <nav>
-        <ul>
-          <li><LinkTo @route='training'>Übersicht</LinkTo></li>
-          <li><LinkTo @route='training.planning'>Planung</LinkTo></li>
-          <li><LinkTo @route='training.control'>Steuerung</LinkTo></li>
-          <li><LinkTo @route='training.diagnostics'>Diagnostik</LinkTo></li>
-        </ul>
-      </nav>
-    </header>
-
-    {{outlet}}
+      <:content>
+        {{outlet}}
+      </:content>
+    </Page>
   </template>
 }
 

@@ -1,5 +1,8 @@
 import Component from '@glimmer/component';
-import { Game, findGame } from '../games';
+
+import { findGame } from '../games';
+
+import type {Game } from '../games';
 
 export interface GameSignature {
   Args: {

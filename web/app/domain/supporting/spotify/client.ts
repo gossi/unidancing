@@ -1,5 +1,6 @@
 import { tracked } from '@glimmer/tracking';
 
+import { dropTask } from 'ember-concurrency';
 import { Resource } from 'ember-resources';
 import { useMachine } from 'ember-statecharts';
 import SpotifyWebApi from 'spotify-web-api-js';
@@ -25,7 +26,7 @@ export class SpotifyClient extends Resource {
           }
         },
         services: {
-          loadDevices,
+          loadDevices: () => loadDevices.perform(),
           autoselectDevice,
           loadPlayback
         }
@@ -36,28 +37,28 @@ export class SpotifyClient extends Resource {
   api = new SpotifyWebApi();
 
   // machine services
-  loadDevices = async () => {
+  loadDevices = dropTask(async () => {
     this.devices = (await this.api.getMyDevices()).devices;
-  };
+  });
 
   autoselectDevice = async () => {
     const device =
       // at first try to find the active device
-      this.devices.find((dev) => dev.is_active) ??
+      (this.devices.find((dev) => dev.is_active) ??
       // if not found, see if there is only one, then pick that one
-      this.devices.length === 1
+      this.devices.length === 1)
         ? this.devices[0]
         : undefined;
 
     if (device) {
-      this.selectDevice(device);
+      await this.selectDevice(device);
     }
   };
 
   loadPlayback = () => async () => {
     const playing = await this.api.getMyCurrentPlayingTrack();
 
-    if (playing?.item) {
+    if (playing.item) {
       this.track = TrackResource.from(this, () => ({
         track: playing.item
       }));
@@ -120,9 +121,9 @@ export class SpotifyClient extends Resource {
 
   toggle = () => {
     if (this.playing) {
-      this.pause();
+      void this.pause();
     } else {
-      this.play();
+      void this.play();
     }
   };
 

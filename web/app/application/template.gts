@@ -1,14 +1,16 @@
-import RouteTemplate from 'ember-route-template';
+import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
-import { LinkTo } from '@ember/routing';
-import { Icon } from '../domain/supporting/ui';
-import { Player } from '../domain/supporting/audio';
-import ApplicationController from './controller';
-import styles from './styles.css';
-import { on } from '@ember/modifier';
-import { Game, buildGameLink, GameFactory } from '../domain/core/games';
-import { Assistant, buildAssistantLink, AssistantFactory } from '../domain/core/assistants';
+import RouteTemplate from 'ember-route-template';
 import { or } from 'ember-truth-helpers';
+
+import { AppHeader, IconButton } from '@hokulea/ember';
+
+import { Assistant, AssistantFactory,buildAssistantLink } from '../domain/core/assistants';
+import { buildGameLink, Game, GameFactory } from '../domain/core/games';
+import { Player } from '../domain/supporting/audio';
+import styles from './styles.css';
+
+import type ApplicationController from './controller';
 
 interface Signature {
   Args: {
@@ -19,116 +21,66 @@ interface Signature {
 export default RouteTemplate<Signature>(<template>
   {{pageTitle 'UniDancing'}}
 
-  <nav class='container-fluid {{styles.nav}}'>
-    <ul>
-      <li><LinkTo @route='application'><strong>UniDancing</strong></LinkTo></li>
-      <li>
-        <LinkTo @route='moves'>
-          <Icon @icon='move' />
-          <span class={{styles.label}}>Moves</span>
-        </LinkTo>
-      </li>
-      <li>
-        <LinkTo @route='exercises'>
-          <Icon @icon='exercise' />
-          <span class={{styles.label}}>Übungen</span>
-        </LinkTo>
-      </li>
-      <li>
-        <LinkTo @route='courses'>
-          <Icon @icon='course' />
-          <span class={{styles.label}}>Kurse</span>
-        </LinkTo>
-      </li>
-      <li>
-        <details class="dropdown">
-          <summary role="link">
-            <Icon @icon='choreo' />
-            <span class={{styles.label}}>Choreographie</span>
-          </summary>
-          <ul dir="rtl">
-            <li><LinkTo @route='choreography'>Übersicht</LinkTo></li>
-            <li class={{styles.divider}}/>
-            <li><LinkTo @route='choreography.unidance-writing'>UniDance Writing</LinkTo></li>
-            <li><LinkTo @route='choreography.not-todo-list'>Not-Todo-Liste</LinkTo></li>
-            <li class={{styles.divider}}/>
-            <li class={{styles.title}}>Spiele</li>
-            <li>
-              {{#let (buildGameLink Game.Bingo) as |link|}}
-                <a href={{link.url}} {{on 'click' link.transitionTo}}>Bingo</a>
-              {{/let}}
-            </li>
-          </ul>
-        </details>
-      </li>
-      <li>
-        <details class="dropdown">
-          <summary role="link">
-            <Icon @icon='training' />
-            <span class={{styles.label}}>Training</span>
-          </summary>
-          <ul dir="rtl">
-            <li><LinkTo @route='training'>Übersicht</LinkTo></li>
-            <li class={{styles.divider}}/>
-            <li><LinkTo @route='training.planning'>Planung</LinkTo></li>
-            <li><LinkTo @route='training.control'>Steuerung</LinkTo></li>
-            <li><LinkTo @route='training.diagnostics'>Diagnostik</LinkTo></li>
-            <li class={{styles.divider}}/>
-            <li class={{styles.title}}>Assistenten</li>
-            <li>
-              {{#let (buildAssistantLink Assistant.DanceMix) as |link|}}
-                <a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Mix</a>
-              {{/let}}
-            </li>
-            <li>
-              {{#let (buildAssistantLink Assistant.Looper) as |link|}}
-                <a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a>
-              {{/let}}
-            </li>
-            <li class={{styles.title}}>Spiele</li>
-            <li>
-              {{#let (buildGameLink Game.DanceOhMat) as |link|}}
-                <a href={{link.url}} {{on 'click' link.transitionTo}}>Dance Oh! Mat</a>
-              {{/let}}
-            </li>
-          </ul>
-        </details>
-      </li>
-      <li>
-        <LinkTo @route='arts'>
-          <Icon @icon='art' />
-          <span class={{styles.label}}>Künste</span>
-        </LinkTo>
-      </li>
-    </ul>
-  </nav>
+  <AppHeader @home={{link "application"}}>
+    <:brand>UniDancing</:brand>
+    <:nav as |n|>
+      <n.Item @push={{link 'moves'}}>Moves</n.Item>
+      <n.Item @push={{link 'exercises'}}>Übungen</n.Item>
+      <n.Item @push={{link 'courses'}}>Kurse</n.Item>
+      <n.Item>
+        <:label>Choreographie</:label>
+        <:menu as |c|>
+          <c.Item @push={{link 'choreography'}}>Übersicht</c.Item>
+          <hr>
+          <c.Item @push={{link 'choreography.unidance-writing'}}>UniDance Writing</c.Item>
+          <c.Item @push={{link 'choreography.not-todo-list'}}>Not-Todo-Liste</c.Item>
+          <hr>
+          <span class={{styles.label}}>Spiele</span>
+          {{#let (buildGameLink Game.Bingo) as |bingoLink|}}
+            <c.Item @push={{bingoLink}}>Bingo</c.Item>
+          {{/let}}
+        </:menu>
+      </n.Item>
+      <n.Item>
+        <:label>Training</:label>
+        <:menu as |t|>
+          <t.Item @push={{link 'training'}}>Übersicht</t.Item>
+          <hr>
+          <t.Item @push={{link 'training.planning'}}>Planung</t.Item>
+          <t.Item @push={{link 'training.control'}}>Steuerung</t.Item>
+          <t.Item @push={{link 'training.diagnostics'}}>Diagnostik</t.Item>
+          <hr>
 
-  <div class='container'>
-    <div
-      class='grid {{styles.main}}'
-      data-game={{@controller.game}}
-      data-assistant={{@controller.assistant}}
-    >
-      <main>
-        {{outlet}}
-      </main>
+          <span class={{styles.label}}>Assistenten</span>
+          {{#let (buildAssistantLink Assistant.DanceMix) as |danceMixLink|}}
+            <t.Item @push={{danceMixLink}}>Dance Mix</t.Item>
+          {{/let}}
+          {{#let (buildAssistantLink Assistant.Looper) as |loopsLink|}}
+            <t.Item @push={{loopsLink}}>Loops</t.Item>
+          {{/let}}
 
-      {{#if (or @controller.game @controller.assistant)}}
-        <aside>
-          <button
-            type='button'
-            class='secondary outline {{styles.close}}'
-            {{on 'click' @controller.close}}
-          >X</button>
-          {{#if @controller.game}}
-            <GameFactory @game={{@controller.game}} />
-          {{else if @controller.assistant}}
-            <AssistantFactory @assistant={{@controller.assistant}} />
-          {{/if}}
-        </aside>
+          <span class={{styles.label}}>Spiele</span>
+          {{#let (buildGameLink Game.DanceOhMat) as |danceOhMatLink|}}
+            <t.Item @push={{danceOhMatLink}}>Dance Oh! Mat!</t.Item>
+          {{/let}}
+        </:menu>
+      </n.Item>
+      <n.Item @push={{link 'arts'}}>Künste</n.Item>
+    </:nav>
+  </AppHeader>
+
+  {{outlet}}
+
+  {{#if (or @controller.game @controller.assistant)}}
+    <dialog data-game={{@controller.game}} data-assistant={{@controller.assistant}} open>
+      <IconButton @icon="x" @label="Schließen" @importance="plain" @push={{@controller.close}} part="close" />
+      {{#if @controller.game}}
+        <GameFactory @game={{@controller.game}} />
+      {{else if @controller.assistant}}
+        <AssistantFactory @assistant={{@controller.assistant}} />
       {{/if}}
-    </div>
-  </div>
+    </dialog>
+  {{/if}}
 
   <Player />
 </template>);

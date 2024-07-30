@@ -1,5 +1,7 @@
-import { VideoPlayer } from '../../../supporting/ui';
+import { Page } from '@hokulea/ember';
+
 import { TinaMarkdown } from '../../../supporting/tina';
+import { VideoPlayer } from '../../../supporting/ui';
 import styles from './details.css';
 
 import type { Art } from '..';
@@ -12,19 +14,18 @@ export interface ArtDetailsSignature {
 }
 
 const ArtDetails: TOC<ArtDetailsSignature> = <template>
-  <section class={{styles.main}}>
-    <h2>{{@art.title}}</h2>
+  <Page @title={{@art.title}} class={{styles.art}}>
 
     {{#if @art.video}}
       <VideoPlayer @url={{@art.video}}/>
     {{/if}}
 
     <TinaMarkdown @content={{@art.body}} />
-  </section>
 
-  {{!-- {{#each @art.techniques as |technique|}}
+    {{!-- {{#each @art.techniques as |technique|}}
 
-  {{/each}} --}}
+    {{/each}} --}}
+  </Page>
 </template>
 
 export { ArtDetails };

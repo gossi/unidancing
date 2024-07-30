@@ -1,19 +1,29 @@
 .info {
-  display: inline;
   position: absolute;
-  right: 0;
   top: 0;
+  right: 0;
+
+  display: inline;
+
   width: unset;
 }
 
 .manual {
-  padding-left: 1em;
+  padding-inline-start: 1.25em;
+
+  > li + li {
+    margin-block-start: var(--spacing-primitive-1);
+  }
+
+  ul {
+    padding-inline-start: 1em;
+  }
 }
 
 .manual button {
   display: inline;
-  padding: 0.25em 0.5em;
   width: unset;
+  padding: 0.25em 0.5em;
 }
 
 .counter {
@@ -23,8 +33,8 @@
 
 .selection {
   display: grid;
-  gap: 2rem;
   grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+  gap: 2rem;
   justify-content: center;
 
   button {
@@ -38,35 +48,32 @@
 .dance {
   font-size: 36px;
   font-style: italic;
-  letter-spacing: 5px;
   text-align: center;
   text-transform: uppercase;
+  letter-spacing: 5px;
 }
 
 .playing {
-  --offset: 190px;
-
   display: flex;
   flex-direction: column;
-  min-height: calc(100dvh - var(--offset));
+  flex-grow: 1;
+  gap: var(--spacing-container0);
 
-  @media (width >= 576px) {
-    --offset: 230px;
-  }
-
-  @media (width >= 768px) {
-    --offset: 280px;
-  }
-
-  @media (width >= 992px) {
-    --offset: 300px;
-  }
+  /* min-height: calc(100dvh - var(--offset)); */
 }
 
 .stop {
   margin-block-start: auto;
 }
 
-.header h1 {
-  margin-bottom: 0;
+.header {
+  display: flex;
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  button {
+    font-size: var(--s0);
+  }
 }

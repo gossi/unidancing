@@ -1,34 +1,38 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import {
-  PlaylistChooser,
-  WithSpotify,
-  formatArtists,
-  PlaylistResource,
-  getRandomTracks,
-  SpotifyService,
-  isReadyForPlayback,
-  playTrackForDancing,
-  SpotifyPlayButton
-} from '../../../supporting/spotify';
-import { AudioPlayer, AudioService } from '../../../supporting/audio';
-import { service } from '@ember/service';
-import { on } from '@ember/modifier';
-import { didCancel, dropTask, timeout } from 'ember-concurrency';
-import preventDefault from 'ember-event-helpers/helpers/prevent-default';
-import { eq, not } from 'ember-truth-helpers';
-import styles from './dance-mix.css';
-import { fn } from '@ember/helper';
-import { htmlSafe } from '@ember/template';
-import { createMachine } from 'xstate';
-import { useMachine } from 'ember-statecharts';
-import type Owner from '@ember/owner';
 import { registerDestructor } from '@ember/destroyable';
-import type RouterService from '@ember/routing/router-service';
-import type { TOC } from '@ember/component/template-only';
-import type { Playlist, Track } from '../../../supporting/spotify';
+import { fn } from '@ember/helper';
+import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
+import { service } from '@ember/service';
+import { htmlSafe } from '@ember/template';
+
+import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
+import { useMachine } from 'ember-statecharts';
+import { eq, not } from 'ember-truth-helpers';
+import { createMachine } from 'xstate';
+
+import { Button, Form } from '@hokulea/ember';
+
+import { AudioPlayer, AudioService } from '../../../supporting/audio';
+import {
+  formatArtists,
+  getRandomTracks,
+  MaybeSpotifyPlayerWarning,
+  PlaylistChooser,
+  PlaylistResource,
+  playTrackForDancing,
+  SpotifyPlayButton,
+  SpotifyService,
+  WithSpotify
+} from '../../../supporting/spotify';
+import styles from './dance-mix.css';
+
+import type { Playlist, Track } from '../../../supporting/spotify';
+import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
+import type RouterService from '@ember/routing/router-service';
 
 enum PlaylistOptions {
   Epic = 'epic',
@@ -105,6 +109,7 @@ const DanceMixMachine = createMachine({
         }
       }
     },
+    // eslint-disable-next-line @typescript-eslint/naming-convention
     'choosing-playlist': {
       on: {
         selectPlaylist: {
@@ -116,11 +121,11 @@ const DanceMixMachine = createMachine({
 });
 
 const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = <template>
-  <div class='grid'>
+  <div class={{styles.header}}>
     <p>
       {{#if @playlist}}
         <strong>{{htmlSafe @playlist.name}}</strong><br />
-        <small>{{htmlSafe (if @playlist.description @playlist.description '')}}</small>
+        <small>{{htmlSafe (if @playlist.description @playlist.description "")}}</small>
       {{/if}}
     </p>
 
@@ -170,15 +175,7 @@ class Play extends Component<PlaySignature> {
   };
 
   mix = dropTask(
-    async ({
-      tracks,
-      duration,
-      pause
-    }: {
-      duration: number;
-      pause: number;
-      tracks: Track[];
-    }) => {
+    async ({ tracks, duration, pause }: { duration: number; pause: number; tracks: Track[] }) => {
       for (const track of tracks) {
         // start track
         await this.playTrackForDancing(track, duration);
@@ -186,6 +183,7 @@ class Play extends Component<PlaySignature> {
 
         // start countdown
         this.counter = duration;
+
         while (this.counter > 0) {
           await timeout(1000);
           this.counter--;
@@ -228,13 +226,14 @@ class Play extends Component<PlaySignature> {
     }
 
     this.args.finish();
-  }
+  };
 
   <template>
-    <div class='grid'>
+    <SpotifyPlayButton @intent="stop" {{on "click" this.stop}}>Stop</SpotifyPlayButton>
+    <div class={{styles.play}}>
       <ol class={{styles.tracks}}>
         {{#each this.tracks as |track|}}
-          <li aria-selected={{eq track this.spotify.client.track.data}}>
+          <li>
             {{track.name}}<br />
             <small>{{formatArtists track.artists}}</small>
           </li>
@@ -243,9 +242,6 @@ class Play extends Component<PlaySignature> {
 
       <div>
         <p class={{styles.counter}}>{{this.counter}}</p>
-
-        <SpotifyPlayButton @intent="stop" {{on 'click' this.stop}}>Stop</SpotifyPlayButton>
-        {{!-- <button type='button' >Stop</button> --}}
       </div>
     </div>
   </template>
@@ -272,40 +268,20 @@ class Lobby extends Component<LobbySignature> {
     };
   }
 
-  start = (event: SubmitEvent) => {
-    const data = new FormData(event.target as HTMLFormElement);
-
-    const params: GameParams = {
-      duration: Number.parseInt(data.get('duration') as string, 10),
-      pause: Number.parseInt(data.get('pause') as string, 10),
-      amount: Number.parseInt(data.get('amount') as string, 10)
-    };
-
-    this.args.play(params);
+  start = (data: GameParams) => {
+    this.args.play(data);
   };
 
   <template>
-    <form {{on 'submit' (preventDefault this.start)}}>
-      <label>
-        Dauer pro Lied [sec]:
-        <input type='number' name='duration' value={{this.params.duration}} />
-      </label>
+    <Form @data={{this.params}} @submit={{this.start}} as |f|>
+      <f.Number @name="duration" @label="Dauer pro Lied [sec]" />
+      <f.Number @name="pause" @label="Pause zwischen den Liedern [sec]" />
+      <f.Number @name="amount" @label="Lieder [Anzahl]" />
 
-      <label>
-        Pause zwischen den Liedern [sec]:
-        <input type='number' name='pause' value={{this.params.pause}} />
-      </label>
+      <MaybeSpotifyPlayerWarning />
 
-      <label>
-        Lieder [Anzahl]:
-        <input type='number' name='amount' value={{this.params.amount}} />
-      </label>
-
-      {{#unless (isReadyForPlayback)}}
-        ⚠️ Bitte Spotify Player auswählen
-      {{/unless}}
       <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
-    </form>
+    </Form>
   </template>
 }
 
@@ -341,9 +317,8 @@ class Game extends Component<DanceMixSignature> {
   };
 
   machine = useMachine(this, () => ({
-      machine: DanceMixMachine
-    })
-  );
+    machine: DanceMixMachine
+  }));
 
   //
   // Manage Playlist
@@ -357,16 +332,19 @@ class Game extends Component<DanceMixSignature> {
     }
 
     const playlistId = this.getParam(DanceMixParam.PlaylistId) as string;
+
     if (playlistId) {
       return playlistId;
     }
 
     const playlist = this.getParam(DanceMixParam.Playlist) as PlaylistOptions;
+
     if (playlist && PLAYLISTS[playlist]) {
       return PLAYLISTS[playlist];
     }
 
     const savedPlaylist = localStorage.getItem('dance-playlist') as string;
+
     if (savedPlaylist) {
       return savedPlaylist;
     }
@@ -377,8 +355,9 @@ class Game extends Component<DanceMixSignature> {
 
   playlist = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
 
-  selectPlaylist = (playlist: SpotifyApi.PlaylistObjectSimplified) => {
+  selectPlaylist = (playlist: Playlist) => {
     const id = playlist.id;
+
     localStorage.setItem('dance-playlist', id);
 
     this.selectedPlaylistId = id;
@@ -408,25 +387,24 @@ class Game extends Component<DanceMixSignature> {
   };
 
   <template>
-    {{#if (this.machine.state.matches 'choosing-playlist')}}
+    {{#if (this.machine.state.matches "choosing-playlist")}}
       <PlaylistChooser @select={{this.selectPlaylist}} />
-    {{else if (this.machine.state.matches 'preparing')}}
+    {{else if (this.machine.state.matches "preparing")}}
       <Header @playlist={{this.playlist.playlist}}>
-        {{#if (not this.playlistLocked)}}
+        {{#unless this.playlistLocked}}
 
-            <button
-              type='button'
-              disabled={{(this.machine.state.matches 'playing')}}
-              class='outline'
-              {{on 'click' (fn this.machine.send 'choosePlaylist')}}
-            >
-              Playlist wechseln
-            </button>
+          <Button
+            @importance="subtle"
+            @disabled={{this.machine.state.matches "playing"}}
+            @push={{fn this.machine.send "choosePlaylist"}}
+          >
+            Playlist wechseln
+          </Button>
 
-        {{/if}}
+        {{/unless}}
       </Header>
       <Lobby @duration={{@duration}} @pause={{@pause}} @amount={{@amount}} @play={{this.play}} />
-    {{else if (this.machine.state.matches 'playing')}}
+    {{else if (this.machine.state.matches "playing")}}
       <Header @playlist={{this.playlist.playlist}} />
       <Play
         @playlist={{this.playlist}}
@@ -439,18 +417,16 @@ class Game extends Component<DanceMixSignature> {
   </template>
 }
 
-export class DanceMix extends Component<DanceMixSignature> {
-  <template>
-    <h1>Dance Mix</h1>
+export const DanceMix: TOC<DanceMixSignature> = <template>
+  <h1>Dance Mix</h1>
 
-    <WithSpotify>
-      <Game
-        @amount={{@amount}}
-        @duration={{@duration}}
-        @pause={{@pause}}
-        @playlist={{@playlist}}
-        @playlistId={{@playlistId}}
-      />
-    </WithSpotify>
-  </template>
-}
+  <WithSpotify>
+    <Game
+      @amount={{@amount}}
+      @duration={{@duration}}
+      @pause={{@pause}}
+      @playlist={{@playlist}}
+      @playlistId={{@playlistId}}
+    />
+  </WithSpotify>
+</template>;

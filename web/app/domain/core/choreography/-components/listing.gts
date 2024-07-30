@@ -1,19 +1,22 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { Tag, TAGS } from '..';
-import styles from './listing.css';
-import { eq } from 'ember-truth-helpers';
-import { on } from '@ember/modifier';
-import { use } from 'ember-resources';
-import { findAwfulPractices } from '../-resource';
-import { TinaMarkdown } from '../../../supporting/tina';
-import { service } from '@ember/service';
 import { cached } from '@glimmer/tracking';
-import Task from 'ember-tasks';
+import { on } from '@ember/modifier';
+import { service } from '@ember/service';
 
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
+import { eq } from 'ember-truth-helpers';
+
+import { TinaMarkdown } from '../../../supporting/tina';
+import { TAGS } from '..';
+import { findAwfulPractices } from '../-resource';
+import styles from './listing.css';
+
+import type { Tag} from '..';
+import type { Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-import type { Maybe } from '@/tina/types';
 
 const TagUI: TOC<{
   Element: HTMLSpanElement;
@@ -24,9 +27,7 @@ const TagUI: TOC<{
 }> = <template>
   <span
     class={{styles.tag}}
-    data-tag={{@tag}}
-    aria-selected={{@selected}}
-    ...attributes
+    data-tag={{@tag}} ...attributes
   >{{@tag}}</span>
 </template>;
 
@@ -78,11 +79,13 @@ export default class ChoreographyNotTodoList extends Component {
         {{#each r.value as |principle|}}
           <details class={{styles.principle}}>
             <summary>
-              {{principle.title}}
               <span>
-                {{#each principle.tags as |tag|}}
-                  <TagUI @tag={{asTag tag}} />
-                {{/each}}
+                {{principle.title}}
+                <span>
+                  {{#each principle.tags as |tag|}}
+                    <TagUI @tag={{asTag tag}} />
+                  {{/each}}
+                </span>
               </span>
             </summary>
 

@@ -1,6 +1,6 @@
 import { tracked } from '@glimmer/tracking';
-import { set } from '@ember/object';
 import Controller from '@ember/controller';
+import { set } from '@ember/object';
 
 import { ALL_ASSISTANT_PARAMS } from '../domain/core/assistants';
 import { ALL_GAME_PARAMS } from '../domain/core/games';

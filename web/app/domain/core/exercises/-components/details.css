@@ -6,30 +6,6 @@
   padding-inline-start: 2.5em;
 }
 
-/* .layout {
-  display: grid;
-  grid-template-columns: calc(70% - 1rem) calc(30% - 1rem);
-  gap: 2rem;
-
-  .main :where(dl, ol, ul) {
-    --spacing: 1rem;
-  }
-
-  aside {
-    & > section {
-      border-radius: var(--border-radius);
-      background: var(--card-background-color);
-      box-shadow: var(--card-box-shadow);
-      padding: 1rem;
-    }
-
-    li a {
-      padding-left: 1.7em;
-      text-indent: -1.2em;
-    }
-  }
-} */
-
 .layout {
   display: flex;
   flex-wrap: wrap;
@@ -39,8 +15,10 @@
     margin-bottom: var(--block-spacing-vertical);
   }
 
-  .main :where(dl, ol, ul) {
-    --spacing: 1rem;
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-primitive0);
   }
 
   aside {

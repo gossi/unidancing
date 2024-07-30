@@ -1,0 +1,122 @@
+{
+  "s0": {
+    "$value": 16,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s1": {
+    "$value": 20,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s2": {
+    "$value": 26,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s3": {
+    "$value": 34,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s4": {
+    "$value": 44,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s-1": {
+    "$value": 12,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s-2": {
+    "$value": 10,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s-3": {
+    "$value": 8,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "s-4": {
+    "$value": 4,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls0": {
+    "$value": 16,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls-1": {
+    "$value": 12,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls-2": {
+    "$value": 10,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls-3": {
+    "$value": 8,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls-4": {
+    "$value": 4,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls1": {
+    "$value": 20,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls2": {
+    "$value": 26,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls3": {
+    "$value": 34,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "ls4": {
+    "$value": 44,
+    "$description": "",
+    "dynamic": true,
+    "$type": "number"
+  },
+  "sizing": {
+    "ratio": {
+      "$value": 1.25,
+      "$description": "",
+      "$type": "number"
+    },
+    "factor": {
+      "$value": 0.8,
+      "$description": "",
+      "$type": "number"
+    }
+  }
+}

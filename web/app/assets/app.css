@@ -1,25 +1,71 @@
-@import url("./sizing.css");
-
-/* For embroider-css-modules */
-body {
-  margin: 0;
-  min-height: 100vh;
+/* @font-face {
+  font-display: swap;
+  font-family: Inter;
+  font-style: oblique 0deg 10deg;
+  font-weight: 100 900;
+  src: url("/Inter.var.woff2?3.13") format("woff2-variations");
 }
 
+@font-face {
+  font-display: block;
+  font-family: "Inter Display";
+  font-style: oblique 0deg 10deg;
+  font-weight: 100 900;
+  src: url("/InterDisplay.var.woff2?3.13") format("woff2-variations");
+} */
+
+:root {
+  --typo-prose-family: "Inter", system-ui, sans-serif;
+  --typo-prose-feature-settings: "case" 1, "ss03" 1, "cv05" 1, "cv07", "kern" 1;
+  --typo-heading-feature-settings: "liga" 1, "calt" 1, "cv05" 1, "kern" 1;
+  --typo-heading-tracking: -0.018em;
+  --typo-heading-weight: 350;
+  --typo-display-family: "Inter Display", system-ui, sans-serif;
+  --typo-display-feature-settings: "liga" 1, "calt" 1, "salt" 1, "kern" 1;
+  --typo-display-weight: 300;
+  --typo-display-tracking: -0.003em;
+  --sizing-max-content-width: 60rem;
+  --inset-bottom: 0px; /* px for calc() later on */
+}
+
+body:has(div[data-player]) {
+  --inset-bottom: calc(var(--s0) * pow(2, 2.15));
+}
+
+/* For embroider-css-modules */
+
+/* body {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+} */
+
 main {
-  --spacing: 0.35rem;
+  padding-block-end: var(--inset-bottom);
+
+  ul {
+    padding-inline-start: 1em;
+  }
+
+  ol {
+    padding-inline-start: 1.25em;
+  }
+
+  dt {
+    font-weight: 550;
+  }
+
+  dd {
+    padding-inline-start: 1.25em;
+  }
+
+  dd + dt {
+    margin-block-start: 0.75em;
+  }
 }
 
 a {
-  --pico-text-decoration: none;
-}
-
-:root {
-  --background-alt: rgb(219 219 219 / 89.4%);
-
-  @media (prefers-color-scheme: dark) {
-    --background-alt: #18232c;
-  }
+  text-decoration: none;
 }
 
 :target {
@@ -27,3 +73,52 @@ a {
 }
 
 
+dialog:is([data-game], [data-assistant]) {
+  --top: calc(var(--spacing-container0) * 2 + var(--s0) * var(--line-height));
+
+  position: fixed;
+  top: var(--top);
+
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-container0);
+
+  width: auto;
+  height: calc(100vh - var(--top) - var(--spacing-container0) * 2 - var(--inset-bottom));
+  margin: var(--spacing-container0);
+  padding: var(--spacing-container0);
+
+  color: var(--typography-main);
+
+  background-color: var(--surface-popover);
+  box-shadow: 0 0 3px 3px #00000028, 0 0 6px 6px #00000026;
+
+  [part="body"] {
+    position: relative;
+    padding: var(--spacing-container0);
+  }
+
+  [part="close"] {
+    position: absolute;
+    top: var(--spacing-container-4);
+    right: var(--spacing-container-4);
+  }
+}
+
+/* 72rem = 60rem (--sizing-max-content-width) + "padding" */
+@media (width >= 72rem) {
+  dialog:is([data-game], [data-assistant]) {
+    right: 0;
+    left: 50%;
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+    width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
+  }
+
+  body:has(dialog:is([data-game], [data-assistant])) main > :is(header, div, [part="content"]) > :is(*, section) {
+    grid-template-columns: initial;
+    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+    width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
+  }
+}

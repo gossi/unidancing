@@ -1,6 +1,10 @@
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
+
+import { Page } from '@hokulea/ember';
+
 import { findGame } from '../games';
+
 import type { Game } from '../games';
 
 export class GamesRoute extends Route<{ game: string }> {
@@ -10,8 +14,9 @@ export class GamesRoute extends Route<{ game: string }> {
 
   <template>
     {{#if this.Game}}
-      {{!@glint-ignore}}
-      <this.Game />
+      <Page>
+        <this.Game />
+      </Page>
     {{/if}}
   </template>
 }

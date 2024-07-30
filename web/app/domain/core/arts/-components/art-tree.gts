@@ -1,5 +1,6 @@
-import { buildArtLink } from '..';
 import { on } from '@ember/modifier';
+
+import { buildArtLink } from '..';
 
 import type { Art } from '..';
 import type { TOC } from '@ember/component/template-only';
@@ -39,6 +40,6 @@ const Tree: TOC<{ Args: { nodes: ArtNode[] } }> = <template>
   </ul>
 </template>;
 
-const ArtTree: TOC<ArtTreeSignature> = <template><Tree @nodes={{(listToTree @arts)}} /></template>;
+const ArtTree: TOC<ArtTreeSignature> = <template><Tree @nodes={{listToTree @arts}} /></template>;
 
 export { ArtTree };

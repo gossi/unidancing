@@ -1,0 +1,39 @@
+.tracks {
+  padding-inline-start: 1.25em;
+
+  li {
+    margin-bottom: var(--spacing-container0);
+  }
+
+  [aria-selected] {
+    font-weight: bold;
+  }
+}
+
+.warning {
+  color: var(--indicator-warning-plain-text);
+}
+
+.counter {
+  position: sticky;
+  top: 0;
+
+  font-size: 8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
+  gap: var(--spacing-container-2);
+}
+
+.play {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-container-4);
+}

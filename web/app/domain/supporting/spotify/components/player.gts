@@ -1,16 +1,19 @@
 import Component from '@glimmer/component';
-import styles from './player.css';
+import { fn } from '@ember/helper';
+
+import { command } from 'ember-command';
 import { service } from 'ember-polaris-service';
+import { not } from 'ember-truth-helpers';
+
+import { Button, Icon, IconButton, Popover, popover } from '@hokulea/ember';
+
 import { formatArtists } from '../helpers';
-import { on } from '@ember/modifier';
-import { action } from '@ember/object';
-import { LoginWithSpotify } from './login-with-spotify';
-import pick from 'ember-composable-helpers/helpers/pick';
-import { Icon } from '../../ui';
-import type { Device } from '../domain-objects';
 import { device2Icon } from '../helpers';
 import { SpotifyService } from '../service';
-import { eq } from 'ember-truth-helpers';
+import { LoginWithSpotify } from './login-with-spotify';
+import styles from './player.css';
+
+import type { Device } from '../domain-objects';
 
 export class SpotifyPlayer extends Component {
   @service(SpotifyService) declare spotify: SpotifyService;
@@ -23,36 +26,76 @@ export class SpotifyPlayer extends Component {
     return this.client.track?.data;
   }
 
-  @action
-  async selectDevice(deviceId: string) {
-    const device = this.client.devices.find((dev) => dev.id === deviceId);
-    await this.client.selectDevice(device as Device);
+  get otherDevices() {
+    return this.client.devices.filter((dev) => dev.id !== this.client.device?.id);
   }
+
+  selectDevice = async (device: Device) => {
+    await this.client.selectDevice(device);
+  };
 
   <template>
     {{#if this.client.authenticated}}
       <div class={{styles.layout}}>
-        <p>
-          {{#if this.track}}
-            <strong>{{this.track.name}}</strong><br />
-            <small>{{formatArtists this.track.artists}}</small>
-          {{/if}}
-        </p>
+        {{#if this.client.device}}
+          <p>
+            {{#if this.track}}
+              <strong>{{this.track.name}}</strong><br />
+              <small>{{formatArtists this.track.artists}}</small>
+            {{/if}}
+          </p>
+        {{else}}
+          <p>
+            <Icon @icon="warning" @style="fill" class={{styles.warning}} />
+            Bitte Player auswählen
+            <Icon @icon="arrow-right" @style="thin" />
+          </p>
+        {{/if}}
 
-        <div class={{styles.devices}}>
-          <select {{on 'change' (pick 'target.value' this.selectDevice)}}>
-            <option>[Player auswählen]</option>
-            {{#each this.client.devices as |device|}}
-              <option selected={{eq device.id this.client.device.id}} value={{device.id}}>
-                <Icon @icon={{device2Icon device.type}} />
-                {{device.name}}
-              </option>
-            {{/each}}
-          </select>
-          <button type='button' class={{styles.reload}} {{on 'click' this.client.loadDevices}}><Icon
-              @icon='reload'
-            /></button>
-        </div>
+        {{#let (popover opened=this.client.loadDevices.perform) as |pop|}}
+          <IconButton
+            @icon="devices"
+            @style="bold"
+            @importance="plain"
+            @label="Spotify Player auswählen"
+            class={{styles.trigger}}
+            data-has-device={{this.client.device}}
+            data-need-device={{not this.client.device}}
+            {{pop.trigger}}
+          />
+
+          <Popover {{pop.target}} class={{styles.devices}}>
+            <b>Spotify Player</b>
+
+            {{#if this.client.device}}
+              <div>
+                <p>Aktueller Player</p>
+
+                <p>
+                  <Icon @icon={{device2Icon this.client.device.type}} />
+                  {{this.client.device.name}}
+                </p>
+              </div>
+            {{/if}}
+
+            {{#if this.otherDevices}}
+              <div>
+                <p>Anderen Player wählen</p>
+
+                {{#each this.client.devices as |device|}}
+                  <Button
+                    @push={{command (fn this.selectDevice device) pop.close}}
+                    @importance="plain"
+                  >
+                    <:before><Icon @icon={{device2Icon device.type}} /></:before>
+                    <:label>{{device.name}}</:label>
+                  </Button>
+                {{/each}}
+              </div>
+            {{/if}}
+          </Popover>
+        {{/let}}
+
       </div>
     {{else}}
       <LoginWithSpotify />

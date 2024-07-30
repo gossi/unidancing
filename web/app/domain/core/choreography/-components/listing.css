@@ -1,13 +1,13 @@
 .tag {
   background-color: #F5F5F5;
   border-radius: 4px;
-  color: var(--contrast);
   font-size: 80%;
   font-weight: 500;
   padding: .1em .3em;
+  color: var(--typography-main);
 
   @media (prefers-color-scheme: dark) {
-    color: var(--contrast-inverse);
+    color: var(--typography-inverse);
   }
 
   &:not([aria-selected]) {
@@ -15,37 +15,53 @@
   }
 
   &[data-tag="choreography"] {
-    background-color: aqua;
+    --color: aqua;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color)  vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="artistry"] {
-    background-color: coral;
+    --color: coral;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="tricks"] {
-    background-color: bisque;
+    --color: bisque;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="flow"] {
-    background-color: yellow;
+    --color: yellow;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="posture"] {
-    background-color: gold;
+    --color: gold;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="competition"] {
-    background-color: paleturquoise;
+    --color: paleturquoise;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="misc"] {
-    background-color: greenyellow;
+    --color: greenyellow;
+    background-color: var(--color);
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 }
 
 .principle {
-  summary {
-    display: flex;
+  summary > span {
+    display: inline-flex;
+    width: calc(100% - 1.5em);
+    flex-wrap: wrap;
 
     & > span {
       margin-inline-start: auto;
@@ -54,7 +70,7 @@
 
   details&[open] > :is(summary, summary:not(:focus), summary:focus:not([role="button"])) {
     color: unset;
-    font-weight: 550;
+    font-weight: 500;
     margin-bottom: 1em;
   }
 

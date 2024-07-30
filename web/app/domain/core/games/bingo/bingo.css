@@ -1,9 +1,18 @@
 .bingo {
   nav {
-    --form-element-spacing-vertical: 0.25em;
-    --form-element-spacing-horizontal: 0.5em;
-
+    display: flex;
+    justify-content: space-between;
     margin-bottom: 0.25em;
+
+    ul {
+      display: flex;
+      gap: var(--spacing-primitive0);
+      align-items: center;
+
+      padding: 0;
+
+      list-style-type: none;
+    }
   }
 
   nav > ul > li {
@@ -18,10 +27,13 @@
 }
 
 .bingoText {
+  transform: scale(0);
+
   display: flex;
   gap: 0.1em;
+
+  font-size: var(--s3);
   text-transform: uppercase;
-  transform: scale(0);
 
   & > span:nth-child(1) {
     color: purple;
@@ -49,69 +61,49 @@
 }
 
 .bingoTextVisible {
-  animation: 0.75s bounceIn;
   transform: scale(1);
+  animation: 0.75s bounceIn;
 }
 
 .counters {
   display: flex;
   flex-direction: column;
-  gap: 0.5em;
+  gap: var(--spacing-primitive0);
 }
 
-.counter {
-  --form-element-spacing-vertical: 0.25em;
-  --form-element-spacing-horizontal: 0.5em;
-  --spacing: 0;
+.form {
+  flex-direction: row;
+  align-items: flex-end;
 
-  align-items: center;
-  display: grid;
-  gap: 1em;
-  grid-template-columns: auto max-content max-content max-content;
-
-
-}
-
-.new {
-  --form-element-spacing-vertical: 0.25em;
-  --form-element-spacing-horizontal: 0.5em;
-
-  column-gap: 1em;
-  display: grid;
-  grid-template-columns: auto 40px;
-
-  label {
-    grid-column: 1 / span 2;
-  }
-
-  span {
-    font-size: 1.5em;
-    padding-left: 0.75rem;
+  & > div {
+    flex-grow: 1;
   }
 }
 
 .tile {
-  align-items: center;
-  border: 1px solid grey;
   display: flex;
-  font-size: 80%;
-  hyphens: auto;
+  align-items: center;
   justify-content: center;
+
   min-height: 100px;
   padding: 0.25rem;
+
+  font-size: 80%;
+  hyphens: auto;
   text-align: center;
 
-  &[aria-selected] {
-    /* background-color: var(--background-alt); */
-    background-color: var(--pico-mark-background-color);
-    border-color: var(--pico-mark-color);
-    color: var(--pico-mark-color);
+  border: 1px solid grey;
+
+  &[data-selected] {
+    color: var(--indicator-warning-subtle-text);
+    background-color: var(--indicator-warning-subtle-background);
+    border-color: var(--indicator-warning-plain-border);
   }
 
   &[data-winner] {
-    /* background-color: var(--background-alt); */
-    background-color: var(--pico-mark-background-color);
-    border-color: green;
+    color: var(--indicator-success-subtle-text);
+    background-color: var(--indicator-success-subtle-background);
+    border-color: var(--indicator-success-subtle-border);
     border-width: 2px;
   }
 }
@@ -127,8 +119,8 @@
   }
 
   0% {
-    opacity: 0;
     transform: scale3d(0.3, 0.3, 0.3);
+    opacity: 0;
   }
 
   20% {
@@ -140,8 +132,8 @@
   }
 
   60% {
-    opacity: 1;
     transform: scale3d(1.03, 1.03, 1.03);
+    opacity: 1;
   }
 
   80% {
@@ -149,7 +141,7 @@
   }
 
   100% {
-    opacity: 1;
     transform: scale3d(1, 1, 1);
+    opacity: 1;
   }
 }

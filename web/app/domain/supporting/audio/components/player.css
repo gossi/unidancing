@@ -1,12 +1,16 @@
 .player {
-  background-color: var(--pico-card-background-color);
-  border-top: 1px solid #000;
-  bottom: 0;
-  padding: var(--s0);
   position: fixed;
+  bottom: 0;
+
+  display: grid;
+  grid-template-columns: minmax(var(--spacing-container0), 1fr) minmax(200px, var(--sizing-max-content-width, 100%)) minmax(var(--spacing-container0), 1fr);
+
   width: 100%;
 
-  :global(.grid) :where(p, button, select) {
-    margin-bottom: 0;
+  background-color: var(--surface-container);
+  border-top: 1px solid #000;
+
+  & > * {
+    grid-column: 2 / 3;
   }
 }

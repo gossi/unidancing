@@ -1,4 +1,8 @@
-.main {
+.art {
+  header h1 {
+    padding-block-start: 0;
+  }
+
   iframe {
     margin-bottom: var(--block-spacing-vertical);
   }
