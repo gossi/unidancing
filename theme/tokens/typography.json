@@ -142,13 +142,13 @@
       "background": {
         "$value": [
           {
-            "value": "#f2e7a6",
+            "value": "#fdcee8",
             "features": {
               "color-scheme": "light"
             }
           },
           {
-            "value": "#064626",
+            "value": "#48042a",
             "features": {
               "color-scheme": "dark"
             }
