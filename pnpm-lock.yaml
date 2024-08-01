@@ -129,11 +129,11 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0(ember-template-lint@6.0.0)(prettier@3.3.3)
       '@hokulea/core':
-        specifier: ^0.0.3
-        version: 0.0.3
+        specifier: ^0.1.0
+        version: 0.1.0
       '@hokulea/ember':
-        specifier: ^0.2.0
-        version: 0.2.0(@babel/core@7.24.9)(@ember/test-helpers@3.3.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.4.0)(ember-command@2.0.3)(ember-concurrency@4.0.2)(ember-element-helper@0.8.6)(ember-link@3.2.0)(ember-modifier@4.2.0)(ember-source@5.10.1)(ember-svg-jar@2.4.9)
+        specifier: ^0.3.0
+        version: 0.3.0(@babel/core@7.24.9)(@ember/test-helpers@3.3.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.4.0)(ember-command@2.0.3)(ember-concurrency@4.0.2)(ember-element-helper@0.8.6)(ember-link@3.2.0)(ember-modifier@4.2.0)(ember-source@5.10.1)(ember-svg-jar@2.4.9)
       '@hokulea/ember-css-modules-config':
         specifier: ^0.2.0
         version: 0.2.0(ember-css-modules@2.0.1)(postcss@8.4.39)
@@ -4824,8 +4824,8 @@ packages:
       react: 18.2.0
     dev: true
 
-  /@hokulea/core@0.0.3:
-    resolution: {integrity: sha512-40PGAANAEwI5zcTqw/0/NuQ3Iz4ArwNChquo3LCl6/m83PaVNzuE12lnKsaevCp8iBozh4/+uxTBPX4Hb/AYEw==}
+  /@hokulea/core@0.1.0:
+    resolution: {integrity: sha512-AyOjdIukGdr84WRF15BtkXMpBK+CzWRYCRW0Ux8U7PXzggFLLdg03Wn6MhuV8D16AXZ9RBo2qM4E38nw6rbGKg==}
     engines: {node: '>= 20.*'}
     dev: true
 
@@ -4844,8 +4844,8 @@ packages:
       - postcss
     dev: true
 
-  /@hokulea/ember@0.2.0(@babel/core@7.24.9)(@ember/test-helpers@3.3.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.4.0)(ember-command@2.0.3)(ember-concurrency@4.0.2)(ember-element-helper@0.8.6)(ember-link@3.2.0)(ember-modifier@4.2.0)(ember-source@5.10.1)(ember-svg-jar@2.4.9):
-    resolution: {integrity: sha512-98XY9OENJcNCL46gNLSN6rmA5hEbMO0RvPVfKBp8sqlNGVcSQCYTpgEBPEVM/gwz52fNBsVVKkSyFb0X7s3Eaw==}
+  /@hokulea/ember@0.3.0(@babel/core@7.24.9)(@ember/test-helpers@3.3.0)(@glimmer/component@1.1.2)(@glimmer/tracking@1.1.2)(@glint/template@1.4.0)(ember-command@2.0.3)(ember-concurrency@4.0.2)(ember-element-helper@0.8.6)(ember-link@3.2.0)(ember-modifier@4.2.0)(ember-source@5.10.1)(ember-svg-jar@2.4.9):
+    resolution: {integrity: sha512-DGSP4kb0hqnWhLTc3kVSrNYvdqVTfm9UMReta4EbvXK4a7zsqtjKwwlALQuPO8eNMFloIOPwB2Xw/JnWVICCqA==}
     peerDependencies:
       '@ember/test-helpers': ^3.3.0
       '@glimmer/component': ^1.1.2
@@ -4871,11 +4871,11 @@ packages:
       '@floating-ui/dom': 1.6.7
       '@glimmer/component': 1.1.2(@babel/core@7.24.9)
       '@glimmer/tracking': 1.1.2
-      '@hokulea/core': 0.0.3
+      '@hokulea/core': 0.1.0
       '@phosphor-icons/core': 2.1.1
       change-case: 5.4.4
       debug: 4.3.5
-      decorator-transforms: 1.2.1(@babel/core@7.24.9)
+      decorator-transforms: 2.0.0(@babel/core@7.24.9)
       ember-aria-voyager: 0.0.2(@babel/core@7.24.9)(@ember/test-helpers@3.3.0)(ember-source@5.10.1)
       ember-async-data: 1.0.3(ember-source@5.10.1)
       ember-command: 2.0.3(@ember/test-helpers@3.3.0)(@glimmer/component@1.1.2)(@glint/template@1.4.0)(ember-element-helper@0.8.6)(ember-link@3.2.0)(ember-polaris-service@0.5.0)
@@ -19750,7 +19750,7 @@ packages:
     engines: {node: '>=8.0'}
     dependencies:
       date-format: 4.0.14
-      debug: 4.3.4(supports-color@8.1.1)
+      debug: 4.3.5
       flatted: 3.2.9
       rfdc: 1.3.1
       streamroller: 3.1.5
