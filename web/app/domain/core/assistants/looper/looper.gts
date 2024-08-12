@@ -18,48 +18,36 @@ import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
   findTrack,
   formatArtists,
+  isAuthenticated,
   MaybeSpotifyPlayerWarning,
   SpotifyPlayButton,
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
+import { data } from './data';
 import styles from './looper.css';
 
 import type { Track } from '../../../supporting/spotify';
+import type { LoopDescriptor, LoopTrackDescriptor } from './data';
 import type { TOC } from '@ember/component/template-only';
 
 const DEV = false;
 
 // describing the raw data
 
-interface RawLoopDescriptor {
-  name?: string;
-  start: number;
-  end: number;
-  description?: string;
-}
-
-interface RawLoopTrackDescriptor {
-  id: string;
-  trackId: string;
-  loops: RawLoopDescriptor[];
-}
-
-interface LoopData extends RawLoopDescriptor {
+interface LoopData extends LoopDescriptor {
   name: string;
   duration: number;
   track: Track;
   id: string;
 }
 
-interface LoopTrackData extends RawLoopTrackDescriptor {
+interface LoopTrackData extends LoopTrackDescriptor {
   track: Track;
   loops: LoopData[];
 }
 
-type Loops = RawLoopTrackDescriptor[];
-
-export const loadLoop = resourceFactory((loop: RawLoopTrackDescriptor) => {
+export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
   return resource(async ({ use: useResource }): Promise<LoopTrackData> => {
     const track = await useResource(findTrack(loop.trackId)).current;
 
@@ -78,92 +66,6 @@ export const loadLoop = resourceFactory((loop: RawLoopTrackDescriptor) => {
     };
   });
 });
-
-const data: Loops = [
-  // Radioactive by Imagine Dragons
-  {
-    id: 'radioactive',
-    trackId: '69yfbpvmkIaB10msnKT7Q5',
-    loops: [
-      {
-        start: 27787,
-        end: 82648,
-        description: 'verse + chorus'
-      }
-    ]
-  },
-  // Vikings - Axe and Sword
-  // https://open.spotify.com/track/4SnaUdWZrAIfmvwdclYWhn
-  // {
-  //   start: 82000,
-  //   end: 115000,
-  //   trackId: '4SnaUdWZrAIfmvwdclYWhn'
-  // }
-  // The Call
-  // https://open.spotify.com/track/2iI556oF2qwtac9r1RzrXo
-  {
-    id: 'the-call',
-    trackId: '2iI556oF2qwtac9r1RzrXo',
-    loops: [
-      {
-        name: 'half-chorus+bridge',
-        start: 70000,
-        end: 130700,
-        description: 'half first chorus (4/4) + bridge (6/8)'
-      },
-      {
-        name: 'bridge',
-        start: 90100,
-        end: 130700,
-        description: 'bridge (6/8)'
-      },
-      {
-        name: 'chorus+bridge',
-        start: 54089,
-        end: 130700,
-        description: 'full first chorus (4/4) + bridge (6/8)'
-      }
-    ]
-  },
-  // Underground by Lindsey Stirling
-  // https://open.spotify.com//track/2vcEiEb8cTgyeb0biKChCY
-  {
-    id: 'underground',
-    trackId: '2vcEiEb8cTgyeb0biKChCY',
-    loops: [
-      {
-        start: 63692,
-        end: 130065
-      }
-    ]
-  },
-  // Drakenblade by Epic North, Pauli Hausmann
-  // https://open.spotify.com/track/7uKw84AAmdvMIdxNyMmhSi
-  {
-    id: 'drakenblade',
-    trackId: '7uKw84AAmdvMIdxNyMmhSi',
-    loops: [
-      {
-        start: 96859,
-        end: 149846 // 149846
-      }
-    ]
-  },
-  // 75 bpm Easy Melodic Pop Backing Track for Drummers by Drumless Backing Tracks
-  // https://open.spotify.com/track/1aGz5VVyxzOcGcHbRtKkfL
-  {
-    id: 'drumless-melodic-pop',
-    trackId: '1aGz5VVyxzOcGcHbRtKkfL',
-    loops: [
-      {
-        name: 'short loop',
-        start: 47999,
-        end: 80006,
-        description: '10 Takte (3 als Intro)'
-      }
-    ]
-  }
-];
 
 class LoopService extends Service {
   @service(SpotifyService) declare spotify: SpotifyService;
@@ -310,9 +212,77 @@ const PlayButton: TOC<PlayButtonSignature> = <template>
   {{/if}}
 </template>;
 
+interface LoopSignature {
+  Args: {
+    track: LoopTrackDescriptor;
+    loop?: string;
+  };
+}
+
+class Loop extends Component<LoopSignature> {
+  @service(LoopService) declare loop: LoopService;
+  @service(AudioService) declare audio: AudioService;
+
+  loaded = false;
+
+  constructor(owner: unknown, args: LoopSignature['Args']) {
+    super(owner, args);
+
+    this.audio.player = AudioPlayer.Spotify;
+
+    registerDestructor(this, () => {
+      this.audio.player = undefined;
+
+      if (this.loaded && this.load.resolved) {
+        for (const loop of this.load.value.loops) {
+          if (this.loop.playing === loop) {
+            this.loop.stop();
+          }
+        }
+      }
+    });
+  }
+
+  @cached
+  get load() {
+    const promise = use(this, loadLoop(this.args.track)).current;
+
+    // eslint-disable-next-line ember/no-side-effects
+    this.loaded = true;
+
+    return Task.promise(promise);
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  getLoop = (track: LoopTrackData) => {
+    if (track.loops.length === 1) {
+      return track.loops[0];
+    } else if (this.args.loop) {
+      return track.loops.find((loop) => loop.name === this.args.loop);
+    }
+  };
+
+  <template>
+    {{#if (isAuthenticated)}}
+      {{#let this.load as |r|}}
+        {{#if r.resolved}}
+          {{#let (this.getLoop r.value) as |l|}}
+            {{#if l}}
+              <PlayButton @loop={{l}} />
+            {{/if}}
+          {{/let}}
+        {{/if}}
+      {{/let}}
+    {{else}}
+      Login mit Spotify
+    {{/if}}
+  </template>
+}
+
 interface LoopCardSignature {
   Args: {
-    loop: RawLoopTrackDescriptor;
+    loop: LoopTrackDescriptor;
   };
 }
 
@@ -374,7 +344,7 @@ class LoopCard extends Component<LoopCardSignature> {
 class Game extends Component {
   @service(AudioService) declare audio: AudioService;
 
-  constructor(owner: unknown, args: unknown) {
+  constructor(owner: unknown, args: object) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;
@@ -403,4 +373,4 @@ const Looper: TOC<object> = <template>
   </WithSpotify>
 </template>;
 
-export { Looper };
+export { Loop, Looper };

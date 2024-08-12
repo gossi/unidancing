@@ -1,5 +1,6 @@
 ---
 title: Ja genau, und dann...
+difficulty: beginner
 personal: 
 - pair
 tags:

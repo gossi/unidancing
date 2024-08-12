@@ -6,6 +6,8 @@ export { default as PlanningRoute } from './-routes/planning';
 export { default as PlanningAssistantsRoute } from './-routes/planning/assistants';
 export { default as PlanningGamesRoute } from './-routes/planning/games';
 export { default as PlanningIndexRoute } from './-routes/planning/index';
+export { default as PlanningPlansRoute } from './-routes/planning/plans';
+export { default as PlanningUnitsRoute } from './-routes/planning/units';
 
 // control
 

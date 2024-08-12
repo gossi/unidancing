@@ -1,6 +1,7 @@
 ---
 title: 'Waacking: Lines'
 excerpt: Lines im Waacking.
+difficulty: beginner
 locomotion:
   - pedes
 art: content/arts/waacking.md

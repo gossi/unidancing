@@ -1,0 +1,31 @@
+.tag {
+  color: var(--typography-main);
+
+  &[data-difficulty="beginner"] {
+    --color: #ACECA1;
+
+    background-color: var(--color);
+
+    /* color: color-contrast(var(--color)  vs var(--typography-main), var(--typography-inverse)); */
+  }
+
+  &[data-difficulty="intermediate"] {
+    --color: #91B7C7;
+
+    background-color: var(--color);
+
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
+  }
+
+  &[data-difficulty="advanced"] {
+    --color: #D0AAE3;
+
+    background-color: var(--color);
+
+    /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--typography-inverse);
+  }
+}

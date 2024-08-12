@@ -2,6 +2,7 @@ import { on } from '@ember/modifier';
 
 import { Card } from '@hokulea/ember';
 
+import { TinaMarkdown } from '../../../supporting/tina';
 import { Icon } from '../../../supporting/ui';
 import { buildMoveLink } from '../-resource';
 import styles from './teaser.css';
@@ -19,10 +20,10 @@ const MoveTeaser: TOC<MoveTeaserSignature> = <template>
   <Card class={{styles.teaser}}>
     <:header>
       <span>
-        <Icon @icon='move' />
+        <Icon @icon="move" />
 
         {{#let (buildMoveLink @move._sys.filename) as |l|}}
-          <a href={{l.url}} {{on 'click' l.transitionTo}}>
+          <a href={{l.url}} {{on "click" l.transitionTo}}>
             {{@move.title}}
           </a>
         {{/let}}
@@ -34,29 +35,9 @@ const MoveTeaser: TOC<MoveTeaserSignature> = <template>
       </div>
     </:header>
     <:body>
-      {{@move.excerpt}}
+      <TinaMarkdown @content={{@move.description}} />
     </:body>
   </Card>
-  {{!-- <article>
-    <header class={{styles.header}}>
-      <span>
-        <Icon @icon='move' />
-
-        {{#let (buildMoveLink @move._sys.filename) as |l|}}
-          <a href={{l.url}} {{on 'click' l.transitionTo}}>
-            {{@move.title}}
-          </a>
-        {{/let}}
-      </span>
-      <div>
-        {{#each @move.tags as |tag|}}
-          <code>{{tag}}</code>
-        {{/each}}
-      </div>
-    </header>
-
-    {{@move.excerpt}}
-  </article> --}}
 </template>;
 
 export { MoveTeaser };

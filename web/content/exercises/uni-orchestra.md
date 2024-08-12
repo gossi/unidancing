@@ -1,5 +1,6 @@
 ---
 title: Unicycle Orchestra
+difficulty: intermediate
 locomotion:
   - unicycle
 personal:

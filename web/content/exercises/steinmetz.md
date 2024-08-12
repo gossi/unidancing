@@ -1,6 +1,7 @@
 ---
 title: Steinmetz
 excerpt: Emotionen formen.
+difficulty: beginner
 locomotion:
   - pedes
 personal:

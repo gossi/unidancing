@@ -3,6 +3,7 @@ title: Michael Jackson Challenge
 excerpt: >-
   Die Choreographien des legendären Michael Jackson auf Tänzer und Einradfahrer
   transferieren.
+difficulty: intermediate
 locomotion:
   - pedes
   - unicycle

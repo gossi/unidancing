@@ -35,8 +35,8 @@ export class SpotifyPlayer extends Component {
   };
 
   <template>
-    {{#if this.client.authenticated}}
-      <div class={{styles.layout}}>
+    <div class={{styles.layout}}>
+      {{#if this.client.authenticated}}
         {{#if this.client.device}}
           <p>
             {{#if this.track}}
@@ -95,10 +95,9 @@ export class SpotifyPlayer extends Component {
             {{/if}}
           </Popover>
         {{/let}}
-
-      </div>
-    {{else}}
-      <LoginWithSpotify />
-    {{/if}}
+      {{else}}
+        <div><LoginWithSpotify /></div>
+      {{/if}}
+    </div>
   </template>
 }

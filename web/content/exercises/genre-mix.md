@@ -1,6 +1,7 @@
 ---
 title: Genre Mix
 excerpt: Moves auf verschiedene Musikstile umsetzen.
+difficulty: intermediate
 locomotion:
   - unicycle
 personal:

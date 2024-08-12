@@ -1,0 +1,90 @@
+.alert {
+  padding: var(--spacing-container0);
+
+  color: var(--alert-text);
+
+  background-color: var(--alert-background);
+  border: var(--shape-stroke);
+  border-color: var(--alert-border);
+  border-radius: var(--shape-radius-container);
+
+  &[data-indicator="info"] {
+    &[data-importance="supreme"] {
+      --alert-background: var(--indicator-info-supreme-background);
+      --alert-text: var(--indicator-info-supreme-text);
+      --alert-border: var(--indicator-info-supreme-border);
+    }
+
+    &[data-importance="subtle"] {
+      --alert-background: var(--indicator-info-subtle-background);
+      --alert-text: var(--indicator-info-subtle-text);
+      --alert-border: var(--indicator-info-subtle-border);
+    }
+
+    &[data-importance="plain"] {
+      --alert-background: var(--indicator-info-plain-background);
+      --alert-text: var(--indicator-info-plain-text);
+      --alert-border: var(--indicator-info-plain-border);
+    }
+  }
+
+  &[data-indicator="success"] {
+    &[data-importance="supreme"] {
+      --alert-background: var(--indicator-success-supreme-background);
+      --alert-text: var(--indicator-success-supreme-text);
+      --alert-border: var(--indicator-success-supreme-border);
+    }
+
+    &[data-importance="subtle"] {
+      --alert-background: var(--indicator-success-subtle-background);
+      --alert-text: var(--indicator-success-subtle-text);
+      --alert-border: var(--indicator-success-subtle-border);
+    }
+
+    &[data-importance="plain"] {
+      --alert-background: var(--indicator-success-plain-background);
+      --alert-text: var(--indicator-success-plain-text);
+      --alert-border: var(--indicator-success-plain-border);
+    }
+  }
+
+  &[data-indicator="warning"] {
+    &[data-importance="supreme"] {
+      --alert-background: var(--indicator-warning-supreme-background);
+      --alert-text: var(--indicator-warning-supreme-text);
+      --alert-border: var(--indicator-warning-supreme-border);
+    }
+
+    &[data-importance="subtle"] {
+      --alert-background: var(--indicator-warning-subtle-background);
+      --alert-text: var(--indicator-warning-subtle-text);
+      --alert-border: var(--indicator-warning-subtle-border);
+    }
+
+    &[data-importance="plain"] {
+      --alert-background: var(--indicator-warning-plain-background);
+      --alert-text: var(--indicator-warning-plain-text);
+      --alert-border: var(--indicator-warning-plain-border);
+    }
+  }
+
+  &[data-indicator="error"] {
+    &[data-importance="supreme"] {
+      --alert-background: var(--indicator-error-supreme-background);
+      --alert-text: var(--indicator-error-supreme-text);
+      --alert-border: var(--indicator-error-supreme-border);
+    }
+
+    &[data-importance="subtle"] {
+      --alert-background: var(--indicator-error-subtle-background);
+      --alert-text: var(--indicator-error-subtle-text);
+      --alert-border: var(--indicator-error-subtle-border);
+    }
+
+    &[data-importance="plain"] {
+      --alert-background: var(--indicator-error-plain-background);
+      --alert-text: var(--indicator-error-plain-text);
+      --alert-border: var(--indicator-error-plain-border);
+    }
+  }
+}

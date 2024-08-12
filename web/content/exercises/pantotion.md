@@ -1,6 +1,7 @@
 ---
 title: Pantotion
 excerpt: Non-Verbale Kommunikation von Emotionen (Senden und Empfangen).
+difficulty: intermediate
 locomotion:
   - unicycle
 personal:

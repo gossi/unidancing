@@ -1,6 +1,7 @@
 ---
 title: Double Dance
 excerpt: 'Choreo zu zweit auf einem Einrad, immer abwechselnd.'
+difficulty: beginner
 locomotion:
   - pedes
   - unicycle

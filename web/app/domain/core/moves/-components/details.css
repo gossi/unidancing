@@ -1,9 +1,7 @@
-.header {
-  margin-bottom: var(--typography-spacing-vertical);
-}
-
-.tagline {
-  padding-inline-start: 2.5em;
+.page {
+  header > p > p:not(:has(+ *)) {
+    padding: 0;
+  }
 }
 
 .layout {
@@ -23,10 +21,10 @@
 
   aside {
     & > section {
+      padding: 1rem;
       background: var(--card-background-color);
       border-radius: var(--border-radius);
       box-shadow: var(--card-box-shadow);
-      padding: 1rem;
     }
 
     li a {

@@ -1,0 +1,11 @@
+.tag {
+  padding: 0.25em;
+
+  font-size: 80%;
+  font-weight: 500;
+  color: var(--typography-code-text);
+  white-space: nowrap;
+
+  background-color: hsl(from var(--typography-code-background) h s calc(l - 3));
+  border-radius: 4px;
+}

@@ -1,6 +1,7 @@
 ---
 title: Whiskeymixer
 excerpt: Aufwärmspiel um den Kopf freizubekommen.
+difficulty: beginner
 personal:
   - group
 tags:

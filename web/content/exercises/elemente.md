@@ -3,6 +3,7 @@ title: Elemente
 excerpt: >-
   Darstellen von natürlichen Elementen (Wasser, Wind, Feuer, Erde) durch den
   Körper in Gruppen.
+difficulty: beginner
 locomotion:
   - pedes
 personal:

@@ -1,5 +1,6 @@
 ---
-title: Locking Doubles
+title: Locking Pairs / Doubles
+difficulty: intermediate
 ---
 
 

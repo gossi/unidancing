@@ -5,6 +5,7 @@ export const MoveCollection: Collection = {
   name: 'move',
   label: 'Moves',
   path: 'content/moves',
+  format: 'md',
   ui: {
     filename: {
       slugify: (values) => `${values?.title?.toLowerCase().replace(/ /g, '-')}`,
@@ -25,21 +26,14 @@ export const MoveCollection: Collection = {
       collections: ['art'],
     },
     {
-      type: "string",
-      name: "excerpt",
-      label: "Excerpt",
-      ui: {
-        component: 'textarea'
-      }
+      type: "rich-text",
+      name: "description",
+      label: "Bewegungsbeschreibung"
     },
     {
-      name: 'tags',
-      label: 'Tags',
-      type: 'string',
-      list: true,
-      ui: {
-        component: 'tags'
-      }
+      type: "rich-text",
+      name: "instruction",
+      label: "Anleitung"
     },
     VideoField,
     LinksField,
@@ -67,6 +61,15 @@ export const MoveCollection: Collection = {
       name: "body",
       label: "Body",
       isBody: true,
+    },
+    {
+      name: 'tags',
+      label: 'Tags',
+      type: 'string',
+      list: true,
+      ui: {
+        component: 'tags'
+      }
     },
   ]
 };

@@ -1,6 +1,7 @@
 ---
 title: 'Ja genau, und weil...'
 excerpt: Übung für Zwei Spieler zum Lernen von Anbieten und Annehmen.
+difficulty: beginner
 personal:
   - pair
 tags:

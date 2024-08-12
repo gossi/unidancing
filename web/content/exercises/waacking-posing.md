@@ -1,6 +1,7 @@
 ---
 title: 'Waacking: Posing'
 excerpt: Posing im Waacking.
+difficulty: beginner
 locomotion:
   - pedes
 art: content/arts/waacking.md

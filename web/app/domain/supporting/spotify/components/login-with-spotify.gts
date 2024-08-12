@@ -19,6 +19,6 @@ export class LoginWithSpotify extends Component {
     <a href="{{config.workerHostURL}}/spotify/login" {{on "click" this.loginWithSpotify}}>
       Login with Spotify
     </a><br />
-    (Login mit Spotify benötigt derzeit noch eine manuelle Freischaltung, bitte bei gossi melden).
+    (derzeit nur für ausgewählte Personen - wir arbeiten daran es für alle zugänglich zu machen).
   </template>
 }
