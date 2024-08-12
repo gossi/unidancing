@@ -3,7 +3,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "passThroughEnv": ["TINA_CLIENT_ID", "TINA_TOKEN"]
+      "passThroughEnv": ["TINA_CLIENT_ID", "TINA_TOKEN", "CF_PAGES_BRANCH"]
     },
     "start": {
       "dependsOn": ["^start"]
