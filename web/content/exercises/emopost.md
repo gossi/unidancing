@@ -1,14 +1,15 @@
 ---
 title: Emopost
 excerpt: Kommunikation von Emotionen im Stil von Stille Post.
+difficulty: beginner
 locomotion:
   - pedes
 personal:
   - group
-skills:
-  - data: content/skills/emotionen.md
 art: content/arts/acting.md
 technique: content/techniques/emotionen.md
+skills:
+  - data: content/skills/emotionen.md
 ---
 
 Die Gruppe positioniert sich als Reihe oder im Kreis, sitzend oder stehend.

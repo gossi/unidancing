@@ -35,6 +35,8 @@ Router.map(function () {
   });
   this.route('training', function () {
     this.route('planning', function () {
+      this.route('units');
+      this.route('plans');
       this.route('assistants');
       this.route('games');
     });

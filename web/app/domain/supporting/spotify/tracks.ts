@@ -26,28 +26,28 @@ export function getRandomTrack(list: Track[]): Track {
   return getRandomTracks(list, 1)[0];
 }
 
-export const playTrack = action(({ service }) => async (track: Track) => {
-  const client = service(SpotifyService).client;
-
-  await client.play({
-    uris: [track.uri]
-  });
-});
-
 function randomNumber(min: number, max: number) {
   return Math.random() * (max - min) + min;
 }
 
+export function getStartForDancing(track: Track, expectedDuration?: number) {
+  const duration =
+    expectedDuration ?? (track.duration_ms - track.duration_ms * randomNumber(30, 40)) / 1000;
+  const offset = randomNumber(15, 50) / 100;
+  const preferredStart = track.duration_ms * offset;
+  const minStart = track.duration_ms - duration * 1000;
+  const effectiveStart = Math.min(preferredStart, minStart);
+  const start = Math.max(0, effectiveStart);
+
+  return start;
+}
+
 export const playTrackForDancing = action(
   ({ service }) =>
-    async (track: Track, expectedDuration) => {
-      const client = service(SpotifyService).client;
+    async (track: Track, expectedDuration?: number) => {
+      const start = getStartForDancing(track, expectedDuration);
 
-      const offset = randomNumber(15, 50) / 100;
-      const preferredStart = track.duration_ms * offset;
-      const minStart = track.duration_ms - expectedDuration * 1000;
-      const effectiveStart = Math.min(preferredStart, minStart);
-      const start = Math.max(0, effectiveStart);
+      const client = service(SpotifyService).client;
 
       await client.play({
         uris: [track.uri],
@@ -56,3 +56,13 @@ export const playTrackForDancing = action(
       });
     }
 );
+
+export const playTrack = action(({ service }) => async (track: Track, start?: number) => {
+  const client = service(SpotifyService).client;
+
+  await client.play({
+    uris: [track.uri],
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    position_ms: start ?? 0
+  });
+});

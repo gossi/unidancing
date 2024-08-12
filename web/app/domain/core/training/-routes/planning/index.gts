@@ -5,28 +5,32 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 import { Page } from '@hokulea/ember';
 
-import { Features } from '../../../../supporting/ui';
+import { CardSection, Features } from '../../../../supporting/ui';
 
 export class TrainingPlanningIndexRoute extends Route<object> {
   <template>
     <Page @title="Trainingsplanung">
       <p>Trainingsgestaltung und Trainingspläne.</p>
 
-      <p>Zur Trainingsgestaltung bieten sich die zahlreichen <LinkTo
-      @route="exercises">Übungen</LinkTo> und die fertigen <LinkTo
-      @route="courses">Kurse</LinkTo> an.</p>
-
       <Features>
-        <ul>
-          <li>
-            <LinkTo @route='training.planning.assistants'>Hilfsmittel</LinkTo><br />
-            Interaktive Werkzeuge zur Trainingsgestaltung und -auswertung.
-          </li>
-          <li>
-            <LinkTo @route='training.planning.games'>Spiele</LinkTo><br />
-            Zur spielerischen Gestaltung für das Training.
-          </li>
-        </ul>
+        {{! <CardSection>
+          <:header><h2><LinkTo
+                @route="training.planning.plans"
+              >Trainingspläne</LinkTo></h2></:header>
+          <:body>
+
+            ...
+          </:body>
+        </CardSection> }}
+
+        <CardSection>
+          <:header><h2><LinkTo
+                @route="training.planning.units"
+              >Trainingsgestaltung</LinkTo></h2></:header>
+          <:body>
+            Zusammenstellung einer Trainigseinheit.
+          </:body>
+        </CardSection>
       </Features>
     </Page>
   </template>

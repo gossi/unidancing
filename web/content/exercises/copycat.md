@@ -1,6 +1,13 @@
 ---
 title: Copycat
 excerpt: Bewegungen vor- und nachmachen.
+media:
+  - label: Dance Mix
+    duration: 40
+    pause: 10
+    amount: 4
+    id: dancemix
+difficulty: beginner
 locomotion:
   - unicycle
 personal:
@@ -9,13 +16,6 @@ personal:
 skills:
   - data: content/skills/bewegungsrepertoire.md
   - data: content/skills/bewegungssehen.md
-games:
-  - name: dance-mix
-    label: Dance Mix
-    duration: 40
-    pause: 10
-    amount: 4
-    _template: dancemix
 ---
 
 Die Gruppe wird durch 1-2 abzählen in zwei Gruppen aufgeteilt und fahren

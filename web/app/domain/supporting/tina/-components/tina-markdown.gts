@@ -18,7 +18,7 @@ type TinaMarkdownContent = {
 
   // anyway
   children: TinaMarkdownContent[];
-}
+};
 
 function elementFor(type: string) {
   switch (type) {
@@ -51,53 +51,55 @@ function elementFor(type: string) {
   }
 }
 
-function contentToNodes(content: TinaMarkdownContent | TinaMarkdownContent[]): TinaMarkdownContent[] {
+function contentToNodes(
+  content: TinaMarkdownContent | TinaMarkdownContent[]
+): TinaMarkdownContent[] {
   return Array.isArray(content) ? content : content.children;
 }
 
 const TinaMarkdown: TOC<{
-  Args: { content: TinaMarkdownContent | TinaMarkdownContent[] }
+  Args: { content: TinaMarkdownContent | TinaMarkdownContent[] };
 }> = <template>
   {{#if @content}}
     {{#each (contentToNodes @content) as |node|}}
       {{! error handling }}
-      {{#if (eq node.type 'invalid_markdown')}}
+      {{#if (eq node.type "invalid_markdown")}}
         <pre>{{node.value}}</pre>
 
-      {{! handle text }}
-      {{else if (eq node.type 'text')}}
+        {{! handle text }}
+      {{else if (eq node.type "text")}}
         {{node.text}}
 
-      {{! handle special elements }}
-      {{else if (eq node.type 'break')}}
-        <br>
-      {{else if (eq node.type 'hr')}}
-        <hr>
-      {{else if (eq node.type 'img')}}
+        {{! handle special elements }}
+      {{else if (eq node.type "break")}}
+        <br />
+      {{else if (eq node.type "hr")}}
+        <hr />
+      {{else if (eq node.type "img")}}
         <img src={{node.url}} alt={{node.caption}} />
-      {{else if (eq node.type 'a')}}
+      {{else if (eq node.type "a")}}
         <a href={{node.url}}>
-          <TinaMarkdown @content={{node.children}}/>
+          <TinaMarkdown @content={{node.children}} />
         </a>
-      {{else if (eq node.type 'code_block')}}
+      {{else if (eq node.type "code_block")}}
         <pre>
           <code>{{node.value}}</code>
         </pre>
-      {{else if (or (eq node.type 'html') (eq node.type 'html_inline'))}}
+      {{else if (or (eq node.type "html") (eq node.type "html_inline"))}}
         {{htmlSafe node.value}}
 
-      {{! handle primitive elements }}
+        {{! handle primitive elements }}
       {{else}}
         {{#let (elementFor node.type) as |elem|}}
           {{#if elem}}
             {{#let (element elem) as |E|}}
-              <E><TinaMarkdown @content={{node.children}}/></E>
+              <E><TinaMarkdown @content={{node.children}} /></E>
             {{/let}}
           {{/if}}
         {{/let}}
       {{/if}}
     {{/each}}
   {{/if}}
-</template>
+</template>;
 
 export { TinaMarkdown };

@@ -1,6 +1,7 @@
 ---
 title: Gruppenemotionen
 excerpt: Gruppenübung zum Wiedergeben und Erkennen von Emotionen.
+difficulty: beginner
 locomotion:
   - pedes
 personal:

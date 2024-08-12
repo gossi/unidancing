@@ -1,26 +1,25 @@
 ---
 title: Mood Impro
 excerpt: Emotionen in der Musik erkennen und durch Bewegungen ausdrücken.
+media:
+  - label: Pair
+    duration: 60
+    pause: 5
+    amount: 4
+    playlist: mood
+    id: dancemix
+  - label: Individual
+    duration: 35
+    pause: 3
+    amount: 4
+    playlist: mood
+    id: dancemix
+difficulty: intermediate
 locomotion:
   - unicycle
 personal:
   - individual
   - pair
-games:
-  - name: dance-mix
-    label: Individual
-    duration: 35
-    pause: 3
-    amount: 4
-    playlist: mood
-    _template: dancemix
-  - name: dance-mix
-    label: Pair
-    duration: 60
-    pause: 5
-    amount: 4
-    playlist: mood
-    _template: dancemix
 art: content/arts/acting.md
 technique: content/techniques/emotionen.md
 ---

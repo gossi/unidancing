@@ -1,14 +1,12 @@
 .tag {
-  background-color: #F5F5F5;
-  border-radius: 4px;
+  padding: .1em .3em;
+
   font-size: 80%;
   font-weight: 500;
-  padding: .1em .3em;
   color: var(--typography-main);
 
-  @media (prefers-color-scheme: dark) {
-    color: var(--typography-inverse);
-  }
+  background-color: #F5F5F5;
+  border-radius: 4px;
 
   &:not([aria-selected]) {
     border: none;
@@ -16,52 +14,70 @@
 
   &[data-tag="choreography"] {
     --color: aqua;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color)  vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="artistry"] {
     --color: coral;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="tricks"] {
     --color: bisque;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="flow"] {
     --color: yellow;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="posture"] {
     --color: gold;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="competition"] {
     --color: paleturquoise;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
   }
 
   &[data-tag="misc"] {
     --color: greenyellow;
+
     background-color: var(--color);
+
     /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: var(--typography-inverse);
   }
 }
 
 .principle {
   summary > span {
     display: inline-flex;
-    width: calc(100% - 1.5em);
     flex-wrap: wrap;
+    width: calc(100% - 1.5em);
 
     & > span {
       margin-inline-start: auto;
@@ -69,9 +85,9 @@
   }
 
   details&[open] > :is(summary, summary:not(:focus), summary:focus:not([role="button"])) {
-    color: unset;
-    font-weight: 500;
     margin-bottom: 1em;
+    font-weight: 500;
+    color: unset;
   }
 
   & > *:not(summary) {

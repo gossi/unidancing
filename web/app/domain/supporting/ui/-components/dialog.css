@@ -1,0 +1,27 @@
+.dialog {
+  margin: auto;
+  padding: var(--spacing-container0);
+
+  color: var(--typography-main);
+
+  background-color: var(--surface-popover);
+  border-radius: var(--shape-radius-container);
+
+  [part="close"] {
+    position: absolute;
+    top: var(--spacing-container-2);
+    right: 0;
+  }
+
+  &[open]:has([part="header"]) {
+    display: grid;
+    gap: var(--spacing-container0);
+  }
+}
+
+.header {
+  font-size: var(--s2);
+
+  /* background-color: var(--surface-container1); */
+}
+

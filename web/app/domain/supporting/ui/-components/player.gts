@@ -1,7 +1,7 @@
 import { ability } from 'ember-ability';
 
+import { AudioPlayer, AudioService } from '../../audio';
 import { SpotifyPlayer } from '../../spotify';
-import { AudioPlayer, AudioService } from '../service';
 import styles from './player.css';
 
 const isSpotifyPlayer = ability((sweetOwner) => () => {
@@ -14,6 +14,6 @@ const Player = <template>
       <SpotifyPlayer />
     </div>
   {{/if}}
-</template>
+</template>;
 
 export { Player };

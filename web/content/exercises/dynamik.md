@@ -1,6 +1,7 @@
 ---
 title: Dynamik
 excerpt: 'Induktives, exploratives Training für dynamische Elemente für eine Einrad-Kür.'
+difficulty: beginner
 locomotion:
   - unicycle
 personal:

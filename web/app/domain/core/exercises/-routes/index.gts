@@ -11,6 +11,7 @@ import { Page } from '@hokulea/ember';
 
 import { ExerciseTeaser } from '../-components';
 import { findExercises } from '../-resource';
+import styles from './styles.css';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
@@ -35,19 +36,23 @@ export class ExercisesIndexRoute extends Route<object> {
       <:title>Übungen</:title>
       <:description>
         Zum Lernen von
-        <LinkTo @route='moves'>Moves</LinkTo>
+        <LinkTo @route="moves">Moves</LinkTo>
         und
-        <LinkTo @route='arts'>Körperkünsten</LinkTo>.
+        <LinkTo @route="arts">Körperkünsten</LinkTo>. Unter
+        <LinkTo @route="training.planning.units">Trainingsgestaltung</LinkTo>
+        ist der Einsatz für's Training beschrieben.
       </:description>
 
       <:content>
-        {{#let this.load as |r|}}
-          {{#if r.resolved}}
-            {{#each r.value as |exercise|}}
-              <ExerciseTeaser @exercise={{exercise}} />
-            {{/each}}
-          {{/if}}
-        {{/let}}
+        <div class={{styles.listing}}>
+          {{#let this.load as |r|}}
+            {{#if r.resolved}}
+              {{#each r.value as |exercise|}}
+                <ExerciseTeaser @exercise={{exercise}} />
+              {{/each}}
+            {{/if}}
+          {{/let}}
+        </div>
       </:content>
     </Page>
   </template>

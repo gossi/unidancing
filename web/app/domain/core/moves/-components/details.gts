@@ -18,9 +18,13 @@ export interface MoveDetailsSignature {
 }
 
 const MoveDetails: TOC<MoveDetailsSignature> = <template>
-  <Page>
-    <:title><Icon @icon='move' /> {{@move.title}}</:title>
+  <Page class={{styles.page}}>
+    <:title><Icon @icon="move" /> {{@move.title}}</:title>
     <:description>
+      {{#if @move.description}}
+        <TinaMarkdown @content={{@move.description}} />
+      {{/if}}
+
       {{#each @move.tags as |tag|}}
         <code>{{tag}}</code>
       {{/each}}
@@ -30,10 +34,13 @@ const MoveDetails: TOC<MoveDetailsSignature> = <template>
       <div class={{styles.layout}}>
         <section class={{styles.main}}>
           {{#if @move.video}}
-            <VideoPlayer @url={{@move.video}}/>
+            <VideoPlayer @url={{@move.video}} />
           {{/if}}
 
-          <TinaMarkdown @content={{@move.body}} />
+          {{#if @move.instruction}}
+            <h2>Anleitung</h2>
+            <TinaMarkdown @content={{@move.instruction}} />
+          {{/if}}
         </section>
 
         <aside>
@@ -46,8 +53,8 @@ const MoveDetails: TOC<MoveDetailsSignature> = <template>
                   {{#each @move.moves as |move|}}
                     <li>
                       {{#let (buildMoveLink (asString move.data._sys.filename)) as |l|}}
-                        <a href={{l.url}} {{on 'click' l.transitionTo}}>
-                          <Icon @icon='exercise' />
+                        <a href={{l.url}} {{on "click" l.transitionTo}}>
+                          <Icon @icon="exercise" />
                           {{move.data.title}}
                         </a>
                       {{/let}}
@@ -56,8 +63,8 @@ const MoveDetails: TOC<MoveDetailsSignature> = <template>
 
                   {{#each @move.links as |see|}}
                     <li>
-                      <a href={{see.url}} target='_blank' rel="noopener noreferrer">
-                        <Icon @icon='link' />
+                      <a href={{see.url}} target="_blank" rel="noopener noreferrer">
+                        <Icon @icon="link" />
                         {{if see.label see.label see.url}}
                       </a>
                     </li>

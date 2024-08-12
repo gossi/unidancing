@@ -1,9 +1,13 @@
 ---
 title: Chest Roll
-video: https://youtu.be/Eqevr-ZtFPs?t=32
+art: content/arts/dance.md
+description: |
+  Wellenbewegung durch den Brustkorb
+instruction: |
+  * Einatmen
+  * Schultern zurück ziehen
+  * Luft in den Magen drücken (Schultern und Bustkorb formen eine Höhle)
+  * von vorne beginnen
+video: 'https://youtu.be/Eqevr-ZtFPs?t=32'
 ---
 
-- Einatmen
-- Schultern zurück ziehen
-- Luft in den Magen drücken (Schultern und Bustkorb formen eine Höhle)
-- von vorne beginnen

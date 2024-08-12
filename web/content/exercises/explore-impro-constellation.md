@@ -3,6 +3,7 @@ title: Exploration Pair Impro Konstellationen
 excerpt: |-
   Paare die zusammen herausfinden, welche Konstellationen sich für Pair
   Improvisation anbieten.
+difficulty: intermediate
 locomotion:
   - unicycle
 personal:

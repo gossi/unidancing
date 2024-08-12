@@ -1,7 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-import type { Locomotion, Personal } from './-types';
-import type { Maybe } from '@/tina/types';
+import type { Locomotion, Personal } from './domain-objects';
 
 const enum HokuleaIcon {
   pedes = 'footprints',
@@ -31,10 +28,6 @@ export function getLocomotionText(locomotion: Locomotion) {
   }
 }
 
-export function asLocomotion(locomotion?: Locomotion | string | Maybe<string>): Locomotion {
-  return locomotion as Locomotion;
-}
-
 export function getPersonalIcon(personal: Personal) {
   return getHokuleaIcon(personal as unknown as Icons);
 }
@@ -52,6 +45,46 @@ export function getPersonalText(personal: Personal) {
   }
 }
 
-export function asPersonal(personal?: Personal | string | Maybe<string>): Personal {
-  return personal as Personal;
+const METHOD = {
+  lecture: 'Trainervortrag',
+  individual: 'Einzelübung',
+  pair: 'Partnerübung',
+  group: 'Gruppenübung',
+  discussion: 'Diskussion',
+  showcase: 'Showcase',
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  'frontal-teaching': 'Frontalunterricht'
+} as const;
+
+const METHOD_ABBR = {
+  lecture: 'TV',
+  individual: 'Einzel',
+  pair: 'Partner',
+  group: 'Gruppe',
+  discussion: 'Disc',
+  showcase: 'SC',
+  // eslint-disable-next-line @typescript-eslint/naming-convention
+  'frontal-teaching': 'FU'
+} as const;
+
+export function formatMethod(method: keyof typeof METHOD) {
+  return METHOD[method];
+}
+
+export function formatMethodAbbr(method: keyof typeof METHOD_ABBR) {
+  return METHOD_ABBR[method];
+}
+
+export function formatDuration(duration: number) {
+  const formatter = new Intl.DateTimeFormat('de', {
+    timeStyle: 'medium'
+  });
+
+  const d = new Date();
+
+  d.setHours(0);
+  d.setSeconds(0);
+  d.setMinutes(duration);
+
+  return formatter.format(d);
 }

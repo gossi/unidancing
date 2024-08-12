@@ -1,15 +1,16 @@
 ---
 title: Exploration Musikalischer Umsetzung
 excerpt: Fahrer finden anhand von Aufgaben eigene musikalische Umsetzungen heraus.
+difficulty: intermediate
 locomotion:
   - unicycle
 personal:
   - group
   - individual
-skills:
-  - data: content/skills/musikalische-umsetzung.md
 exercises:
   - data: content/exercises/dance-mix.md
+skills:
+  - data: content/skills/musikalische-umsetzung.md
 ---
 
 Gruppe ist auf der Fahrfläche verteilt. Als Musik wird der Dance-Mix eingesetzt

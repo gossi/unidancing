@@ -129,11 +129,11 @@ importers:
         specifier: ^0.8.0
         version: 0.8.0(ember-template-lint@6.0.0)(prettier@3.3.3)
       '@hokulea/core':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.2
+        version: 0.1.2
       '@hokulea/ember':
-        specifier: ^0.3.1
-        version: 0.3.1(r5mdcxw36rwjmjy63hvo3ww6ze)
+        specifier: ^0.3.2
+        version: 0.3.2(r5mdcxw36rwjmjy63hvo3ww6ze)
       '@hokulea/ember-css-modules-config':
         specifier: ^0.2.0
         version: 0.2.0(ember-css-modules@2.0.1)(postcss@8.4.39)
@@ -360,8 +360,8 @@ importers:
         specifier: ^1.5.2
         version: 1.5.2
       tinacms:
-        specifier: ^1.6.7
-        version: 1.6.7(@babel/core@7.24.9)(@babel/template@7.24.7)(@types/react@18.2.55)(abstract-level@1.0.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(scheduler@0.23.0)(typescript@5.5.3)
+        specifier: ^2.1.0
+        version: 2.1.0(@babel/core@7.24.9)(@babel/template@7.24.7)(@types/react@18.2.55)(abstract-level@1.0.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(scheduler@0.23.0)(typescript@5.5.3)
       tracked-built-ins:
         specifier: ^3.3.0
         version: 3.3.0
@@ -2407,8 +2407,8 @@ packages:
     peerDependencies:
       react: '>= 16'
 
-  '@hokulea/core@0.1.1':
-    resolution: {integrity: sha512-/3Q7LHSC6DJG/6Z9YvMUNxItWa6hi53DID0AlfzzDzfUUDMGlnygpjPkF0TE7N/AtbzdSl8hMYriMjryrT+ung==}
+  '@hokulea/core@0.1.2':
+    resolution: {integrity: sha512-Ce+2qPwEo0Dmn1SIIqv396URKUdLc6dwl2OFPacf0zfhNrBL3lnaFlFPg/8BrDuDui6526XHjsBDVcKWzuFVeQ==}
     engines: {node: '>= 20.*'}
 
   '@hokulea/ember-css-modules-config@0.2.0':
@@ -2417,8 +2417,8 @@ packages:
     peerDependencies:
       ember-css-modules: ^2.0.0
 
-  '@hokulea/ember@0.3.1':
-    resolution: {integrity: sha512-Bro/xLXI3Im7sbvb1zHCThHn2xKxFizyVQ8qqpAfsenygrf1b6WgJ9luXyTXRnjppDdmTUKguh0P5Z60BJNIWQ==}
+  '@hokulea/ember@0.3.2':
+    resolution: {integrity: sha512-nUUr0hZGHkQ5q70PvxWu5aC/MERgaj7ynROBB+ie/XITZB6Yl5Yv6IKnt8Fhok1UEy+s6M1vbf6k92pyhYs2Ug==}
     peerDependencies:
       '@ember/test-helpers': ^3.3.0
       '@glimmer/component': ^1.1.2
@@ -3089,8 +3089,14 @@ packages:
   '@tinacms/graphql@1.4.37':
     resolution: {integrity: sha512-ecj2MqF2rihd6rSgxXOirN65YmiaRyyNm6na6WWoMRiJatiX9RAbt5uxGnaWNVP32RlCxIWsWDJx2Xt7HhvS2g==}
 
+  '@tinacms/graphql@1.4.39':
+    resolution: {integrity: sha512-ZkiEp9+48wu5AfwOAtnfKvqN6tsTzqTmRDNmKamg63zjeVBADxxeNRTomltVS/jl4XfX9VS0eoy5iqM/haCWRQ==}
+
   '@tinacms/mdx@1.3.27':
     resolution: {integrity: sha512-olT4Dkh3K0CaGlufBHUQlkOk2ydY5MFhsctWrJpH68MivkmOwHQTlyFR30XOXS8O7lrvjTiaxc4S+vf8CR3Rvw==}
+
+  '@tinacms/mdx@1.3.29':
+    resolution: {integrity: sha512-xWvoLh9QMfh15+Fa1Eo8cnUn3ANARupgNiDwhCHcl/8VpcMtqocSNw6wn9v+19/9r5yfb7/kNeqbAR/D/OvHHw==}
 
   '@tinacms/metrics@1.0.4':
     resolution: {integrity: sha512-QCkvssNODRtcuraQzWpAv1OJIUV8KhoCA5Y8bdF1ZnI+8vkNDSqTuJVAk26LYSC3hpK97FJkSPN2FEy/ZEPgzg==}
@@ -3103,8 +3109,17 @@ packages:
       react: '>=16.14.0'
       yup: ^0.32.0
 
+  '@tinacms/schema-tools@1.5.0':
+    resolution: {integrity: sha512-O4cVAKVH5sLrvxGf7m8ufF1tubBvI18yyjMYmHMJ9Zva8Oj3POSHyBdkaNRp+rV1movA5AC9SQ4a5ryIMVzOfg==}
+    peerDependencies:
+      react: '>=16.14.0'
+      yup: ^0.32.0
+
   '@tinacms/search@1.0.22':
     resolution: {integrity: sha512-lbKzGj4TLl0/2HSutejsw4hji5jKSXh40CZ3/mWk3BdwJP2DixvNNT0tCrTFSEeAXT+Dt1TfR+k/jan+q5VtnA==}
+
+  '@tinacms/search@1.0.24':
+    resolution: {integrity: sha512-zmm+BspaIVY5qI7bIXHYMTd5sOEfeOdBt81XcFuBUY1gJLaUFUtb9oiVmFufDVR0aMFGEr7dWDGUU3u801blZg==}
 
   '@tinacms/sharedctx@1.0.3':
     resolution: {integrity: sha512-zOxhRJr9UYLey5MS18j7v7Y9KSObNq2t+m4eG4nNw0gehwnEV9aL1hZecN9tTzh2bq0Kjf/UdlVHW33Y+Upknw==}
@@ -9628,6 +9643,7 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     deprecated: |-
       You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+
       (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
 
   qs@6.11.0:
@@ -10837,6 +10853,12 @@ packages:
 
   tinacms@1.6.7:
     resolution: {integrity: sha512-Q2YO2qZQdtKQz344Bf3EXjqsKS6pxSsU7TSGLj/PUubBo8LlD6R4oHH/t+A2rHouLCqFprBibZDFnbz5dF0LAw==}
+    peerDependencies:
+      react: '>=16.14.0'
+      react-dom: '>=16.14.0'
+
+  tinacms@2.1.0:
+    resolution: {integrity: sha512-w0RtS26DK5YGm83AlRgLJ1cjPnSTw7AG+EoHIxeJkJNRCdWj/qRAaiu/FbCKRhVSNF5plL9ZrDzx08zQv9WUnw==}
     peerDependencies:
       react: '>=16.14.0'
       react-dom: '>=16.14.0'
@@ -14660,7 +14682,7 @@ snapshots:
     dependencies:
       react: 17.0.2
 
-  '@hokulea/core@0.1.1': {}
+  '@hokulea/core@0.1.2': {}
 
   '@hokulea/ember-css-modules-config@0.2.0(ember-css-modules@2.0.1)(postcss@8.4.39)':
     dependencies:
@@ -14672,14 +14694,14 @@ snapshots:
     transitivePeerDependencies:
       - postcss
 
-  '@hokulea/ember@0.3.1(r5mdcxw36rwjmjy63hvo3ww6ze)':
+  '@hokulea/ember@0.3.2(r5mdcxw36rwjmjy63hvo3ww6ze)':
     dependencies:
       '@embroider/addon-shim': 1.8.9
       '@embroider/macros': 1.16.5(@glint/template@1.4.0)
       '@floating-ui/dom': 1.6.7
       '@glimmer/component': 1.1.2(@babel/core@7.24.9)
       '@glimmer/tracking': 1.1.2
-      '@hokulea/core': 0.1.1
+      '@hokulea/core': 0.1.2
       '@phosphor-icons/core': 2.1.1
       change-case: 5.4.4
       debug: 4.3.5(supports-color@8.1.1)
@@ -15585,11 +15607,11 @@ snapshots:
       - supports-color
       - typescript
 
-  '@tinacms/graphql@1.4.37(react@17.0.2)(typescript@5.5.3)':
+  '@tinacms/graphql@1.4.39(react@17.0.2)(typescript@5.5.3)':
     dependencies:
       '@iarna/toml': 2.2.5
-      '@tinacms/mdx': 1.3.27(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)
-      '@tinacms/schema-tools': 1.4.18(react@17.0.2)(yup@0.32.11)
+      '@tinacms/mdx': 1.3.29(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)
+      '@tinacms/schema-tools': 1.5.0(react@17.0.2)(yup@0.32.11)
       abstract-level: 1.0.4
       date-fns: 2.30.0
       fast-glob: 3.3.2
@@ -15689,9 +15711,9 @@ snapshots:
       - typescript
       - yup
 
-  '@tinacms/mdx@1.3.27(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)':
+  '@tinacms/mdx@1.3.29(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)':
     dependencies:
-      '@tinacms/schema-tools': 1.4.18(react@17.0.2)(yup@0.32.11)
+      '@tinacms/schema-tools': 1.5.0(react@17.0.2)(yup@0.32.11)
       acorn: 8.8.2
       ccount: 2.0.1
       estree-util-is-identifier-name: 2.1.0
@@ -15742,6 +15764,14 @@ snapshots:
       yup: 0.32.11
       zod: 3.22.4
 
+  '@tinacms/schema-tools@1.5.0(react@17.0.2)(yup@0.32.11)':
+    dependencies:
+      picomatch-browser: 2.2.6
+      react: 17.0.2
+      url-pattern: 1.0.3
+      yup: 0.32.11
+      zod: 3.22.4
+
   '@tinacms/search@1.0.22(abstract-level@1.0.4)(react@17.0.2)(typescript@4.6.4)(yup@0.32.11)':
     dependencies:
       '@tinacms/graphql': 1.4.37(react@17.0.2)(typescript@4.6.4)
@@ -15776,10 +15806,10 @@ snapshots:
       - typescript
       - yup
 
-  '@tinacms/search@1.0.22(abstract-level@1.0.4)(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)':
+  '@tinacms/search@1.0.24(abstract-level@1.0.4)(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)':
     dependencies:
-      '@tinacms/graphql': 1.4.37(react@17.0.2)(typescript@5.5.3)
-      '@tinacms/schema-tools': 1.4.18(react@17.0.2)(yup@0.32.11)
+      '@tinacms/graphql': 1.4.39(react@17.0.2)(typescript@5.5.3)
+      '@tinacms/schema-tools': 1.5.0(react@17.0.2)(yup@0.32.11)
       memory-level: 1.0.0
       node-fetch: 2.7.0
       search-index: 4.0.0(abstract-level@1.0.4)
@@ -26622,7 +26652,7 @@ snapshots:
       - supports-color
       - typescript
 
-  tinacms@1.6.7(@babel/core@7.24.9)(@babel/template@7.24.7)(@types/react@18.2.55)(abstract-level@1.0.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(scheduler@0.23.0)(typescript@5.5.3):
+  tinacms@2.1.0(@babel/core@7.24.9)(@babel/template@7.24.7)(@types/react@18.2.55)(abstract-level@1.0.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(scheduler@0.23.0)(typescript@5.5.3):
     dependencies:
       '@floating-ui/dom': 1.6.7
       '@floating-ui/react-dom': 2.0.8(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
@@ -26632,10 +26662,9 @@ snapshots:
       '@monaco-editor/react': 4.4.5(monaco-editor@0.31.0)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       '@radix-ui/react-popover': 1.0.7(@types/react@18.2.55)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
       '@react-hook/window-size': 3.1.1(react@17.0.2)
-      '@tinacms/mdx': 1.3.27(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)
-      '@tinacms/schema-tools': 1.4.18(react@17.0.2)(yup@0.32.11)
-      '@tinacms/search': 1.0.22(abstract-level@1.0.4)(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)
-      '@tinacms/sharedctx': 1.0.3(react-dom@17.0.2(react@17.0.2))(react@17.0.2)
+      '@tinacms/mdx': 1.3.29(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)
+      '@tinacms/schema-tools': 1.5.0(react@17.0.2)(yup@0.32.11)
+      '@tinacms/search': 1.0.24(abstract-level@1.0.4)(react@17.0.2)(typescript@5.5.3)(yup@0.32.11)
       '@udecode/plate-headless': 21.5.0(@babel/core@7.24.9)(@babel/template@7.24.7)(@types/react@18.2.55)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(scheduler@0.23.0)(slate-history@0.93.0(slate@0.94.1))(slate-hyperscript@0.77.0(slate@0.94.1))(slate-react@0.97.2(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(slate@0.94.1))(slate@0.94.1)
       color-string: 1.9.1
       crypto-js: 4.2.0
@@ -26647,8 +26676,8 @@ snapshots:
       graphql: 15.8.0
       graphql-tag: 2.12.6(graphql@15.8.0)
       is-hotkey: 0.2.0
+      lodash: 4.17.21
       lodash.get: 4.4.2
-      lodash.set: 4.3.2
       moment: 2.29.4
       monaco-editor: 0.31.0
       prism-react-renderer: 2.3.1(react@17.0.2)

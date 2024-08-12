@@ -1,6 +1,7 @@
 ---
 title: Bewegungsschlange
 excerpt: Aufwärmspiel mit lustigen Bewegungen.
+difficulty: beginner
 locomotion:
   - pedes
 personal:

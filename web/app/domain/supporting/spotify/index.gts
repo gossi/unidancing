@@ -7,6 +7,7 @@ export { SpotifyAuthRoute } from './routes/auth';
 // components
 export { LoginWithSpotify } from './components/login-with-spotify';
 export { MaybeSpotifyPlayerWarning } from './components/maybe-spotify-player-warning';
+export { PlayTrack } from './components/play-track';
 export { SpotifyPlayer } from './components/player';
 export { PlaylistChooser } from './components/playlist-chooser';
 export { SpotifyPlayButton } from './components/spotify-play-button';
@@ -24,4 +25,10 @@ export { formatArtists } from './helpers';
 // music
 export * from './abilities';
 export * from './domain-objects';
-export { getRandomTrack, getRandomTracks, playTrack, playTrackForDancing } from './tracks';
+export {
+  getRandomTrack,
+  getRandomTracks,
+  getStartForDancing,
+  playTrack,
+  playTrackForDancing
+} from './tracks';

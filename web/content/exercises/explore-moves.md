@@ -1,6 +1,7 @@
 ---
 title: Exploration von Moves
 excerpt: Aneignen von Moves.
+difficulty: beginner
 locomotion:
   - pedes
   - unicycle

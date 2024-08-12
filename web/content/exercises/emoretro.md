@@ -1,6 +1,7 @@
 ---
 title: Emoretro
 excerpt: Erkennen von Emotionen üben.
+difficulty: beginner
 locomotion:
   - pedes
 personal:

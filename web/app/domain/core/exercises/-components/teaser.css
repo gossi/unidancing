@@ -3,8 +3,14 @@
   flex-direction: column;
 
   [part="header"] {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    gap: var(--spacing-primitive-4);
+
+    div {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--spacing-primitive-4);
+    }
   }
 
   [part="body"] {
@@ -17,16 +23,18 @@
     ul {
       display: flex;
       flex-flow: row wrap;
-      font-size: 80%;
       gap: 0.5em;
       justify-content: flex-end;
+
       margin: 0;
       padding: 0;
+
+      font-size: 80%;
     }
 
     li {
-      list-style-type: none;
       text-wrap: nowrap;
+      list-style-type: none;
     }
   }
 }

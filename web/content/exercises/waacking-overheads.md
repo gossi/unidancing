@@ -1,6 +1,7 @@
 ---
 title: 'Waacking: Overheads'
 excerpt: Overheads zählen zu den Grundbewegungen im Waacking.
+difficulty: beginner
 locomotion:
   - pedes
 art: content/arts/waacking.md
