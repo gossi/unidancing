@@ -1,0 +1,27 @@
+.home [part="content"] section {
+  grid-template-columns: subgrid;
+  padding-block: var(--spacing-container0);
+
+  & > div {
+    display: grid;
+    flex-direction: column;
+    gap: var(--spacing-container1);
+  }
+
+  &:nth-child(even) {
+    grid-column: 1 / 4;
+    text-align: right;
+    background-color: var(--surface-container1);
+    clip-path: polygon(
+      0 6%, /* left top */
+      100% 0, /* right top */
+      100% 94%, /* right bottom */
+      0 100% /* left bottom */
+    );
+
+    & > div {
+      grid-column: 2 / 3;
+      padding-block: var(--spacing-container0) var(--spacing-container2);
+    }
+  }
+}
