@@ -1,77 +1,79 @@
-import { LinkTo } from '@ember/routing';
-
+import { link } from 'ember-link';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { Button, Page } from '@hokulea/ember';
 
-import { CardSection, Features, Icon } from '../../../supporting/ui';
+import styles from './home.css';
 
 class HomeRoute extends Route<object> {
   <template>
-    <Page>
+    <Page class={{styles.home}}>
       <:title>UniDancing</:title>
       <:description><i>Eine Bewegungskunst</i></:description>
       <:content>
-        <Features>
-          <CardSection>
-            <:header as |Headline|><Headline><Icon @icon='motion' /> Bewegungen</Headline></:header>
-            <:body>
-              <ul>
-                <li>
-                  <LinkTo @route='moves'>Moves</LinkTo><br>
-                  Spezielle Auswahl von Bewegungen und Körpertechniken für
-                  Einradfahrer, die deiner Kür Charakter verleihen.
-                </li>
-              </ul>
-            </:body>
-          </CardSection>
+        <section>
+          <div>
+            <h2>Moves &amp; Künste</h2>
 
-          <CardSection>
-            <:header as |Headline|><Headline><Icon @icon='learn' /> Lernen</Headline></:header>
+            <p>
+              Spezielle Auswahl von Bewegungen und Körpertechniken für Einradfahrer, die deiner Kür
+              Charakter verleihen.
+            </p>
 
-            <:body>
-              <ul>
-                <li><LinkTo @route='exercises'>Übungen</LinkTo><br>
-                  mit denen du Bewegungen und Körperkunst lernst.</li>
-                <li><LinkTo @route='courses'>Kurse</LinkTo><br>
-                  zusammenhängenden Übungen für ein Lernziel.</li>
-              </ul>
-            </:body>
-          </CardSection>
+            <div>
+              <Button @push={{link "moves"}}>
+                Moves
+              </Button>
 
-          <CardSection>
-            <:header as |Headline|><Headline><Icon @icon='training' /> Training</Headline></:header>
+              <Button @push={{link "arts"}} @importance="subtle">
+                Künste
+              </Button>
+            </div>
+          </div>
+        </section>
 
-            <:body>
-              <ul>
-                <li>
-                  <LinkTo @route='training.planning'>Planung</LinkTo><br />
-                  Trainingsgestaltung und Trainingspläne.
-                </li>
-                <li>
-                  <LinkTo @route='training.control'>Steuerung</LinkTo><br />
-                  Steuergrößen für das Kür-Training.
-                </li>
-                <li>
-                  <LinkTo @route='training.diagnostics'>Diagnostik</LinkTo><br />
-                  Kenngrößen und -werte für die Trainingsanalyse von Küren.
-                </li>
-              </ul>
-            </:body>
-          </CardSection>
+        <section>
+          <div>
+            <h2>Lernen</h2>
 
-          <CardSection>
-            <:header as |Headline|><Headline><Icon @icon='literature' /> Nachlesen</Headline></:header>
+            <p>
+              Nützliche Übungen und Kurse, die dir alle Grundlagen und wichtige Bewegungen
+              beibringen.
+            </p>
 
-            <:body>
-              <ul>
-                <li><LinkTo @route='choreography'>Choreographie</LinkTo> Hub</li>
-                <li><LinkTo @route='skills'>Artistische Fertigkeiten</LinkTo></li>
-              </ul>
-            </:body>
-          </CardSection>
-        </Features>
+            <div>
+              <Button @push={{link "exercises"}}>
+                Übungen
+              </Button>
+
+              <Button @push={{link "courses"}} @importance="subtle">
+                Kurse
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <div>
+            <h2>Training</h2>
+
+            <p>
+              Für Trainer zur Planung und Gestaltung des Trainigs, sowie Diagnostik zur
+              Leistungskontrolle.
+            </p>
+
+            <div>
+              <Button @push={{link "training.planning.units"}}>
+                Trainingsgestaltung
+              </Button>
+
+              <Button @push={{link "training.diagnostics"}} @importance="subtle">
+                Diagnostik
+              </Button>
+            </div>
+          </div>
+        </section>
       </:content>
     </Page>
   </template>
