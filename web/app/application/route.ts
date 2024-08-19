@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import { isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
 
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -12,21 +13,21 @@ export default class ApplicationRoute extends Route {
   constructor(owner?: Owner) {
     super(owner);
 
-    this.pageTitle.titleDidUpdate = (title: string) => {
-      const page = this.router.currentURL;
-      const name = this.router.currentRouteName || 'unknown';
+    if (macroCondition(!isDevelopingApp() && !isTesting())) {
+      this.pageTitle.titleDidUpdate = (title: string) => {
+        const page = this.router.currentURL;
+        const name = this.router.currentRouteName || 'unknown';
 
-      try {
-        // @ts-expect-error piwik types
-        _paq.push(['setCustomUrl', page]);
-        // @ts-expect-error piwik types
-        _paq.push(['setDocumentTitle', title.replace(' | UniDancing', '')]);
-        // @ts-expect-error piwik types
-        _paq.push(['trackPageView', name]);
-      } catch {
-        // fastboot will report on document to not be defined, but also doesn't let
-        // you check for it
-      }
-    };
+        try {
+          // @ts-expect-error piwik types
+          _paq.push(['setCustomUrl', page]);
+          // @ts-expect-error piwik types
+          _paq.push(['trackPageView', title.replace(' | UniDancing', '') ?? name]);
+        } catch {
+          // fastboot will report on document to not be defined, but also doesn't let
+          // you check for it
+        }
+      };
+    }
   }
 }

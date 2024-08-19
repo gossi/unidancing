@@ -86,6 +86,9 @@ importers:
       '@embroider/core':
         specifier: ^3.4.14
         version: 3.4.14(@glint/template@1.4.0)
+      '@embroider/macros':
+        specifier: ^1.16.5
+        version: 1.16.5(@glint/template@1.4.0)
       '@embroider/router':
         specifier: ^2.1.8
         version: 2.1.8(@embroider/core@3.4.14(@glint/template@1.4.0))
