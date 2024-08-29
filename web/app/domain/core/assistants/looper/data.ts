@@ -96,5 +96,21 @@ export const data: Loops = [
         description: '10 Takte (3 als Intro)'
       }
     ]
+  },
+  {
+    id: 'amelie',
+    trackId: '14rZjW3RioG7WesZhYESso',
+    loops: [
+      {
+        description: 'Anfang',
+        start: 0,
+        end: 48401
+      },
+      {
+        description: 'Ref + Verse + Bridge',
+        start: 48741,
+        end: 108193
+      }
+    ]
   }
 ];
