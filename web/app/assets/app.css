@@ -86,7 +86,7 @@ dialog:is([data-game], [data-assistant]) {
   gap: var(--spacing-container0);
 
   width: auto;
-  height: calc(100vh - var(--top) - var(--spacing-container0) * 2 - var(--inset-bottom));
+  height: calc(100dvh - var(--top) - var(--spacing-container0) * 2 - var(--inset-bottom));
   margin: var(--spacing-container0);
   padding: var(--spacing-container0);
 
