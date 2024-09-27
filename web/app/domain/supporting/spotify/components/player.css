@@ -30,9 +30,8 @@
 }
 
 .devices:popover-open {
-  position: sticky;
-  bottom: 5rem;
-  left: 100vw;
+  position: absolute;
+  inset: auto var(--spacing-container-1) 5rem auto;
 
   display: flex;
   flex-direction: column;
@@ -53,5 +52,10 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  @media (width >= 72rem) {
+    /* left: calc(50% + var(--sizing-max-content-width) / 2); */
+    right: calc((100% - var(--sizing-max-content-width)) / 2);
   }
 }
