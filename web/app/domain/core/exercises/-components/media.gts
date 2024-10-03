@@ -7,6 +7,7 @@ import type {
   ExerciseMedia,
   ExerciseMediaDancemix,
   ExerciseMediaLoop,
+  ExerciseMediaMaterial,
   ExerciseMediaSong
 } from '../domain-objects';
 import type { TOC } from '@ember/component/template-only';
@@ -38,6 +39,12 @@ function isSong(media: ExerciseMedia | ExerciseInstructionMedia): media is Exerc
   );
 }
 
+function isMaterial(
+  media: ExerciseMedia | ExerciseInstructionMedia
+): media is ExerciseMediaMaterial {
+  return media.__typename === 'ExerciseInstructionMediaMaterial';
+}
+
 export const Media: TOC<MediaSignature> = <template>
   {{#each @media as |m|}}
     {{#if (isDanceMix m)}}
@@ -50,6 +57,10 @@ export const Media: TOC<MediaSignature> = <template>
 
     {{#if (isSong m)}}
       <Song @media={{m}} />
+    {{/if}}
+
+    {{#if (isMaterial m)}}
+      {{m.material}}
     {{/if}}
   {{/each}}
 </template>;
