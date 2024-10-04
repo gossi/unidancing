@@ -173,6 +173,9 @@ importers:
       '@unidancing/theme':
         specifier: workspace:*
         version: link:../theme
+      '@xstate/inspect':
+        specifier: ^0.8.0
+        version: 0.8.0(ws@8.16.0)(xstate@4.38.3)
       broccoli-asset-rev:
         specifier: ^3.0.0
         version: 3.0.0
@@ -362,6 +365,9 @@ importers:
       spotify-web-api-js:
         specifier: ^1.5.2
         version: 1.5.2
+      spotify-web-playback:
+        specifier: ^1.4.0
+        version: 1.4.0
       tinacms:
         specifier: ^2.1.0
         version: 2.1.0(@babel/core@7.24.9)(@babel/template@7.24.7)(@types/react@18.2.55)(abstract-level@1.0.4)(react-dom@17.0.2(react@17.0.2))(react@17.0.2)(scheduler@0.23.0)(typescript@5.5.3)
@@ -3869,6 +3875,16 @@ packages:
     resolution: {integrity: sha512-2WALfTl4xo2SkGCYRt6rDTFfk9R1czmBvUQy12gK2KuRKIpWEhcbbzy8EZXtz/jkRqHX8bFEc6FC1HjX4TUWYw==}
     engines: {node: '>=10.0.0'}
 
+  '@xstate/inspect@0.8.0':
+    resolution: {integrity: sha512-wSkFeOnp+7dhn+zTThO0M4D2FEqZN9lGIWowJu5JLa2ojjtlzRwK8SkjcHZ4rLX8VnMev7kGjgQLrGs8kxy+hw==}
+    peerDependencies:
+      '@types/ws': ^8.0.0
+      ws: ^8.0.0
+      xstate: ^4.37.0
+    peerDependenciesMeta:
+      '@types/ws':
+        optional: true
+
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
 
@@ -6548,6 +6564,9 @@ packages:
 
   fast-ordered-set@1.0.3:
     resolution: {integrity: sha512-MxBW4URybFszOx1YlACEoK52P6lE3xiFcPaGCUZ7QQOZ6uJXKo++Se8wa31SjcZ+NC/fdAWX7UtKEfaGgHS2Vg==}
+
+  fast-safe-stringify@2.1.1:
+    resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
   fast-sourcemap-concat@2.1.1:
     resolution: {integrity: sha512-7h9/x25c6AQwdU3mA8MZDUMR3UCy50f237egBrBkuwjnUZSmfu4ptCf91PZSKzON2Uh5VvIHozYKWcPPgcjxIw==}
@@ -10493,6 +10512,9 @@ packages:
 
   spotify-web-api-js@1.5.2:
     resolution: {integrity: sha512-ie1gbg1wCabfobIkXTIBLUMyULS/hMCpF44Cdx2pAO0/+FrjhNSDjlDzcwCEDy+ZIo3Fscs+Gkg/GTeQ/ijo+Q==}
+
+  spotify-web-playback@1.4.0:
+    resolution: {integrity: sha512-hZsYJ4xgkz7eUe9QVM+7wqT1hhFTRrW5q2VDVRK46gfIuIka6wsN/DQnL7Nf8OvvcFdRf0ksjP64ARN/wPljtA==}
 
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
@@ -17404,6 +17426,12 @@ snapshots:
 
   '@xmldom/xmldom@0.8.10': {}
 
+  '@xstate/inspect@0.8.0(ws@8.16.0)(xstate@4.38.3)':
+    dependencies:
+      fast-safe-stringify: 2.1.1
+      ws: 8.16.0
+      xstate: 4.38.3
+
   '@xtuc/ieee754@1.2.0': {}
 
   '@xtuc/long@4.2.2': {}
@@ -21256,6 +21284,8 @@ snapshots:
   fast-ordered-set@1.0.3:
     dependencies:
       blank-object: 1.0.2
+
+  fast-safe-stringify@2.1.1: {}
 
   fast-sourcemap-concat@2.1.1:
     dependencies:
@@ -25965,6 +25995,8 @@ snapshots:
       tslib: 2.6.2
 
   spotify-web-api-js@1.5.2: {}
+
+  spotify-web-playback@1.4.0: {}
 
   sprintf-js@1.0.3: {}
 

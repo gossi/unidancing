@@ -1,3 +1,5 @@
+import { importSync, isDevelopingApp, macroCondition } from '@embroider/macros';
+
 import config from '@unidancing/app/config/environment';
 import { task, timeout } from 'ember-concurrency';
 import Service from 'ember-polaris-service';
@@ -5,6 +7,7 @@ import Service from 'ember-polaris-service';
 import { deserialize, isSSR } from '../utils';
 import { SpotifyClient } from './client';
 
+import type { inspect as Inspect } from '@xstate/inspect';
 import type { Scope } from 'ember-polaris-service';
 
 interface SpotifyStorage {
@@ -21,7 +24,7 @@ export class SpotifyService extends Service {
 
   redirectAfterLogin?: string;
 
-  client = SpotifyClient.from(this, () => []);
+  client = new SpotifyClient();
 
   constructor(scope: Scope) {
     super(scope);
@@ -32,6 +35,16 @@ export class SpotifyService extends Service {
       this.#storage = data ? (JSON.parse(data) as SpotifyStorage) : {};
 
       void this.restore();
+
+      if (macroCondition(isDevelopingApp())) {
+        const { inspect } = importSync('@xstate/inspect') as { inspect: typeof Inspect };
+
+        inspect({
+          // options
+          // url: 'https://stately.ai/viz?inspect', // (default)
+          iframe: false // open in new window
+        });
+      }
     }
   }
 

@@ -476,7 +476,6 @@ class Game extends Component {
 
   dance = async (context: Context, { track }: { track: Track; type: 'dance' }) => {
     await this.playTrackForDancing(track, context.duration);
-    this.spotify.client.selectTrack(track);
 
     // timer
     this.counter = context.duration;
