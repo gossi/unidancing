@@ -27,3 +27,17 @@ export function findGame(game?: Game) {
 
   return undefined;
 }
+
+export function getGameTitle(game: Game) {
+  switch (game) {
+    case Game.Bingo:
+      return 'Bingo';
+
+    case Game.DanceOhMat:
+      return 'Dance Oh! Mat';
+  }
+}
+
+export function asGame(game: string) {
+  return game as Game;
+}
