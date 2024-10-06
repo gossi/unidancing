@@ -16,20 +16,24 @@ export default class ApplicationRoute extends Route {
     super(owner);
 
     if (macroCondition(!isDevelopingApp() && !isTesting())) {
-      this.pageTitle.titleDidUpdate = (title: string) => {
-        const page = this.router.currentURL;
-        const name = this.router.currentRouteName || 'unknown';
+      const { hostname } = window.location;
 
-        try {
-          // @ts-expect-error piwik types
-          _paq.push(['setCustomUrl', page]);
-          // @ts-expect-error piwik types
-          _paq.push(['trackPageView', title.replace(' | UniDancing', '') ?? name]);
-        } catch {
-          // fastboot will report on document to not be defined, but also doesn't let
-          // you check for it
-        }
-      };
+      if (hostname.startsWith('unidancing.art')) {
+        this.pageTitle.titleDidUpdate = (title: string) => {
+          const page = this.router.currentURL;
+          const name = this.router.currentRouteName || 'unknown';
+
+          try {
+            // @ts-expect-error piwik types
+            _paq.push(['setCustomUrl', page]);
+            // @ts-expect-error piwik types
+            _paq.push(['trackPageView', title.replace(' | UniDancing', '') ?? name]);
+          } catch {
+            // fastboot will report on document to not be defined, but also doesn't let
+            // you check for it
+          }
+        };
+      }
     }
 
     // xstate inspector
