@@ -1,6 +1,5 @@
 .card {
   display: grid;
-  padding: 0.5rem;
   row-gap: 0.8rem;
 
   small {
@@ -20,8 +19,8 @@
 
 .loop {
   display: grid;
-  gap: 0.5em;
   grid-template-columns: auto auto;
+  gap: 0.5em;
   justify-content: space-between;
 
   div {
@@ -35,8 +34,8 @@
   }
 
   button {
-    margin: 0;
     width: auto;
+    margin: 0;
   }
 }
 
