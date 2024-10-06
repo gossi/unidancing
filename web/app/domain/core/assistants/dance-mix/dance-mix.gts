@@ -289,7 +289,6 @@ export interface DanceMixSignature {
 }
 
 class Game extends Component<DanceMixSignature> {
-  @polarisService(AudioService) declare audio: AudioService;
   @service declare router: RouterService;
 
   get getParam() {
@@ -303,12 +302,6 @@ class Game extends Component<DanceMixSignature> {
     super(owner, args);
 
     this.readSettings();
-
-    this.audio.player = AudioPlayer.Spotify;
-
-    registerDestructor(this, () => {
-      this.audio.player = undefined;
-    });
   }
 
   readSettings = () => {
@@ -416,16 +409,30 @@ class Game extends Component<DanceMixSignature> {
   </template>
 }
 
-export const DanceMix: TOC<DanceMixSignature> = <template>
-  <h1>Dance Mix</h1>
+export class DanceMix extends Component<DanceMixSignature> {
+  @polarisService(AudioService) declare audio: AudioService;
 
-  <WithSpotify>
-    <Game
-      @amount={{@amount}}
-      @duration={{@duration}}
-      @pause={{@pause}}
-      @playlist={{@playlist}}
-      @playlistId={{@playlistId}}
-    />
-  </WithSpotify>
-</template>;
+  constructor(owner: Owner, args: DanceMixSignature['Args']) {
+    super(owner, args);
+
+    this.audio.player = AudioPlayer.Spotify;
+
+    registerDestructor(this, () => {
+      this.audio.player = undefined;
+    });
+  }
+
+  <template>
+    <h1>Dance Mix</h1>
+
+    <WithSpotify>
+      <Game
+        @amount={{@amount}}
+        @duration={{@duration}}
+        @pause={{@pause}}
+        @playlist={{@playlist}}
+        @playlistId={{@playlistId}}
+      />
+    </WithSpotify>
+  </template>
+}

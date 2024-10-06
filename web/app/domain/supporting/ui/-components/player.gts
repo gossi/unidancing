@@ -4,8 +4,8 @@ import { AudioPlayer, AudioService } from '../../audio';
 import { SpotifyPlayer } from '../../spotify';
 import styles from './player.css';
 
-const isSpotifyPlayer = ability((sweetOwner) => () => {
-  return sweetOwner.service(AudioService).player === AudioPlayer.Spotify;
+const isSpotifyPlayer = ability(({ service }) => () => {
+  return service(AudioService).player === AudioPlayer.Spotify;
 });
 
 const Player = <template>

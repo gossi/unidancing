@@ -8,6 +8,6 @@ declare module 'ember-sweet-owner' {
   type ServiceConstructor<T> = typeof Service & ServiceFactory<T> & { new (scope: Scope): T };
 
   export interface SweetOwner {
-    service<S extends ServiceConstructor<unknown>>(factory: S): InstanceType<S>;
+    service<S extends ServiceConstructor<unknown>>(this: void, factory: S): InstanceType<S>;
   }
 }

@@ -1,6 +1,7 @@
 import Component from '@glimmer/component';
 
 import { service } from 'ember-polaris-service';
+import { and, not } from 'ember-truth-helpers';
 
 import { Icon } from '@hokulea/ember';
 
@@ -26,22 +27,22 @@ export class SpotifyPlayer extends Component {
 
   <template>
     <div class={{styles.layout}}>
-      {{#if this.client.authenticated}}
-        <Icon @icon="spotify-logo" @style="fill" class={{styles.spotify}} />
+      <Icon @icon="spotify-logo" @style="fill" class={{styles.spotify}} />
+
+      {{#if (and this.client.authenticated (not this.client.error))}}
         {{#if this.client.ready}}
           <p>
             {{#if this.track}}
-              {{log this.track}}
               <strong>{{this.track.name}}</strong><br />
               <small>{{formatArtists this.track.artists}}</small>
             {{/if}}
           </p>
-        {{else if this.client.error}}
+          {{!-- {{else if this.client.error}}
           <p>
             <Icon @icon="warning" @style="fill" class={{styles.warning}} />
             Fehler:
             {{this.client.error}}
-          </p>
+          </p> --}}
         {{/if}}
 
       {{else}}
