@@ -10,7 +10,7 @@ import { htmlSafe } from '@ember/template';
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { useMachine } from 'ember-statecharts';
-import { eq, not } from 'ember-truth-helpers';
+import { eq } from 'ember-truth-helpers';
 import { createMachine } from 'xstate';
 
 import { Button, Form } from '@hokulea/ember';
@@ -145,6 +145,7 @@ class Play extends Component<PlaySignature> {
 
   @tracked counter?: number;
   @tracked declare tracks: Track[];
+  @tracked declare currentTrack: Track;
 
   playTrackForDancing = playTrackForDancing(getOwner(this) as Owner);
 
@@ -178,8 +179,8 @@ class Play extends Component<PlaySignature> {
     async ({ tracks, duration, pause }: { duration: number; pause: number; tracks: Track[] }) => {
       for (const track of tracks) {
         // start track
+        this.currentTrack = track;
         await this.playTrackForDancing(track, duration);
-        this.spotify.client.selectTrack(track);
 
         // start countdown
         this.counter = duration;
@@ -202,8 +203,6 @@ class Play extends Component<PlaySignature> {
   //     uris: [track.uri],
   //     position_ms: start
   //   });
-
-  //   this.spotify.client.selectTrack(track);
 
   //   this.counter = duration;
 
@@ -233,7 +232,7 @@ class Play extends Component<PlaySignature> {
     <div class={{styles.play}}>
       <ol class={{styles.tracks}}>
         {{#each this.tracks as |track|}}
-          <li>
+          <li aria-selected={{eq track this.currentTrack}}>
             {{track.name}}<br />
             <small>{{formatArtists track.artists}}</small>
           </li>
@@ -290,7 +289,6 @@ export interface DanceMixSignature {
 }
 
 class Game extends Component<DanceMixSignature> {
-  @polarisService(AudioService) declare audio: AudioService;
   @service declare router: RouterService;
 
   get getParam() {
@@ -304,12 +302,6 @@ class Game extends Component<DanceMixSignature> {
     super(owner, args);
 
     this.readSettings();
-
-    this.audio.player = AudioPlayer.Spotify;
-
-    registerDestructor(this, () => {
-      this.audio.player = undefined;
-    });
   }
 
   readSettings = () => {
@@ -417,16 +409,30 @@ class Game extends Component<DanceMixSignature> {
   </template>
 }
 
-export const DanceMix: TOC<DanceMixSignature> = <template>
-  <h1>Dance Mix</h1>
+export class DanceMix extends Component<DanceMixSignature> {
+  @polarisService(AudioService) declare audio: AudioService;
 
-  <WithSpotify>
-    <Game
-      @amount={{@amount}}
-      @duration={{@duration}}
-      @pause={{@pause}}
-      @playlist={{@playlist}}
-      @playlistId={{@playlistId}}
-    />
-  </WithSpotify>
-</template>;
+  constructor(owner: Owner, args: DanceMixSignature['Args']) {
+    super(owner, args);
+
+    this.audio.player = AudioPlayer.Spotify;
+
+    registerDestructor(this, () => {
+      this.audio.player = undefined;
+    });
+  }
+
+  <template>
+    <h1>Dance Mix</h1>
+
+    <WithSpotify>
+      <Game
+        @amount={{@amount}}
+        @duration={{@duration}}
+        @pause={{@pause}}
+        @playlist={{@playlist}}
+        @playlistId={{@playlistId}}
+      />
+    </WithSpotify>
+  </template>
+}

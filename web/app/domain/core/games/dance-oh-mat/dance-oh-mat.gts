@@ -24,12 +24,11 @@ import {
   playTrackForDancing,
   SpotifyPlayButton,
   SpotifyService,
-  TrackResource,
   WithSpotify
 } from '../../../supporting/spotify';
 import styles from './dance-oh-mat.css';
 
-import type { Device, SpotifyClient, Track } from '../../../supporting/spotify';
+import type { SpotifyClient, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -172,11 +171,11 @@ const Machine = createMachine(
   }
 );
 
-const LOBBY_TRACK_ID = '7IiurNiwebWtRFrMUojN04';
+const LOBBY_TRACK_URI = 'spotify:track:7IiurNiwebWtRFrMUojN04';
 
-const playLobby = async (track: Track, client: SpotifyClient) => {
+const playLobby = async (client: SpotifyClient) => {
   await client.play({
-    uris: [track.uri]
+    uris: [LOBBY_TRACK_URI]
   });
 };
 
@@ -246,17 +245,11 @@ class Manual extends Component {
   @polarisService(SpotifyService) declare spotify: SpotifyService;
   @polarisService(AudioService) declare audio: AudioService;
 
-  lobbyTrack = TrackResource.from(this, () => ({ id: LOBBY_TRACK_ID }));
-
-  playLobby = async () => {
-    await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
-  };
-
   togglePlay = async () => {
     if (this.spotify.client.playing) {
       this.spotify.client.pause();
     } else {
-      await this.playLobby();
+      await playLobby(this.spotify.client);
     }
   };
 
@@ -367,7 +360,6 @@ class Game extends Component {
     this.audio.player = AudioPlayer.Spotify;
 
     // load resources
-    this.lobbyTrack.load(LOBBY_TRACK_ID);
     this.dancePlaylist.load();
     this.surprisePlaylist.load();
 
@@ -386,12 +378,6 @@ class Game extends Component {
       })
     };
   });
-
-  lobbyTrack = TrackResource.from(this, () => []);
-
-  // playLobby = async () => {
-  //   await playLobby(this.lobbyTrack.data as Track, this.spotify.client);
-  // };
 
   playSound = playSound(getOwner(this) as Owner);
   playTrack = playTrack(getOwner(this) as Owner);
@@ -433,9 +419,7 @@ class Game extends Component {
     this.counter = 5;
     this.song = undefined;
 
-    const devicesPromise = this.spotify.client.api.getMyDevices();
-
-    await this.playTrack(this.lobbyTrack.data as Track);
+    await playLobby(this.spotify.client);
     await timeout(1100);
     await this.countDown.perform();
 
@@ -462,21 +446,16 @@ class Game extends Component {
       - restore volume
     */
 
-    const devicesResponse = await devicesPromise;
-    const volume = (devicesResponse.devices.find((device) => device.is_active) as Device)
-      .volume_percent as number;
-
     await this.spotify.client.setVolume(0);
     await this.playSound(coinToss === 0 ? 'countDown' : 'surprise');
 
     await timeout(1000);
-    await this.spotify.client.setVolume(volume);
+    await this.spotify.client.setVolume(100);
     this.machine.send('dance', { track });
   };
 
   dance = async (context: Context, { track }: { track: Track; type: 'dance' }) => {
     await this.playTrackForDancing(track, context.duration);
-    this.spotify.client.selectTrack(track);
 
     // timer
     this.counter = context.duration;

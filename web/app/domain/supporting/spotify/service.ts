@@ -21,7 +21,7 @@ export class SpotifyService extends Service {
 
   redirectAfterLogin?: string;
 
-  client = SpotifyClient.from(this, () => []);
+  client = new SpotifyClient();
 
   constructor(scope: Scope) {
     super(scope);

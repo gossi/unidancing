@@ -41,6 +41,8 @@ async function getSpotifyClient(env: Env): Promise<OauthClient> {
         'playlist-read-private',
         'user-read-playback-state',
         'user-modify-playback-state',
+        'user-read-email',
+        'user-read-private',
         'streaming'
       ]
     });

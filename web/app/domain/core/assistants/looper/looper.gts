@@ -84,8 +84,6 @@ class LoopService extends Service {
   };
 
   play = restartableTask(async (loop: LoopData, offset?: number) => {
-    this.spotify.client.selectTrack(loop.track);
-
     let max = loop.end - loop.start - this.latency;
 
     this.elapsedTime = offset ? (offset < 0 ? max + offset : offset) : 0;

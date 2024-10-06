@@ -4,11 +4,13 @@ import { isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
 
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
+import type FastBoot from 'ember-cli-fastboot/services/fastboot';
 import type PageTitleService from 'ember-page-title/services/page-title';
 
 export default class ApplicationRoute extends Route {
   @service declare router: RouterService;
   @service declare pageTitle: PageTitleService;
+  @service declare fastboot: FastBoot;
 
   constructor(owner?: Owner) {
     super(owner);
@@ -29,5 +31,18 @@ export default class ApplicationRoute extends Route {
         }
       };
     }
+
+    // xstate inspector
+    // if (macroCondition(isDevelopingApp())) {
+    //   if (!isSSR()) {
+    //     const { inspect } = importSync('@xstate/inspect') as { inspect: typeof Inspect };
+
+    //     inspect({
+    //       // options
+    //       // url: 'https://stately.ai/viz?inspect', // (default)
+    //       iframe: false // open in new window
+    //     });
+    //   }
+    // }
   }
 }
