@@ -16,23 +16,42 @@ export default class ApplicationRoute extends Route {
     super(owner);
 
     if (macroCondition(!isDevelopingApp() && !isTesting())) {
-      const { hostname } = window.location;
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/naming-convention
+        let _paq = (window._paq = window._paq || []);
 
-      if (hostname.startsWith('unidancing.art')) {
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['enableLinkTracking']);
+
+        (function () {
+          let u = 'https://analytics.otherwheel.com/';
+
+          _paq.push(['setTrackerUrl', u + 'js/index.php']);
+          _paq.push(['setSiteId', '6']);
+
+          let d = document,
+            g = d.createElement('script'),
+            s = d.getElementsByTagName('script')[0];
+
+          g.async = true;
+          g.src = u + 'js/index.php';
+          (s.parentNode as HTMLElement).insertBefore(g, s);
+        })();
+
         this.pageTitle.titleDidUpdate = (title: string) => {
           const page = this.router.currentURL;
           const name = this.router.currentRouteName || 'unknown';
 
           try {
-            // @ts-expect-error piwik types
             _paq.push(['setCustomUrl', page]);
-            // @ts-expect-error piwik types
             _paq.push(['trackPageView', title.replace(' | UniDancing', '') ?? name]);
           } catch {
             // fastboot will report on document to not be defined, but also doesn't let
             // you check for it
           }
         };
+      } catch {
+        //
       }
     }
 

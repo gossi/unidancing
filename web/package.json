@@ -119,6 +119,7 @@
     "event-target-polyfill": "^0.0.4",
     "import-single-ts": "1.0.0",
     "loader.js": "^4.7.0",
+    "matomo-js-client-types": "^5.0.0",
     "postcss": "^8.4.39",
     "postcss-loader": "^8.1.1",
     "postcss-preset-env": "^9.6.0",

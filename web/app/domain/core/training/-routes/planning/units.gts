@@ -1,5 +1,6 @@
 import { LinkTo } from '@ember/routing';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
@@ -9,6 +10,8 @@ import { Note, Tag } from '../../../../supporting/ui';
 
 export class TrainingPlanningUnitsRoute extends Route<object> {
   <template>
+    {{pageTitle "Trainingsgestaltung"}}
+
     <Page @title="Trainingsgestaltung">
       <p>Eine Trainingseinheit ist in Einleitung, Hauptteil und Schluss gegliedert. Jeder Teil will
         vorbereitet sein, um den Athleten die Trainingsziele zu vermitteln.</p>
