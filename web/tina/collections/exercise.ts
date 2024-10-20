@@ -164,9 +164,10 @@ const MediaField: TinaField = {
           name: 'material',
           label: 'Material',
           type: 'string',
-          ui: {
-            component: 'textarea'
-          }
+          list: true
+          // ui: {
+          //   component: 'textarea'
+          // }
         }
       ]
     }

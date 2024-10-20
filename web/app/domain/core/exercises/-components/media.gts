@@ -42,11 +42,15 @@ function isSong(media: ExerciseMedia | ExerciseInstructionMedia): media is Exerc
 function isMaterial(
   media: ExerciseMedia | ExerciseInstructionMedia
 ): media is ExerciseMediaMaterial {
-  return media.__typename === 'ExerciseInstructionMediaMaterial';
+  return (
+    media.__typename === 'ExerciseMediaMaterial' ||
+    media.__typename === 'ExerciseInstructionMediaMaterial'
+  );
 }
 
 export const Media: TOC<MediaSignature> = <template>
   {{#each @media as |m|}}
+    {{log m}}
     {{#if (isDanceMix m)}}
       <DanceMix @media={{m}} />
     {{/if}}
@@ -60,7 +64,11 @@ export const Media: TOC<MediaSignature> = <template>
     {{/if}}
 
     {{#if (isMaterial m)}}
-      {{m.material}}
+      <ul>
+        {{#each m.material as |item|}}
+          <li>{{item}}</li>
+        {{/each}}
+      </ul>
     {{/if}}
   {{/each}}
 </template>;

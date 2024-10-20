@@ -108,6 +108,17 @@
 
       [data-media] {
         grid-area: media;
+
+        /*
+        Use :blank when available
+        - https://developer.mozilla.org/en-US/docs/Web/CSS/:blank
+
+        Workaround:
+        - https://stackoverflow.com/questions/18313689/empty-selector-not-working-in-css
+        */
+        &:not(:has(*)) {
+          display: none;
+        }
       }
     }
   }

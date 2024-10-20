@@ -56,3 +56,4 @@ tags:
   - choreo
 ---
 
+Um Fahrer für die verschiedenen Aspekte der Musik zu sensibilisieren wird diese Übung genutzt, um die musikalische Umsetzung auf Melodie und Rhythmus zu fokussieren. Teil der Übung besteht darin, die wesentlichen Auswirkungen auf die Musik Komposition zu erkennen und in Bewegung umzusetzen.

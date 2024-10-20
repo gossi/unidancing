@@ -15,7 +15,7 @@ instruction:
       können. Jeder Effekt wird auf eine Karteikarte geschrieben.
     method: group
     media:
-      - material: |-
+      - material:
           - Karteikarten
           - Stifte
         _template: material
@@ -45,4 +45,4 @@ tags:
   - choreo
 ---
 
-Im Training geben Trainer Bewegungen an Fahrer weiter. Dabei entsteht immer ein kleiner Verlust an Informationen und die Bewegung sieht dann etwas anders aus als gedacht. Daher empfiehlt es sich, die Intention weiterzugeben, die die Fahrer in ihrem Sinne umsetzen. Mit dieser Übung wird es mittels Effekten trainiert (ist im Training greifbarer als Intents ;-).
+Im Training geben Trainer Bewegungen an Fahrer weiter. Dabei entsteht immer ein kleiner Verlust an Informationen und die Bewegung sieht dann etwas anders aus als gedacht. Daher empfiehlt es sich, die Intention weiterzugeben, die die Fahrer in ihrem Sinne umsetzen. Mit dieser Übung wird es mittels Effekten trainiert (ist im Training greifbarer als Intentionen ;-).
