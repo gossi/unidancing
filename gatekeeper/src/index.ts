@@ -144,7 +144,7 @@ export default {
     if (request.method === 'OPTIONS') {
       response = handleOptions(request);
     } else {
-      response = await router.handle(request, env);
+      response = await router.fetch(request, env);
 
       if (!response.redirected) {
         response = new Response(response.body, response);
