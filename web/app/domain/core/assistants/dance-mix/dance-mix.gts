@@ -7,8 +7,10 @@ import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 
+import { loadPlaylist } from '@unidancing/app/domain/supporting/spotify/resources/playlist';
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
+import { use } from 'ember-resources';
 import { useMachine } from 'ember-statecharts';
 import { eq } from 'ember-truth-helpers';
 import { createMachine } from 'xstate';
@@ -21,7 +23,6 @@ import {
   getRandomTracks,
   MaybeSpotifyPlayerWarning,
   PlaylistChooser,
-  PlaylistResource,
   playTrackForDancing,
   SpotifyPlayButton,
   SpotifyService,
@@ -29,7 +30,7 @@ import {
 } from '../../../supporting/spotify';
 import styles from './dance-mix.css';
 
-import type { Playlist, Track } from '../../../supporting/spotify';
+import type { Playlist, PlaylistResource, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -318,7 +319,7 @@ class Game extends Component<DanceMixSignature> {
 
   @tracked selectedPlaylistId?: string;
 
-  get playlistId(): string | undefined {
+  get playlistId(): string {
     if (this.selectedPlaylistId) {
       return this.selectedPlaylistId;
     }
@@ -345,7 +346,8 @@ class Game extends Component<DanceMixSignature> {
     return PLAYLISTS[PlaylistOptions.Epic];
   }
 
-  playlist = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
+  // playlist = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
+  playlist = use(this, loadPlaylist(this.playlistId));
 
   selectPlaylist = (playlist: Playlist) => {
     const id = playlist.id;

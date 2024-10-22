@@ -14,7 +14,7 @@ export const findArts = resourceFactory(() => {
     return cacheResult('arts', owner, async () => {
       const artsResponse = await client.queries.artConnection({ sort: 'title' });
 
-      return artsResponse.data.artConnection.edges?.map((art) => art?.node) as Art[];
+      return artsResponse.data.artConnection.edges?.map((edge) => edge.node) as Art[];
     });
   });
 });
