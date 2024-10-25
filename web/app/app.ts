@@ -5,7 +5,6 @@ import Application from '@ember/application';
 import config from '@unidancing/app/config/environment';
 import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
-import { setupComponentMachines } from 'ember-statechart-component';
 
 import '@hokulea/core/index.css';
 
@@ -16,5 +15,3 @@ export default class App extends Application {
 }
 
 loadInitializers(App, config.modulePrefix);
-
-setupComponentMachines();

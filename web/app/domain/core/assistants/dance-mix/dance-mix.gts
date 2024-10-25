@@ -4,10 +4,10 @@ import { registerDestructor } from '@ember/destroyable';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
+import { next } from '@ember/runloop';
 import { service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 
-import { loadPlaylist } from '@unidancing/app/domain/supporting/spotify/resources/playlist';
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
@@ -21,6 +21,8 @@ import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
   formatArtists,
   getRandomTracks,
+  getTracks,
+  loadPlaylist,
   MaybeSpotifyPlayerWarning,
   PlaylistChooser,
   playTrackForDancing,
@@ -30,7 +32,7 @@ import {
 } from '../../../supporting/spotify';
 import styles from './dance-mix.css';
 
-import type { Playlist, PlaylistResource, Track } from '../../../supporting/spotify';
+import type { Playlist, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -125,6 +127,7 @@ const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = 
   <div class={{styles.header}}>
     <p>
       {{#if @playlist}}
+        {{log @playlist}}
         <strong>{{htmlSafe @playlist.name}}</strong><br />
         <small>{{htmlSafe (if @playlist.description @playlist.description "")}}</small>
       {{/if}}
@@ -136,7 +139,7 @@ const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = 
 
 interface PlaySignature {
   Args: GameParams & {
-    playlist: PlaylistResource;
+    playlist: Playlist;
     finish: () => void;
   };
 }
@@ -158,7 +161,7 @@ class Play extends Component<PlaySignature> {
 
   start = async () => {
     if (this.args.playlist.tracks) {
-      this.tracks = getRandomTracks(this.args.playlist.tracks, this.args.amount);
+      this.tracks = getRandomTracks(getTracks(this.args.playlist), this.args.amount);
 
       try {
         await this.mix.perform({
@@ -306,7 +309,10 @@ class Game extends Component<DanceMixSignature> {
   }
 
   readSettings = () => {
-    this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
+    // eslint-disable-next-line ember/no-runloop
+    next(() => {
+      this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
+    });
   };
 
   machine = useMachine(this, () => ({
@@ -346,8 +352,14 @@ class Game extends Component<DanceMixSignature> {
     return PLAYLISTS[PlaylistOptions.Epic];
   }
 
-  // playlist = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
-  playlist = use(this, loadPlaylist(this.playlistId));
+  playlistResource = use(
+    this,
+    loadPlaylist(() => this.playlistId)
+  );
+
+  get playlist() {
+    return this.playlistResource.current;
+  }
 
   selectPlaylist = (playlist: Playlist) => {
     const id = playlist.id;
@@ -381,10 +393,11 @@ class Game extends Component<DanceMixSignature> {
   };
 
   <template>
+    {{log this.playlistId}}
     {{#if (this.machine.state.matches "choosing-playlist")}}
       <PlaylistChooser @select={{this.selectPlaylist}} />
     {{else if (this.machine.state.matches "preparing")}}
-      <Header @playlist={{this.playlist.playlist}}>
+      <Header @playlist={{this.playlist}}>
         {{#unless this.playlistLocked}}
 
           <Button
@@ -399,7 +412,7 @@ class Game extends Component<DanceMixSignature> {
       </Header>
       <Lobby @duration={{@duration}} @pause={{@pause}} @amount={{@amount}} @play={{this.play}} />
     {{else if (this.machine.state.matches "playing")}}
-      <Header @playlist={{this.playlist.playlist}} />
+      <Header @playlist={{this.playlist}} />
       <Play
         @playlist={{this.playlist}}
         @duration={{this.params.duration}}

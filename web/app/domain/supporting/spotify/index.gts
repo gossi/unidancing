@@ -15,9 +15,9 @@ export { SpotifyPlayerWarning } from './components/spotify-player-warning';
 export { WithSpotify } from './components/with-spotify';
 
 // resources
-export { PlaylistResource } from './resources/playlist';
-export { PlaylistsResource } from './resources/playlists';
-export { findTrack, TrackResource } from './resources/track';
+export { getTracks, loadPlaylist } from './resources/playlist';
+export { loadPlaylists } from './resources/playlists';
+export { findTrack } from './resources/track';
 
 // helpers
 export { formatArtists } from './helpers';
