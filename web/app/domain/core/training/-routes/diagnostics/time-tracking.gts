@@ -4,13 +4,13 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 import { Page } from '@hokulea/ember';
 
-export class TrainingDiagnosticsTimeTrackingRoute extends Route<{}> {
+export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
   <template>
-    {{pageTitle 'Zeitaufteilung'}}
+    {{pageTitle "Zeitaufteilung"}}
 
     <Page @title="Zeitaufteilung">
-      <p>Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen wird
-        wieviel Zeit mit
+      <p>Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen
+        wird wieviel Zeit mit
         <b>Tricks</b>,
         <b>Artistik</b>,
         <b>Filler</b>
@@ -26,30 +26,31 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<{}> {
         <dd>Die Zeit, die für Artistik verwendet wird.</dd>
 
         <dt>Filler</dt>
-        <dd>Die Zeit, die für überflüssige Zeit in Tricks verwendet wird. Die überflüssige Zeit macht
-          die Bewegung für den Zuschauer berechenbar und damit uninteressant. Darunter zählen zum
-          Beispiel zu lange Glidings, an deren Ende ein weiterer Trick (z.B. Tipspin) folgt, ein
-          Übergang von Wheel-Walk ins Cross-Over (das Bein stochert ewig, ehe es das Pedal trifft) oder
-          zu viele Hüpfer während einer Hopping-Serie.</dd>
+        <dd>Die Zeit, die für überflüssige Zeit in Tricks verwendet wird. Die überflüssige Zeit
+          macht die Bewegung für den Zuschauer berechenbar und damit uninteressant. Darunter zählen
+          zum Beispiel zu lange Glidings, an deren Ende ein weiterer Trick (z.B. Tipspin) folgt, ein
+          Übergang von Wheel-Walk ins Cross-Over (das Bein stochert ewig, ehe es das Pedal trifft)
+          oder zu viele Hüpfer während einer Hopping-Serie.</dd>
 
-        <dd>Außerdem werden auch unnötige Ausgleichsbewegungen zur Herstellung des Gleichgewichts als
-          Filler gezählt.</dd>
+        <dd>Außerdem werden auch unnötige Ausgleichsbewegungen zur Herstellung des Gleichgewichts
+          als Filler gezählt.</dd>
 
         <dt>Void</dt>
-        <dd>Die Zeit, in der nichts passiert. Der Fahrer fährt vor sich hin, aber weder ein Trick noch
-          Artistik werden gezeigt.</dd>
+        <dd>Die Zeit, in der nichts passiert. Der Fahrer fährt vor sich hin, aber weder ein Trick
+          noch Artistik werden gezeigt.</dd>
       </dl>
 
       <h3>Durchführung</h3>
       <p>
-        Die Zeiten werden während einer Videoaufnahme gestoppt. Im Ergebnis steht zu jedem Messkriterium
-        die gemessene Zeit. Die Messwerte werden in Relation zur Kürlänge gesetzt.
+        Die Zeiten werden während einer Videoaufnahme gestoppt. Im Ergebnis steht zu jedem
+        Messkriterium die gemessene Zeit. Die Messwerte werden in Relation zur Kürlänge gesetzt.
       </p>
 
       <h3>Auswertung</h3>
       <p>
-        Tricks und Artistik sollten sich die Waage halten (plusminus ~10\%). Filler und keine Aktivität
-        sollten nicht auftreten. Das sind wichtige Indikator für die Attraktivität einer Kür.
+        Tricks und Artistik sollten sich die Waage halten (plusminus ~10\%). Filler und keine
+        Aktivität sollten nicht auftreten. Das sind wichtige Indikator für die Attraktivität einer
+        Kür.
       </p>
 
       <h3>Fiktives Beispiel</h3>
@@ -59,9 +60,9 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<{}> {
       <p>Kürlänge: 4 Minuten (240 Sekunden)</p>
 
       <p>
-        Die Tricks überwiegen eindeutig in dieser Kür (aber halten sich noch im Rahmen). Hingegen ist
-        von der Artistik wenig zu sehen. Auffällig ist, dass insgesamt sehr wenig passiert und bei der
-        Kür eher Flaute herrscht, die auch noch von vielen Filler Bewegungen verstärkt wird.
+        Die Tricks überwiegen eindeutig in dieser Kür (aber halten sich noch im Rahmen). Hingegen
+        ist von der Artistik wenig zu sehen. Auffällig ist, dass insgesamt sehr wenig passiert und
+        bei der Kür eher Flaute herrscht, die auch noch von vielen Filler Bewegungen verstärkt wird.
       </p>
 
       <h3>Beispiel: Kazuhiro Shimoyama</h3>
@@ -105,10 +106,10 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<{}> {
 
       <p>Die Durchdringung von Artistik bei annähernd nicht vorhandenen Filler und Void ist
         beeindruckend. Die Pause von Artistik kommt nur durch die Tricks zustande, die seine volle
-        Aufmerksamkeit erfordern, sonst findet Artistik auch während Tricks
-        statt.</p>
+        Aufmerksamkeit erfordern, sonst findet Artistik auch während Tricks statt.</p>
     </Page>
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(TrainingDiagnosticsTimeTrackingRoute);

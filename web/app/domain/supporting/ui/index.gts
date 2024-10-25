@@ -2,7 +2,7 @@ export { default as Card } from './-components/card';
 export { default as CardSection } from './-components/card-section';
 export { Dialog } from './-components/dialog';
 export { default as Features } from './-components/features';
-export { getIcon, default as Icon, Icons } from './-components/icon';
+export { getHokuleaIcon, getIcon, HokuleaIcons, default as Icon, Icons } from './-components/icon';
 export { default as Note } from './-components/note';
 export { Player } from './-components/player';
 export { default as Section } from './-components/section';

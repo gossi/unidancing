@@ -12,7 +12,6 @@ import { Assistant, buildAssistantLink } from '../../../assistants';
 import type RouterService from '@ember/routing/router-service';
 import type { LinkManagerService } from 'ember-link';
 
-
 export class TrainingPlanningGamesRoute extends Route<object> {
   @service declare linkManager: LinkManagerService;
   @service('router') declare emberRouter: RouterService;
@@ -24,18 +23,17 @@ export class TrainingPlanningGamesRoute extends Route<object> {
       <ul>
         {{#let (buildAssistantLink Assistant.DanceMix) as |link|}}
           <li>
-            <a href={{link.url}} {{on 'click' link.open}}>Dance Mix</a><br>
-            Super Mix zum Freestylen. Einmal anschalten und die Jukebox geht los.
-            Wechselt den Song für genügend Abwechselung. Super Training für die
-            ganze Gruppe.
+            <a href={{link.url}} {{on "click" link.open}}>Dance Mix</a><br />
+            Super Mix zum Freestylen. Einmal anschalten und die Jukebox geht los. Wechselt den Song
+            für genügend Abwechselung. Super Training für die ganze Gruppe.
           </li>
         {{/let}}
 
         {{#let (buildAssistantLink Assistant.Looper) as |link|}}
           <li>
-            <a href={{link.url}} {{on 'click' link.transitionTo}}>Loops</a><br>
-            Die gleiche Sequenz von einem Lied? Immer und immer wieder? Genau das
-            sind Loops, ideal zum einstudieren von kurzen Choreos.
+            <a href={{link.url}} {{on "click" link.transitionTo}}>Loops</a><br />
+            Die gleiche Sequenz von einem Lied? Immer und immer wieder? Genau das sind Loops, ideal
+            zum einstudieren von kurzen Choreos.
           </li>
         {{/let}}
       </ul>
@@ -43,4 +41,5 @@ export class TrainingPlanningGamesRoute extends Route<object> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(TrainingPlanningGamesRoute);

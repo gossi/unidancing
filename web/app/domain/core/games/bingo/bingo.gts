@@ -228,6 +228,7 @@ class Counters {
     this.load();
 
     if (Object.keys(this.counters).length === 0) {
+      // eslint-disable-next-line ember/no-runloop
       next(this, this.init);
     }
   }
@@ -238,7 +239,9 @@ class Counters {
     const counters: Record<string, Counter> = data ? new TrackedObject(JSON.parse(data)) : {};
 
     for (const [id, counter] of Object.entries(counters)) {
-      this.counters[id] = new TrackedObject(counter) as unknown as Counter;
+      this.counters[id] = new TrackedObject(
+        counter as unknown as Record<string, string | number>
+      ) as unknown as Counter;
     }
 
     if (activeCounter && Object.keys(this.counters).includes(activeCounter)) {
@@ -298,6 +301,7 @@ class Counters {
   };
 
   deleteCounter = (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete this.counters[id];
     this.persistCounters();
   };

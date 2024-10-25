@@ -2,7 +2,6 @@ import { cached } from '@glimmer/tracking';
 import { LinkTo } from '@ember/routing';
 import { service } from '@ember/service';
 
-import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';

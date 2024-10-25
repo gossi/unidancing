@@ -17,6 +17,7 @@ export interface DialogSignature {
 }
 
 export class Dialog extends Component<DialogSignature> {
+  // @ts-expect-error overriding parent type with more precise one for our case
   element?: HTMLDialogElement;
 
   ref = modifier((element: HTMLDialogElement) => {

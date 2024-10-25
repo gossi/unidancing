@@ -58,4 +58,5 @@ export class ExercisesIndexRoute extends Route<object> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(ExercisesIndexRoute);

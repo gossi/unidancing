@@ -36,7 +36,7 @@ export function asMedia(media?: ExerciseMedia | string | Maybe<string>): Exercis
 
 // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export function asMediaCollection(
-  media?: Maybe<ExerciseMedia>[] | Maybe<Maybe<ExerciseInstructionMedia>[]> | null | undefined
+  media?: Maybe<ExerciseMedia>[] | Maybe<Maybe<ExerciseInstructionMedia>[]> | null
 ): ExerciseMedia[] {
   return media as ExerciseMedia[];
 }

@@ -4,10 +4,11 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 export class MovesRootRoute extends Route<object> {
   <template>
-    {{pageTitle 'Moves'}}
+    {{pageTitle "Moves"}}
 
     {{outlet}}
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(MovesRootRoute);

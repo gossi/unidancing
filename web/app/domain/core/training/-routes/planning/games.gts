@@ -16,11 +16,11 @@ export class TrainingPlanningGamesRoute extends Route<object> {
 
     <Page @title="Spiele">
       <ul>
-        {{#let (link 'games' Game.Bingo) as |bingoLink|}}
+        {{#let (link "games" Game.Bingo) as |bingoLink|}}
           <li>
-            <a href={{bingoLink.url}} {{on 'click' bingoLink.transitionTo}}>Bingo</a><br>
-            Spielerische Sensibilisierung für Aspekte, die man besser <LinkTo @route="choreography.not-todo-list"><i>nicht
-            macht</i> in einer Kür</LinkTo>.
+            <a href={{bingoLink.url}} {{on "click" bingoLink.transitionTo}}>Bingo</a><br />
+            Spielerische Sensibilisierung für Aspekte, die man besser
+            <LinkTo @route="choreography.not-todo-list"><i>nicht macht</i> in einer Kür</LinkTo>.
           </li>
         {{/let}}
       </ul>
@@ -28,4 +28,5 @@ export class TrainingPlanningGamesRoute extends Route<object> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(TrainingPlanningGamesRoute);

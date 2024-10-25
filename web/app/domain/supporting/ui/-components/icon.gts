@@ -44,32 +44,36 @@ enum HokuleaIcon {
 }
 
 export type Icons = keyof typeof Icon;
+export type HokuleaIcons = keyof typeof HokuleaIcon;
 
 export function getIcon(icon: Icons) {
   return Icon[icon];
 }
 
-function getHokuleaIcon(icon: HokuleaIcon) {
+export function getHokuleaIcon(icon: HokuleaIcons) {
   return HokuleaIcon[icon];
+}
+
+function asHokuleaIcon(icon: Icons | HokuleaIcons): HokuleaIcons {
+  return icon as HokuleaIcons;
 }
 
 export interface IconSignature {
   Args: {
-    icon: Icons;
+    icon: Icons | HokuleaIcons;
   };
 }
 
 export default class IconComponent extends Component<IconSignature> {
   get icon() {
-    return getIcon(this.args.icon);
+    return getIcon(this.args.icon as Icons);
   }
 
   <template>
     {{#if this.icon}}
       {{this.icon}}
     {{else}}
-      hok icon: {{getHokuleaIcon @icon}}
-      <HokIcon @icon={{getHokuleaIcon @icon}}/>
+      <HokIcon @icon={{getHokuleaIcon (asHokuleaIcon @icon)}} />
     {{/if}}
   </template>
 }
