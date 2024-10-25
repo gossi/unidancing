@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-export type Playlist = SpotifyApi.SinglePlaylistResponse | SpotifyApi.PlaylistObjectSimplified;
+export type UserPlaylist = SpotifyApi.PlaylistObjectSimplified;
+export type Playlist = SpotifyApi.SinglePlaylistResponse;
 export type Device = SpotifyApi.UserDevice;
 export type Artist = SpotifyApi.ArtistObjectSimplified | SpotifyApi.ArtistObjectFull;
 export type Album = (SpotifyApi.AlbumObjectSimplified | SpotifyApi.AlbumObjectFull) & {

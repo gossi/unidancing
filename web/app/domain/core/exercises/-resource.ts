@@ -6,7 +6,7 @@ import { sweetenOwner } from 'ember-sweet-owner';
 import { client } from '../../supporting/tina';
 import { cacheResult } from '../../supporting/utils';
 
-import type { Exercise } from './-types';
+import type { Exercise } from './domain-objects';
 import type { LinkManagerService } from 'ember-link';
 
 export const findExercises = resourceFactory(() => {

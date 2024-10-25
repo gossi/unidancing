@@ -6,8 +6,10 @@ import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
 
+import { getTracks } from '@unidancing/app/domain/supporting/spotify/resources/playlist';
 import { dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
+import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
 import { useMachine } from 'ember-statecharts';
@@ -18,8 +20,8 @@ import { Button, Form, IconButton } from '@hokulea/ember';
 import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
 import {
   getRandomTrack,
+  loadPlaylist,
   MaybeSpotifyPlayerWarning,
-  PlaylistResource,
   playTrack,
   playTrackForDancing,
   SpotifyPlayButton,
@@ -28,7 +30,7 @@ import {
 } from '../../../supporting/spotify';
 import styles from './dance-oh-mat.css';
 
-import type { SpotifyClient, Track } from '../../../supporting/spotify';
+import type { Playlist, SpotifyClient, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -199,19 +201,8 @@ class Lobby extends Component<LobbySignature> {
     };
   }
 
-  start = (data: GameParams) => {
-    // const data = new FormData(event.target as HTMLFormElement);
-
-    // const params: GameParams = {
-    //   duration: Number.parseInt(data.get('duration') as string, 10),
-    //   rounds: Number.parseInt(data.get('rounds') as string, 10)
-    // };
-
-    this.args.play(data);
-  };
-
   <template>
-    <Form @data={{this.params}} @submit={{this.start}} as |f|>
+    <Form @data={{this.params}} @submit={{@play}} as |f|>
       <f.Number @name="duration" @label="Dauer pro Lied [sec]" />
       <f.Number @name="rounds" @label="Runden [Anzahl]" />
 
@@ -219,25 +210,6 @@ class Lobby extends Component<LobbySignature> {
 
       <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
     </Form>
-
-    {{!--
-    <form {{on "submit" (preventDefault this.start)}}>
-      <label>
-        Dauer pro Lied [sec]:
-        <input type="number" name="duration" value={{this.params.duration}} />
-      </label>
-
-      <label>
-        Runden [Anzahl]:
-        <input type="number" name="rounds" value={{this.params.rounds}} />
-      </label>
-
-      {{#unless (isReadyForPlayback)}}
-        ⚠️ Bitte Spotify Player auswählen
-      {{/unless}}
-
-      <SpotifyPlayButton type="submit">Start</SpotifyPlayButton>
-    </form> --}}
   </template>
 }
 
@@ -348,20 +320,35 @@ class Game extends Component {
   @tracked counter?: number;
   song?: number;
 
-  dancePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.epic }));
-  surprisePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.surprise }));
+  //  PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.epic }))
+  // surprisePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.surprise }));
+  dancePlaylistResource = use(this, loadPlaylist(PLAYLISTS.epic));
+  surprisePlaylistResource = use(this, loadPlaylist(PLAYLISTS.surprise));
+
+  get dancePlaylist() {
+    return this.dancePlaylistResource.current;
+  }
+
+  get surprisePlaylist() {
+    return this.surprisePlaylistResource.current;
+  }
 
   //
   // Boot
   //
-  constructor(owner: Owner, args: unknown) {
+  constructor(owner: Owner, args: object) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;
 
     // load resources
-    this.dancePlaylist.load();
-    this.surprisePlaylist.load();
+    // this.dancePlaylist.load();
+    // this.surprisePlaylist.load();
+
+    // load resources
+    // @ts-expect-error well, the "unused" is still the loading
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { dancePlaylist, surprisePlaylist } = this;
 
     registerDestructor(this, () => {
       this.audio.player = undefined;
@@ -489,8 +476,8 @@ class Game extends Component {
     return random(songSelected ? [0.75, 0.25] : [0.25, 0.75]);
   }
 
-  findTrack(playlist: PlaylistResource) {
-    return getRandomTrack(playlist.tracks as Track[]);
+  findTrack(playlist: Playlist) {
+    return getRandomTrack(getTracks(playlist));
   }
 
   stop = async () => {
@@ -547,9 +534,11 @@ class Game extends Component {
   </template>
 }
 
-const DanceOhMat: TOC = <template>
-  <header class={{styles.header}}><h1>Dance Oh! Mat</h1>
-    <PortalTarget @name="dance-oh-mat-header" /></header>
+const DanceOhMat: TOC<object> = <template>
+  <header class={{styles.header}}>
+    <h1>Dance Oh! Mat</h1>
+    <PortalTarget @name="dance-oh-mat-header" />
+  </header>
   <WithSpotify>
     <Game />
   </WithSpotify>

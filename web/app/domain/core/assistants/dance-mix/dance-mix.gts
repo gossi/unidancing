@@ -4,11 +4,13 @@ import { registerDestructor } from '@ember/destroyable';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
+import { next } from '@ember/runloop';
 import { service } from '@ember/service';
 import { htmlSafe } from '@ember/template';
 
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
+import { use } from 'ember-resources';
 import { useMachine } from 'ember-statecharts';
 import { eq } from 'ember-truth-helpers';
 import { createMachine } from 'xstate';
@@ -19,9 +21,10 @@ import { AudioPlayer, AudioService } from '../../../supporting/audio';
 import {
   formatArtists,
   getRandomTracks,
+  getTracks,
+  loadPlaylist,
   MaybeSpotifyPlayerWarning,
   PlaylistChooser,
-  PlaylistResource,
   playTrackForDancing,
   SpotifyPlayButton,
   SpotifyService,
@@ -135,7 +138,7 @@ const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = 
 
 interface PlaySignature {
   Args: GameParams & {
-    playlist: PlaylistResource;
+    playlist: Playlist;
     finish: () => void;
   };
 }
@@ -157,7 +160,7 @@ class Play extends Component<PlaySignature> {
 
   start = async () => {
     if (this.args.playlist.tracks) {
-      this.tracks = getRandomTracks(this.args.playlist.tracks, this.args.amount);
+      this.tracks = getRandomTracks(getTracks(this.args.playlist), this.args.amount);
 
       try {
         await this.mix.perform({
@@ -305,7 +308,10 @@ class Game extends Component<DanceMixSignature> {
   }
 
   readSettings = () => {
-    this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
+    // eslint-disable-next-line ember/no-runloop
+    next(() => {
+      this.selectedPlaylistId = localStorage.getItem('dance-playlist') as string;
+    });
   };
 
   machine = useMachine(this, () => ({
@@ -318,7 +324,7 @@ class Game extends Component<DanceMixSignature> {
 
   @tracked selectedPlaylistId?: string;
 
-  get playlistId(): string | undefined {
+  get playlistId(): string {
     if (this.selectedPlaylistId) {
       return this.selectedPlaylistId;
     }
@@ -345,7 +351,14 @@ class Game extends Component<DanceMixSignature> {
     return PLAYLISTS[PlaylistOptions.Epic];
   }
 
-  playlist = PlaylistResource.from(this, () => ({ playlist: this.playlistId }));
+  playlistResource = use(
+    this,
+    loadPlaylist(() => this.playlistId)
+  );
+
+  get playlist() {
+    return this.playlistResource.current;
+  }
 
   selectPlaylist = (playlist: Playlist) => {
     const id = playlist.id;
@@ -382,7 +395,7 @@ class Game extends Component<DanceMixSignature> {
     {{#if (this.machine.state.matches "choosing-playlist")}}
       <PlaylistChooser @select={{this.selectPlaylist}} />
     {{else if (this.machine.state.matches "preparing")}}
-      <Header @playlist={{this.playlist.playlist}}>
+      <Header @playlist={{this.playlist}}>
         {{#unless this.playlistLocked}}
 
           <Button
@@ -397,7 +410,7 @@ class Game extends Component<DanceMixSignature> {
       </Header>
       <Lobby @duration={{@duration}} @pause={{@pause}} @amount={{@amount}} @play={{this.play}} />
     {{else if (this.machine.state.matches "playing")}}
-      <Header @playlist={{this.playlist.playlist}} />
+      <Header @playlist={{this.playlist}} />
       <Play
         @playlist={{this.playlist}}
         @duration={{this.params.duration}}

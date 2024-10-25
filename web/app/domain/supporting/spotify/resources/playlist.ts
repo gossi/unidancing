@@ -1,51 +1,34 @@
-import { tracked } from '@glimmer/tracking';
-
-import { service } from 'ember-polaris-service';
-import { Resource, resource, resourceFactory } from 'ember-resources';
+import { resource, resourceFactory } from 'ember-resources';
 import { sweetenOwner } from 'ember-sweet-owner';
+import { trackedFunction } from 'reactiveweb/function';
 
 import { SpotifyService } from '../service';
 
 import type { Playlist, Track } from '../domain-objects';
-import type { ArgsWrapper } from 'ember-resources';
 
-interface PlaylistArgs extends ArgsWrapper {
-  named: {
-    playlist: string;
-  };
+export function getTracks(playlist: Playlist): Track[] {
+  return playlist.tracks.items.map((tracks) => tracks.track as Track);
 }
 
-export class PlaylistResource extends Resource<PlaylistArgs> {
-  @service(SpotifyService) declare spotify: SpotifyService;
+export const loadPlaylist = resourceFactory(
+  (playlist: string | Playlist | (() => string | Playlist)) => {
+    return resource(({ owner, use }): (() => Playlist) => {
+      const { service } = sweetenOwner(owner);
+      const spotify = service(SpotifyService);
 
-  declare playlistId: string;
+      const request = use(
+        trackedFunction(async () => {
+          const idOrPlaylist = typeof playlist === 'function' ? playlist() : playlist;
 
-  @tracked playlist?: Playlist;
+          if (typeof idOrPlaylist === 'string') {
+            return await spotify.client.api.getPlaylist(idOrPlaylist);
+          }
 
-  get tracks(): Track[] | undefined {
-    return this.playlist?.tracks.items.map((tracks) => tracks.track as Track);
+          return idOrPlaylist;
+        })
+      );
+
+      return () => request.current.value as unknown as Playlist;
+    });
   }
-
-  modify(_positional: PlaylistArgs['positional'], named: PlaylistArgs['named']): void {
-    this.playlistId = named.playlist;
-
-    this.load();
-  }
-
-  async load() {
-    const response = await this.spotify.client.api.getPlaylist(this.playlistId);
-
-    this.playlist = response;
-  }
-}
-
-export const loadPlaylist = resourceFactory((playlist: string) => {
-  return resource(async ({ owner }): Promise<Playlist> => {
-    const { services } = sweetenOwner(owner);
-    const { spotify } = services;
-
-    const response = await spotify.client.api.getPlaylist(playlist);
-
-    return response;
-  });
-});
+);

@@ -50,7 +50,6 @@ function isMaterial(
 
 export const Media: TOC<MediaSignature> = <template>
   {{#each @media as |m|}}
-    {{log m}}
     {{#if (isDanceMix m)}}
       <DanceMix @media={{m}} />
     {{/if}}

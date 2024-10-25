@@ -1,5 +1,5 @@
 import Component from '@glimmer/component';
-import { cached, tracked } from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
 import { fn } from '@ember/helper';
 import { on } from '@ember/modifier';
@@ -10,7 +10,8 @@ import { restartableTask, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
 import Service, { service } from 'ember-polaris-service';
 import { resource, resourceFactory, use } from 'ember-resources';
-import Task from 'ember-tasks';
+import { and } from 'ember-truth-helpers';
+import { trackedFunction } from 'reactiveweb/function';
 
 import { Form } from '@hokulea/ember';
 
@@ -28,7 +29,7 @@ import { data } from './data';
 import styles from './looper.css';
 
 import type { Track } from '../../../supporting/spotify';
-import type { LoopDescriptor, LoopTrackDescriptor } from './data';
+import type { LoopDescriptor, LoopTrackDescriptor } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
 
 const DEV = false;
@@ -47,23 +48,37 @@ interface LoopTrackData extends LoopTrackDescriptor {
   loops: LoopData[];
 }
 
-export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
-  return resource(async ({ use: useResource }): Promise<LoopTrackData> => {
-    const track = await useResource(findTrack(loop.trackId)).current;
+function isSameLoop(a: LoopData, b: LoopData) {
+  return a.id === b.id && a.name === b.name;
+}
 
-    return {
-      ...loop,
-      track,
-      loops: loop.loops.map((lp) => {
+export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
+  return resource(({ use: useResource }): (() => LoopTrackData) => {
+    const request = useResource(
+      trackedFunction(async () => {
+        const trackResource = useResource(findTrack(loop.trackId));
+
         return {
-          id: loop.id,
-          track,
-          ...lp,
-          name: lp.name ?? 'default',
-          duration: lp.end - lp.start
-        };
+          ...loop,
+          get track() {
+            return trackResource.current;
+          },
+          get loops() {
+            return loop.loops.map((lp) => {
+              return {
+                id: loop.id,
+                track: trackResource.current,
+                ...lp,
+                name: lp.name ?? 'default',
+                duration: lp.end - lp.start
+              };
+            });
+          }
+        } as LoopTrackData;
       })
-    };
+    );
+
+    return () => request.current.value as unknown as LoopTrackData;
   });
 });
 
@@ -231,9 +246,9 @@ class Loop extends Component<LoopSignature> {
     registerDestructor(this, () => {
       this.audio.player = undefined;
 
-      if (this.loaded && this.load.resolved) {
-        for (const loop of this.load.value.loops) {
-          if (this.loop.playing === loop) {
+      if (this.track && this.loop.playing) {
+        for (const loop of this.track.loops) {
+          if (isSameLoop(loop, this.loop.playing)) {
             this.loop.stop();
           }
         }
@@ -241,14 +256,10 @@ class Loop extends Component<LoopSignature> {
     });
   }
 
-  @cached
-  get load() {
-    const promise = use(this, loadLoop(this.args.track)).current;
+  trackResource = use(this, loadLoop(this.args.track));
 
-    // eslint-disable-next-line ember/no-side-effects
-    this.loaded = true;
-
-    return Task.promise(promise);
+  get track() {
+    return this.trackResource.current;
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -263,15 +274,13 @@ class Loop extends Component<LoopSignature> {
 
   <template>
     {{#if (isAuthenticated)}}
-      {{#let this.load as |r|}}
-        {{#if r.resolved}}
-          {{#let (this.getLoop r.value) as |l|}}
-            {{#if l}}
-              <PlayButton @loop={{l}} />
-            {{/if}}
-          {{/let}}
-        {{/if}}
-      {{/let}}
+      {{#if this.track}}
+        {{#let (this.getLoop this.track) as |l|}}
+          {{#if l}}
+            <PlayButton @loop={{l}} />
+          {{/if}}
+        {{/let}}
+      {{/if}}
     {{else}}
       Login mit Spotify
     {{/if}}
@@ -291,9 +300,9 @@ class LoopCard extends Component<LoopCardSignature> {
     super(owner, args);
 
     registerDestructor(this, () => {
-      if (this.load.resolved) {
-        for (const loop of this.load.value.loops) {
-          if (this.loop.playing === loop) {
+      if (this.data && this.loop.playing) {
+        for (const loop of this.data.loops) {
+          if (isSameLoop(loop, this.loop.playing)) {
             this.loop.stop();
           }
         }
@@ -301,40 +310,37 @@ class LoopCard extends Component<LoopCardSignature> {
     });
   }
 
-  @cached
-  get load() {
-    const promise = use(this, loadLoop(this.args.loop)).current;
+  loopResource = use(this, loadLoop(this.args.loop));
 
-    return Task.promise(promise);
+  get data() {
+    return this.loopResource.current;
   }
 
   <template>
     <article class={{styles.card}}>
-      {{#let this.load as |r|}}
-        {{#if r.resolved}}
-          <div class={{styles.header}}>
-            <strong>{{r.value.track.name}}</strong>
-            <small>{{formatArtists r.value.track.artists}}</small>
-          </div>
+      {{#if (and this.data this.data.track)}}
+        <div class={{styles.header}}>
+          <strong>{{this.data.track.name}}</strong>
+          <small>{{formatArtists this.data.track.artists}}</small>
+        </div>
 
-          {{#each r.value.loops as |loop|}}
-            <div class={{styles.loop}}>
-              <div>
-                <time>{{formatDuration loop.duration}}</time>
-                <span>{{loop.description}}</span>
-              </div>
-
-              <div class={{styles.buttons}}>
-                {{#if DEV}}
-                  <SpotifyPlayButton {{on "click" (fn (start) loop -10000)}}>-10</SpotifyPlayButton>
-                  <SpotifyPlayButton {{on "click" (fn (start) loop -5000)}}>-5</SpotifyPlayButton>
-                {{/if}}
-                <PlayButton @loop={{loop}} />
-              </div>
+        {{#each this.data.loops as |loop|}}
+          <div class={{styles.loop}}>
+            <div>
+              <time>{{formatDuration loop.duration}}</time>
+              <span>{{loop.description}}</span>
             </div>
-          {{/each}}
-        {{/if}}
-      {{/let}}
+
+            <div class={{styles.buttons}}>
+              {{#if DEV}}
+                <SpotifyPlayButton {{on "click" (fn (start) loop -10000)}}>-10</SpotifyPlayButton>
+                <SpotifyPlayButton {{on "click" (fn (start) loop -5000)}}>-5</SpotifyPlayButton>
+              {{/if}}
+              <PlayButton @loop={{loop}} />
+            </div>
+          </div>
+        {{/each}}
+      {{/if}}
     </article>
   </template>
 }
