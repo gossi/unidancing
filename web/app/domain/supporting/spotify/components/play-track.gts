@@ -1,11 +1,10 @@
 import Component from '@glimmer/component';
-import { cached, tracked } from '@glimmer/tracking';
+import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
 import { fn } from '@ember/helper';
 
 import { service } from 'ember-polaris-service';
 import { use } from 'ember-resources';
-import Task from 'ember-tasks';
 
 import { AudioPlayer, AudioService } from '../../audio';
 import { isAuthenticated } from '../abilities';
@@ -42,18 +41,13 @@ export class PlayTrack extends Component<PlayTrackSignature> {
     });
   }
 
-  @cached
-  get load() {
-    // eslint-disable-next-line @typescript-eslint/init-declarations
-    let promise: Promise<Track>;
+  trackResource = use(
+    this,
+    findTrack(() => this.args.track)
+  );
 
-    if (typeof this.args.track === 'string') {
-      promise = use(this, findTrack(this.args.track)).current;
-    } else {
-      promise = new Promise((resolve) => resolve(this.args.track as Track));
-    }
-
-    return Task.promise(promise);
+  get track() {
+    return this.trackResource.current;
   }
 
   get intent() {
@@ -72,13 +66,11 @@ export class PlayTrack extends Component<PlayTrackSignature> {
 
   <template>
     {{#if (isAuthenticated)}}
-      {{#let this.load as |r|}}
-        {{#if r.resolved}}
-          <SpotifyPlayButton @intent={{this.intent}} @push={{fn this.toggle r.value}}>
-            {{r.value.name}}
-          </SpotifyPlayButton>
-        {{/if}}
-      {{/let}}
+      {{#if this.track}}
+        <SpotifyPlayButton @intent={{this.intent}} @push={{fn this.toggle this.track}}>
+          {{this.track.name}}
+        </SpotifyPlayButton>
+      {{/if}}
     {{else}}
       Login mit Spotify
     {{/if}}

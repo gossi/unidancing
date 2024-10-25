@@ -6,16 +6,20 @@ import { SpotifyService } from '../service';
 
 import type { Track } from '../domain-objects';
 
-export const findTrack = resourceFactory((track: string | (() => string)) => {
+export const findTrack = resourceFactory((track: string | Track | (() => string | Track)) => {
   return resource(({ owner, use }): (() => Track) => {
     const { service } = sweetenOwner(owner);
     const spotify = service(SpotifyService);
 
     const request = use(
       trackedFunction(async () => {
-        const trackId = typeof track === 'function' ? track() : track;
+        const idOrTrack = typeof track === 'function' ? track() : track;
 
-        return await spotify.client.api.getTrack(trackId);
+        if (typeof idOrTrack === 'string') {
+          return await spotify.client.api.getTrack(idOrTrack);
+        }
+
+        return idOrTrack;
       })
     );
 

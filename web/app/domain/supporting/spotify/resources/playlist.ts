@@ -10,21 +10,25 @@ export function getTracks(playlist: Playlist): Track[] {
   return playlist.tracks.items.map((tracks) => tracks.track as Track);
 }
 
-export const loadPlaylist = resourceFactory((playlist: string | (() => string)) => {
-  return resource(({ owner, use }): (() => Playlist) => {
-    const { service } = sweetenOwner(owner);
-    const spotify = service(SpotifyService);
+export const loadPlaylist = resourceFactory(
+  (playlist: string | Playlist | (() => string | Playlist)) => {
+    return resource(({ owner, use }): (() => Playlist) => {
+      const { service } = sweetenOwner(owner);
+      const spotify = service(SpotifyService);
 
-    const request = use(
-      trackedFunction(async () => {
-        console.log('playlist', playlist);
+      const request = use(
+        trackedFunction(async () => {
+          const idOrPlaylist = typeof playlist === 'function' ? playlist() : playlist;
 
-        const playlistId = typeof playlist === 'function' ? playlist() : playlist;
+          if (typeof idOrPlaylist === 'string') {
+            return await spotify.client.api.getPlaylist(idOrPlaylist);
+          }
 
-        return await spotify.client.api.getPlaylist(playlistId);
-      })
-    );
+          return idOrPlaylist;
+        })
+      );
 
-    return () => request.current.value as unknown as Playlist;
-  });
-});
+      return () => request.current.value as unknown as Playlist;
+    });
+  }
+);
