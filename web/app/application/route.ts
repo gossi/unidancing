@@ -40,11 +40,10 @@ export default class ApplicationRoute extends Route {
 
         this.pageTitle.titleDidUpdate = (title: string) => {
           const page = this.router.currentURL;
-          const name = this.router.currentRouteName || 'unknown';
 
           try {
             _paq.push(['setCustomUrl', page]);
-            _paq.push(['trackPageView', title.replace(' | UniDancing', '') ?? name]);
+            _paq.push(['trackPageView', title.replace(' | UniDancing', '')]);
           } catch {
             // fastboot will report on document to not be defined, but also doesn't let
             // you check for it

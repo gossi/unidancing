@@ -81,10 +81,12 @@
 }
 
 .tile {
+  appearance: none;
   display: flex;
   align-items: center;
   justify-content: center;
 
+  background-color: transparent;
   min-height: 100px;
   padding: 0.25rem;
 

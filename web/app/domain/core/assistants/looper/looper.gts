@@ -133,24 +133,28 @@ class LoopService extends Service {
   };
 }
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
 const start = action(({ service }) => async (loop: LoopData, offset: number = 0) => {
   const loopService = service(LoopService);
 
   await loopService.start(loop, offset);
 });
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
 const stop = action(({ service }) => async () => {
   const loopService = service(LoopService);
 
   await loopService.stop();
 });
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
 const isPlaying = ability(({ service }) => (loop: LoopData) => {
   const loopService = service(LoopService);
 
   return loopService.playing === loop;
 });
 
+// eslint-disable-next-line @typescript-eslint/no-shadow
 const playingPercentage = ability(({ service }) => () => {
   const loopService = service(LoopService);
 

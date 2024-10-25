@@ -4,7 +4,9 @@ import { DanceOhMat, DanceOhMatParam } from './dance-oh-mat/dance-oh-mat';
 import type { DanceOhMatParams } from './dance-oh-mat/dance-oh-mat';
 
 export enum Game {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   Bingo = 'bingo',
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   DanceOhMat = 'dance-oh-mat'
 }
 

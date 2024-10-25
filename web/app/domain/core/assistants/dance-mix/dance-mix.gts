@@ -12,7 +12,6 @@ import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import { useMachine } from 'ember-statecharts';
-import { eq } from 'ember-truth-helpers';
 import { createMachine } from 'xstate';
 
 import { Button, Form } from '@hokulea/ember';
@@ -235,7 +234,7 @@ class Play extends Component<PlaySignature> {
     <div class={{styles.play}}>
       <ol class={{styles.tracks}}>
         {{#each this.tracks as |track|}}
-          <li aria-selected={{eq track this.currentTrack}}>
+          <li>
             {{track.name}}<br />
             <small>{{formatArtists track.artists}}</small>
           </li>

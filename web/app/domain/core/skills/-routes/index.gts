@@ -12,7 +12,7 @@ import { findSkills } from '../-resource';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
-export class CourseIndexRoute extends Route<{ id: string }> {
+export class CourseIndexRoute extends Route<object> {
   @service declare fastboot: FastbootService;
 
   @cached
@@ -36,7 +36,10 @@ export class CourseIndexRoute extends Route<{ id: string }> {
         <ul>
           {{#each r.value as |skill|}}
             <li>
-              <LinkTo @route="skills.details" @model={{skill._sys.filename}}>{{skill.title}}</LinkTo>
+              <LinkTo
+                @route="skills.details"
+                @model={{skill._sys.filename}}
+              >{{skill.title}}</LinkTo>
             </li>
           {{/each}}
         </ul>
@@ -45,4 +48,5 @@ export class CourseIndexRoute extends Route<{ id: string }> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(CourseIndexRoute);

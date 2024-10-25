@@ -5,8 +5,8 @@ import type { TOC } from '@ember/component/template-only';
 interface NoteSignature {
   Element: HTMLElement;
   Args: {
-    indicator: 'info' | 'success' | 'warning' | 'error';
-    importance: 'supreme' | 'subtle' | 'plain';
+    indicator?: 'info' | 'success' | 'warning' | 'error';
+    importance?: 'supreme' | 'subtle' | 'plain';
   };
   Blocks: {
     default: [];

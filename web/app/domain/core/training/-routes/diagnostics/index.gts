@@ -3,7 +3,7 @@ import { LinkTo } from '@ember/routing';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Card,Page } from '@hokulea/ember';
+import { Card, Page } from '@hokulea/ember';
 
 import styles from './styles.css';
 
@@ -11,8 +11,8 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
   <template>
     <Page @title="Diagnostik">
       <p>
-        Teil der Leistungsdiagnostik ist es bestimmte Kenngrößen/-merkmale zu messen, diese Ergebnisse zu
-        bewerten und beurteilen, um daraus Trainingsmaßnahmen abzuleiten.
+        Teil der Leistungsdiagnostik ist es bestimmte Kenngrößen/-merkmale zu messen, diese
+        Ergebnisse zu bewerten und beurteilen, um daraus Trainingsmaßnahmen abzuleiten.
       </p>
 
       <h3>Messverfahren</h3>
@@ -29,8 +29,8 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
             <LinkTo @route="training.diagnostics.time-tracking">Zeitaufteilung</LinkTo>
           </:header>
           <:body>
-            Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen wird
-            wieviel Zeit mit
+            Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen
+            wird wieviel Zeit mit
             <b>Tricks</b>,
             <b>Artistik</b>,
             <b>Filler</b>
@@ -40,22 +40,21 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
           </:body>
         </Card>
 
-        {{!-- <article>
+        {{! <article>
           <header>
             Dynamik (?)
           </header>
           <p>Dynamik als Kenngröße für „interessante/ansprechende“ Küren?</p>
 
           <p>=> Von dem, was die Musik hergibt + was der Fahrer kann, liegt die aktuelle Dynamik bei x%</p>
-        </article> --}}
+        </article> }}
 
         <Card>
           <:header>
             <LinkTo @route="training.diagnostics.body-language">Artistik &amp; Körpersprache</LinkTo>
           </:header>
           <:body>
-            Welche Kunst wird vom Fahrer wie gut kommuniziert? Hiermit lässt es sich
-            herausfinden.
+            Welche Kunst wird vom Fahrer wie gut kommuniziert? Hiermit lässt es sich herausfinden.
           </:body>
         </Card>
 
@@ -64,8 +63,8 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
             Trickqualität
           </:header>
           <:body>
-          Ist die Trickqualität einer Kür würdig? Es gibt einen gravierenden Unterschied zwischen "Einen
-          Trick landen" und "Einen Trick auf Kürqualität fahren".
+            Ist die Trickqualität einer Kür würdig? Es gibt einen gravierenden Unterschied zwischen
+            "Einen Trick landen" und "Einen Trick auf Kürqualität fahren".
           </:body>
         </Card>
       </div>
@@ -73,4 +72,5 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(TrainingDiagnosticsIndexRoute);

@@ -7,14 +7,14 @@ import { Page } from '@hokulea/ember';
 
 export class ChoreographyRootRoute extends Route<object> {
   <template>
-    {{pageTitle 'Choreographie'}}
+    {{pageTitle "Choreographie"}}
 
     <Page>
       <:title>Choreographie</:title>
       <:nav as |Item|>
-        <Item @link={{link 'choreography.index'}}>Übersicht</Item>
-        <Item @link={{link 'choreography.unidance-writing'}}>UniDance Writing</Item>
-        <Item @link={{link 'choreography.not-todo-list'}}>Not Todo Liste</Item>
+        <Item @link={{link "choreography.index"}}>Übersicht</Item>
+        <Item @link={{link "choreography.unidance-writing"}}>UniDance Writing</Item>
+        <Item @link={{link "choreography.not-todo-list"}}>Not Todo Liste</Item>
       </:nav>
 
       <:content>
@@ -24,4 +24,5 @@ export class ChoreographyRootRoute extends Route<object> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(ChoreographyRootRoute);

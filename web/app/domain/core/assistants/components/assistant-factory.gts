@@ -11,6 +11,7 @@ export interface AssistantSignature {
 }
 
 export class AssistantFactory extends Component<AssistantSignature> {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   get Assistant() {
     return findAssistant(this.args.assistant);
   }

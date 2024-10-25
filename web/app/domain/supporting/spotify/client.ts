@@ -112,7 +112,7 @@ export class SpotifyClient {
       this.statechart.send('authenticate', { accessToken });
 
       return true;
-    } catch (e) {
+    } catch {
       this.api.setAccessToken(null);
 
       return false;

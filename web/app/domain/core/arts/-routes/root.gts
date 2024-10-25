@@ -15,7 +15,7 @@ import styles from './styles.css';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
-export class ArtsIndexRoute extends Route<{ id: string }> {
+export class ArtsIndexRoute extends Route<object> {
   @service declare fastboot: FastbootService;
 
   @cached
@@ -30,9 +30,12 @@ export class ArtsIndexRoute extends Route<{ id: string }> {
   }
 
   <template>
-    {{pageTitle 'Künste'}}
+    {{pageTitle "Künste"}}
 
-    <Page @title="Künste" @description="Kunstformen die für UniDancing und deren Umsetzung auf dem Einrad geeignet sind.">
+    <Page
+      @title="Künste"
+      @description="Kunstformen die für UniDancing und deren Umsetzung auf dem Einrad geeignet sind."
+    >
       {{#let this.load as |r|}}
         {{#if r.resolved}}
           <div class={{styles.layout}}>
@@ -46,4 +49,5 @@ export class ArtsIndexRoute extends Route<{ id: string }> {
   </template>
 }
 
+// @ts-expect-error some broken upstream types here
 export default CompatRoute(ArtsIndexRoute);

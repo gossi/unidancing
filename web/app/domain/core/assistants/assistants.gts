@@ -4,7 +4,9 @@ import { Looper } from './looper/looper';
 import type { DanceMixParams } from './dance-mix/dance-mix';
 
 export enum Assistant {
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   DanceMix = 'dance-mix',
+  // eslint-disable-next-line @typescript-eslint/no-shadow
   Looper = 'looper'
 }
 
