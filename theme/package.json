@@ -37,7 +37,7 @@
     "style-dictionary": "^3.9.1"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22"
   },
   "readme": "ERROR: No README data found!",
   "_id": "@unidancing/theme@0.0.1"

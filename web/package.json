@@ -139,7 +139,7 @@
     "xstate": "^4.38.2"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22"
   },
   "ember": {
     "edition": "octane"
