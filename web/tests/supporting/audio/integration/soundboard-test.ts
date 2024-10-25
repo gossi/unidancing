@@ -13,14 +13,14 @@ import type { TestContext } from '@ember/test-helpers';
 module('Audio | Integration | Soundboard', function (hooks) {
   setupTest(hooks);
 
-  test('playSound', function (assert) {
+  test('playSound', async (assert) => {
     const context = getContext() as TestContext;
 
     const audioService = service(context, AudioService);
 
     const play = sinon.stub(audioService.soundboard, 'play');
 
-    playSound(context.owner)('surprise');
+    await playSound(context.owner)('surprise');
     assert.true(play.calledOnceWith('surprise'));
   });
 });

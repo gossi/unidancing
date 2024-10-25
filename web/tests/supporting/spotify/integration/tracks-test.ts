@@ -15,14 +15,15 @@ import type { TestContext } from '@ember/test-helpers';
 module('Spotify | Integration | Tracks', function (hooks) {
   setupTest(hooks);
 
-  test('playTrack', function (assert) {
+  test('playTrack', async (assert) => {
     const context = getContext() as TestContext;
 
     const spotifyService = service(context, SpotifyService);
     const spotifyClient = spotifyService.client;
     const play = sinon.stub(spotifyClient.api, 'play');
 
-    playTrack(context.owner)(RADIOACTIVE);
+    await playTrack(context.owner)(RADIOACTIVE);
+
     assert.true(
       play.calledOnceWith({
         uris: [RADIOACTIVE.uri]

@@ -6,3 +6,9 @@ declare module '@unidancing/app/templates/*' {
 
   export default tmpl;
 }
+
+declare module '*.wav' {
+  const url: string;
+
+  export default url;
+}

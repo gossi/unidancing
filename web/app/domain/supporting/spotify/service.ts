@@ -54,9 +54,9 @@ export class SpotifyService extends Service {
       const response = await fetch(`${config.workerHostURL}/spotify/refresh?token=${token}`);
 
       if (response.status === 200) {
-        this.authenticate(deserialize(await response.json()));
+        this.authenticate(deserialize((await response.json()) as Record<string, string>));
       }
-    } catch (_e) {
+    } catch {
       // do not do something here
     }
   }
