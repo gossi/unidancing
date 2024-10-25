@@ -19,10 +19,6 @@
   "pnpm": {
     "patchedDependencies": {
       "ember-cli-fastboot@4.1.5": "patches/ember-cli-fastboot@4.1.5.patch"
-    },
-    "resolutions": {
-      "node-gyp": "^10.2.0",
-      "better-sqlite3": "^11.5.0"
     }
   }
 }
