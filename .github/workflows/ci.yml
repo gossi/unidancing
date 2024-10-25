@@ -35,6 +35,38 @@ jobs:
         run: pnpm run lint:js
         working-directory: web
 
+  lint-types:
+    name: Lint (Types)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: wyvox/action@v1
+
+      # build tina stuff
+      - name: Build Tina
+        run: pnpm exec tinacms build --local --skip-cloud-checks
+        working-directory: web
+
+      - name: Lint
+        run: pnpm run lint:types
+        working-directory: web
+
+  lint-hbs:
+    name: Lint (HBS)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup
+        uses: wyvox/action@v1
+
+      # build tina stuff
+      - name: Build Tina
+        run: pnpm exec tinacms build --local --skip-cloud-checks
+        working-directory: web
+
+      - name: Lint
+        run: pnpm run lint:hbs
+        working-directory: web
+
   test:
     name: Test
     runs-on: ubuntu-latest
