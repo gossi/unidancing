@@ -75,6 +75,14 @@ function isProduction() {
 
 module.exports = function (defaults) {
   let app = new EmberApp(defaults, {
+    '@embroider/macros': {
+      setConfig: {
+        'ember-qunit': {
+          theme: 'ember'
+        }
+      }
+    },
+
     // Add options here
     cssModules: {
       includeExtensionInModulePath: true
