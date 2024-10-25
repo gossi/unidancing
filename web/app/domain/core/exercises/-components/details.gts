@@ -1,3 +1,4 @@
+import { uniqueId } from '@ember/helper';
 import { on } from '@ember/modifier';
 
 import { or } from 'ember-truth-helpers';
@@ -75,50 +76,54 @@ const ExerciseDetails: TOC<ExerciseDetailsSignature> = <template>
           <aside>
             <section>
               {{#if (or @exercise.links @exercise.exercises)}}
-                <nav>
-                  Siehe auch:
+                {{#let (uniqueId) as |exercisesId|}}
+                  <nav aria-labelledby={{exercisesId}}>
+                    <span id={{exercisesId}}>Siehe auch</span>:
 
-                  <ul>
-                    {{#each @exercise.exercises as |ex|}}
-                      <li>
-                        {{#let (buildExerciseLink (asString ex.data._sys.filename)) as |l|}}
-                          <a href={{l.url}} {{on "click" l.transitionTo}}>
-                            <Icon @icon="exercise" />
-                            {{ex.data.title}}
+                    <ul>
+                      {{#each @exercise.exercises as |ex|}}
+                        <li>
+                          {{#let (buildExerciseLink (asString ex.data._sys.filename)) as |l|}}
+                            <a href={{l.url}} {{on "click" l.transitionTo}}>
+                              <Icon @icon="exercise" />
+                              {{ex.data.title}}
+                            </a>
+                          {{/let}}
+                        </li>
+                      {{/each}}
+
+                      {{#each @exercise.links as |see|}}
+                        <li>
+                          <a href={{see.url}} target="_blank" rel="noopener noreferrer">
+                            <Icon @icon="link" />
+                            {{if see.label see.label see.url}}
                           </a>
-                        {{/let}}
-                      </li>
-                    {{/each}}
-
-                    {{#each @exercise.links as |see|}}
-                      <li>
-                        <a href={{see.url}} target="_blank" rel="noopener noreferrer">
-                          <Icon @icon="link" />
-                          {{if see.label see.label see.url}}
-                        </a>
-                      </li>
-                    {{/each}}
-                  </ul>
-                </nav>
+                        </li>
+                      {{/each}}
+                    </ul>
+                  </nav>
+                {{/let}}
               {{/if}}
 
               {{#if @exercise.skills}}
-                <nav>
-                  Fertigkeiten:
+                {{#let (uniqueId) as |skillsId|}}
+                  <nav aria-labelledby={{skillsId}}>
+                    <span id={{skillsId}}>Fertigkeiten</span>:
 
-                  <ul>
-                    {{#each @exercise.skills as |skill|}}
-                      <li>
-                        {{#let (buildSkillLink (asString skill.data._sys.filename)) as |l|}}
-                          <a href={{l.url}} {{on "click" l.transitionTo}}>
-                            <Icon @icon="skill" />
-                            {{skill.data.title}}
-                          </a>
-                        {{/let}}
-                      </li>
-                    {{/each}}
-                  </ul>
-                </nav>
+                    <ul>
+                      {{#each @exercise.skills as |skill|}}
+                        <li>
+                          {{#let (buildSkillLink (asString skill.data._sys.filename)) as |l|}}
+                            <a href={{l.url}} {{on "click" l.transitionTo}}>
+                              <Icon @icon="skill" />
+                              {{skill.data.title}}
+                            </a>
+                          {{/let}}
+                        </li>
+                      {{/each}}
+                    </ul>
+                  </nav>
+                {{/let}}
               {{/if}}
 
               {{#if @exercise.material}}

@@ -28,14 +28,15 @@ interface TileSignature {
 }
 
 const Tile: TOC<TileSignature> = <template>
-  <div
+  <button
+    type="button"
     class={{styles.tile}}
     data-winner={{@winner}}
     data-selected={{@selected}}
     {{on "click" @select}}
   >
     {{@principle.title}}
-  </div>
+  </button>
 </template>;
 
 class Bingo {
@@ -225,7 +226,9 @@ class Counters {
   @tracked activeCounter!: Counter;
 
   constructor() {
-    this.load();
+    if (window !== undefined) {
+      this.load();
+    }
 
     if (Object.keys(this.counters).length === 0) {
       // eslint-disable-next-line ember/no-runloop
