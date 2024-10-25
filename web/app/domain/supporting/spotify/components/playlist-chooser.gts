@@ -35,7 +35,6 @@ export class PlaylistChooser extends Component<PlaylistChooserSignature> {
   <template>
     <Form @data={{this.data}} @submit={{this.select}} class={{styles.form}} as |f|>
       <f.List @name="selection" @label="Playlist auswählen" as |l|>
-        {{log this.resource this.playlists}}
         {{#each this.playlists as |playlist|}}
           <l.Option @value={{playlist}}>{{playlist.name}}</l.Option>
         {{/each}}

@@ -127,7 +127,6 @@ const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = 
   <div class={{styles.header}}>
     <p>
       {{#if @playlist}}
-        {{log @playlist}}
         <strong>{{htmlSafe @playlist.name}}</strong><br />
         <small>{{htmlSafe (if @playlist.description @playlist.description "")}}</small>
       {{/if}}
@@ -393,7 +392,6 @@ class Game extends Component<DanceMixSignature> {
   };
 
   <template>
-    {{log this.playlistId}}
     {{#if (this.machine.state.matches "choosing-playlist")}}
       <PlaylistChooser @select={{this.selectPlaylist}} />
     {{else if (this.machine.state.matches "preparing")}}
