@@ -15,7 +15,8 @@ import {
   asLocomotion,
   asMediaCollection,
   asPersonal,
-  type Exercise
+  type Exercise,
+  isMaterial
 } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';
 import styles from './details.css';
@@ -23,7 +24,16 @@ import Difficulty from './difficulty';
 import { Instruction } from './instruction';
 import { Media } from './media';
 
+import type { ExerciseMedia, Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
+
+function hasMaterial(media: Maybe<Maybe<ExerciseMedia>[]> | undefined) {
+  return media?.some((material: ExerciseMedia) => isMaterial(material));
+}
+
+function filterMaterial(media: Maybe<Maybe<ExerciseMedia>[]> | undefined) {
+  return (media ?? []).filter((material: ExerciseMedia) => isMaterial(material)) as ExerciseMedia[];
+}
 
 export interface ExerciseDetailsSignature {
   Args: {
@@ -72,7 +82,9 @@ const ExerciseDetails: TOC<ExerciseDetailsSignature> = <template>
           {{/if}}
         </section>
 
-        {{#if (or @exercise.links @exercise.exercises @exercise.skills @exercise.material)}}
+        {{#if
+          (or @exercise.links @exercise.exercises @exercise.skills (hasMaterial @exercise.media))
+        }}
           <aside>
             <section>
               {{#if (or @exercise.links @exercise.exercises)}}
@@ -126,13 +138,11 @@ const ExerciseDetails: TOC<ExerciseDetailsSignature> = <template>
                 {{/let}}
               {{/if}}
 
-              {{#if @exercise.material}}
+              {{#if (hasMaterial @exercise.media)}}
                 <ul>
                   Das brauchst du:
 
-                  {{#each @exercise.material as |material|}}
-                    <li>{{material}}</li>
-                  {{/each}}
+                  <Media @media={{filterMaterial @exercise.media}} />
                 </ul>
               {{/if}}
             </section>

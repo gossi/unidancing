@@ -35,33 +35,43 @@ export function getPersonalText(personal: Personal) {
 }
 
 const METHOD = {
-  lecture: 'Trainervortrag',
-  individual: 'Einzelübung',
-  pair: 'Partnerübung',
-  group: 'Gruppenübung',
-  discussion: 'Diskussion',
-  showcase: 'Showcase',
+  lecture: {
+    label: 'Trainervortrag',
+    abbr: 'TV'
+  },
+  individual: {
+    label: 'Einzelübung',
+    abbr: 'Einzel'
+  },
+  pair: {
+    label: 'Partnerübung',
+    abbr: 'Partner'
+  },
+  group: {
+    label: 'Gruppenübung',
+    abbr: 'Gruppe'
+  },
+  discussion: {
+    label: 'Diskussion',
+    abbr: 'Disc'
+  },
+  showcase: {
+    label: 'Showcase',
+    abbr: 'SC'
+  },
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  'frontal-teaching': 'Frontalunterricht'
-} as const;
-
-const METHOD_ABBR = {
-  lecture: 'TV',
-  individual: 'Einzel',
-  pair: 'Partner',
-  group: 'Gruppe',
-  discussion: 'Disc',
-  showcase: 'SC',
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  'frontal-teaching': 'FU'
+  'frontal-teaching': {
+    label: 'Frontalunterricht',
+    abbr: 'FU'
+  }
 } as const;
 
 export function formatMethod(method: keyof typeof METHOD) {
-  return METHOD[method];
+  return METHOD[method].label;
 }
 
-export function formatMethodAbbr(method: keyof typeof METHOD_ABBR) {
-  return METHOD_ABBR[method];
+export function formatMethodAbbr(method: keyof typeof METHOD) {
+  return METHOD[method].abbr;
 }
 
 export function formatDuration(duration: number) {
@@ -76,4 +86,8 @@ export function formatDuration(duration: number) {
   d.setMinutes(duration);
 
   return formatter.format(d);
+}
+
+export function asMethod(method: string) {
+  return method as keyof typeof METHOD;
 }
