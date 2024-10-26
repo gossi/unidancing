@@ -41,6 +41,40 @@ export function asMediaCollection(
   return media as ExerciseMedia[];
 }
 
+export function isDanceMix(
+  media: ExerciseMedia | ExerciseInstructionMedia
+): media is ExerciseMediaDancemix {
+  return (
+    media.__typename === 'ExerciseMediaDancemix' ||
+    media.__typename === 'ExerciseInstructionMediaDancemix'
+  );
+}
+
+export function isLoop(
+  media: ExerciseMedia | ExerciseInstructionMedia
+): media is ExerciseMediaLoop {
+  return (
+    media.__typename === 'ExerciseMediaLoop' || media.__typename === 'ExerciseInstructionMediaLoop'
+  );
+}
+
+export function isSong(
+  media: ExerciseMedia | ExerciseInstructionMedia
+): media is ExerciseMediaSong {
+  return (
+    media.__typename === 'ExerciseMediaSong' || media.__typename === 'ExerciseInstructionMediaSong'
+  );
+}
+
+export function isMaterial(
+  media: ExerciseMedia | ExerciseInstructionMedia
+): media is ExerciseMediaMaterial {
+  return (
+    media.__typename === 'ExerciseMediaMaterial' ||
+    media.__typename === 'ExerciseInstructionMediaMaterial'
+  );
+}
+
 export type {
   Exercise,
   ExerciseInstructionMedia,

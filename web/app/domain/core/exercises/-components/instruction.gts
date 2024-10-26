@@ -1,18 +1,19 @@
 import { fn } from '@ember/helper';
 
-import { TinaMarkdown } from '@unidancing/app/domain/supporting/tina';
-import { asString } from '@unidancing/app/domain/supporting/utils';
 import { and, or } from 'ember-truth-helpers';
 
 import { Button } from '@hokulea/ember';
 
+import { TinaMarkdown } from '../../../supporting/tina';
 import { Dialog, VideoPlayer } from '../../../supporting/ui';
-import { formatDuration, formatMethod, formatMethodAbbr } from '../-helpers';
+import { asNumber, asString } from '../../../supporting/utils';
+import { asMethod, formatDuration, formatMethod, formatMethodAbbr } from '../-helpers';
 import { asMediaCollection } from '../domain-objects';
 import styles from './instruction.css';
 import { Media } from './media';
 
 import type { Instruction as ExerciseInstruction } from '../domain-objects';
+import type { Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
 
 function openDialog(id: string) {
@@ -25,7 +26,7 @@ function openDialog(id: string) {
 
 interface InstructionSignature {
   Args: {
-    instructions: ExerciseInstruction[];
+    instructions: Maybe<ExerciseInstruction>[];
   };
 }
 
@@ -53,7 +54,7 @@ export const Instruction: TOC<InstructionSignature> = <template>
             </div>
           {{/if}}
 
-          <div data-duration>{{formatDuration s.duration}}</div>
+          <div data-duration>{{formatDuration (asNumber s.duration)}}</div>
           <div data-instruction>
             {{#if s.move}}
               <TinaMarkdown @content={{s.move.instruction}} />
@@ -64,7 +65,9 @@ export const Instruction: TOC<InstructionSignature> = <template>
             {{/if}}
           </div>
           <div data-method>
-            <abbr title={{formatMethod s.method}}>{{formatMethodAbbr s.method}}</abbr>
+            <abbr title={{formatMethod (asMethod (asString s.method))}}>
+              {{formatMethodAbbr (asMethod (asString s.method))}}
+            </abbr>
           </div>
           <div data-media>
             {{#if (and s.media)}}

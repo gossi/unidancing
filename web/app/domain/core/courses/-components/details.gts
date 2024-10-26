@@ -1,6 +1,7 @@
 import { Page } from '@hokulea/ember';
 
 import { VideoPlayer } from '../../../supporting/ui';
+import { asString } from '../../../supporting/utils';
 import { ExerciseTeaser } from '../../exercises';
 import styles from './details.css';
 
@@ -16,24 +17,24 @@ export interface CourseDetailsSignature {
 }
 
 const add1 = (number: number) => {
-  return number +1;
-}
+  return number + 1;
+};
 
 const pickExamples = (videos: string[]) => {
   return videos.sort(() => 0.5 - Math.random()).slice(0, 2);
-}
+};
 
 const asStringArray = (strings: Maybe<string>[]): string[] => {
   return strings as string[];
-}
+};
 
 const asExercise = (exercise?: Maybe<Exercise>): Exercise => {
   return exercise as Exercise;
-}
+};
 
 const CourseDetails: TOC<CourseDetailsSignature> = <template>
-  <Page @title={{@course.title}} @description={{@course.about}}>
-    <div class='grid'>
+  <Page @title={{@course.title}} @description={{asString @course.about}}>
+    <div class="grid">
       <div>
         <h2>Lernziele</h2>
 
@@ -57,13 +58,13 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
     </div>
 
     {{#if @course.examples}}
-    <h2>Beispiele</h2>
+      <h2>Beispiele</h2>
 
-    <div class={{styles.examples}}>
-      {{#each (pickExamples (asStringArray @course.examples)) as |url|}}
-        <VideoPlayer @url={{url}}/>
-      {{/each}}
-    </div>
+      <div class={{styles.examples}}>
+        {{#each (pickExamples (asStringArray @course.examples)) as |url|}}
+          <VideoPlayer @url={{url}} />
+        {{/each}}
+      </div>
     {{/if}}
 
     <h2 class={{styles.lessons}}>Trainingseinheiten</h2>
@@ -87,8 +88,6 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
     {{/each}} --}}
 
   </Page>
-
-
-</template>
+</template>;
 
 export { CourseDetails };

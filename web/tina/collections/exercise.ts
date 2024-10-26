@@ -178,6 +178,11 @@ export const ExerciseCollection: Collection = {
   name: 'exercise',
   label: 'Exercises',
   path: 'content/exercises',
+  ui: {
+    filename: {
+      slugify: (values) => `${values?.title?.toLowerCase().replace(/ /g, '-')}`
+    },
+  },
   fields: [
     {
       type: "string",

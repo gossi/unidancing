@@ -7,6 +7,7 @@ import { client } from '../../supporting/tina';
 import { cacheResult } from '../../supporting/utils';
 
 import type { Art } from './-types';
+import type { ArtConnectionEdges } from '@/tina/types';
 import type { LinkManagerService } from 'ember-link';
 
 export const findArts = resourceFactory(() => {
@@ -14,7 +15,9 @@ export const findArts = resourceFactory(() => {
     return cacheResult('arts', owner, async () => {
       const artsResponse = await client.queries.artConnection({ sort: 'title' });
 
-      return artsResponse.data.artConnection.edges?.map((edge) => edge.node) as Art[];
+      return (artsResponse.data.artConnection.edges as ArtConnectionEdges[] | undefined)?.map(
+        (edge) => edge.node
+      ) as Art[];
     });
   });
 });
