@@ -1,2 +1,5 @@
 .dev.vars
 .wrangler/
+dist/
+# Sentry Config File
+.sentryclirc

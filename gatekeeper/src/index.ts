@@ -10,19 +10,10 @@
 
 import { Router } from 'itty-router';
 import { OauthClient } from './oauth-client';
-import {withSentry} from '@sentry/cloudflare';
+import { withSentry } from '@sentry/cloudflare';
 
 export interface Env {
-  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-  // MY_KV_NAMESPACE: KVNamespace;
-  //
-  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-  // MY_DURABLE_OBJECT: DurableObjectNamespace;
-  //
-  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-  // MY_BUCKET: R2Bucket;
-
-  // SPOTIFY_REDIRECT_URI: string;
+  ENVIRONMENT: 'dev' | 'staging' | 'production';
   SPOTIFY_CLIENT_ID: string;
   SPOTIFY_CLIENT_SECRET: string;
   WORKER_ROOT: string;
@@ -138,6 +129,7 @@ function handleOptions(request: Request) {
 
 export default withSentry(
   env => ({
+    environment: env.ENVIRONMENT,
     dsn: env.SENTRY_DSN,
     // Set tracesSampleRate to 1.0 to capture 100% of spans for tracing.
     tracesSampleRate: 1.0,
