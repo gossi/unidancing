@@ -2,6 +2,7 @@ name = "unidancing"
 main = "src/index.ts"
 compatibility_date = "2022-07-23"
 compatibility_flags = ["nodejs_compat"]
+upload_source_maps = true
 
 # [dev]
 # port = 8787
