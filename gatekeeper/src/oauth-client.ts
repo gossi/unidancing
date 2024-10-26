@@ -13,14 +13,15 @@ class OauthClient {
   #config: OauthClientConfig;
   #as!: oauth.AuthorizationServer;
   #client: oauth.Client;
+  #clientAuth: oauth.ClientAuth;
 
   constructor(config: OauthClientConfig) {
     this.#config = config;
     this.#codeVerifier = oauth.generateRandomCodeVerifier();
     this.#client = {
-      client_id: this.#config.clientId,
-      client_secret: this.#config.clientSecret
+      client_id: this.#config.clientId
     };
+    this.#clientAuth = oauth.ClientSecretBasic(this.#config.clientSecret);
   }
 
   async readServer() {
@@ -50,7 +51,7 @@ class OauthClient {
     return loginUrl;
   }
 
-  async grantCode(url: string | URL): Promise<oauth.OAuth2TokenEndpointResponse> {
+  async grantCode(url: string | URL): Promise<oauth.TokenEndpointResponse> {
     const params = oauth.validateAuthResponse(
       this.#as,
       this.#client,
@@ -58,37 +59,20 @@ class OauthClient {
       oauth.expectNoState
     );
 
-    if (oauth.isOAuth2Error(params)) {
-      console.log('error', params);
-      throw new Error(); // Handle OAuth 2.0 redirect error
-    }
-
     const response = await oauth.authorizationCodeGrantRequest(
       this.#as,
       this.#client,
+      this.#clientAuth,
       params,
       this.#config.grantRedirectURI,
       this.#codeVerifier
     );
 
-    let challenges: oauth.WWWAuthenticateChallenge[] | undefined;
-    if ((challenges = oauth.parseWwwAuthenticateChallenges(response))) {
-      for (const challenge of challenges) {
-        console.log('challenge', challenge);
-      }
-      throw new Error(); // Handle www-authenticate challenges as needed
-    }
-
-    const result = await oauth.processAuthorizationCodeOAuth2Response(
+    const result = await oauth.processAuthorizationCodeResponse(
       this.#as,
       this.#client,
       response
     );
-
-    if (oauth.isOAuth2Error(result)) {
-      console.error(result);
-      throw new Error(); // Handle OAuth 2.0 response body error
-    }
 
     return result;
   }
@@ -97,6 +81,7 @@ class OauthClient {
     const response = await oauth.refreshTokenGrantRequest(
       this.#as,
       this.#client,
+      this.#clientAuth,
       token
     );
 
@@ -105,11 +90,6 @@ class OauthClient {
       this.#client,
       response
     );
-
-    if (oauth.isOAuth2Error(result)) {
-      console.error(result);
-      throw new Error(); // Handle OAuth 2.0 response body error
-    }
 
     return result;
   }
