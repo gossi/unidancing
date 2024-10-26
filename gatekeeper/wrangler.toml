@@ -1,10 +1,17 @@
 name = "unidancing"
 main = "src/index.ts"
 compatibility_date = "2022-07-23"
+compatibility_flags = ["nodejs_compat"]
+upload_source_maps = true
 
 # [dev]
 # port = 8787
 
+[observability]
+enabled = true
+head_sampling_rate = 1
+
 [vars]
+ENVIRONMENT = "production"
 WORKER_ROOT = "https://connect.unidancing.art"
 APP_ROOT = "https://unidancing.art"

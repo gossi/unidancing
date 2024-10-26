@@ -10,22 +10,15 @@
 
 import { Router } from 'itty-router';
 import { OauthClient } from './oauth-client';
+import { withSentry } from '@sentry/cloudflare';
 
 export interface Env {
-  // Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-  // MY_KV_NAMESPACE: KVNamespace;
-  //
-  // Example binding to Durable Object. Learn more at https://developers.cloudflare.com/workers/runtime-apis/durable-objects/
-  // MY_DURABLE_OBJECT: DurableObjectNamespace;
-  //
-  // Example binding to R2. Learn more at https://developers.cloudflare.com/workers/runtime-apis/r2/
-  // MY_BUCKET: R2Bucket;
-
-  // SPOTIFY_REDIRECT_URI: string;
+  ENVIRONMENT: 'dev' | 'staging' | 'production';
   SPOTIFY_CLIENT_ID: string;
   SPOTIFY_CLIENT_SECRET: string;
   WORKER_ROOT: string;
   APP_ROOT: string;
+  SENTRY_DSN: string;
 }
 
 let spotifyClient: OauthClient;
@@ -134,28 +127,35 @@ function handleOptions(request: Request) {
   }
 }
 
-export default {
-  async fetch(
-    request: Request,
-    env: Env
-    // ctx: ExecutionContext
-  ): Promise<Response> {
-    let response;
-    if (request.method === 'OPTIONS') {
-      response = handleOptions(request);
-    } else {
-      response = await router.fetch(request, env);
+export default withSentry(
+  env => ({
+    environment: env.ENVIRONMENT,
+    dsn: env.SENTRY_DSN,
+    // Set tracesSampleRate to 1.0 to capture 100% of spans for tracing.
+    tracesSampleRate: 1.0,
+  }), {
+    async fetch(
+      request: Request,
+      env: Env
+      // ctx: ExecutionContext
+    ): Promise<Response> {
+      let response;
+      if (request.method === 'OPTIONS') {
+        response = handleOptions(request);
+      } else {
+        response = await router.fetch(request, env);
 
-      if (!response.redirected) {
-        response = new Response(response.body, response);
-        response.headers.set('Access-Control-Allow-Origin', '*');
-        response.headers.set(
-          'Access-Control-Allow-Methods',
-          'GET, POST, PUT, DELETE, OPTIONS'
-        );
+        if (!response.redirected) {
+          response = new Response(response.body, response);
+          response.headers.set('Access-Control-Allow-Origin', '*');
+          response.headers.set(
+            'Access-Control-Allow-Methods',
+            'GET, POST, PUT, DELETE, OPTIONS'
+          );
+        }
       }
-    }
 
-    return response;
+      return response;
+    }
   }
-};
+);
