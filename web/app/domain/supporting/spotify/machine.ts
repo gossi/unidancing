@@ -13,33 +13,75 @@ export const SpotifyMachine = createMachine({
       }
     },
     authenticated: {
-      initial: 'connecting',
+      type: 'parallel',
       on: {
         unauthenticate: {
           target: 'unauthenticated'
         }
       },
       states: {
-        connecting: {
-          invoke: {
-            onDone: {
-              target: 'ready'
+        device: {
+          initial: 'connecting',
+          states: {
+            connecting: {
+              on: {
+                loadDevices: {
+                  target: 'loading'
+                }
+              },
+              invoke: {
+                onDone: {
+                  target: 'selecting',
+                  cond: 'hasDevices'
+                },
+                onError: {
+                  target: 'loading'
+                },
+                src: 'connectPlayer'
+              }
             },
-            onError: {
-              target: 'errored'
+            loading: {
+              invoke: {
+                id: 'spotify.authenticated.device.loading:invocation[0]',
+                onDone: {
+                  target: 'selecting'
+                },
+                src: 'loadDevices'
+              }
             },
-            src: 'connectPlayer'
+            selecting: {
+              on: {
+                selectDevice: {
+                  target: 'ready'
+                }
+              },
+              invoke: {
+                id: 'spotify.authenticated.device.selecting:invocation[0]',
+                src: 'autoselectDevice'
+              }
+            },
+            ready: {
+              on: {
+                selectDevice: {
+                  target: 'ready'
+                },
+                unmountDevice: [
+                  {
+                    target: 'selecting',
+                    cond: 'hasDevices'
+                  },
+                  {
+                    target: 'loading'
+                  }
+                ]
+              }
+            }
           }
         },
-        ready: {
-          always: {
-            target: 'playback'
-          }
-        },
-        errored: {},
         playback: {
           initial: 'paused',
           invoke: {
+            id: 'spotify.authenticated.playback:invocation[0]',
             src: 'loadPlayback'
           },
           states: {
@@ -63,8 +105,19 @@ export const SpotifyMachine = createMachine({
     }
   }
 }).withConfig({
+  guards: {
+    hasDevices() {
+      return false;
+    }
+  },
   services: {
     connectPlayer: createMachine({
+      /* ... */
+    }),
+    loadDevices: createMachine({
+      /* ... */
+    }),
+    autoselectDevice: createMachine({
       /* ... */
     }),
     loadPlayback: createMachine({
