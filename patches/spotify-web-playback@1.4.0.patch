@@ -1,0 +1,47 @@
+diff --git a/dist/index.mjs b/dist/index.mjs
+index df9bf23e2591db2ed91724ccedd52e80366711a1..9f858e6a34336653dd9c00156ec570e92291a1ad 100644
+--- a/dist/index.mjs
++++ b/dist/index.mjs
+@@ -636,29 +636,22 @@ class SpotifyPlayer {
+     const {
+       paused,
+       position,
+-      track_window: {
+-        current_track: {
+-          album,
+-          artists,
+-          duration_ms,
+-          id,
+-          name,
+-          uri
+-        }
+-      }
++      track_window: { current_track: currentTrack }
+     } = state;
+     this._playing = !paused;
+     this._position = position;
+-    this._track = {
+-      artists: artists.map(({
+-        name
+-      }) => name),
+-      duration: duration_ms,
+-      image: this.getAlbumImage(album),
+-      id,
+-      name,
+-      uri
+-    };
++    if (currentTrack) {
++      const { album, artists, duration_ms, id, name, uri } = currentTrack;
++    
++      this._track = {
++        artists: artists.map(({ name }) => name),
++        duration: duration_ms,
++        image: this.getAlbumImage(album),
++        id,
++        name,
++        uri
++      };
++    }
+ 
+     for (const cb of this._stateListeners) {
+       cb(state);

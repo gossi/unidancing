@@ -1,6 +1,6 @@
 .layout {
   display: flex;
-  gap: 1rem;
+  justify-content: space-between;
   align-items: center;
 
   min-height: calc(4.5rem + 1vw);
@@ -11,6 +11,12 @@
   }
 }
 
+.content {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
 .warning {
   color: var(--indicator-warning-plain-text);
 }
@@ -19,3 +25,73 @@
   font-size: var(--s4);
   color: #1ed760;
 }
+
+.trigger {
+  padding: var(--spacing-primitive-4);
+  font-size: var(--s3);
+
+  &[data-need-device] {
+    color: var(--indicator-error-plain-text);
+  }
+
+  &[data-has-device] {
+    /* spotify green */
+    color: #1ed760;
+  }
+}
+
+.device {
+  padding-inline: var(--spacing-primitive-4);
+  padding-block: var(--spacing-primitive-4);
+  border-radius: var(--shape-radius-primitive);
+  background-color: var(--surface-container1);
+  width: 100%;
+
+  p:first-child {
+    color: var(--typography-muted);
+  }
+
+  p:nth-child(2) {
+    padding-block: var(--spacing-primitive-1);
+    font-weight: 550;
+    font-size: var(--s0);
+  }
+}
+
+.devices {
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    :where(p:first-child) {
+      color: var(--typography-subtle);
+    }
+  }
+
+  &:popover-open {
+    position: absolute;
+    inset: auto var(--spacing-container-1) 5rem auto;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container-1);
+
+    margin-right: var(--spacing-container-1);
+
+    button {
+      justify-content: flex-start;
+      padding-inline: var(--spacing-primitive-4);
+
+      span:first-child {
+        font-size: var(--s1);
+      }
+    }
+
+    @media (width >= 72rem) {
+      /* left: calc(50% + var(--sizing-max-content-width) / 2); */
+      right: calc((100% - var(--sizing-max-content-width)) / 2);
+    }
+  }
+}
+
