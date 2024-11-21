@@ -1,6 +1,10 @@
 export { default as IndexRoute } from './-routes/index';
 export { default as RootRoute } from './-routes/root';
 
+// Athletic Profile
+
+export { default as AthleticProfileRoute } from './-routes/athletic-profile';
+
 // planning
 export { default as PlanningRoute } from './-routes/planning';
 export { default as PlanningAssistantsRoute } from './-routes/planning/assistants';

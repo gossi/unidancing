@@ -47,6 +47,7 @@ export default RouteTemplate<Signature>(
           <:menu as |t|>
             <t.Item @push={{link "training"}}>Übersicht</t.Item>
             <hr />
+            <t.Item @push={{link "training.athletic-profile"}}>Leistungsprofil</t.Item>
             <t.Item @push={{link "training.planning"}}>Planung</t.Item>
             <t.Item @push={{link "training.control"}}>Steuerung</t.Item>
             <t.Item @push={{link "training.diagnostics"}}>Diagnostik</t.Item>

@@ -13,6 +13,7 @@ export class TrainingRootRoute extends Route<object> {
       <:title>Training</:title>
       <:nav as |Item|>
         <Item @link={{link "training.index"}}>Übersicht</Item>
+        <Item @link={{link "training.athletic-profile"}}>Leistungsprofil</Item>
         <Item @link={{link "training.planning"}}>Planung</Item>
         <Item @link={{link "training.control"}}>Steuerung</Item>
         <Item @link={{link "training.diagnostics"}}>Diagnostik</Item>

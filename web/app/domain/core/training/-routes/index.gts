@@ -13,12 +13,23 @@ export class TrainingIndexRoute extends Route<object> {
 
     <Features>
       <CardSection>
+        <:header><h2><LinkTo
+              @route="training.athletic-profile"
+            >Leistungsprofil</LinkTo></h2></:header>
+        <:body>
+          Leistungsvoraaussetzungen an Athleten zur Erbringung der Wettkampfleistung im UniDancing.
+        </:body>
+      </CardSection>
+
+      <CardSection>
         <:header><h2><LinkTo @route="training.planning">Planung</LinkTo></h2></:header>
         <:body>
           Trainingsgestaltung und Trainingspläne.
         </:body>
       </CardSection>
+    </Features>
 
+    <Features>
       <CardSection>
         <:header><h2><LinkTo @route="training.control">Steuerung</LinkTo></h2></:header>
         <:body>
