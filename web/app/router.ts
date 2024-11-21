@@ -34,6 +34,7 @@ Router.map(function () {
     this.route('unidance-writing');
   });
   this.route('training', function () {
+    this.route('athletic-profile', { path: '/leistungsprofil' });
     this.route('planning', function () {
       this.route('units');
       this.route('plans');
