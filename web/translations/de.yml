@@ -1,0 +1,171 @@
+judging-system-2019:
+  performance:
+    name: Performance
+    execution:
+      name: Ausführung
+
+      presence:
+        name: Präsenz
+        interval:
+          9: Faszinierende Präsenz
+          8: Ziemlich gute emotionale, intellektuelle und physische Präsenz
+          7: Gutes Engagement
+          6: Engagement etwas über dem Durchschnitt
+          4: Durchschnittliches Wirken/Auftreten (?)
+          2: Gelegentliches andeuten von Präsenz; Augen schauen auf den Boden
+          1: Sehr dürftige Präsenz, Die Performance wächst dem Fahrer über den Kopf
+          0: Keine Präsenz vorhanden
+
+      carriage:
+        name: Körperhaltung
+        interval:
+          9: Exzellente, Haltung von Körper und Extremitäten, mit sichtbarer, aber angemessener Körperspannung und Muskeltonus
+          8: Sehr gute  Körperhaltung, mit sichtbarer, aber angemessener Körperspannung und Muskeltonus
+          7: Gute Körperhaltung mit sichtbarer Körperspannung
+          6: Körperspannung in Körper und Extremitäten gerade sichtbar
+          5: Körperspannung gerade noch sichtbar, aber mit Unterbrechungen
+          4: Angemessene Körperhaltung, Körperspannung erahnbar
+          3: Körperhaltung schwankende, Körperspannung nicht sichtbar
+          2: Dürftige Körperhaltung und Körperspannung nicht sichtbar
+          1: Sehr dürftige Körperhaltung und  Körperspannung nicht sichtbar
+          0: Extrem dürftige Körperhaltung
+
+      authenticity:
+        name: Authentizität
+        interval:
+          9: Fantastische Authentizität. Der Fahrer ist eins mit seiner Rolle
+          8: Sehr gute Authentizität
+          7: Gute Authentizität
+          6: Authentizität etwas über dem Durchschnitt; Der Fahrer spielt zum Großteil seine Rolle
+          4: Durchschnittliche Authentizität; Es gibt Momente da ist der Fahrer nicht in seiner Rolle
+          2: Der Fahrer ist gelegentlich in seiner Rolle
+          1: Sehr dürftige Authentizität; der Fahrer ist fast nie in seiner Rolle
+          0: Extrem dürftige Rolle, der Fahrer ist nie in seiner Rolle
+
+      clarity:
+        name: Klarheit
+        interval:
+          9: Präzise und klare Bewegungsausführung
+          6: Nahezu alle Bewegungen werden präzise und absichtlich ausgeführt
+          3: Durchschnittliche Klarheit; einige Bewegungen sind präzise andere sind unabsichtlich
+          1: Sehr wenige klare Bewegungen; viele Bewegungen sind unabsichtlich
+          0: Keine Bewegung geschieht mit Absicht
+
+      variety:
+        name: Stimmung
+        interval:
+          9: Exzellente Kreativität der Attitüde und Ausdruck während der Kür
+          6: Der Fahrer verwendet eine große Varietät an Attitüden und Ausdrücken um das Publikum ansprechen
+          4: Durchschnittliches Level an Kreativität, Attitüden und Ausdruck
+          2: Ein bisschen Varietät, Ausdruck und Attitüden aber eigentlich hat der Fahrer während der Kür immer den gleichen Ausdruck
+          1: Wenig Varietät aber der Ausdruck passt zur Kür
+          0: Konstanter Ausdruck  während der gesamten Kür
+
+      projection:
+        name: Körpersprache
+        interval:
+          9: Exzellente Kommunikation, das Publikum fühlt sich zur Kür hingezogen
+          8: Sehr überzeugende Kommunikation
+          7: Die Kür wird größtenteils kommuniziert
+          6: Etwa 75% der Zeit wird die Kür kommuniziert
+          5: Die Kommunikation variiert während der Kür
+          4: Kommunikation bei etwa 50%
+          3: Gelegentliche Kommunikation
+          2: Beeinträchtige kommunikative Fähigkeiten, zurückhaltend
+          1: Sehr beeinträchtige kommunikative Fähigkeiten
+          0: Mühsam und erzwungene Kommunikation
+
+    choreography:
+      name: Choreographie
+
+      purpose:
+        name: Zweck
+        interval:
+          9: Einprägsame Moment gleichmäßig über die Kür verteilt, die eine vereinheitliche Kür ergeben
+          8: Varietät an innovativen Bewegungen die das Konzept ausmachen
+          7: Interessante Bewegungen, die sich aus dem Konzept ableiten lassen
+          6: Einige interessante und kreative Bewegungen, die den Rhythmus gut ausnutzen
+          5: Unterschiedliche Bewegungen in Bezug zum Konzept
+          4: Kür entspricht dem Konzept
+          3: Einige isoliert gruppierte Bewegungen die in das Konzept passen
+          2: Einige Bewegungen passen nicht zum Konzept
+          1: Viele Bewegungen passen nicht zum Konzept
+          0: Die meisten bis garkeine Bewegungen passen in das Konzept
+
+      harmony:
+        name: Harmonie
+        interval:
+          9: Die Choreographie erweckt das Gefühl eines komplett vereinheitlichten Tanzes, bei dem alle Teile ausbalanciert sind
+          7: Die Choreographie erweckt größtenteils das Gefühl eines vereinheitlichten Tanzes
+          5: Ein Großteil der Choreographie erweckt das Gefühl eines einheitlichen Tanzes
+          3: Die Choreographie erweckt Gefühl eines zur Hälfte vereinheitlichten Tanzes
+          1: Die Platzierungen der Bewegungen sind zusammenhaltslos
+          0: Die Choreographie erweckt unter keinen Umständen das Gefühl eines vereinheitlichten Tanzes
+
+      utilization:
+        name: Fahrwege
+        interval:
+          9: Der Fahrer nutzt die gesamte Fläche exzellent aus, um Bewegungen in unterschiedlichen Richtungen und Mustern fließen zu lassen
+          8: Exzellente Ausnutzung der Fahrfläche
+          7: Gute Ausnutzung der Fahrfläche
+          6: Ausnutzung der Fahrfläche etwas über dem Durchschnitt
+          5: Durchschnittliche Ausnutzung der Fahrfläche, wenig unterschiedliche Fahrrichtungen oder Muster
+          2: Die Elemente sind zwar gut auf der Fahrfläche untergebracht, aber manchmal bleibt der Fahrer zu lange an einem Ort
+          0: Wenig unterschiedliche Fahrwege
+
+      dynamics:
+        name: Dynamik
+        interval:
+          9: Tempowechsel sind nahtlos und absichtlich
+          8: Tempowechsel geschehen mit Leichtigkeit und absichtlich
+          7: Fahrer und Tempo(wechsel) harmonieren gut miteinander
+          6: Tempowechsel liegen über dem Durchschnitt
+          3: Tempowechsel sind variabel
+          1: Wenige Tempowechsel
+          0: Kein Tempowechsel. Das Tempo ist durchweg konstant
+
+      imaginativeness:
+        name: Einfallsreichtum
+        interval:
+          9: Vollkommenes einfallsreiches Konzept und Bewegungen die zu einer Kür führen, die es noch nie gab
+          7: Große Kreativität wurde bei der Erstellung der Kür, mitsamt Bewegungen, bewiesen
+          6: Kreativitätslevel und Einfallsreichtum beim Erstellen der Kür liegen über dem Durchschnitt
+          5: Durchschnittlicher Kreativitätslevel und Einfallsreichtum beim Erstellen
+          3: Etwas Kreativität und Einfallsreichtum ist bei der Erstellung der Kür erkennbar
+          1: Wenig Kreativität und Einfallsreichtum ist bei der Erstellung der Kür erkennbar
+          0: Keine Kreativität erkennbar, ähnliche Küren wurden schon mehrere Male davor gezeigt
+
+    music:
+      name: Musik / Timing
+
+      realization:
+        name: Kontinuität & Musikalische Umsetzung
+        interval:
+          9: Geeignete musikalische Umsetzung wird kontinuierlich während der gesamten Kür genutzt
+          5: Die genutzte musikalische Umsetzung ist etwas über Durchschnitt aber zu großen Teilen der Musik gegenwärtig
+          2: Die genutzte musikalische Umsetzung passt zu einigen Stellen, die Musik läu  aber zu größtenteils im Hintergrund
+          0: Der Fahrer nutzt nie eine geeignete musikalische Umsetzung, die Kür sähe auch ohne ohne Musik gleich aus
+
+      expression:
+        name: Expression
+        interval:
+          9: Fahrer, Musik und Nuancen kommen von „Herzen“
+          5: Fahrer, Musik und Nuancen passen zu großen Teilen der Kür zusammen, um ein stimmiges Gesamtbild zu erzeugen
+          2: Die Kür bietet hier und da einige Zusammenhalte aber Fahrer, Musik und Nuancen sind nicht integriert
+          0: Die Kür sieht zerstückelt aus und Fahrer, Musik und Nuancen sind nicht miteinander verbunden
+
+      finesse:
+        name: Finesse
+        interval:
+          9: Der Fahrer verwandelt die Nuancen der Musik meisterhaft und ausgezeichnet und pflegt sie in das Gesamtkonzept der Kür ein
+          5: Der Fahrer verwandelt die Nuancen der Musik zu großen Teilen der Kür um, verpasst aber einige wichtige essentielle Momente
+          2: Der Fahrer nutzt die Musik selten als Inspiration und Nuancen werden nicht genutzt um eine bessere Kür zu zeigen
+          0: Der Fahrer missachtet die Nuancen der Musik; die Kür ist monoton
+
+      timing:
+        name: Timing
+        interval:
+          9: Der Fahrer kreiert meisterhaft ausdrucksstarke Momente durch Bewegungen, die zusammengesetzt eine bindende, wohl-abgestimmte Kür ergeben
+          5: Der Fahrer schafft eine Verbindung zwischen Musik und Kür, die zu großen Teilen der Kür gegenwärtig ist
+          2: Das Timing zwischen Fahrer und Musik stimmt manchmal, oft fehlt aber ein gelungene Verbindung
+          0: Die Bewegungen sind ungeplant und ihre Anordnung ist in Bezug auf das Timing mangelhaft

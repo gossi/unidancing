@@ -1,9 +1,10 @@
-import type { WireJudgingSystemResults } from './domain-objects';
+import type { WireJudgingSystemResults } from '../domain-objects';
 
-const results: WireJudgingSystemResults = {
+const judgingSystem: WireJudgingSystemResults = {
+  name: 'iuf-performance-2019',
   parts: [
     {
-      name: 'artistic',
+      name: 'performance',
       categories: [
         {
           name: 'execution',
@@ -39,3 +40,5 @@ const results: WireJudgingSystemResults = {
     }
   ]
 };
+
+export default judgingSystem;
