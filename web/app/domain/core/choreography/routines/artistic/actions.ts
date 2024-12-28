@@ -94,7 +94,7 @@ export function loadSystem(
   return system as JudgingSystem;
 }
 
-export function extractWireData(results: JudgingSystem): WireJudgingSystemResults {
+export function extractArtisticWireData(results: JudgingSystem): WireJudgingSystemResults {
   return {
     name: results.name,
     parts: results.parts.map((p) => ({

@@ -17,7 +17,7 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
   }
 
   <template>
-    <Page @title="Kür Ergebnisse">
+    <Page @title="Kür Analyse">
       <RoutineResults
         @data={{this.data}}
         @editLink={{link "choreography.routines.test.load" this.params.data}}

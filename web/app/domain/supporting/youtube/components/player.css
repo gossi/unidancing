@@ -1,4 +1,34 @@
 .player {
-  aspect-ratio: 16 / 9;
-  width: 100%;
+  /* aspect-ratio: 16 / 9;
+  width: 100%; */
+  display: flex;
+  flex-direction: column;
+
+  iframe {
+    width: 100%;
+  }
+}
+
+.time {
+  font-variant-numeric: tabular-nums;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-container-1);
+}
+
+.progress {
+  padding-block: var(--spacing-primitive-4);
+}
+
+.seek {
+  margin-inline-start: auto;
+  font-size: var(--s-1);
+
+  button {
+    border: 0;
+    padding: var(--spacing-primitive-4) !important;
+  }
 }

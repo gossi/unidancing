@@ -1,4 +1,6 @@
 import './assets/app.css';
+import '@formatjs/intl-durationformat/polyfill';
+import 'vis-timeline/dist/vis-timeline-graph2d.min.css';
 
 import Application from '@ember/application';
 

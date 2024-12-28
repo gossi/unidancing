@@ -4,7 +4,7 @@ import { formatNumber, t } from 'ember-intl';
 
 import { toIntlIntervalKey } from './-utils';
 import { findInterval, getCriterionKey } from './actions';
-import styles from './routines.css';
+import styles from './artistic.css';
 
 import type { JudgingSystemCriterion } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';

@@ -39,7 +39,7 @@ export class ChoreographyRoutineTesterRoute extends Route<{ data?: string }> {
   }
 
   <template>
-    <Page @title="Kür-Test">
+    <Page @title="Kür Analyse">
       <RoutineTesterForm @submit={{this.gotoResults}} @data={{this.data}} />
     </Page>
   </template>
