@@ -20,7 +20,7 @@ interface TimelineViewerSignature {
   Element: HTMLElement;
   Args: {
     active: boolean;
-    routine: TimeTracking;
+    data?: TimeTracking;
     options?: TimelineOptions;
     video?: string;
     redraw?: boolean;
@@ -89,7 +89,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     this.chart.on('timechange', seek);
     this.chart.on('timechanged', seek);
 
-    for (const [group, datapoints] of Object.entries(this.args.routine.groups ?? {})) {
+    for (const [group, datapoints] of Object.entries(this.args.data?.groups ?? {})) {
       this.data.add(
         datapoints.map((v) => ({
           id: uniqueId(),
@@ -101,20 +101,20 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
       );
     }
 
-    if (this.args.routine.start) {
+    if (this.args.data?.start) {
       this.data.add({
         id: 'start',
         content: 'Start',
-        start: this.args.routine.start * 1000,
+        start: this.args.data.start * 1000,
         group: 'marker'
       });
     }
 
-    if (this.args.routine.end) {
+    if (this.args.data?.end) {
       this.data.add({
         id: 'end',
         content: 'Ende',
-        start: this.args.routine.end * 1000,
+        start: this.args.data.end * 1000,
         group: 'marker'
       });
     }

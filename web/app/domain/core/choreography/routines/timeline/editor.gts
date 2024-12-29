@@ -19,7 +19,8 @@ interface TimelineEditorSignature {
     active: boolean;
     video?: string;
     playerApi?: YoutubePlayerAPI;
-    redraw?: boolean;
+    data?: TimeTracking;
+    update?: (data: TimeTracking) => void;
   };
 }
 
@@ -31,19 +32,6 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   @tracked currentTime?: number;
 
   options: TimelineOptions;
-
-  routine: TimeTracking = {
-    groups: {
-      artistry: [
-        [50, 80],
-        [100, 110]
-      ],
-      tricks: [
-        [120, 140],
-        [150, 160]
-      ]
-    }
-  };
 
   @cached
   get keys() {
@@ -117,7 +105,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
       results.end = (end.start as number) / 1000;
     }
 
-    console.log('processResults', results);
+    this.args.update?.(results);
   };
 
   setPlayerApi = (api: YoutubePlayerAPI) => {
@@ -180,45 +168,47 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   };
 
   trackStartStop = (time: number) => {
-    const startExists = this.routine.start !== undefined;
-    const endExists = this.routine.end !== undefined;
+    const data = this.args.data ?? {};
 
-    if (!this.routine.start) {
-      this.routine.start = time;
-    } else if (time > this.routine.start) {
-      this.routine.end = time;
+    const startExists = data.start !== undefined;
+    const endExists = data.end !== undefined;
+
+    if (!data.start) {
+      data.start = time;
+    } else if (time > data.start) {
+      data.end = time;
     } else {
-      this.routine.end = this.routine.start;
-      this.routine.start = time;
+      data.end = data.start;
+      data.start = time;
     }
 
-    if (this.routine.start) {
+    if (data.start) {
       if (startExists) {
         this.data.update({
           id: 'start',
-          start: this.routine.start * 1000
+          start: data.start * 1000
         });
       } else {
         this.data.add({
           id: 'start',
           content: 'Start',
-          start: this.routine.start * 1000,
+          start: data.start * 1000,
           group: 'marker'
         });
       }
     }
 
-    if (this.routine.end) {
+    if (data.end) {
       if (endExists) {
         this.data.update({
           id: 'end',
-          start: this.routine.end * 1000
+          start: data.end * 1000
         });
       } else {
         this.data.add({
           id: 'end',
           content: 'Ende',
-          start: this.routine.end * 1000,
+          start: data.end * 1000,
           group: 'marker'
         });
       }
@@ -287,7 +277,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
 
     <TimelineViewer
       @active={{@active}}
-      @routine={{this.routine}}
+      @data={{@data}}
       @options={{this.options}}
       @playerApi={{@playerApi}}
       @setChartApi={{this.setChartApi}}

@@ -3,7 +3,7 @@ import { tracked } from '@glimmer/tracking';
 
 import { tracked as deepTracked } from 'ember-deep-tracked';
 
-import { Form, Tabs } from '@hokulea/ember';
+import { Form, Icon, Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../..//supporting/youtube';
 import { extractArtisticWireData, loadSystem } from './artistic/actions';
@@ -15,16 +15,17 @@ import {
   updateArtisticData
 } from './artistic/form';
 import { IUF_PERFORMANCE_2019 } from './systems/iuf-performance-2019';
-import { TimelineEditor } from './timeline/editor';
+import { TimelineForm } from './timeline/form';
 
 import type { YoutubePlayerAPI } from '../../..//supporting/youtube';
 import type { JudgingSystem } from './artistic/domain-objects';
 import type { ArtisticFormData } from './artistic/form';
 import type { RoutineTest } from './domain-objects';
+import type { TimeTracking, TimeTrackingFormData } from './timeline/domain';
 import type Owner from '@ember/owner';
 import type { FormBuilder } from '@hokulea/ember';
 
-interface Data extends ArtisticFormData {
+interface Data extends ArtisticFormData, TimeTrackingFormData {
   rider: string;
   event: string;
   video: string;
@@ -32,6 +33,14 @@ interface Data extends ArtisticFormData {
 
 function asArtisticFormBuilder(f: FormBuilder<Data, void>) {
   return f as FormBuilder<ArtisticFormData, void>;
+}
+
+function asTimeTrackingFormBuilder(f: FormBuilder<Data, void>) {
+  return f as FormBuilder<TimeTrackingFormData, void>;
+}
+
+function includes(haystack: Record<string, unknown> | unknown[], needle: unknown) {
+  return (Array.isArray(haystack) ? haystack : Object.keys(haystack)).includes(needle);
 }
 
 interface RoutineTesterFormArgs {
@@ -52,9 +61,22 @@ export class RoutineTesterForm extends Component<{
     rider: '',
     event: '',
     video: '',
+    timeTracking: {
+      // groups: {
+      //   artistry: [
+      //     [50, 80],
+      //     [100, 110]
+      //   ],
+      //   tricks: [
+      //     [120, 140],
+      //     [150, 160]
+      //   ]
+      // }
+    },
     ...ARTISTIC_FORM_DATA
   };
 
+  @tracked timeTracking: TimeTracking = {};
   @tracked player?: YoutubePlayerAPI;
 
   setPlayerApi = (api: YoutubePlayerAPI) => {
@@ -75,14 +97,19 @@ export class RoutineTesterForm extends Component<{
     this.data.rider = data.rider;
     this.data.event = data.event as string;
     this.data.video = data.video as string;
+    this.data.timeTracking = data.timeTracking ?? {};
 
     loadArtisticData(this.data, this.artistic);
   }
 
-  updateJudgingSystemResults = (data: Data) => {
+  validate = (data: Data) => {
     updateArtisticData(data, this.artistic);
 
     return undefined;
+  };
+
+  updateTimeTracking = (tracking: TimeTracking) => {
+    this.timeTracking = tracking;
   };
 
   submit = (data: Data) => {
@@ -91,7 +118,8 @@ export class RoutineTesterForm extends Component<{
       rider: data.rider,
       event: data.event,
       video: data.video,
-      artistic
+      artistic,
+      timeTracking: data.timeTracking
     };
 
     this.args.submit(routine);
@@ -103,8 +131,8 @@ export class RoutineTesterForm extends Component<{
 
       <this.Form
         @data={{this.data}}
-        @validateOn="change"
-        @validate={{this.updateJudgingSystemResults}}
+        @validateOn="input"
+        @validate={{this.validate}}
         @submit={{this.submit}}
         as |f|
       >
@@ -115,8 +143,22 @@ export class RoutineTesterForm extends Component<{
             <f.Text @name="video" @label="Video" placeholder="YouTube URL" />
           </tabs.Tab>
 
-          <tabs.Tab @label="Zeitaufteilung" as |state|>
-            <TimelineEditor @playerApi={{this.player}} @active={{state.active}} />
+          <tabs.Tab @value="time">
+            <:label>
+              {{#if f.rawErrors}}
+                {{#if (includes f.rawErrors "timeTracking")}}
+                  <Icon @icon="warning" @style="fill" />
+                {{/if}}
+              {{/if}}
+              Zeitaufteilung
+            </:label>
+            <:content as |state|>
+              <TimelineForm
+                @playerApi={{this.player}}
+                @form={{asTimeTrackingFormBuilder f}}
+                @active={{state.active}}
+              />
+            </:content>
           </tabs.Tab>
 
           <tabs.Tab @label="Artistik">
