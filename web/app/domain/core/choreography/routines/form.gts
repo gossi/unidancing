@@ -1,34 +1,29 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { tracked as deepTracked } from 'ember-deep-tracked';
-
 import { Form, Icon, Tabs } from '@hokulea/ember';
 
-import { YoutubePlayer } from '../../..//supporting/youtube';
-import { extractArtisticWireData, loadSystem } from './artistic/actions';
-import {
-  ARTISTIC_FORM_DATA,
-  ArtisticForm,
-  loadArtisticData,
-  parseArtisticFormData,
-  updateArtisticData
-} from './artistic/form';
-import { IUF_PERFORMANCE_2019 } from './systems/iuf-performance-2019';
-import { TimelineForm } from './timeline/form';
+import { YoutubePlayer } from '../../../supporting/youtube';
+import { ARTISTIC_FORM_DATA, ArtisticForm, parseArtisticFormData } from './artistic/form';
+import styles from './form.css';
+import { NOT_TODO_LIST_FORM_DATA, type NotTodoListFormData } from './not-todo-list/domain';
+import { NotTodeListForm } from './not-todo-list/form';
+import { TimelineForm } from './time-tracking/form';
+import { TricksStub } from './tricks/stub';
 
-import type { YoutubePlayerAPI } from '../../..//supporting/youtube';
-import type { JudgingSystem } from './artistic/domain-objects';
+import type { YoutubePlayerAPI } from '../../../supporting/youtube';
 import type { ArtisticFormData } from './artistic/form';
 import type { RoutineTest } from './domain-objects';
-import type { TimeTracking, TimeTrackingFormData } from './timeline/domain';
+import type { JudgingSystemID } from './systems/domain-objects';
+import type { TimeTracking, TimeTrackingFormData } from './time-tracking/domain';
 import type Owner from '@ember/owner';
 import type { FormBuilder } from '@hokulea/ember';
 
-interface Data extends ArtisticFormData, TimeTrackingFormData {
+interface Data extends ArtisticFormData, TimeTrackingFormData, NotTodoListFormData {
   rider: string;
+  type: 'individual' | 'pair' | 'small-group' | 'large-group';
+  date: string;
   event: string;
-  video: string;
 }
 
 function asArtisticFormBuilder(f: FormBuilder<Data, void>) {
@@ -37,6 +32,10 @@ function asArtisticFormBuilder(f: FormBuilder<Data, void>) {
 
 function asTimeTrackingFormBuilder(f: FormBuilder<Data, void>) {
   return f as FormBuilder<TimeTrackingFormData, void>;
+}
+
+function asNotTodoListFormBuilder(f: FormBuilder<Data, void>) {
+  return f as FormBuilder<NotTodoListFormData, void>;
 }
 
 function includes(haystack: Record<string, unknown> | unknown[], needle: unknown) {
@@ -53,14 +52,15 @@ export class RoutineTesterForm extends Component<{
 }> {
   Form = Form<Data, void>;
 
-  video = 'https://www.youtube.com/watch?v=Y3al545mkR4';
+  artisticSystemID: JudgingSystemID = 'iuf-performance-2019';
 
-  @deepTracked artistic: JudgingSystem;
+  @tracked video = 'https://www.youtube.com/watch?v=Y3al545mkR4';
 
   data: Data = {
     rider: '',
     event: '',
-    video: '',
+    date: '',
+    type: 'individual',
     timeTracking: {
       // groups: {
       //   artistry: [
@@ -73,7 +73,8 @@ export class RoutineTesterForm extends Component<{
       //   ]
       // }
     },
-    ...ARTISTIC_FORM_DATA
+    ...ARTISTIC_FORM_DATA,
+    ...NOT_TODO_LIST_FORM_DATA
   };
 
   @tracked timeTracking: TimeTracking = {};
@@ -86,7 +87,7 @@ export class RoutineTesterForm extends Component<{
   constructor(owner: Owner, args: RoutineTesterFormArgs) {
     super(owner, args);
 
-    this.artistic = loadSystem(IUF_PERFORMANCE_2019, args.data?.artistic);
+    // this.artistic = loadSystem(IUF_PERFORMANCE_2019, args.data?.artistic);
 
     if (args.data) {
       this.loadData(args.data);
@@ -94,33 +95,45 @@ export class RoutineTesterForm extends Component<{
   }
 
   loadData(data: RoutineTest) {
+    this.video = data.video as string;
+
     this.data.rider = data.rider;
     this.data.event = data.event as string;
-    this.data.video = data.video as string;
     this.data.timeTracking = data.timeTracking ?? {};
+    this.data['not-todo-list'] = data.notTodoList ?? [];
 
-    loadArtisticData(this.data, this.artistic);
+    // loadArtisticData(this.data, this.artisticSystemID);
   }
-
-  validate = (data: Data) => {
-    updateArtisticData(data, this.artistic);
-
-    return undefined;
-  };
 
   updateTimeTracking = (tracking: TimeTracking) => {
     this.timeTracking = tracking;
   };
 
   submit = (data: Data) => {
-    const artistic = extractArtisticWireData(parseArtisticFormData(this.artistic, data));
     const routine: RoutineTest = {
       rider: data.rider,
+      type: data.type,
+      date: data.date,
       event: data.event,
-      video: data.video,
-      artistic,
-      timeTracking: data.timeTracking
+      video: this.video
     };
+
+    if (Object.keys(data.timeTracking).length > 0) {
+      routine.timeTracking = data.timeTracking;
+    }
+
+    // when artistic is present
+    if (
+      Object.entries(data)
+        .filter(([k]) => k.startsWith('artistic-'))
+        .some(([, v]) => v !== 0)
+    ) {
+      routine.artistic = parseArtisticFormData(data, this.artisticSystemID);
+    }
+
+    if (data['not-todo-list'].length > 0) {
+      routine.notTodoList = data['not-todo-list'];
+    }
 
     this.args.submit(routine);
   };
@@ -129,18 +142,18 @@ export class RoutineTesterForm extends Component<{
     {{#if this.video}}
       <YoutubePlayer @url={{this.video}} @setApi={{this.setPlayerApi}} />
 
-      <this.Form
-        @data={{this.data}}
-        @validateOn="input"
-        @validate={{this.validate}}
-        @submit={{this.submit}}
-        as |f|
-      >
+      <this.Form @data={{this.data}} @submit={{this.submit}} class={{styles.tabs}} as |f|>
         <Tabs as |tabs|>
           <tabs.Tab @label="Kür">
             <f.Text @name="rider" @label="Fahrer" />
+            <f.Select @name="type" @label="Kür" as |s|>
+              <s.Option @value="individual">Einzelkür</s.Option>
+              <s.Option @value="pair">Paarkür</s.Option>
+              <s.Option @value="small-group">Kleingruppe</s.Option>
+              <s.Option @value="large-group">Großgruppe</s.Option>
+            </f.Select>
+            <f.Date @name="date" @label="Datum" />
             <f.Text @name="event" @label="Veranstaltung" />
-            <f.Text @name="video" @label="Video" placeholder="YouTube URL" />
           </tabs.Tab>
 
           <tabs.Tab @value="time">
@@ -161,8 +174,16 @@ export class RoutineTesterForm extends Component<{
             </:content>
           </tabs.Tab>
 
+          <tabs.Tab @label="Tricks">
+            <TricksStub />
+          </tabs.Tab>
+
           <tabs.Tab @label="Artistik">
-            <ArtisticForm @form={{asArtisticFormBuilder f}} @system={{this.artistic}} />
+            <ArtisticForm @form={{asArtisticFormBuilder f}} @systemID={{this.artisticSystemID}} />
+          </tabs.Tab>
+
+          <tabs.Tab @label="Not Todo List">
+            <NotTodeListForm @form={{asNotTodoListFormBuilder f}} />
           </tabs.Tab>
         </Tabs>
 

@@ -2,16 +2,19 @@ import Component from '@glimmer/component';
 
 import { formatNumber, t } from 'ember-intl';
 
-import { toIntlIntervalKey } from './-utils';
-import { findInterval, getCriterionKey } from './actions';
+import { getCriterionKey, toIntlIntervalKey } from './-utils';
 import styles from './artistic.css';
 
-import type { JudgingSystemCriterion } from './domain-objects';
+import type {
+  JudgingSystemCriterion,
+  JudgingSystemCriterionInterval
+} from '../systems/domain-objects';
 import type { TOC } from '@ember/component/template-only';
 
 export class CriterionInterval extends Component<{
   Args: {
     criterion: JudgingSystemCriterion;
+    interval: JudgingSystemCriterionInterval;
   };
 }> {
   get name() {
@@ -19,13 +22,9 @@ export class CriterionInterval extends Component<{
   }
 
   <template>
-    {{#let (findInterval @criterion) as |interval|}}
-      {{#if interval}}
-        <span data-marker={{interval.marker}} class={{styles.interval}}>
-          {{t (toIntlIntervalKey this.name interval.marker)}}
-        </span>
-      {{/if}}
-    {{/let}}
+    <span data-marker={{@interval.marker}} class={{styles.interval}}>
+      {{t (toIntlIntervalKey this.name @interval.marker)}}
+    </span>
   </template>
 }
 

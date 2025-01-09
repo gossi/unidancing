@@ -8,39 +8,19 @@ import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 import { eq } from 'ember-truth-helpers';
 
-import { TinaMarkdown } from '../../../supporting/tina';
-import { TAGS } from '..';
-import { findAwfulPractices } from '../-resource';
-import styles from './listing.css';
+import { AwfulPracticeDetails, TagLabel } from '../awful-practices/components';
+import { TAGS } from '../awful-practices/domain';
+import { filterByTag, findAwfulPractices } from '../awful-practices/resources';
 
-import type { Tag} from '..';
-import type { Maybe } from '@/tina/types';
-import type { TOC } from '@ember/component/template-only';
+import type { Awfulpractice, Tag } from '../awful-practices/domain';
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
-const TagUI: TOC<{
-  Element: HTMLSpanElement;
-  Args: {
-    tag: Tag;
-    selected?: boolean;
-  };
-}> = <template>
-  <span
-    class={{styles.tag}}
-    data-tag={{@tag}} ...attributes
-  >{{@tag}}</span>
-</template>;
-
-const asTag = (tag: Maybe<string>): Tag => {
-  return tag as Tag;
-}
 
 export default class ChoreographyNotTodoList extends Component {
   @service declare fastboot: FastbootService;
 
   @tracked tag?: Tag;
 
-  filter = (tag: Tag) => {
+  setFilter = (tag: Tag) => {
     return () => {
       if (tag === this.tag) {
         this.tag = undefined;
@@ -48,11 +28,11 @@ export default class ChoreographyNotTodoList extends Component {
         this.tag = tag;
       }
     };
-  }
+  };
 
   @cached
   get load() {
-    const promise = use(this, findAwfulPractices(this.tag)).current;
+    const promise = use(this, findAwfulPractices()).current;
 
     if (this.fastboot.isFastBoot) {
       this.fastboot.deferRendering(promise);
@@ -61,37 +41,34 @@ export default class ChoreographyNotTodoList extends Component {
     return Task.promise(promise);
   }
 
+  filter = (practices: Awfulpractice[]): Awfulpractice[] => {
+    if (this.tag) {
+      practices = filterByTag(practices, this.tag);
+    }
+
+    return practices;
+  };
+
   <template>
     <p>
       Filter:
       {{#each TAGS as |tag|}}
-        <TagUI
+        <TagLabel
           @tag={{tag}}
           @selected={{eq tag this.tag}}
-          role='button'
-          {{on 'click' (this.filter tag)}}
+          role="button"
+          {{on "click" (this.setFilter tag)}}
         />
       {{/each}}
     </p>
 
     {{#let this.load as |r|}}
       {{#if r.resolved}}
-        {{#each r.value as |principle|}}
-          <details class={{styles.principle}}>
-            <summary>
-              <span>
-                {{principle.title}}
-                <span>
-                  {{#each principle.tags as |tag|}}
-                    <TagUI @tag={{asTag tag}} />
-                  {{/each}}
-                </span>
-              </span>
-            </summary>
-
-            <TinaMarkdown @content={{principle.body}}/>
-          </details>
-        {{/each}}
+        {{#let (this.filter r.value) as |principles|}}
+          {{#each principles as |principle|}}
+            <AwfulPracticeDetails @practice={{principle}} />
+          {{/each}}
+        {{/let}}
       {{/if}}
     {{/let}}
   </template>

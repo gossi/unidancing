@@ -35,6 +35,11 @@
   }
 }
 
+.criterion {
+  flex-direction: column;
+  display: flex;
+}
+
 .interval {
   font-size: var(--s-1);
 

@@ -15,8 +15,6 @@ interface TimelineFormSignature {
 }
 
 export class TimelineForm extends Component<TimelineFormSignature> {
-  declare player: YoutubePlayerAPI;
-
   validate = (data: TimeTracking) => {
     const validation = validateTimeTracking(data);
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import type { JudgingSystemDescriptor } from '../domain-objects';
+import type { JudgingSystemDescriptor } from '../../systems/domain-objects';
 
 export const IUF_PERFORMANCE_2019: JudgingSystemDescriptor = {
   name: 'iuf-performance-2019',

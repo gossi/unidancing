@@ -1,36 +1,4 @@
-export type Scoring = 'average' | 'sum';
-
-export interface JudgingSystemCriterionInterval {
-  marker: number;
-  expression: string;
-}
-
-// --
-
-export interface JudgingSystemCriterionDescriptor {
-  name: string;
-  intervals: JudgingSystemCriterionInterval[];
-}
-
-export interface JudgingSystemCategoryDescriptor {
-  name: string;
-  scoring: Scoring;
-  criteria: JudgingSystemCriterionDescriptor[];
-}
-
-export interface JudgingSystemPartDescriptor {
-  name: string;
-  scoring: Scoring;
-  categories: JudgingSystemCategoryDescriptor[];
-}
-
-export interface JudgingSystemDescriptor {
-  name: string;
-  scoring: Scoring;
-  parts: JudgingSystemPartDescriptor[];
-}
-
-// --
+import type { JudgingSystemID } from '../systems/domain-objects';
 
 export interface WireCriterionResult {
   name: string;
@@ -47,49 +15,27 @@ export interface WirePartResult {
   categories: WireCategoryResult[];
 }
 
-export interface WireJudgingSystemResults {
-  name: string;
+export interface WireArtisticResults {
+  name: JudgingSystemID;
   parts: WirePartResult[];
-}
-
-// --
-
-export interface JudgingSystemCriterion
-  extends JudgingSystemCriterionDescriptor,
-    WireCriterionResult {
-  intervals: JudgingSystemCriterionInterval[];
-  category: JudgingSystemCategory;
-}
-
-export interface JudgingSystemCategory extends JudgingSystemCategoryDescriptor, WireCategoryResult {
-  criteria: JudgingSystemCriterion[];
-  part: JudgingSystemPart;
-}
-
-export interface JudgingSystemPart extends JudgingSystemPartDescriptor, WirePartResult {
-  categories: JudgingSystemCategory[];
-  system: JudgingSystem;
-}
-
-export interface JudgingSystem extends JudgingSystemDescriptor, WireJudgingSystemResults {
-  parts: JudgingSystemPart[];
 }
 
 // ---
 
-export interface CategoryResult {
-  name: string;
-  scoring: Scoring;
-  criteria: WireCriterionResult[];
+export type CriterionResult = WireCriterionResult;
+
+export interface CategoryResult extends WireCategoryResult {
+  score: number;
+  criteria: CriterionResult[];
 }
 
-export interface PartResult {
+export interface PartResult extends WirePartResult {
   name: string;
-  scoring: Scoring;
+  score: number;
   categories: CategoryResult[];
 }
 
-export interface JudgingSystemResults {
-  scoring: Scoring;
+export interface ArtisticResults extends WireArtisticResults {
+  score: number;
   parts: PartResult[];
 }

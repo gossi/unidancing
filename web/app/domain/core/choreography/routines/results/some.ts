@@ -1,6 +1,6 @@
-import type { WireJudgingSystemResults } from '../domain-objects';
+import type { WireArtisticResults } from '../artistic/domain-objects';
 
-const judgingSystem: WireJudgingSystemResults = {
+const judgingSystem: WireArtisticResults = {
   name: 'iuf-performance-2019',
   parts: [
     {

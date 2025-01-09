@@ -1,39 +1,81 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 
-import { Button } from '@hokulea/ember';
+import { Button, Tabs } from '@hokulea/ember';
 
-import { loadSystem } from './artistic/actions';
+import { YoutubePlayer } from '../../../supporting/youtube';
 import { ArtisticResults } from './artistic/results';
-import { IUF_PERFORMANCE_2019 } from './systems/iuf-performance-2019';
+import styles from './form.css';
+import { NotTodoListResults } from './not-todo-list/results';
+import { TimeTrackingResults } from './time-tracking/results';
+import { TricksStub } from './tricks/stub';
 
-import type { JudgingSystem } from './artistic/domain-objects';
-import type { RoutineTest } from './domain-objects';
-import type Owner from '@ember/owner';
+import type { YoutubePlayerAPI } from '../../../supporting/youtube';
+import type { RoutineResult } from './domain-objects';
 import type { Link } from 'ember-link';
 
 interface RoutineResultsArgs {
-  data?: RoutineTest;
+  data: RoutineResult;
   editLink?: Link;
 }
 
 export class RoutineResults extends Component<{
   Args: RoutineResultsArgs;
 }> {
-  artistic: JudgingSystem;
+  @tracked player?: YoutubePlayerAPI;
 
-  constructor(owner: Owner, args: RoutineResultsArgs) {
-    super(owner, args);
-
-    this.artistic = loadSystem(IUF_PERFORMANCE_2019, args.data?.artistic);
-  }
+  setPlayerApi = (api: YoutubePlayerAPI) => {
+    this.player = api;
+  };
 
   <template>
-    {{#if @data.artistic}}
-      <ArtisticResults @system={{this.artistic}} />
-    {{/if}}
+    <h2>{{@data.rider}}{{#if @data.event}} @ {{@data.event}}{{/if}}</h2>
+    <YoutubePlayer @url={{@data.video}} @setApi={{this.setPlayerApi}} />
 
-    {{#if @editLink}}
-      <Button @push={{@editLink}}>Bearbeiten</Button>
-    {{/if}}
+    <div class={{styles.tabs}}>
+      <Tabs as |tabs|>
+        {{! <tabs.Tab @label="Kür">
+          <f.Text @name="rider" @label="Fahrer" />
+          <f.Select @name="type" @label="Kür" as |s|>
+            <s.Option @value="individual">Einzelkür</s.Option>
+            <s.Option @value="pair">Paarkür</s.Option>
+            <s.Option @value="small-group">Kleingruppe</s.Option>
+            <s.Option @value="large-group">Großgruppe</s.Option>
+          </f.Select>
+          <f.Date @name="date" @label="Datum" />
+          <f.Text @name="event" @label="Veranstaltung" />
+        </tabs.Tab> }}
+
+        {{#if @data.timeTracking}}
+          <tabs.Tab @label="Zeitaufteilung" as |state|>
+            <TimeTrackingResults
+              @data={{@data.timeTracking}}
+              @playerApi={{this.player}}
+              @active={{state.active}}
+            />
+          </tabs.Tab>
+        {{/if}}
+
+        <tabs.Tab @label="Tricks">
+          <TricksStub />
+        </tabs.Tab>
+
+        {{#if @data.artistic}}
+          <tabs.Tab @label="Artistik">
+            <ArtisticResults @data={{@data.artistic}} />
+          </tabs.Tab>
+        {{/if}}
+
+        {{#if @data.notTodoList}}
+          <tabs.Tab @label="Not Todo List">
+            <NotTodoListResults @data={{@data.notTodoList}} />
+          </tabs.Tab>
+        {{/if}}
+      </Tabs>
+
+      {{#if @editLink}}
+        <Button @push={{@editLink}}>Bearbeiten</Button>
+      {{/if}}
+    </div>
   </template>
 }

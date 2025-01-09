@@ -1,4 +1,3 @@
-export { findAwfulPractices } from './-resource';
 export { default as IndexRoute } from './-routes/index';
 export { default as NotTodoListRoute } from './-routes/not-todo-list';
 export { default as RootRoute } from './-routes/root';
@@ -7,4 +6,5 @@ export { default as RoutinesIndexRoute } from './-routes/routines/index';
 export { default as RoutinesResultsRoute } from './-routes/routines/results';
 export { default as RoutinesTestRoute } from './-routes/routines/test';
 export { default as UniDancingWritingRoute } from './-routes/unidance-writing';
-export * from './-types';
+export type { Awfulpractice } from './awful-practices/domain';
+export { findAwfulPractices } from './awful-practices/resources';

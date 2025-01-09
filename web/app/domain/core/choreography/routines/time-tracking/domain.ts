@@ -59,37 +59,37 @@ export interface WireTimeTracking {
   start: number;
   end: number;
 
-  groups: {
+  groups: Partial<{
     artistry: Datapoint[];
     tricks: Datapoint[];
     void: Datapoint[];
     filler: Datapoint[];
     communication: Datapoint[];
-  };
+  }>;
 }
 
 interface TimeTrackingDuration {
-  artistry: number;
-  tricks: number;
-  void: number;
-  filler: number;
-  communication: number;
+  artistry?: number;
+  tricks?: number;
+  void?: number;
+  filler?: number;
+  communication?: number;
 }
 
 interface TimeTrackingRatio {
-  artistry: number;
-  tricks: number;
-  void: number;
-  filler: number;
+  artistry?: number;
+  tricks?: number;
+  void?: number;
+  filler?: number;
 }
 
-export interface TimeTrackingResults {
+export interface TimeTrackingEvaluation {
   duration: number;
   durations: TimeTrackingDuration;
   ratio: TimeTrackingRatio;
 }
 
-export type TimeAnalysis = WireTimeTracking & TimeTrackingResults;
+export type TimeAnalysis = WireTimeTracking & TimeTrackingEvaluation;
 
 export function validateTimeTracking(data: TimeTracking): string[] | undefined {
   const errors = [];
@@ -113,7 +113,7 @@ export function validateTimeTracking(data: TimeTracking): string[] | undefined {
   return undefined;
 }
 
-export function calculateResults(data: WireTimeTracking): TimeTrackingResults {
+export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvaluation {
   const duration = data.end - data.start;
 
   const durations = Object.fromEntries(
