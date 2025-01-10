@@ -3,15 +3,20 @@ import { tracked } from '@glimmer/tracking';
 
 import { Form, Icon, Tabs } from '@hokulea/ember';
 
-import { YoutubePlayer } from '../../../supporting/youtube';
-import { ARTISTIC_FORM_DATA, ArtisticForm, parseArtisticFormData } from './artistic/form';
+import { YoutubePlayer } from '../../../../supporting/youtube';
+import {
+  ARTISTIC_FORM_DATA,
+  ArtisticForm,
+  loadArtisticData,
+  parseArtisticFormData
+} from './artistic/form';
 import styles from './form.css';
 import { NOT_TODO_LIST_FORM_DATA, type NotTodoListFormData } from './not-todo-list/domain';
 import { NotTodeListForm } from './not-todo-list/form';
 import { TimelineForm } from './time-tracking/form';
 import { TricksStub } from './tricks/stub';
 
-import type { YoutubePlayerAPI } from '../../../supporting/youtube';
+import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
 import type { ArtisticFormData } from './artistic/form';
 import type { RoutineTest } from './domain-objects';
 import type { JudgingSystemID } from './systems/domain-objects';
@@ -87,8 +92,6 @@ export class RoutineTesterForm extends Component<{
   constructor(owner: Owner, args: RoutineTesterFormArgs) {
     super(owner, args);
 
-    // this.artistic = loadSystem(IUF_PERFORMANCE_2019, args.data?.artistic);
-
     if (args.data) {
       this.loadData(args.data);
     }
@@ -102,7 +105,14 @@ export class RoutineTesterForm extends Component<{
     this.data.timeTracking = data.timeTracking ?? {};
     this.data['not-todo-list'] = data.notTodoList ?? [];
 
-    // loadArtisticData(this.data, this.artisticSystemID);
+    if (data.artistic) {
+      const artistic = loadArtisticData(data.artistic);
+
+      this.data = {
+        ...this.data,
+        ...artistic
+      };
+    }
   }
 
   updateTimeTracking = (tracking: TimeTracking) => {
@@ -179,7 +189,11 @@ export class RoutineTesterForm extends Component<{
           </tabs.Tab>
 
           <tabs.Tab @label="Artistik">
-            <ArtisticForm @form={{asArtisticFormBuilder f}} @systemID={{this.artisticSystemID}} />
+            <ArtisticForm
+              @form={{asArtisticFormBuilder f}}
+              @systemID={{this.artisticSystemID}}
+              @results={{@data.artistic}}
+            />
           </tabs.Tab>
 
           <tabs.Tab @label="Not Todo List">

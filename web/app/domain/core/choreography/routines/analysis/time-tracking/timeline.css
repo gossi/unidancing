@@ -1,0 +1,145 @@
+:root {
+  --artistry: #FEB019;
+  --comm: #00E396;
+  --tricks: #008FFB;
+  --filler: #775DD0;
+  --void: #FF4560;
+}
+
+.timeline {
+  svg {
+    background: none !important;
+  }
+
+  :global(.vis-timeline > .vis-background:first-child) {
+    background-color: var(--surface-container1);
+  }
+
+  :global(.vis-time-axis.vis-background) {
+    background-color: var(--surface-container);
+  }
+
+  :global(.vis-label) {
+    color: var(--typography-subtle);
+    border-color: var(--control-border-color);
+  }
+
+  :global(.vis-text) {
+    color: var(--typography-muted);
+    background-color: var(--surface-container1);
+    border-right: 0.5px solid var(--control-border-color);
+  }
+
+  :global(.vis-panel),
+  :global(.vis-timeline),
+  :global(.vis-group) {
+    border-color: var(--control-border-color);
+  }
+
+  :global(.vis-time-axis .vis-grid.vis-vertical) {
+    border-left: 0.5px solid hsl(from var(--control-border-color) h s calc(l - 5));
+  }
+
+  :global(.vis-group:first-child .vis-item) {
+    margin-top: -15px;
+  }
+
+  :global(.marker .vis-item) {
+    color: var(--typography-main);
+    background-color: var(--surface-popover);
+    border-color: var(--shape-stroke-color);
+  }
+
+  :global(.artistry .vis-item) {
+    background-color: var(--artistry);
+    border-color: var(--artistry);
+  }
+
+  :global(.comm .vis-item) {
+    background-color: var(--comm);
+    border-color: var(--comm);
+  }
+
+  :global(.tricks .vis-item) {
+    background-color: var(--tricks);
+    border-color: var(--tricks);
+  }
+
+  :global(.filler .vis-item) {
+    background-color: var(--filler);
+    border-color: var(--filler);
+  }
+
+  :global(.void .vis-item) {
+    background-color: var(--void);
+    border-color: var(--void);
+  }
+
+  :global(.vis-item.vis-selected) {
+    background-color: var(--control-focus-selected-background);
+    border-color: var(--control-border-color);
+  }
+}
+
+.summary {
+  border-collapse: collapse;
+
+  thead {
+    background: var(--surface-container);
+  }
+
+  thead, tbody {
+    border: 1px solid var(--shape-stroke-color);
+  }
+
+  th {
+    text-align: left;
+  }
+
+  th, td {
+    padding: 0.5rem 0.75rem;
+
+    &:first-child {
+      border-inline-end: 1px solid var(--shape-stroke-color);
+    }
+
+    &:last-child {
+      border-inline-start: 1px solid var(--shape-stroke-color);
+    }
+  }
+
+  td:last-child,
+  td:nth-child(3) {
+    text-align: right;
+  }
+
+  [data-vis] {
+    width: 40%;
+
+    span {
+      display: inline-block;
+      width: var(--ratio, 0);
+      height: 1em;
+
+      &[data-group="artistry"] {
+        background-color: var(--artistry);
+      }
+
+      &[data-group="comm"] {
+        background-color: var(--comm);
+      }
+
+      &[data-group="tricks"] {
+        background-color: var(--tricks);
+      }
+
+      &[data-group="filler"] {
+        background-color: var(--filler);
+      }
+
+      &[data-group="void"] {
+        background-color: var(--void);
+      }
+    }
+  }
+}

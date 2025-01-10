@@ -7,12 +7,12 @@ import { modifier } from 'ember-modifier';
 import { DataSet } from 'vis-data/esnext';
 import { Timeline } from 'vis-timeline/esnext';
 
-import { dateToSecondsWithMilli } from '../../../../supporting/utils';
-import { YoutubePlayer } from '../../../../supporting/youtube';
+import { dateToSecondsWithMilli } from '../../../../../supporting/utils';
+import { YoutubePlayer } from '../../../../../supporting/youtube';
 import { groups, type TimeTracking } from './domain';
 import styles from './timeline.css';
 
-import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
+import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type Owner from '@ember/owner';
 import type { DataItem, TimelineOptions } from 'vis-timeline/esnext';
 

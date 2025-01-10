@@ -68,7 +68,7 @@ export interface WireTimeTracking {
   }>;
 }
 
-interface TimeTrackingDuration {
+export interface TimeTrackingDuration {
   artistry?: number;
   tricks?: number;
   void?: number;
@@ -76,17 +76,33 @@ interface TimeTrackingDuration {
   communication?: number;
 }
 
-interface TimeTrackingRatio {
+export interface TimeTrackingRatio {
   artistry?: number;
   tricks?: number;
   void?: number;
   filler?: number;
+  communication?: number;
+}
+
+interface EvaluationPoint {
+  duration: number;
+  ratio: number;
+}
+
+export interface TimeTrackingGroupsEvaluation {
+  artistry?: EvaluationPoint;
+  tricks?: EvaluationPoint;
+  void?: EvaluationPoint;
+  filler?: EvaluationPoint;
+  communication?: EvaluationPoint;
 }
 
 export interface TimeTrackingEvaluation {
   duration: number;
-  durations: TimeTrackingDuration;
-  ratio: TimeTrackingRatio;
+  // durations: TimeTrackingDuration;
+  // ratio: TimeTrackingRatio;
+
+  evaluation: TimeTrackingGroupsEvaluation;
 }
 
 export type TimeAnalysis = WireTimeTracking & TimeTrackingEvaluation;
@@ -116,21 +132,31 @@ export function validateTimeTracking(data: TimeTracking): string[] | undefined {
 export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvaluation {
   const duration = data.end - data.start;
 
-  const durations = Object.fromEntries(
-    Object.entries(data.groups).map(([k, points]) => {
-      return [k, points.reduce((acc, [start, end]) => acc + (end - start), 0)];
-    })
-  ) as unknown as TimeTrackingDuration;
+  // const durations = Object.fromEntries(
+  //   Object.entries(data.groups).map(([k, points]) => {
+  //     return [k, points.reduce((acc, [start, end]) => acc + (end - start), 0)];
+  //   })
+  // ) as unknown as TimeTrackingDuration;
 
-  const ratio = Object.fromEntries(
-    Object.entries(durations)
-      .filter(([k]) => k !== 'communication')
-      .map(([k, v]) => [k, Math.round(v / duration)])
-  ) as unknown as TimeTrackingRatio;
+  // const ratio = Object.fromEntries(
+  //   Object.entries(durations)
+  //     // .filter(([k]) => k !== 'communication')
+  //     .map(([k, v]) => [k, Math.round(v / duration)])
+  // ) as unknown as TimeTrackingRatio;
+
+  const evaluation = Object.fromEntries(
+    Object.entries(data.groups).map(([k, points]) => {
+      const dur = points.reduce((acc, [start, end]) => acc + (end - start), 0);
+      const ratio = dur / duration;
+
+      return [k, { duration: dur, ratio }];
+    })
+  ) as unknown as TimeTrackingGroupsEvaluation;
 
   return {
     duration,
-    durations,
-    ratio
+    evaluation
+    // durations,
+    // ratio
   };
 }

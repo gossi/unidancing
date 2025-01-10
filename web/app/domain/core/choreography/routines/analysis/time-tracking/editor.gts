@@ -5,11 +5,11 @@ import { uniqueId } from '@ember/helper';
 
 import { modifier } from 'ember-modifier';
 
-import { dateToMilliseconds, dateToSeconds } from '../../../../supporting/utils';
+import { dateToMilliseconds, dateToSeconds } from '../../../../../supporting/utils';
 import { groups, type TimeTracking } from './domain';
 import { TimelineViewer } from './viewer';
 
-import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
+import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type Owner from '@ember/owner';
 import type { DataSet } from 'vis-data/esnext';
 import type { DataItem, Timeline, TimelineItem, TimelineOptions } from 'vis-timeline/esnext';

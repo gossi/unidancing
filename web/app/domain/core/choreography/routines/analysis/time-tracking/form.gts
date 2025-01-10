@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 import { type TimeTracking, type TimeTrackingFormData, validateTimeTracking } from './domain';
 import { TimelineEditor } from './editor';
 
-import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
+import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { FormBuilder } from '@hokulea/ember';
 
 interface TimelineFormSignature {

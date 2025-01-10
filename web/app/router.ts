@@ -33,9 +33,7 @@ Router.map(function () {
     this.route('not-todo-list');
     this.route('unidance-writing');
     this.route('routines', function () {
-      this.route('test', function () {
-        this.route('load', { path: '/:data' });
-      });
+      this.route('test', { path: '/test/*data' });
       this.route('results', { path: '/results/:data' });
     });
   });

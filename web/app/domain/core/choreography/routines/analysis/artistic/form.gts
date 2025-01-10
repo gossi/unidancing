@@ -5,7 +5,7 @@ import { on } from '@ember/modifier';
 
 import { formatNumber, t } from 'ember-intl';
 
-import { CardSection, Features } from '../../../../supporting/ui';
+import { CardSection, Features } from '../../../../../supporting/ui';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../systems/actions';
 import { CriterionInterval, Score } from './-components';
 import { getCriterionKey, toIntlNameKey } from './-utils';
@@ -22,10 +22,12 @@ import type {
 import type {
   ArtisticResults,
   CategoryResult,
+  CriterionResult,
   PartResult,
   WireArtisticResults
 } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
 import type { FormBuilder } from '@hokulea/ember';
 
 /* eslint-disable @typescript-eslint/naming-convention */
@@ -70,27 +72,23 @@ function toDataKey(name: string) {
   return ('artistic-' + name.replaceAll('.', '-')) as keyof ArtisticFormData;
 }
 
-export function loadArtisticData(data: ArtisticFormData, system: JudgingSystem) {
-  for (const p of system.parts) {
+export function loadArtisticData(data: WireArtisticResults): ArtisticFormData {
+  const results: ArtisticFormData = {
+    ...ARTISTIC_FORM_DATA
+  };
+
+  for (const p of data.parts) {
     for (const c of p.categories) {
       for (const cr of c.criteria) {
-        const key = toDataKey(getCriterionKey(cr)) as keyof ArtisticFormData;
+        const key = toDataKey(`${p.name}.${c.name}.${cr.name}`) as keyof ArtisticFormData;
 
-        data[key] = cr.value;
+        results[key] = cr.value;
       }
     }
   }
-}
 
-// export function updateArtisticData(data: ArtisticFormData, system: JudgingSystem) {
-//   for (const p of system.parts) {
-//     for (const c of p.categories) {
-//       for (const cr of c.criteria) {
-//         cr.value = data[toDataKey(getCriterionKey(cr))] as number;
-//       }
-//     }
-//   }
-// }
+  return results;
+}
 
 export function parseArtisticFormData(
   data: Partial<ArtisticFormData>,
@@ -131,34 +129,38 @@ export function parseArtisticFormData(
   return results as WireArtisticResults;
 }
 
-// export function parseArtisticFormData(
-//   system: JudgingSystem,
-//   data: ArtisticFormData
-// ): JudgingSystem {
-//   const results = {
-//     ...system,
-//     parts: system.parts.map((part) => ({
-//       ...part,
-//       categories: part.categories.map((category) => ({
-//         ...category,
-//         criteria: category.criteria.map((criterion) => ({
-//           ...criterion,
-//           value: data[toDataKey(getCriterionKey(criterion))] as number
-//         }))
-//       }))
-//     }))
-//   };
-
-//   return results;
-// }
-
-class Criterion extends Component<{
+interface CriterionSignature {
   Args: {
     form: FormBuilder<ArtisticFormData, void>;
-    updateScore: (name: keyof ArtisticFormData, value: number) => void;
     criterion: JudgingSystemCriterion;
+    updateScore: (name: keyof ArtisticFormData, value: number) => void;
+    results?: ArtisticResults;
   };
-}> {
+}
+
+class Criterion extends Component<CriterionSignature> {
+  constructor(owner: Owner, args: CriterionSignature['Args']) {
+    super(owner, args);
+
+    if (args.results) {
+      try {
+        const value = (
+          (
+            (
+              this.args.results?.parts.find((p) => p.name === 'performance') as PartResult
+            ).categories.find((c) => c.name === this.args.criterion.category.name) as CategoryResult
+          ).criteria.find((c) => c.name === this.args.criterion.name) as CriterionResult
+        ).value;
+
+        if (value) {
+          this.value = value;
+        }
+      } catch {
+        /**/
+      }
+    }
+  }
+
   @tracked value?: number;
 
   get name() {
@@ -241,7 +243,12 @@ class Category extends Component<{
       </:header>
       <:body>
         {{#each @category.criteria as |criterion|}}
-          <Criterion @form={{@form}} @updateScore={{@updateScore}} @criterion={{criterion}} />
+          <Criterion
+            @form={{@form}}
+            @criterion={{criterion}}
+            @results={{@results}}
+            @updateScore={{@updateScore}}
+          />
         {{/each}}
       </:body>
     </CardSection>
@@ -268,14 +275,28 @@ const Part: TOC<{
   </Features>
 </template>;
 
-export class ArtisticForm extends Component<{
-  Args: { form: FormBuilder<ArtisticFormData, void>; systemID: JudgingSystemID; video?: string };
-}> {
+interface ArtisticFormSignature {
+  Args: {
+    form: FormBuilder<ArtisticFormData, void>;
+    systemID: JudgingSystemID;
+    results?: WireArtisticResults;
+  };
+}
+
+export class ArtisticForm extends Component<ArtisticFormSignature> {
   data: Partial<ArtisticFormData> = {};
   @tracked results?: ArtisticResults;
 
-  get system() {
-    return loadSystem(loadSystemDescriptor(this.args.systemID));
+  system: JudgingSystem;
+
+  constructor(owner: Owner, args: ArtisticFormSignature['Args']) {
+    super(owner, args);
+
+    this.system = loadSystem(loadSystemDescriptor(this.args.systemID));
+
+    if (args.results) {
+      this.results = scoreArtistic(this.system, args.results);
+    }
   }
 
   get score() {

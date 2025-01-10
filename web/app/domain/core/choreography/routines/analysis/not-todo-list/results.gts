@@ -5,10 +5,10 @@ import { service } from '@ember/service';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 
-import { AwfulPracticeDetails } from '../../awful-practices/components';
-import { findAwfulPractices } from '../../awful-practices/resources';
+import { AwfulPracticeDetails } from '../../../awful-practices/components';
+import { findAwfulPractices } from '../../../awful-practices/resources';
 
-import type { Awfulpractice } from '../../awful-practices/domain';
+import type { Awfulpractice } from '../../../awful-practices/domain';
 import type { NotTodoList } from './domain';
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 

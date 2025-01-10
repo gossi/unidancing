@@ -5,7 +5,7 @@ import { service } from '@ember/service';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 
-import { findAwfulPractices } from '../../awful-practices/resources';
+import { findAwfulPractices } from '../../../awful-practices/resources';
 
 import type { NotTodoListFormData } from './domain';
 import type { FormBuilder } from '@hokulea/ember';

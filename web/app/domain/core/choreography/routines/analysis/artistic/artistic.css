@@ -62,3 +62,37 @@
     color: var(--indicator-success-plain-text);
   }
 }
+
+.summary {
+  [data-total] {
+    padding: 0.5rem 0.75rem;
+    background: var(--surface-container1);
+    border: 1px solid var(--shape-stroke-color);
+  }
+
+  [data-parts] {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-block-start: 1px solid var(--shape-stroke-color);
+    border-inline-start: 1px solid var(--shape-stroke-color);
+  }
+
+  [data-category] {
+    display: grid;
+
+    p:first-child {
+      background: var(--surface-container);
+      border-block-end: 1px solid var(--shape-stroke-color);
+    }
+  }
+
+  p {
+    height: 2.5em;
+    padding: 0.5rem 0.75rem;
+    border-inline-end: 1px solid var(--shape-stroke-color);
+  }
+
+  p:last-child {
+    border-block-end: 1px solid var(--shape-stroke-color);
+  }
+}

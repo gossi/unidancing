@@ -1,8 +1,9 @@
 import Component from '@glimmer/component';
 
+import { TimeTrackingEvaluation } from './evaluation';
 import { TimelineViewer } from './viewer';
 
-import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
+import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { TimeAnalysis } from './domain';
 
 interface TimeTrackingResultsSignature {
@@ -18,5 +19,8 @@ export class TimeTrackingResults extends Component<TimeTrackingResultsSignature>
 
   <template>
     <TimelineViewer @active={{@active}} @playerApi={{@playerApi}} @data={{@data}} />
+
+    <h3>Auswertung</h3>
+    <TimeTrackingEvaluation @data={{@data}} />
   </template>
 }

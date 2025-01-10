@@ -3,7 +3,7 @@ import { concat } from '@ember/helper';
 
 import { formatNumber, t } from 'ember-intl';
 
-import { CardSection, Features } from '../../../../supporting/ui';
+import { CardSection, Features } from '../../../../../supporting/ui';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../systems/actions';
 import { CriterionInterval, Score } from './-components';
 import { getCriterionKey, toIntlNameKey } from './-utils';

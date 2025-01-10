@@ -169,3 +169,11 @@ judging-system-2019:
           5: Der Fahrer schafft eine Verbindung zwischen Musik und Kür, die zu großen Teilen der Kür gegenwärtig ist
           2: Das Timing zwischen Fahrer und Musik stimmt manchmal, oft fehlt aber ein gelungene Verbindung
           0: Die Bewegungen sind ungeplant und ihre Anordnung ist in Bezug auf das Timing mangelhaft
+
+choreography:
+  routines:
+    type:
+      individual: Einzelkür
+      pair: Paarkür
+      small-group: Kleingruppe
+      large-group: Großgruppe

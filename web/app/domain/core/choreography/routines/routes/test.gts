@@ -6,9 +6,9 @@ import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from
 
 import { Page } from '@hokulea/ember';
 
-import { RoutineTesterForm } from '../../routines/form';
+import { RoutineTesterForm } from '../analysis/form';
 
-import type { RoutineTest } from '../../routines/domain-objects';
+import type { RoutineTest } from '../analysis/domain-objects';
 import type RouterService from '@ember/routing/router-service';
 
 export class ChoreographyRoutineTesterRoute extends Route<{ data?: string }> {
@@ -21,13 +21,9 @@ export class ChoreographyRoutineTesterRoute extends Route<{ data?: string }> {
   };
 
   get data() {
-    // console.log(this.params, this.emberRouter);
-
     try {
       if (this.params.data) {
         const data = JSON.parse(decompressFromEncodedURIComponent(this.params.data));
-
-        // console.log(data);
 
         return data;
       }
