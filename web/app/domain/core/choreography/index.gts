@@ -4,6 +4,7 @@ export { default as RootRoute } from './-routes/root';
 export { default as UniDancingWritingRoute } from './-routes/unidance-writing';
 export type { Awfulpractice } from './awful-practices/domain';
 export { findAwfulPractices } from './awful-practices/resources';
+export { default as RoutinesDetailsRoute } from './routines/routes/details';
 export { default as RoutinesIndexRoute } from './routines/routes/index';
 export { default as RoutinesResultsRoute } from './routines/routes/results';
 export { default as RoutinesRootRoute } from './routines/routes/root';

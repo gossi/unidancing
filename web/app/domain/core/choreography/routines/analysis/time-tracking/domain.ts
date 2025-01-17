@@ -1,34 +1,42 @@
-type Datapoint = [number, number];
+const Category = {
+  Artistry: 'artistry',
+  Communication: 'communication',
+  Tricks: 'tricks',
+  Filler: 'filler',
+  Void: 'void'
+} as const;
+
+type Category = (typeof Category)[keyof typeof Category];
 
 export const groups = [
   {
-    id: 'artistry',
+    id: Category.Artistry,
     content: 'Artistik',
-    className: 'artistry',
+    className: Category.Artistry,
     key: 'a'
   },
   {
-    id: 'comm',
+    id: Category.Communication,
     content: 'Kommunikation',
-    className: 'comm',
+    className: Category.Communication,
     key: 'c'
   },
   {
-    id: 'tricks',
+    id: Category.Tricks,
     content: 'Tricks',
-    className: 'tricks',
+    className: Category.Tricks,
     key: 't'
   },
   {
-    id: 'filler',
+    id: Category.Filler,
     content: 'Filler',
-    className: 'filler',
+    className: Category.Filler,
     key: 'f'
   },
   {
-    id: 'void',
+    id: Category.Void,
     content: 'Void',
-    className: 'void',
+    className: Category.Void,
     key: 'v'
   },
   {
@@ -38,17 +46,16 @@ export const groups = [
   }
 ];
 
+export interface Scene {
+  start: number;
+  end: number;
+  category: (typeof Category)[keyof typeof Category];
+}
+
 export interface TimeTracking {
   start?: number;
   end?: number;
-
-  groups?: {
-    artistry?: Datapoint[];
-    tricks?: Datapoint[];
-    void?: Datapoint[];
-    filler?: Datapoint[];
-    communication?: Datapoint[];
-  };
+  scenes?: Scene[];
 }
 
 export interface TimeTrackingFormData {
@@ -58,14 +65,7 @@ export interface TimeTrackingFormData {
 export interface WireTimeTracking {
   start: number;
   end: number;
-
-  groups: Partial<{
-    artistry: Datapoint[];
-    tricks: Datapoint[];
-    void: Datapoint[];
-    filler: Datapoint[];
-    communication: Datapoint[];
-  }>;
+  scenes: Scene[];
 }
 
 export interface TimeTrackingDuration {
@@ -99,8 +99,6 @@ export interface TimeTrackingGroupsEvaluation {
 
 export interface TimeTrackingEvaluation {
   duration: number;
-  // durations: TimeTrackingDuration;
-  // ratio: TimeTrackingRatio;
 
   evaluation: TimeTrackingGroupsEvaluation;
 }
@@ -110,7 +108,7 @@ export type TimeAnalysis = WireTimeTracking & TimeTrackingEvaluation;
 export function validateTimeTracking(data: TimeTracking): string[] | undefined {
   const errors = [];
 
-  const scenesPresent = Object.values(data.groups ?? {}).some((points) => points.length > 0);
+  const scenesPresent = (data.scenes ?? []).length > 0;
 
   if (scenesPresent) {
     if (!data.start) {
@@ -132,22 +130,10 @@ export function validateTimeTracking(data: TimeTracking): string[] | undefined {
 export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvaluation {
   const duration = data.end - data.start;
 
-  // const durations = Object.fromEntries(
-  //   Object.entries(data.groups).map(([k, points]) => {
-  //     return [k, points.reduce((acc, [start, end]) => acc + (end - start), 0)];
-  //   })
-  // ) as unknown as TimeTrackingDuration;
-
-  // const ratio = Object.fromEntries(
-  //   Object.entries(durations)
-  //     // .filter(([k]) => k !== 'communication')
-  //     .map(([k, v]) => [k, Math.round(v / duration)])
-  // ) as unknown as TimeTrackingRatio;
-
   const evaluation = Object.fromEntries(
-    Object.entries(data.groups).map(([k, points]) => {
-      const dur = points.reduce((acc, [start, end]) => acc + (end - start), 0);
-      const ratio = dur / duration;
+    Object.entries(Object.groupBy(data.scenes, ({ category }) => category)).map(([k, points]) => {
+      const dur = Math.round(points.reduce((acc, d) => acc + (d.end - d.start), 0) * 1000) / 1000;
+      const ratio = Math.round((dur / duration) * 10000) / 10000;
 
       return [k, { duration: dur, ratio }];
     })
@@ -156,7 +142,5 @@ export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvalua
   return {
     duration,
     evaluation
-    // durations,
-    // ratio
   };
 }

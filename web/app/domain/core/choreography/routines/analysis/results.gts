@@ -1,6 +1,8 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { not, or } from 'ember-truth-helpers';
+
 import { Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
@@ -15,6 +17,10 @@ import { TricksStub } from './tricks/stub';
 import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
 import type { RoutineResult } from './domain-objects';
 import type { Link } from 'ember-link';
+
+function length(arr: unknown[]) {
+  return arr.length;
+}
 
 interface RoutineResultsArgs {
   data: RoutineResult;
@@ -41,6 +47,10 @@ export class RoutineResults extends Component<{
     <div class={{styles.tabs}}>
       <Tabs as |tabs|>
         <tabs.Tab @label="Zusammenfassung">
+          {{#if (not (or @data.timeTracking @data.artistic @data.notTodoList))}}
+            Nanu? Diese Kür hat keine Messwerte 🤷
+          {{/if}}
+
           {{#if @data.timeTracking}}
             <h3>Zeitaufteilung</h3>
             <TimeTrackingEvaluation @data={{@data.timeTracking}} />
@@ -55,6 +65,14 @@ export class RoutineResults extends Component<{
 
             <ArtisticSummary @data={{@data.artistic}} />
 
+          {{/if}}
+
+          {{#if @data.notTodoList}}
+            <h3>Not Todo List</h3>
+
+            Die Kür beinhaltet
+            {{length @data.notTodoList}}
+            Dinge, die besser nicht darin vorkommen.
           {{/if}}
         </tabs.Tab>
 

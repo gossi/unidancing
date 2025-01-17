@@ -122,3 +122,15 @@ dialog:is([data-game], [data-assistant]) {
     width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
   }
 }
+
+kbd {
+  display: inline-block;
+
+  padding: 0.25em;
+
+  font-size: 90%;
+  color: var(--typography-code-text);
+
+  background-color: var(--typography-code-background);
+  border-radius: 4px;
+}

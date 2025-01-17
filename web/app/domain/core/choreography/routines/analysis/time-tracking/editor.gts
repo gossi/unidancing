@@ -77,21 +77,14 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
 
   processResults = () => {
     const results: TimeTracking = {};
-    const scenes = this.data
-      .map((d) => ({
-        group: d.group,
-        data: [(d.start as number) / 1000, (d.end as number) / 1000]
-      }))
-      .filter((d) => d.group !== 'marker');
-    const data = Object.fromEntries(
-      Object.entries(Object.groupBy(scenes, (i) => i.group)).map(([k, v]) => [
-        k,
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        v!.map((i) => i.data)
-      ])
-    );
 
-    results.groups = data;
+    results.scenes = this.data
+      .map((d) => ({
+        start: (d.start as number) / 1000,
+        end: (d.end as number) / 1000,
+        category: d.group
+      }))
+      .filter((d) => d.category !== 'marker');
 
     const start = this.data.get('start');
 
@@ -168,7 +161,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   };
 
   trackStartStop = (time: number) => {
-    const data = this.args.data ?? {};
+    const data = this.args.data ?? ({} as TimeTracking);
 
     const startExists = data.start !== undefined;
     const endExists = data.end !== undefined;

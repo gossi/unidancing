@@ -278,7 +278,9 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
 
   <template>
     <div class={{styles.player}} {{this.registerKeyboardShortcuts}}>
-      <div {{this.player}}></div>
+      <div>
+        <div {{this.player}}></div>
+      </div>
 
       <RangeInput
         @value={{durationToSeconds this.currentTime}}

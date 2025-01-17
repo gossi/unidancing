@@ -30,7 +30,6 @@ export interface CategoryResult extends WireCategoryResult {
 }
 
 export interface PartResult extends WirePartResult {
-  name: string;
   score: number;
   categories: CategoryResult[];
 }

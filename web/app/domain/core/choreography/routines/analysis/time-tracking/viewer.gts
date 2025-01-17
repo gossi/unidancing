@@ -43,10 +43,10 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     super(owner, args);
 
     try {
-      document.body.addEventListener('keyup', this.handleKeyboard.bind(this));
+      document.body.addEventListener('keydown', this.handleKeyboard.bind(this));
 
       registerDestructor(this, () => {
-        document.body.removeEventListener('keyup', this.handleKeyboard.bind(this));
+        document.body.removeEventListener('keydown', this.handleKeyboard.bind(this));
       });
     } catch {
       /**/
@@ -89,17 +89,15 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     this.chart.on('timechange', seek);
     this.chart.on('timechanged', seek);
 
-    for (const [group, datapoints] of Object.entries(this.args.data?.groups ?? {})) {
-      this.data.add(
-        datapoints.map((v) => ({
-          id: uniqueId(),
-          content: '',
-          start: v[0] * 1000,
-          end: v[1] * 1000,
-          group
-        }))
-      );
-    }
+    this.data.add(
+      (this.args.data?.scenes ?? []).map((v) => ({
+        id: uniqueId(),
+        content: '',
+        start: v.start * 1000,
+        end: v.end * 1000,
+        group: v.category
+      }))
+    );
 
     if (this.args.data?.start) {
       this.data.add({

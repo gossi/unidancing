@@ -4,8 +4,14 @@
   display: flex;
   flex-direction: column;
 
+  & > :first-child {
+    overflow: auto;
+    resize: vertical;
+  }
+
   iframe {
     width: 100%;
+    min-height: 100%;
   }
 }
 

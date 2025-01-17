@@ -1,7 +1,9 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { hash } from '@ember/helper';
+import { fn } from '@ember/helper';
 
-import { Form, Icon, Tabs } from '@hokulea/ember';
+import { Button, Form, Icon, Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
 import {
@@ -59,7 +61,7 @@ export class RoutineTesterForm extends Component<{
 
   artisticSystemID: JudgingSystemID = 'iuf-performance-2019';
 
-  @tracked video = 'https://www.youtube.com/watch?v=Y3al545mkR4';
+  @tracked video?: string; // https://www.youtube.com/watch?v=Y3al545mkR4
 
   data: Data = {
     rider: '',
@@ -148,6 +150,14 @@ export class RoutineTesterForm extends Component<{
     this.args.submit(routine);
   };
 
+  startSample = (video: string) => {
+    this.video = video;
+  };
+
+  start = (data: { video: string }) => {
+    this.video = data.video;
+  };
+
   <template>
     {{#if this.video}}
       <YoutubePlayer @url={{this.video}} @setApi={{this.setPlayerApi}} />
@@ -203,6 +213,41 @@ export class RoutineTesterForm extends Component<{
 
         <f.Submit>Ergebnisse anzeigen</f.Submit>
       </this.Form>
+    {{else}}
+      <p>
+        Zum starten brauchst du ein Youtube Video einer Kür.<br />
+        Am besten schaust du ins
+        <a
+          href="https://www.youtube.com/@KonstantinHoehne"
+          target="_blank"
+          rel="noopener noreferrer"
+        >Youtube Video Archiv von Konstantin Höhne</a>.
+      </p>
+
+      <Form @data={{hash video=""}} as |f|>
+        <f.Text
+          @name="video"
+          @label="Video"
+          placeholder="https://www.youtube.com/watch?v=...."
+          required
+        />
+        <f.Submit>Analyse starten</f.Submit>
+      </Form>
+
+      <h3>Beispiele</h3>
+
+      <p>Zum Testen eine der Beispielküren nutzen:</p>
+
+      <p>
+        <Button
+          @importance="subtle"
+          @push={{fn this.startSample "https://www.youtube.com/watch?v=Y3al545mkR4"}}
+        >Kazuhiro Shimoyama @ Unicon 16</Button>
+        <Button
+          @importance="subtle"
+          @push={{fn this.startSample "https://www.youtube.com/watch?v=mSJftCOsnXw"}}
+        >Anouk Rückert @ Unicon 21</Button>
+      </p>
     {{/if}}
   </template>
 }

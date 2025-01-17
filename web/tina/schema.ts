@@ -6,6 +6,7 @@ import { ExerciseCollection } from './collections/exercise';
 import { CourseCollection } from './collections/course';
 import { AwfulPracticeCollection } from './collections/aweful-practice';
 import { MoveCollection } from './collections/move';
+import { RoutinesCollection } from './collections/routines';
 
 const schema = defineSchema({
   collections: [
@@ -15,21 +16,8 @@ const schema = defineSchema({
     MoveCollection,
     ExerciseCollection,
     CourseCollection,
-    AwfulPracticeCollection
-    // {
-    //   name: 'trick',
-    //   label: 'Tricks',
-    //   path: 'content/tricks',
-    //   fields: [
-    //     {
-    //       type: "string",
-    //       name: "title",
-    //       label: "Title",
-    //       isTitle: true,
-    //       required: true
-    //     }
-    //   ]
-    // }
+    AwfulPracticeCollection,
+    RoutinesCollection
   ]
 });
 

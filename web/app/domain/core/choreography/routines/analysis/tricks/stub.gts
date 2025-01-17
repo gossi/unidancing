@@ -1,5 +1,5 @@
 export const TricksStub = <template>
-  <p>Tricks lassen sich super objektiv abbilden. Das hat
+  <p>Tricks lassen sich sehr praktisch objektiv abbilden. Das hat
     <a href="https://gos.si/publikationen" target="_blank" rel="noopener noreferrer">Thomas Gossmann
       in seiner Diplomarbeit</a>
     gezeigt (S. 42ff).

@@ -1,11 +1,11 @@
 import { tracked } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
+import { fn } from '@ember/helper';
 import { isDevelopingApp } from '@embroider/macros';
 
 import { t } from 'ember-intl';
 import formatDate from 'ember-intl/helpers/format-date';
 import { link } from 'ember-link';
-import { modifier } from 'ember-modifier';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
@@ -18,22 +18,11 @@ import { scoreArtistic } from '../analysis/artistic/actions';
 import { RoutineResults } from '../analysis/results';
 import { loadSystem, loadSystemDescriptor } from '../analysis/systems/actions';
 import { evaluateTimeTracking } from '../analysis/time-tracking/domain';
+import { copyToClipboard, selectWhenFocus } from './-utils';
 import styles from './styles.css';
 
 import type { RoutineResult, RoutineTest } from '../analysis/domain-objects';
 import type { WireTimeTracking } from '../analysis/time-tracking/domain';
-
-const selectWhenFocus = modifier((element: HTMLInputElement | HTMLTextAreaElement) => {
-  const handler = () => {
-    window.setTimeout(() => element.setSelectionRange(0, element.value.length), 0);
-  };
-
-  element.addEventListener('focus', handler);
-
-  return () => {
-    element.removeEventListener('focus', handler);
-  };
-});
 
 export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
   @tracked exportShown = false;
@@ -73,9 +62,15 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
     }
   }
 
-  copyLink = () => {
-    window.navigator.clipboard.writeText(this.shareLink);
-  };
+  get exportLink() {
+    const url = new URL(this.shareLink);
+
+    url.hostname = 'unidancing.art';
+    url.port = '';
+    url.protocol = 'https';
+
+    return url.toString();
+  }
 
   get exportData() {
     return JSON.stringify(this.data, null, '  ');
@@ -123,7 +118,7 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
                     @importance="subtle"
                     @spacing="-1"
                     @label="Kopieren"
-                    @push={{this.copyLink}}
+                    @push={{fn copyToClipboard this.shareLink}}
                   />
                 </div>
               </Popover>
@@ -133,7 +128,7 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
               @importance="subtle"
               @spacing="-1"
               @label="Bearbeiten"
-              @push={{link "choreography.routines.test" this.params.data}}
+              @push={{link "choreography.routines.test_load" this.params.data}}
             />
             {{#if this.exportAvailable}}
               <IconButton
@@ -144,6 +139,30 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
                 @push={{this.toggleExport}}
                 aria-pressed={{this.exportShown}}
               />
+
+              {{#let (popover position="bottom-start") as |po|}}
+                <IconButton
+                  @icon="export"
+                  @importance="subtle"
+                  @spacing="-1"
+                  @label="Teilen auf unidancing.art"
+                  {{po.trigger}}
+                />
+
+                <Popover {{po.target}} class={{styles.share}}>
+                  <p>Teile den Link zur Kür-Analyse auf unidancing.art:</p>
+                  <div>
+                    <TextInput @value={{this.exportLink}} readonly {{selectWhenFocus}} />
+                    <IconButton
+                      @icon="clipboard-text"
+                      @importance="subtle"
+                      @spacing="-1"
+                      @label="Kopieren"
+                      @push={{fn copyToClipboard this.exportLink}}
+                    />
+                  </div>
+                </Popover>
+              {{/let}}
             {{/if}}
           </p>
 
