@@ -1,6 +1,11 @@
-export { findAwfulPractices } from './-resource';
 export { default as IndexRoute } from './-routes/index';
 export { default as NotTodoListRoute } from './-routes/not-todo-list';
 export { default as RootRoute } from './-routes/root';
 export { default as UniDancingWritingRoute } from './-routes/unidance-writing';
-export * from './-types';
+export type { Awfulpractice } from './awful-practices/domain';
+export { findAwfulPractices } from './awful-practices/resources';
+export { default as RoutinesDetailsRoute } from './routines/routes/details';
+export { default as RoutinesIndexRoute } from './routines/routes/index';
+export { default as RoutinesResultsRoute } from './routines/routes/results';
+export { default as RoutinesRootRoute } from './routines/routes/root';
+export { default as RoutinesTestRoute } from './routines/routes/test';

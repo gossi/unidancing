@@ -1,0 +1,7 @@
+.tabs {
+  [role="tabpanel"]:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container0);
+  }
+}

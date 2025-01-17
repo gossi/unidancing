@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 module.exports = function (environment) {
   let ENV = {
     modulePrefix: '@unidancing/app',
@@ -17,6 +19,7 @@ module.exports = function (environment) {
     APP: {
       // Here you can pass flags/options to your application instance
       // when it is created
+      YOUTUBE_API_KEY: process.env.YOUTUBE_API_KEY
     }
   };
 

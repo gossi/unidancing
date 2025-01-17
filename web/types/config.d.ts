@@ -11,7 +11,10 @@ declare module '@unidancing/app/config/environment' {
     podModulePrefix: string;
     locationType: 'history' | 'hash' | 'none' | 'auto';
     rootURL: string;
-    APP: Record<string, unknown>;
+    APP: Record<string, unknown> & {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      YOUTUBE_API_KEY: string;
+    };
     workerHostURL: string;
   };
 }

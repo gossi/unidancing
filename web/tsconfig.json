@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2023",
+    "target": "esnext",
     "allowJs": true,
     "moduleResolution": "bundler",
     "allowSyntheticDefaultImports": true,
@@ -18,7 +18,7 @@
     "inlineSourceMap": true,
     "inlineSources": true,
     "baseUrl": ".",
-    "module": "es6",
+    "module": "ESNext",
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "resolveJsonModule": true,

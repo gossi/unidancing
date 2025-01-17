@@ -5,9 +5,10 @@ module.exports = function () {
         ...defaultGlobals,
         ...{
           URL,
+          URLSearchParams,
           AbortController,
           AbortSignal,
-          fetch,
+          fetch: typeof fetch !== 'undefined' ? fetch : undefined,
           Headers: typeof Headers !== 'undefined' ? Headers : undefined
         }
       };

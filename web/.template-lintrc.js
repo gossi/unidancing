@@ -8,7 +8,9 @@ module.exports = {
     ...(config.rules || {}),
     'no-passed-in-event-handlers': {
       ignore: {
-        Form: ['submit', 'reset']
+        Form: ['submit', 'reset'],
+        'this.Form': ['submit', 'reset'],
+        RoutineTesterForm: ['submit', 'reset']
       }
     },
     'require-valid-named-block-naming-format': 'kebab-case'

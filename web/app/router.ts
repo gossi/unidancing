@@ -32,6 +32,12 @@ Router.map(function () {
   this.route('choreography', function () {
     this.route('not-todo-list');
     this.route('unidance-writing');
+    this.route('routines', function () {
+      this.route('test');
+      this.route('test_load', { path: '/test/:data' });
+      this.route('results', { path: '/results/:data' });
+      this.route('details', { path: '/*path' });
+    });
   });
   this.route('training', function () {
     this.route('athletic-profile', { path: '/leistungsprofil' });

@@ -12,7 +12,8 @@ export const cacheResult = async <F extends Fn>(
   const { services } = sweetenOwner(owner);
   const { fastboot } = services;
 
-  const cached = fastboot.shoebox.retrieve(key);
+  const id = key.replaceAll('/', '-');
+  const cached = fastboot.shoebox.retrieve(id);
 
   if (cached) {
     return cached as Awaited<ReturnType<F>>;
@@ -21,7 +22,7 @@ export const cacheResult = async <F extends Fn>(
   const data = await fn();
 
   if (fastboot.isFastBoot) {
-    fastboot.shoebox.put(key, data);
+    fastboot.shoebox.put(id, data);
   }
 
   return data as Awaited<ReturnType<F>>;
