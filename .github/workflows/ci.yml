@@ -47,6 +47,7 @@ jobs:
     name: Lint (CSS)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup
 
@@ -58,6 +59,7 @@ jobs:
     name: Lint (HBS)
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup
 
@@ -69,6 +71,7 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup
         uses: ./.github/actions/setup
 
