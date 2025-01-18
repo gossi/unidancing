@@ -13,8 +13,10 @@ import type { LinkManagerService } from 'ember-link';
 export const findArts = resourceFactory(() => {
   return resource(async ({ owner }): Promise<Art[]> => {
     return cacheResult('arts', owner, async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const artsResponse = await client.queries.artConnection({ sort: 'title' });
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return (artsResponse.data.artConnection.edges as ArtConnectionEdges[] | undefined)?.map(
         (edge) => edge.node
       ) as Art[];
@@ -25,10 +27,10 @@ export const findArts = resourceFactory(() => {
 export const findArt = resourceFactory((id: string) => {
   return resource(async ({ owner }): Promise<Art> => {
     return cacheResult(`art-${id}`, owner, async () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const artResponse = await client.queries.art({ relativePath: `${id}.md` });
 
-      // tina.client.queries.techniqueConnection({ filter: });
-
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return artResponse.data.art as Art;
     });
   });

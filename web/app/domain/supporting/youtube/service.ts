@@ -22,8 +22,6 @@ export class YoutubeService extends Service {
       }
     }
 
-    console.log(config.APP.YOUTUBE_API_KEY);
-
     p.set('key', config.APP.YOUTUBE_API_KEY);
 
     let response = await fetch(url);

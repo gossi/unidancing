@@ -17,6 +17,8 @@
     "build:ember": "ember build --environment=production",
     "lint": "concurrently -g 'npm:lint:*(!fix)'",
     "lint:fix": "concurrently -g 'npm:lint:*:fix'",
+    "lint:css": "stylelint 'src/**/*.css' --allow-empty-input --cache",
+    "lint:css:fix": "stylelint 'src/**/*.css' --allow-empty-input --fix",
     "lint:hbs": "ember-template-lint .",
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
@@ -29,7 +31,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
-    "@babel/eslint-parser": "^7.25.9",
+    "@babel/eslint-parser": "^7.26.5",
     "@ember/optional-features": "^2.1.0",
     "@ember/render-modifiers": "^2.1.0",
     "@ember/string": "^4.0.0",
@@ -47,12 +49,12 @@
     "@glint/environment-ember-template-imports": "^1.5.0",
     "@glint/template": "^1.5.0",
     "@googleapis/youtube": "^20.0.0",
-    "@gossi/config-eslint": "^0.13.0",
-    "@gossi/config-postcss": "^0.10.1",
-    "@gossi/config-prettier": "^0.9.1",
-    "@gossi/config-stylelint": "^0.9.1",
-    "@gossi/config-targets": "^0.9.1",
-    "@gossi/config-template-lint": "^0.8.1",
+    "@gossi/config-eslint": "^0.14.0",
+    "@gossi/config-postcss": "^0.11.0",
+    "@gossi/config-prettier": "^0.10.0",
+    "@gossi/config-stylelint": "^1.0.0",
+    "@gossi/config-targets": "^0.10.0",
+    "@gossi/config-template-lint": "^0.9.0",
     "@hokulea/core": "^0.3.0",
     "@hokulea/ember": "^0.6.0",
     "@hokulea/ember-css-modules-config": "^0.2.0",
@@ -65,8 +67,8 @@
     "@types/sinon": "^17.0.3",
     "@types/uuid": "^10.0.0",
     "@types/youtube-player": "^5.5.11",
-    "@typescript-eslint/eslint-plugin": "^8.11.0",
-    "@typescript-eslint/parser": "^8.11.0",
+    "@typescript-eslint/eslint-plugin": "^8.20.0",
+    "@typescript-eslint/parser": "^8.20.0",
     "@unidancing/theme": "workspace:*",
     "@xstate/inspect": "^0.8.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -139,9 +141,9 @@
     "sinon": "^19.0.2",
     "spotify-web-api-js": "^1.5.2",
     "spotify-web-playback": "^1.4.0",
-    "stylelint": "^16.12.0",
+    "stylelint": "^16.13.2",
     "temporal-polyfill": "^0.2.5",
-    "tinacms": "^2.3.0",
+    "tinacms": "^2.6.0",
     "tracked-built-ins": "^3.3.0",
     "typescript": "^5.7.2",
     "uuid": "^10.0.0",
@@ -153,7 +155,7 @@
     "youtube-player": "^5.6.0"
   },
   "engines": {
-    "node": ">= 20"
+    "node": ">= 22"
   },
   "ember": {
     "edition": "octane"

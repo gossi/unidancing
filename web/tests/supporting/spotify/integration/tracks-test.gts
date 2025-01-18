@@ -2,8 +2,6 @@ import { getContext } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
 import { playTrack, SpotifyService } from '@unidancing/app/domain/supporting/spotify';
 import { service } from 'ember-polaris-service';
 import sinon from 'sinon';
@@ -20,13 +18,15 @@ module('Spotify | Integration | Tracks', function (hooks) {
 
     const spotifyService = service(context, SpotifyService);
     const spotifyClient = spotifyService.client;
-    const play = sinon.stub(spotifyClient.api, 'play');
+    const play = sinon.stub(spotifyClient, 'play');
 
     await playTrack(context.owner)(RADIOACTIVE);
 
     assert.true(
       play.calledOnceWith({
-        uris: [RADIOACTIVE.uri]
+        uris: [RADIOACTIVE.uri],
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        position_ms: 0
       })
     );
   });
