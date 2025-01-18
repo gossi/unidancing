@@ -21,7 +21,9 @@ runs:
     - name: Build Theme
       run: pnpm build
       working-directory: theme
+      shell: bash
 
     - name: Build Tina
       run: pnpm exec tinacms build --local --skip-cloud-checks
       working-directory: web
+      shell: bash
