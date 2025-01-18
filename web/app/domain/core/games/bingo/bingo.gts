@@ -41,7 +41,11 @@ const Tile: TOC<TileSignature> = <template>
 
 class Bingo {
   @tracked principles: Awfulpractice[];
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   @tracked selection: Set<Awfulpractice> = new TrackedSet();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   @tracked winner: Set<Awfulpractice> = new TrackedSet();
   @tracked finished: boolean = false;
 

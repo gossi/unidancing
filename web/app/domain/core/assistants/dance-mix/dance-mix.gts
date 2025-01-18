@@ -400,6 +400,7 @@ class Game extends Component<DanceMixSignature> {
           <Button
             @importance="subtle"
             @disabled={{this.machine.state.matches "playing"}}
+            {{! @glint-ignore }}
             @push={{fn this.machine.send "choosePlaylist"}}
           >
             Playlist wechseln
