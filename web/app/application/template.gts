@@ -33,6 +33,7 @@ export default RouteTemplate<Signature>(
           <:menu as |c|>
             <c.Item @push={{link "choreography"}}>Übersicht</c.Item>
             <hr />
+            <c.Item @push={{link "choreography.routines"}}>Küren</c.Item>
             <c.Item @push={{link "choreography.unidance-writing"}}>UniDance Writing</c.Item>
             <c.Item @push={{link "choreography.not-todo-list"}}>Not-Todo-Liste</c.Item>
             <hr />

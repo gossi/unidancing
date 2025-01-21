@@ -137,6 +137,7 @@ export const RoutinesCollection: Collection = {
             makeEvaluationField('tricks', 'Tricks'),
             makeEvaluationField('filler', 'Filler'),
             makeEvaluationField('void', 'Void'),
+            makeEvaluationField('dismounts', 'Abstiege'),
           ]
         }
       ]

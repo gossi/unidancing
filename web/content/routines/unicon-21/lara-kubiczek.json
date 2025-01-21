@@ -1,0 +1,580 @@
+{
+  "rider": "Lara Kubiczek",
+  "type": "individual",
+  "date": "2024-07-17",
+  "event": "Unicon 21",
+  "video": "https://www.youtube.com/watch?v=6ll9OhkOHyI",
+  "notTodoList": [
+    "arabesque-hand-on-seat",
+    "arabesque-no-bowtension",
+    "prehops",
+    "foot-not-pointed",
+    "palms-extended",
+    "arms-only",
+    "standup-hand-on-seat"
+  ],
+  "artistic": {
+    "name": "iuf-performance-2019",
+    "score": 19.933333333333334,
+    "parts": [
+      {
+        "name": "performance",
+        "score": 19.933333333333334,
+        "categories": [
+          {
+            "name": "execution",
+            "score": 6.433333333333334,
+            "criteria": [
+              {
+                "name": "presence",
+                "value": 7.5
+              },
+              {
+                "name": "carriage",
+                "value": 6.8
+              },
+              {
+                "name": "authenticity",
+                "value": 7.3
+              },
+              {
+                "name": "clarity",
+                "value": 7
+              },
+              {
+                "name": "variety",
+                "value": 5.5
+              },
+              {
+                "name": "projection",
+                "value": 4.5
+              }
+            ]
+          },
+          {
+            "name": "choreography",
+            "score": 6.2,
+            "criteria": [
+              {
+                "name": "purpose",
+                "value": 5.5
+              },
+              {
+                "name": "harmony",
+                "value": 7.5
+              },
+              {
+                "name": "utilization",
+                "value": 7
+              },
+              {
+                "name": "dynamics",
+                "value": 5
+              },
+              {
+                "name": "imaginativeness",
+                "value": 6
+              }
+            ]
+          },
+          {
+            "name": "music",
+            "score": 7.3,
+            "criteria": [
+              {
+                "name": "realization",
+                "value": 7.5
+              },
+              {
+                "name": "expression",
+                "value": 6.7
+              },
+              {
+                "name": "finesse",
+                "value": 7.5
+              },
+              {
+                "name": "timing",
+                "value": 7.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "timeTracking": {
+    "scenes": [
+      {
+        "start": 3.089,
+        "end": 5.389,
+        "category": "artistry"
+      },
+      {
+        "start": 10.194,
+        "end": 11.198,
+        "category": "artistry"
+      },
+      {
+        "start": 12.656,
+        "end": 15.092,
+        "category": "artistry"
+      },
+      {
+        "start": 24.784,
+        "end": 30.486,
+        "category": "artistry"
+      },
+      {
+        "start": 33.688,
+        "end": 35.26,
+        "category": "artistry"
+      },
+      {
+        "start": 36.54,
+        "end": 37.195,
+        "category": "artistry"
+      },
+      {
+        "start": 38.324,
+        "end": 41.244,
+        "category": "artistry"
+      },
+      {
+        "start": 43.315,
+        "end": 43.749,
+        "category": "artistry"
+      },
+      {
+        "start": 44.236,
+        "end": 44.944,
+        "category": "artistry"
+      },
+      {
+        "start": 52.108,
+        "end": 57.084,
+        "category": "artistry"
+      },
+      {
+        "start": 62.897,
+        "end": 64.663,
+        "category": "artistry"
+      },
+      {
+        "start": 73.858,
+        "end": 74.948,
+        "category": "artistry"
+      },
+      {
+        "start": 82.487,
+        "end": 85.117,
+        "category": "artistry"
+      },
+      {
+        "start": 86.775,
+        "end": 88.499,
+        "category": "artistry"
+      },
+      {
+        "start": 106.921,
+        "end": 120.21,
+        "category": "artistry"
+      },
+      {
+        "start": 123.843,
+        "end": 125.168,
+        "category": "artistry"
+      },
+      {
+        "start": 128.665,
+        "end": 133.504,
+        "category": "artistry"
+      },
+      {
+        "start": 140.693,
+        "end": 141.174,
+        "category": "artistry"
+      },
+      {
+        "start": 145.374,
+        "end": 149.981,
+        "category": "artistry"
+      },
+      {
+        "start": 161.721,
+        "end": 163.62,
+        "category": "artistry"
+      },
+      {
+        "start": 166.352,
+        "end": 171.382,
+        "category": "artistry"
+      },
+      {
+        "start": 180.213,
+        "end": 185.359,
+        "category": "artistry"
+      },
+      {
+        "start": 195.652,
+        "end": 198.099,
+        "category": "artistry"
+      },
+      {
+        "start": 208.975,
+        "end": 216.358,
+        "category": "artistry"
+      },
+      {
+        "start": 223.724,
+        "end": 226.002,
+        "category": "artistry"
+      },
+      {
+        "start": 241.526,
+        "end": 243.593,
+        "category": "artistry"
+      },
+      {
+        "start": 7.655,
+        "end": 8.98,
+        "category": "communication"
+      },
+      {
+        "start": 21.575,
+        "end": 24.339,
+        "category": "communication"
+      },
+      {
+        "start": 30.925,
+        "end": 34.937,
+        "category": "communication"
+      },
+      {
+        "start": 40.627,
+        "end": 42.11,
+        "category": "communication"
+      },
+      {
+        "start": 54.673,
+        "end": 55.511,
+        "category": "communication"
+      },
+      {
+        "start": 71.893,
+        "end": 75.267,
+        "category": "communication"
+      },
+      {
+        "start": 84.315,
+        "end": 86.756,
+        "category": "communication"
+      },
+      {
+        "start": 99.426,
+        "end": 102.83,
+        "category": "communication"
+      },
+      {
+        "start": 105.864,
+        "end": 108.102,
+        "category": "communication"
+      },
+      {
+        "start": 129.534,
+        "end": 133.297,
+        "category": "communication"
+      },
+      {
+        "start": 172.926,
+        "end": 175.54,
+        "category": "communication"
+      },
+      {
+        "start": 190.365,
+        "end": 191.953,
+        "category": "communication"
+      },
+      {
+        "start": 199.343,
+        "end": 200.562,
+        "category": "communication"
+      },
+      {
+        "start": 206.167,
+        "end": 207.673,
+        "category": "communication"
+      },
+      {
+        "start": 228.492,
+        "end": 230.199,
+        "category": "communication"
+      },
+      {
+        "start": 231.55,
+        "end": 232.515,
+        "category": "communication"
+      },
+      {
+        "start": 6.479,
+        "end": 9.712,
+        "category": "tricks"
+      },
+      {
+        "start": 10.279,
+        "end": 11.331,
+        "category": "tricks"
+      },
+      {
+        "start": 16.361,
+        "end": 22.826,
+        "category": "tricks"
+      },
+      {
+        "start": 30.652,
+        "end": 36.413,
+        "category": "tricks"
+      },
+      {
+        "start": 43.081,
+        "end": 52.08,
+        "category": "tricks"
+      },
+      {
+        "start": 58.549,
+        "end": 62.431,
+        "category": "tricks"
+      },
+      {
+        "start": 68.312,
+        "end": 70.539,
+        "category": "tricks"
+      },
+      {
+        "start": 71.957,
+        "end": 79.994,
+        "category": "tricks"
+      },
+      {
+        "start": 80.431,
+        "end": 82.321,
+        "category": "dismounts"
+      },
+      {
+        "start": 86.764,
+        "end": 88.741,
+        "category": "filler"
+      },
+      {
+        "start": 86.709,
+        "end": 95.382,
+        "category": "tricks"
+      },
+      {
+        "start": 90.016,
+        "end": 94.48,
+        "category": "filler"
+      },
+      {
+        "start": 95.332,
+        "end": 96.187,
+        "category": "dismounts"
+      },
+      {
+        "start": 96.637,
+        "end": 107.22,
+        "category": "tricks"
+      },
+      {
+        "start": 97.433,
+        "end": 98.467,
+        "category": "filler"
+      },
+      {
+        "start": 99.643,
+        "end": 102.28,
+        "category": "filler"
+      },
+      {
+        "start": 103.527,
+        "end": 105.347,
+        "category": "filler"
+      },
+      {
+        "start": 105.961,
+        "end": 106.527,
+        "category": "filler"
+      },
+      {
+        "start": 120.495,
+        "end": 123.864,
+        "category": "tricks"
+      },
+      {
+        "start": 126.415,
+        "end": 140.826,
+        "category": "tricks"
+      },
+      {
+        "start": 130.049,
+        "end": 135.056,
+        "category": "filler"
+      },
+      {
+        "start": 140.594,
+        "end": 141.843,
+        "category": "dismounts"
+      },
+      {
+        "start": 143.145,
+        "end": 145.706,
+        "category": "tricks"
+      },
+      {
+        "start": 150.023,
+        "end": 162.054,
+        "category": "tricks"
+      },
+      {
+        "start": 150.114,
+        "end": 151.85,
+        "category": "filler"
+      },
+      {
+        "start": 164.566,
+        "end": 165.223,
+        "category": "tricks"
+      },
+      {
+        "start": 172.469,
+        "end": 178.617,
+        "category": "tricks"
+      },
+      {
+        "start": 177.75,
+        "end": 180.313,
+        "category": "dismounts"
+      },
+      {
+        "start": 172.691,
+        "end": 176.481,
+        "category": "filler"
+      },
+      {
+        "start": 180.816,
+        "end": 185.392,
+        "category": "tricks"
+      },
+      {
+        "start": 185.456,
+        "end": 186.759,
+        "category": "tricks"
+      },
+      {
+        "start": 186.809,
+        "end": 189.182,
+        "category": "tricks"
+      },
+      {
+        "start": 190.214,
+        "end": 191.963,
+        "category": "tricks"
+      },
+      {
+        "start": 191.962,
+        "end": 194.618,
+        "category": "tricks"
+      },
+      {
+        "start": 194.702,
+        "end": 195.532,
+        "category": "tricks"
+      },
+      {
+        "start": 195.558,
+        "end": 198.854,
+        "category": "tricks"
+      },
+      {
+        "start": 199.532,
+        "end": 201.7,
+        "category": "tricks"
+      },
+      {
+        "start": 201.7,
+        "end": 202.512,
+        "category": "tricks"
+      },
+      {
+        "start": 202.512,
+        "end": 203.205,
+        "category": "tricks"
+      },
+      {
+        "start": 203.205,
+        "end": 208.146,
+        "category": "tricks"
+      },
+      {
+        "start": 208.159,
+        "end": 209.305,
+        "category": "tricks"
+      },
+      {
+        "start": 218.847,
+        "end": 223.31,
+        "category": "tricks"
+      },
+      {
+        "start": 227.439,
+        "end": 241.469,
+        "category": "tricks"
+      },
+      {
+        "start": 227.476,
+        "end": 230.116,
+        "category": "filler"
+      },
+      {
+        "start": 232.603,
+        "end": 234.386,
+        "category": "filler"
+      },
+      {
+        "start": 235.606,
+        "end": 238.328,
+        "category": "filler"
+      },
+      {
+        "start": 43.755,
+        "end": 48.914,
+        "category": "filler"
+      }
+    ],
+    "start": 1.719,
+    "end": 243.98,
+    "duration": 242.261,
+    "evaluation": {
+      "artistry": {
+        "duration": 80.708,
+        "ratio": 0.3331
+      },
+      "communication": {
+        "duration": 35.241,
+        "ratio": 0.1455
+      },
+      "tricks": {
+        "duration": 143.125,
+        "ratio": 0.5908
+      },
+      "dismounts": {
+        "duration": 6.557,
+        "ratio": 0.0271
+      },
+      "filler": {
+        "duration": 35.335,
+        "ratio": 0.1459
+      }
+    }
+  }
+}
