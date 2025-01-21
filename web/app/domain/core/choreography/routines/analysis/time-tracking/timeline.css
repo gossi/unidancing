@@ -3,7 +3,8 @@
   --comm: #00E396;
   --tricks: #008FFB;
   --filler: #775DD0;
-  --void: #FF4560;
+  --void: #A5978B;
+  --dismounts: #FF4560;
 }
 
 .timeline {
@@ -20,14 +21,14 @@
   }
 
   :global(.vis-label) {
-    color: var(--typography-subtle);
     border-color: var(--control-border-color);
+    color: var(--typography-subtle);
   }
 
   :global(.vis-text) {
+    border-right: 0.5px solid var(--control-border-color);
     color: var(--typography-muted);
     background-color: var(--surface-container1);
-    border-right: 0.5px solid var(--control-border-color);
   }
 
   :global(.vis-panel),
@@ -45,39 +46,44 @@
   }
 
   :global(.marker .vis-item) {
+    border-color: var(--shape-stroke-color);
     color: var(--typography-main);
     background-color: var(--surface-popover);
-    border-color: var(--shape-stroke-color);
   }
 
   :global(.artistry .vis-item) {
-    background-color: var(--artistry);
     border-color: var(--artistry);
+    background-color: var(--artistry);
   }
 
   :global(.communication .vis-item) {
-    background-color: var(--comm);
     border-color: var(--comm);
+    background-color: var(--comm);
   }
 
   :global(.tricks .vis-item) {
-    background-color: var(--tricks);
     border-color: var(--tricks);
+    background-color: var(--tricks);
   }
 
   :global(.filler .vis-item) {
-    background-color: var(--filler);
     border-color: var(--filler);
+    background-color: var(--filler);
   }
 
   :global(.void .vis-item) {
-    background-color: var(--void);
     border-color: var(--void);
+    background-color: var(--void);
+  }
+
+  :global(.dismounts .vis-item) {
+    border-color: var(--dismounts);
+    background-color: var(--dismounts);
   }
 
   :global(.vis-item.vis-selected) {
-    background-color: var(--control-focus-selected-background);
     border-color: var(--control-border-color);
+    background-color: var(--control-focus-selected-background);
   }
 }
 
@@ -125,7 +131,7 @@
         background-color: var(--artistry);
       }
 
-      &[data-group="comm"] {
+      &[data-group="communication"] {
         background-color: var(--comm);
       }
 
@@ -135,6 +141,10 @@
 
       &[data-group="filler"] {
         background-color: var(--filler);
+      }
+
+      &[data-group="dismounts"] {
+        background-color: var(--dismounts);
       }
 
       &[data-group="void"] {

@@ -13,6 +13,7 @@ export class ChoreographyRootRoute extends Route<object> {
       <:title>Choreographie</:title>
       <:nav as |Item|>
         <Item @link={{link "choreography.index"}}>Übersicht</Item>
+        <Item @link={{link "choreography.routines"}}>Küren</Item>
         <Item @link={{link "choreography.unidance-writing"}}>UniDance Writing</Item>
         <Item @link={{link "choreography.not-todo-list"}}>Not Todo Liste</Item>
       </:nav>

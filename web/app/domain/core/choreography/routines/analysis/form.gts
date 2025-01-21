@@ -224,7 +224,7 @@ export class RoutineTesterForm extends Component<{
         >Youtube Video Archiv von Konstantin Höhne</a>.
       </p>
 
-      <Form @data={{hash video=""}} as |f|>
+      <Form @data={{hash video=""}} @submit={{this.start}} as |f|>
         <f.Text
           @name="video"
           @label="Video"

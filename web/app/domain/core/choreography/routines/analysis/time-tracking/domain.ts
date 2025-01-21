@@ -3,7 +3,8 @@ const Category = {
   Communication: 'communication',
   Tricks: 'tricks',
   Filler: 'filler',
-  Void: 'void'
+  Void: 'void',
+  Dismounts: 'dismounts'
 } as const;
 
 type Category = (typeof Category)[keyof typeof Category];
@@ -40,6 +41,12 @@ export const groups = [
     key: 'v'
   },
   {
+    id: Category.Dismounts,
+    content: 'Abstiege',
+    className: Category.Dismounts,
+    key: 'd'
+  },
+  {
     id: 'marker',
     content: 'Marker',
     className: 'marker'
@@ -68,22 +75,6 @@ export interface WireTimeTracking {
   scenes: Scene[];
 }
 
-export interface TimeTrackingDuration {
-  artistry?: number;
-  tricks?: number;
-  void?: number;
-  filler?: number;
-  communication?: number;
-}
-
-export interface TimeTrackingRatio {
-  artistry?: number;
-  tricks?: number;
-  void?: number;
-  filler?: number;
-  communication?: number;
-}
-
 interface EvaluationPoint {
   duration: number;
   ratio: number;
@@ -95,6 +86,7 @@ export interface TimeTrackingGroupsEvaluation {
   void?: EvaluationPoint;
   filler?: EvaluationPoint;
   communication?: EvaluationPoint;
+  dismounts?: EvaluationPoint;
 }
 
 export interface TimeTrackingEvaluation {
