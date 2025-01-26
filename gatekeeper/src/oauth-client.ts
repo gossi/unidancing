@@ -1,4 +1,4 @@
-import * as oauth from 'oauth4webapi'
+import * as oauth from 'oauth4webapi';
 
 interface OauthClientConfig {
   issuer: string;
@@ -19,28 +19,30 @@ class OauthClient {
     this.#config = config;
     this.#codeVerifier = oauth.generateRandomCodeVerifier();
     this.#client = {
+      // eslint-disable-next-line @typescript-eslint/naming-convention
       client_id: this.#config.clientId
     };
     this.#clientAuth = oauth.ClientSecretBasic(this.#config.clientSecret);
   }
 
   async readServer() {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!this.#as) {
       const issuer = new URL(this.#config.issuer);
       const response = await oauth.discoveryRequest(issuer, {
         algorithm: 'oauth2'
       });
+
       this.#as = await oauth.processDiscoveryResponse(issuer, response);
     }
   }
 
   async getAuthorizationURL() {
-    const codeChallenge = await oauth.calculatePKCECodeChallenge(
-      this.#codeVerifier
-    );
+    const codeChallenge = await oauth.calculatePKCECodeChallenge(this.#codeVerifier);
     const codeChallengeMethod = 'S256';
 
     const loginUrl = new URL(this.#as.authorization_endpoint as string);
+
     loginUrl.searchParams.set('client_id', this.#config.clientId);
     loginUrl.searchParams.set('code_challenge', codeChallenge);
     loginUrl.searchParams.set('code_challenge_method', codeChallengeMethod);
@@ -68,11 +70,7 @@ class OauthClient {
       this.#codeVerifier
     );
 
-    const result = await oauth.processAuthorizationCodeResponse(
-      this.#as,
-      this.#client,
-      response
-    );
+    const result = await oauth.processAuthorizationCodeResponse(this.#as, this.#client, response);
 
     return result;
   }
@@ -85,11 +83,7 @@ class OauthClient {
       token
     );
 
-    const result = await oauth.processRefreshTokenResponse(
-      this.#as,
-      this.#client,
-      response
-    );
+    const result = await oauth.processRefreshTokenResponse(this.#as, this.#client, response);
 
     return result;
   }
