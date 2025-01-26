@@ -1,21 +1,29 @@
 {
   "name": "@unidancing/gatekeeper",
   "version": "0.0.0",
-  "dependencies": {
-    "itty-router": "^5.0.18",
-    "oauth4webapi": "^3.1.2"
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20241018.0",
-    "@sentry/cli": "^2.38.0",
-    "@sentry/cloudflare": "^8.35.0",
-    "typescript": "^5.6.3",
-    "wrangler": "^3.81.0"
-  },
   "private": true,
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --outdir ./dist && pnpm run sentry:sourcemaps",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org gossi --project unidancing-gatekeeper ./dist && sentry-cli sourcemaps upload --org gossi --project unidancing-gatekeeper ./dist"
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org gossi --project unidancing-gatekeeper ./dist && sentry-cli sourcemaps upload --org gossi --project unidancing-gatekeeper ./dist",
+    "lint": "pnpm run '/^lint:(?!.*(fix)).*$/'",
+    "lint:fix": "pnpm run '/^lint:[^:]*:fix/'",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --fix"
+  },
+  "dependencies": {
+    "hono": "^4.6.19",
+    "@hono/sentry": "^1.2.0",
+    "oauth4webapi": "^3.1.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250124.3",
+    "@gossi/config-eslint": "^0.14.0",
+    "@gossi/config-prettier": "^0.10.0",
+    "@sentry/cli": "^2.41.1",
+    "eslint": "^8.57.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.3",
+    "wrangler": "^3.105.1"
   }
 }
