@@ -156,11 +156,11 @@ importers:
         specifier: ^0.9.0
         version: 0.9.0(ember-template-lint@6.0.0)(prettier@3.3.3)
       '@hokulea/core':
-        specifier: ^0.3.0
-        version: 0.3.0
+        specifier: ^0.3.1
+        version: 0.3.1
       '@hokulea/ember':
-        specifier: ^0.6.0
-        version: 0.6.0(cf3gvy6efrjqrjcdhfqk7ynp6e)
+        specifier: ^0.6.1
+        version: 0.6.1(cf3gvy6efrjqrjcdhfqk7ynp6e)
       '@hokulea/ember-css-modules-config':
         specifier: ^0.2.0
         version: 0.2.0(ember-css-modules@2.0.1)(postcss@8.4.49)
@@ -2122,9 +2122,6 @@ packages:
   '@floating-ui/core@1.6.0':
     resolution: {integrity: sha512-PcF++MykgmTj3CIyOQbKA/hDzOAiqI3mhuoN44WRCopIs1sgoDoU4oty4Jtqaj/y3oDU6fnVSm4QG0a3t5i0+g==}
 
-  '@floating-ui/dom@1.6.11':
-    resolution: {integrity: sha512-qkMCxSR24v2vGkhYDo/UzxfJN3D4syqSjyuTFz6C7XcpU1pASPRieNI0Kj5VP3/503mOfYiGY891ugBX1GlABQ==}
-
   '@floating-ui/dom@1.6.13':
     resolution: {integrity: sha512-umqzocjDgNRGTuO7Q8CU32dkHkECqI8ZdMZ5Swb6QAM0t5rnlrN3lGo1hdpscRd3WS8T6DKYK4ephgIH9iRh3w==}
 
@@ -2558,8 +2555,8 @@ packages:
     peerDependencies:
       react: '>= 16'
 
-  '@hokulea/core@0.3.0':
-    resolution: {integrity: sha512-z8C0aJV5nww5K2TPGLbZ+peOme7m0ciYMCPJXInkLXS355MlMYfC/UQgpOaR/X5Pa9Q6qRz016bUzWXzE9vOlQ==}
+  '@hokulea/core@0.3.1':
+    resolution: {integrity: sha512-kDzFKGPM+rkwillT55ZOwM5NIzbRNjsH0Lw5ZWotglDr2o8skps92Ilj6ao/POgdt41GKnno4KArLuRJJHEZyQ==}
     engines: {node: '>= 20.*'}
 
   '@hokulea/ember-css-modules-config@0.2.0':
@@ -2568,8 +2565,8 @@ packages:
     peerDependencies:
       ember-css-modules: ^2.0.0
 
-  '@hokulea/ember@0.6.0':
-    resolution: {integrity: sha512-e8rxVJF2yBdhU7VrqG5HJShmqGUoXcjW4mUhQjZdEWlaFPi2Ig6s5f2q2A6xcM7wEHck49VmddoYX2lIyCdZYQ==}
+  '@hokulea/ember@0.6.1':
+    resolution: {integrity: sha512-zPaw85lrJQy7+9d9AkD6XCCVavOUGIZXRK9heWmArK5b8clCx7WNjQV7Wd3N5ZePvBY4JSG/Nvu/zaR4Hgl+rw==}
     peerDependencies:
       '@ember/test-helpers': ^4.0.0
       '@glimmer/component': ^1.1.2
@@ -9146,6 +9143,7 @@ packages:
 
   lodash.isequal@4.5.0:
     resolution: {integrity: sha512-pDo3lu8Jhfjqls6GkMgpahsF9kCyayhgykjyLMNFTKWrpVdAQtYyB4muAMWozBB4ig/dtWAmsMxLEI8wuz+DYQ==}
+    deprecated: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
 
   lodash.isplainobject@4.0.6:
     resolution: {integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==}
@@ -14941,11 +14939,6 @@ snapshots:
     dependencies:
       '@floating-ui/utils': 0.2.8
 
-  '@floating-ui/dom@1.6.11':
-    dependencies:
-      '@floating-ui/core': 1.6.0
-      '@floating-ui/utils': 0.2.8
-
   '@floating-ui/dom@1.6.13':
     dependencies:
       '@floating-ui/core': 1.6.0
@@ -15625,7 +15618,7 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  '@hokulea/core@0.3.0': {}
+  '@hokulea/core@0.3.1': {}
 
   '@hokulea/ember-css-modules-config@0.2.0(ember-css-modules@2.0.1)(postcss@8.4.49)':
     dependencies:
@@ -15637,18 +15630,18 @@ snapshots:
     transitivePeerDependencies:
       - postcss
 
-  '@hokulea/ember@0.6.0(cf3gvy6efrjqrjcdhfqk7ynp6e)':
+  '@hokulea/ember@0.6.1(cf3gvy6efrjqrjcdhfqk7ynp6e)':
     dependencies:
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       '@embroider/macros': 1.16.10(@glint/template@1.5.1)
-      '@floating-ui/dom': 1.6.11
+      '@floating-ui/dom': 1.6.13
       '@glimmer/component': 1.1.2(@babel/core@7.26.0)
       '@glimmer/tracking': 1.1.2
-      '@hokulea/core': 0.3.0
+      '@hokulea/core': 0.3.1
       '@phosphor-icons/core': 2.1.1
       change-case: 5.4.4
       debug: 4.4.0(supports-color@8.1.1)
-      decorator-transforms: 2.0.0(@babel/core@7.26.0)
+      decorator-transforms: 2.3.0(@babel/core@7.26.0)
       ember-aria-voyager: 0.2.4(@babel/core@7.26.0)(@ember/test-helpers@5.0.0(@babel/core@7.26.0)(@glint/template@1.5.1)(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2))))(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2)))
       ember-async-data: 1.0.3(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2)))
       ember-command: 2.0.7(tkafoivpjcbxxnip3c3pdkmode)
@@ -20718,7 +20711,7 @@ snapshots:
 
   ember-aria-voyager@0.2.4(@babel/core@7.26.0)(@ember/test-helpers@5.0.0(@babel/core@7.26.0)(@glint/template@1.5.1)(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2))))(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2))):
     dependencies:
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       aria-voyager: 0.1.3
       dom-element-descriptors: 0.5.1
       ember-modifier: 4.2.0(@babel/core@7.26.0)(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2)))
@@ -21437,7 +21430,7 @@ snapshots:
 
   ember-phosphor-icons@0.3.0(@babel/core@7.26.0):
     dependencies:
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       '@glimmer/component': 1.1.2(@babel/core@7.26.0)
       decorator-transforms: 1.2.1(@babel/core@7.26.0)
     transitivePeerDependencies:
@@ -21460,7 +21453,7 @@ snapshots:
   ember-provide-consume-context@0.3.2(@babel/core@7.26.0)(@ember/test-helpers@5.0.0(@babel/core@7.26.0)(@glint/template@1.5.1)(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2))))(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2))):
     dependencies:
       '@ember/test-helpers': 5.0.0(@babel/core@7.26.0)(@glint/template@1.5.1)(ember-source@6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2)))
-      '@embroider/addon-shim': 1.8.9
+      '@embroider/addon-shim': 1.9.0
       '@glimmer/component': 1.1.2(@babel/core@7.26.0)
       ember-source: 6.1.0(@glimmer/component@1.1.2(@babel/core@7.26.0))(@glint/template@1.5.1)(rsvp@4.8.5)(webpack@5.95.0(esbuild@0.24.2))
     transitivePeerDependencies:
@@ -28162,7 +28155,7 @@ snapshots:
   tinacms@2.3.0(@types/react@18.2.55)(abstract-level@1.0.4)(immer@10.1.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(scheduler@0.23.2)(sucrase@3.35.0)(typescript@5.7.3):
     dependencies:
       '@ariakit/react': 0.4.13(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@floating-ui/dom': 1.6.11
+      '@floating-ui/dom': 1.6.13
       '@floating-ui/react-dom': 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@graphql-inspector/core': 6.1.0(graphql@15.8.0)
       '@headlessui/react': 2.1.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

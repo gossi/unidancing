@@ -2,6 +2,7 @@ import { cached } from '@glimmer/tracking';
 import { service } from '@ember/service';
 
 import { link } from 'ember-link';
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
@@ -29,8 +30,9 @@ export class ChoreographyRoutinesIndexRoute extends Route<object> {
   }
 
   <template>
-    <Page @title="Küren">
+    {{pageTitle "Küren"}}
 
+    <Page @title="Küren">
       <p>
         <Button @push={{link "choreography.routines.test"}}>Küranalyse starten</Button>
       </p>

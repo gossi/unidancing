@@ -61,25 +61,14 @@ export class RoutineTesterForm extends Component<{
 
   artisticSystemID: JudgingSystemID = 'iuf-performance-2019';
 
-  @tracked video?: string; // https://www.youtube.com/watch?v=Y3al545mkR4
+  @tracked video?: string;
 
   data: Data = {
     rider: '',
     event: '',
     date: '',
     type: 'individual',
-    timeTracking: {
-      // groups: {
-      //   artistry: [
-      //     [50, 80],
-      //     [100, 110]
-      //   ],
-      //   tricks: [
-      //     [120, 140],
-      //     [150, 160]
-      //   ]
-      // }
-    },
+    timeTracking: {},
     ...ARTISTIC_FORM_DATA,
     ...NOT_TODO_LIST_FORM_DATA
   };
@@ -104,6 +93,7 @@ export class RoutineTesterForm extends Component<{
 
     this.data.rider = data.rider;
     this.data.event = data.event as string;
+    this.data.date = data.date as string;
     this.data.timeTracking = data.timeTracking ?? {};
     this.data['not-todo-list'] = data.notTodoList ?? [];
 
