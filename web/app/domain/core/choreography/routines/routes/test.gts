@@ -1,5 +1,6 @@
 import { service } from '@ember/service';
 
+import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from 'lz-string';
@@ -35,6 +36,8 @@ export class ChoreographyRoutineTesterRoute extends Route<{ data?: string }> {
   }
 
   <template>
+    {{pageTitle "Kür Analyse"}}
+
     <Page @title="Kür Analyse">
       <RoutineTesterForm @submit={{this.gotoResults}} @data={{this.data}} />
     </Page>
