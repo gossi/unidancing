@@ -1,6 +1,6 @@
 name = "unidancing"
 main = "src/index.ts"
-compatibility_date = "2022-07-23"
+compatibility_date = "2025-02-02"
 compatibility_flags = ["nodejs_compat"]
 upload_source_maps = true
 vars = { ENVIRONMENT = "dev", WORKER_ROOT = "http://localhost:8787", APP_ROOT = "http://localhost:4200", SPOTIFY_CLIENT_ID = "<SPOTIFY_CLIENT_ID>", SPOTIFY_CLIENT_SECRET = "<SPOTIFY_CLIENT_SECRET>", SENTRY_DSN = "<SENTRY_DSN>" }
