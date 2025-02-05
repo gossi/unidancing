@@ -1,8 +1,9 @@
 name = "unidancing"
 main = "src/index.ts"
-compatibility_date = "2022-07-23"
+compatibility_date = "2025-02-02"
 compatibility_flags = ["nodejs_compat"]
 upload_source_maps = true
+vars = { ENVIRONMENT = "production", WORKER_ROOT = "https://connect.unidancing.art", APP_ROOT = "https://unidancing.art", SPOTIFY_CLIENT_ID = "<SPOTIFY_CLIENT_ID>", SPOTIFY_CLIENT_SECRET = "<SPOTIFY_CLIENT_SECRET>", SENTRY_DSN = "<SENTRY_DSN>" }
 
 # [dev]
 # port = 8787
@@ -11,7 +12,9 @@ upload_source_maps = true
 enabled = true
 head_sampling_rate = 1
 
-[vars]
-ENVIRONMENT = "production"
-WORKER_ROOT = "https://connect.unidancing.art"
-APP_ROOT = "https://unidancing.art"
+[env.staging]
+workers_dev = true
+vars = { ENVIRONMENT = "staging", WORKER_ROOT = "https://connect.unidancing.art", APP_ROOT = "https://unidancing.art", SPOTIFY_CLIENT_ID = "<SPOTIFY_CLIENT_ID>", SPOTIFY_CLIENT_SECRET = "<SPOTIFY_CLIENT_SECRET>", SENTRY_DSN = "<SENTRY_DSN>" }
+
+[env.production]
+vars = { ENVIRONMENT = "production", WORKER_ROOT = "https://connect.unidancing.art", APP_ROOT = "https://unidancing.art", SPOTIFY_CLIENT_ID = "<SPOTIFY_CLIENT_ID>", SPOTIFY_CLIENT_SECRET = "<SPOTIFY_CLIENT_SECRET>", SENTRY_DSN = "<SENTRY_DSN>" }
