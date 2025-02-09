@@ -1,0 +1,378 @@
+{
+  "rider": "Kazuhiro Shimoyama",
+  "type": "individual",
+  "date": "2012-07-25",
+  "event": "Unicon 16",
+  "video": "https://www.youtube.com/watch?v=Y3al545mkR4",
+  "artistic": {
+    "name": "iuf-performance-2019",
+    "score": 25.970000000000002,
+    "parts": [
+      {
+        "name": "performance",
+        "score": 25.970000000000002,
+        "categories": [
+          {
+            "name": "execution",
+            "score": 8.950000000000001,
+            "criteria": [
+              {
+                "name": "presence",
+                "value": 9.5
+              },
+              {
+                "name": "carriage",
+                "value": 9
+              },
+              {
+                "name": "authenticity",
+                "value": 9.5
+              },
+              {
+                "name": "clarity",
+                "value": 9.2
+              },
+              {
+                "name": "variety",
+                "value": 7.5
+              },
+              {
+                "name": "projection",
+                "value": 9
+              }
+            ]
+          },
+          {
+            "name": "choreography",
+            "score": 8.22,
+            "criteria": [
+              {
+                "name": "purpose",
+                "value": 8
+              },
+              {
+                "name": "harmony",
+                "value": 9.5
+              },
+              {
+                "name": "utilization",
+                "value": 7.4
+              },
+              {
+                "name": "dynamics",
+                "value": 9
+              },
+              {
+                "name": "imaginativeness",
+                "value": 7.2
+              }
+            ]
+          },
+          {
+            "name": "music",
+            "score": 8.8,
+            "criteria": [
+              {
+                "name": "realization",
+                "value": 9.2
+              },
+              {
+                "name": "expression",
+                "value": 8
+              },
+              {
+                "name": "finesse",
+                "value": 9
+              },
+              {
+                "name": "timing",
+                "value": 9
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "timeTracking": {
+    "scenes": [
+      {
+        "start": 21.565,
+        "end": 29.7,
+        "category": "artistry"
+      },
+      {
+        "start": 31.061,
+        "end": 31.475,
+        "category": "artistry"
+      },
+      {
+        "start": 37.409,
+        "end": 38.899,
+        "category": "artistry"
+      },
+      {
+        "start": 48.9,
+        "end": 51.371,
+        "category": "artistry"
+      },
+      {
+        "start": 62.51,
+        "end": 68.812,
+        "category": "artistry"
+      },
+      {
+        "start": 72.461,
+        "end": 74.71,
+        "category": "artistry"
+      },
+      {
+        "start": 79.72,
+        "end": 87.532,
+        "category": "artistry"
+      },
+      {
+        "start": 122.94,
+        "end": 131.738,
+        "category": "artistry"
+      },
+      {
+        "start": 136.588,
+        "end": 138.104,
+        "category": "artistry"
+      },
+      {
+        "start": 156.088,
+        "end": 164.298,
+        "category": "artistry"
+      },
+      {
+        "start": 182.88,
+        "end": 195.607,
+        "category": "artistry"
+      },
+      {
+        "start": 206.168,
+        "end": 212.696,
+        "category": "artistry"
+      },
+      {
+        "start": 42.946,
+        "end": 46.192,
+        "category": "artistry"
+      },
+      {
+        "start": 53.2,
+        "end": 60.237,
+        "category": "artistry"
+      },
+      {
+        "start": 69.248,
+        "end": 72.068,
+        "category": "artistry"
+      },
+      {
+        "start": 88.89,
+        "end": 100.123,
+        "category": "artistry"
+      },
+      {
+        "start": 108.969,
+        "end": 118.03,
+        "category": "artistry"
+      },
+      {
+        "start": 144.781,
+        "end": 150.269,
+        "category": "artistry"
+      },
+      {
+        "start": 197.201,
+        "end": 202.02,
+        "category": "artistry"
+      },
+      {
+        "start": 219.324,
+        "end": 221.456,
+        "category": "artistry"
+      },
+      {
+        "start": 227.467,
+        "end": 229.817,
+        "category": "artistry"
+      },
+      {
+        "start": 234.24,
+        "end": 236.414,
+        "category": "artistry"
+      },
+      {
+        "start": 243.515,
+        "end": 248.85,
+        "category": "artistry"
+      },
+      {
+        "start": 237.519,
+        "end": 240.339,
+        "category": "artistry"
+      },
+      {
+        "start": 33.216,
+        "end": 35.74,
+        "category": "artistry"
+      },
+      {
+        "start": 173.095,
+        "end": 174.755,
+        "category": "artistry"
+      },
+      {
+        "start": 32.086,
+        "end": 35.114,
+        "category": "tricks"
+      },
+      {
+        "start": 35.34,
+        "end": 38.42,
+        "category": "tricks"
+      },
+      {
+        "start": 39.548,
+        "end": 42.478,
+        "category": "tricks"
+      },
+      {
+        "start": 45.008,
+        "end": 51.778,
+        "category": "tricks"
+      },
+      {
+        "start": 58.168,
+        "end": 61.018,
+        "category": "tricks"
+      },
+      {
+        "start": 76.501,
+        "end": 80.891,
+        "category": "tricks"
+      },
+      {
+        "start": 83.555,
+        "end": 85.135,
+        "category": "tricks"
+      },
+      {
+        "start": 86.781,
+        "end": 88.631,
+        "category": "tricks"
+      },
+      {
+        "start": 91.398,
+        "end": 91.598,
+        "category": "tricks"
+      },
+      {
+        "start": 100.207,
+        "end": 108.496,
+        "category": "tricks"
+      },
+      {
+        "start": 121.853,
+        "end": 125.233,
+        "category": "tricks"
+      },
+      {
+        "start": 131.417,
+        "end": 136.931,
+        "category": "tricks"
+      },
+      {
+        "start": 138.568,
+        "end": 140.578,
+        "category": "tricks"
+      },
+      {
+        "start": 142.234,
+        "end": 143.944,
+        "category": "tricks"
+      },
+      {
+        "start": 151.772,
+        "end": 153.032,
+        "category": "tricks"
+      },
+      {
+        "start": 153.952,
+        "end": 155.012,
+        "category": "tricks"
+      },
+      {
+        "start": 158.223,
+        "end": 159.637,
+        "category": "tricks"
+      },
+      {
+        "start": 166.1,
+        "end": 170.532,
+        "category": "tricks"
+      },
+      {
+        "start": 175.854,
+        "end": 182.363,
+        "category": "tricks"
+      },
+      {
+        "start": 195.851,
+        "end": 197.546,
+        "category": "tricks"
+      },
+      {
+        "start": 204.275,
+        "end": 206.005,
+        "category": "tricks"
+      },
+      {
+        "start": 214.067,
+        "end": 219.93,
+        "category": "tricks"
+      },
+      {
+        "start": 221.529,
+        "end": 228.027,
+        "category": "tricks"
+      },
+      {
+        "start": 232.016,
+        "end": 234.29,
+        "category": "tricks"
+      },
+      {
+        "start": 241.249,
+        "end": 245.13,
+        "category": "tricks"
+      },
+      {
+        "start": 170.813,
+        "end": 173.281,
+        "category": "dismounts"
+      }
+    ],
+    "start": 13.74,
+    "end": 248.983,
+    "duration": 235.243,
+    "evaluation": {
+      "artistry": {
+        "duration": 129.351,
+        "ratio": 0.5499
+      },
+      "tricks": {
+        "duration": 84.197,
+        "ratio": 0.3579
+      },
+      "dismounts": {
+        "duration": 2.468,
+        "ratio": 0.0105
+      }
+    }
+  }
+}
