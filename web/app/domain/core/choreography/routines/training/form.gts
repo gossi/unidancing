@@ -71,8 +71,8 @@ export class TrainingTesterForm extends Component<{
     {{else}}
       <p>
         Du bist herausgefordert worden die Kür von
-        {{@data.rider}}
-        der
+        <b>{{@data.rider}}</b>
+        @
         {{@data.event}}
         zu bewerten.
       </p>

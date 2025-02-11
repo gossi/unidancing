@@ -36,9 +36,9 @@ export class RoutineTrainingResultsRoute extends Route<{ data?: string }> {
   }
 
   <template>
-    {{pageTitle "Kür Training Auswertung"}}
+    {{pageTitle "Jury Training: Auswertung"}}
 
-    <Page @title="Kür Training Auswertung">
+    <Page @title="Jury Training: Auswertung">
       <TrainingResults @data={{this.data}} />
     </Page>
   </template>

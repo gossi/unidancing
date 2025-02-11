@@ -55,8 +55,8 @@ export class Share extends Component<{
 
           {{#if (canUseForTraining @routine)}}
             {{#let (makeTrainingLink @routine this.router) as |trainingLink|}}
-              <tab.Tab @label="Training">
-                <p>Teile den Link zur Kür-Analyse:</p>
+              <tab.Tab @label="Jury Training">
+                <p>Teile den Link zum Jury Training für diese Kür:</p>
                 <div>
                   <TextInput @value={{trainingLink}} readonly {{selectWhenFocus}} />
                   <IconButton
