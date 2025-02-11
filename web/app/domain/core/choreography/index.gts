@@ -9,3 +9,5 @@ export { default as RoutinesIndexRoute } from './routines/routes/index';
 export { default as RoutinesResultsRoute } from './routines/routes/results';
 export { default as RoutinesRootRoute } from './routines/routes/root';
 export { default as RoutinesTestRoute } from './routines/routes/test';
+export { default as RoutineTrainingRoute } from './routines/routes/training';
+export { default as RoutineTrainingResultsRoute } from './routines/routes/training/results';

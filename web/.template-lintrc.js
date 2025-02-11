@@ -10,7 +10,8 @@ module.exports = {
       ignore: {
         Form: ['submit', 'reset'],
         'this.Form': ['submit', 'reset'],
-        RoutineTesterForm: ['submit', 'reset']
+        RoutineTesterForm: ['submit', 'reset'],
+        TrainingTesterForm: ['submit', 'reset']
       }
     },
     'require-valid-named-block-naming-format': 'kebab-case'

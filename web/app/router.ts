@@ -36,6 +36,10 @@ Router.map(function () {
       this.route('test');
       this.route('test_load', { path: '/test/:data' });
       this.route('results', { path: '/results/:data' });
+      this.route('training', function () {
+        this.route('index', { path: '/:data' });
+        this.route('results', { path: '/results/:data' });
+      });
       this.route('details', { path: '/*path' });
     });
   });
