@@ -16,7 +16,7 @@ export interface CardSignature {
 }
 
 const Card: TOC<CardSignature> = <template>
-  {{#let (if @element @element (element 'div')) as |Element|}}
+  {{#let (if @element @element (element "div")) as |Element|}}
     {{! @glint-expect-error https://github.com/typed-ember/glint/issues/610 }}
     <Element class={{styles.card}} ...attributes>
       {{yield}}

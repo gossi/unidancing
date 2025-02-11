@@ -28,7 +28,10 @@ export class CourseIndexRoute extends Route<{ id: string }> {
   }
 
   <template>
-    <Page @title="Moves" @description="Spezielle Auswahl von Bewegungen und Körpertechniken für Einradfahrer, die deiner Kür Charakter verleihen.">
+    <Page
+      @title="Moves"
+      @description="Spezielle Auswahl von Bewegungen und Körpertechniken für Einradfahrer, die deiner Kür Charakter verleihen."
+    >
       {{#let this.load as |r|}}
         {{#if r.resolved}}
           {{#each r.value as |move|}}

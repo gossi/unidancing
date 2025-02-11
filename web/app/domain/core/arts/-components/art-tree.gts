@@ -27,7 +27,7 @@ const Tree: TOC<{ Args: { nodes: ArtNode[] } }> = <template>
     {{#each @nodes as |node|}}
       <li>
         {{#let (buildArtLink node.item._sys.filename) as |l|}}
-          <a href={{l.url}} {{on 'click' l.transitionTo}}>
+          <a href={{l.url}} {{on "click" l.transitionTo}}>
             {{node.item.title}}
           </a>
         {{/let}}

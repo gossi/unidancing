@@ -17,7 +17,7 @@ const ArtDetails: TOC<ArtDetailsSignature> = <template>
   <Page @title={{@art.title}} class={{styles.art}}>
 
     {{#if @art.video}}
-      <VideoPlayer @url={{@art.video}}/>
+      <VideoPlayer @url={{@art.video}} />
     {{/if}}
 
     <TinaMarkdown @content={{@art.body}} />
@@ -26,6 +26,6 @@ const ArtDetails: TOC<ArtDetailsSignature> = <template>
 
     {{/each}} --}}
   </Page>
-</template>
+</template>;
 
 export { ArtDetails };
