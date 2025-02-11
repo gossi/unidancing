@@ -1,9 +1,9 @@
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-export class ChoreographyRoutinesRoute extends Route<object> {
+export class RoutinesRoute extends Route<object> {
   <template>{{outlet}}</template>
 }
 
 // @ts-expect-error some broken upstream types here
-export default CompatRoute(ChoreographyRoutinesRoute);
+export default CompatRoute(RoutinesRoute);

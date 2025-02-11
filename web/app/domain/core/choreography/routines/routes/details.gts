@@ -1,6 +1,5 @@
 import { cached } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
-import { fn } from '@ember/helper';
 import { service } from '@ember/service';
 
 import { t } from 'ember-intl';
@@ -14,30 +13,21 @@ import Task from 'ember-tasks';
 import { or } from 'ember-truth-helpers';
 import { compressToEncodedURIComponent } from 'lz-string';
 
-import { IconButton, Page, Popover, popover, TextInput } from '@hokulea/ember';
+import { IconButton, Page } from '@hokulea/ember';
 
+import { Share, Toolbar } from '../analysis/-components';
 import { findRoutine } from '../analysis/-resource';
+import { type RoutineResult } from '../analysis/domain-objects';
 import { RoutineResults } from '../analysis/results';
-import { copyToClipboard, selectWhenFocus } from './-utils';
-import styles from './styles.css';
 
-import type { RoutineResult } from '../analysis/domain-objects';
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
 function toUrlParam(data: RoutineResult) {
   return compressToEncodedURIComponent(JSON.stringify(data));
 }
 
-export class ChoreographyRoutineDetailsRoute extends Route<{ path: string }> {
+export class RoutineDetailsRoute extends Route<{ path: string }> {
   @service declare fastboot: FastbootService;
-
-  get shareLink() {
-    try {
-      return window.location.href;
-    } catch {
-      return '';
-    }
-  }
 
   @cached
   get load() {
@@ -69,30 +59,9 @@ export class ChoreographyRoutineDetailsRoute extends Route<{ path: string }> {
                 </p>
               {{/if}}
 
-              <p class={{styles.toolbar}}>
-                {{#let (popover position="bottom-start") as |po|}}
-                  <IconButton
-                    @icon="share-fat"
-                    @importance="subtle"
-                    @spacing="-1"
-                    @label="Teilen"
-                    {{po.trigger}}
-                  />
+              <Toolbar>
+                <Share @routine={{r.value}} />
 
-                  <Popover {{po.target}} class={{styles.share}}>
-                    <p>Teile den Link zur Kür-Analyse:</p>
-                    <div>
-                      <TextInput @value={{this.shareLink}} readonly {{selectWhenFocus}} />
-                      <IconButton
-                        @icon="clipboard-text"
-                        @importance="subtle"
-                        @spacing="-1"
-                        @label="Kopieren"
-                        @push={{fn copyToClipboard this.shareLink}}
-                      />
-                    </div>
-                  </Popover>
-                {{/let}}
                 <IconButton
                   @icon="pencil-simple"
                   @importance="subtle"
@@ -100,7 +69,7 @@ export class ChoreographyRoutineDetailsRoute extends Route<{ path: string }> {
                   @label="Bearbeiten"
                   @push={{link "choreography.routines.test_load" (toUrlParam r.value)}}
                 />
-              </p>
+              </Toolbar>
             </:description>
             <:content>
               <RoutineResults @data={{r.value}} />
@@ -112,4 +81,4 @@ export class ChoreographyRoutineDetailsRoute extends Route<{ path: string }> {
   </template>
 }
 
-export default CompatRoute(ChoreographyRoutineDetailsRoute);
+export default CompatRoute(RoutineDetailsRoute);

@@ -7,18 +7,18 @@ import { compressToEncodedURIComponent, decompressFromEncodedURIComponent } from
 
 import { Page } from '@hokulea/ember';
 
-import { RoutineTesterForm } from '../analysis/form';
+import { TrainingTesterForm } from '../training/form';
 
-import type { RoutineTest } from '../analysis/domain-objects';
+import type { TrainingResult } from '../training/domain-objects';
 import type RouterService from '@ember/routing/router-service';
 
-export class RoutineTesterRoute extends Route<{ data?: string }> {
+export class RoutineTrainingRoute extends Route<{ data?: string }> {
   @service('router') declare emberRouter: RouterService;
 
-  gotoResults = (data: RoutineTest) => {
+  gotoResults = (data: TrainingResult) => {
     const qs = compressToEncodedURIComponent(JSON.stringify(data));
 
-    this.emberRouter.transitionTo('choreography.routines.results', qs);
+    this.emberRouter.transitionTo('choreography.routines.training.results', qs);
   };
 
   get data() {
@@ -36,12 +36,12 @@ export class RoutineTesterRoute extends Route<{ data?: string }> {
   }
 
   <template>
-    {{pageTitle "Kür Analyse"}}
+    {{pageTitle "Jury Training"}}
 
-    <Page @title="Kür Analyse">
-      <RoutineTesterForm @submit={{this.gotoResults}} @data={{this.data}} />
+    <Page @title="Jury Training">
+      <TrainingTesterForm @submit={{this.gotoResults}} @data={{this.data}} />
     </Page>
   </template>
 }
 
-export default CompatRoute(RoutineTesterRoute);
+export default CompatRoute(RoutineTrainingRoute);

@@ -14,17 +14,18 @@ import { decompressFromEncodedURIComponent } from 'lz-string';
 
 import { IconButton, Page, Popover, popover, TextArea, TextInput } from '@hokulea/ember';
 
-import { scoreArtistic } from '../analysis/artistic/actions';
+import { copyToClipboard, selectWhenFocus } from '../-utils';
+import { Share, Toolbar } from '../analysis/-components';
 import { RoutineResults } from '../analysis/results';
-import { loadSystem, loadSystemDescriptor } from '../analysis/systems/actions';
 import { evaluateTimeTracking } from '../analysis/time-tracking/domain';
-import { copyToClipboard, selectWhenFocus } from './-utils';
+import { scoreArtistic } from '../artistic/actions';
+import { loadSystem, loadSystemDescriptor } from '../systems/actions';
 import styles from './styles.css';
 
 import type { RoutineResult, RoutineTest } from '../analysis/domain-objects';
 import type { WireTimeTracking } from '../analysis/time-tracking/domain';
 
-export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
+export class RoutineResultsRoute extends Route<{ data: string }> {
   @tracked exportShown = false;
 
   get data() {
@@ -99,30 +100,9 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
             </p>
           {{/if}}
 
-          <p class={{styles.toolbar}}>
-            {{#let (popover position="bottom-start") as |po|}}
-              <IconButton
-                @icon="share-fat"
-                @importance="subtle"
-                @spacing="-1"
-                @label="Teilen"
-                {{po.trigger}}
-              />
+          <Toolbar>
+            <Share @routine={{this.data}} />
 
-              <Popover {{po.target}} class={{styles.share}}>
-                <p>Teile den Link zur Kür-Analyse:</p>
-                <div>
-                  <TextInput @value={{this.shareLink}} readonly {{selectWhenFocus}} />
-                  <IconButton
-                    @icon="clipboard-text"
-                    @importance="subtle"
-                    @spacing="-1"
-                    @label="Kopieren"
-                    @push={{fn copyToClipboard this.shareLink}}
-                  />
-                </div>
-              </Popover>
-            {{/let}}
             <IconButton
               @icon="pencil-simple"
               @importance="subtle"
@@ -164,7 +144,7 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
                 </Popover>
               {{/let}}
             {{/if}}
-          </p>
+          </Toolbar>
 
           {{#if this.exportShown}}
             <TextArea
@@ -183,4 +163,4 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
   </template>
 }
 
-export default CompatRoute(ChoreographyRoutineResultsRoute);
+export default CompatRoute(RoutineResultsRoute);

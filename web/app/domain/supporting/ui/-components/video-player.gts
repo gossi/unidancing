@@ -7,10 +7,10 @@ const parseUrl = (url: string) => {
   const u = new URL(url);
 
   const id = u.searchParams.has('v')
-    // youtube.com/watch?v={id}
-    ? u.searchParams.get('v')
-    // youtu.be/{id}
-    : u.pathname;
+    ? // youtube.com/watch?v={id}
+      u.searchParams.get('v')
+    : // youtu.be/{id}
+      u.pathname;
 
   embedUrl.pathname = `embed/${id}`;
 
@@ -21,16 +21,16 @@ const parseUrl = (url: string) => {
   return embedUrl.toString();
 };
 
-const VideoPlayer: TOC<{ Element: HTMLIFrameElement; Args: { url: string; }}> = <template>
+const VideoPlayer: TOC<{ Element: HTMLIFrameElement; Args: { url: string } }> = <template>
   <iframe
     class={{styles.player}}
     src={{parseUrl @url}}
-    title='YouTube video player'
-    frameborder='0'
-    allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share'
+    title="YouTube video player"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
     allowfullscreen
     ...attributes
   ></iframe>
-</template>
+</template>;
 
 export { VideoPlayer };

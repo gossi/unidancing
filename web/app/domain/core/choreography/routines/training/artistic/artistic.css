@@ -1,0 +1,46 @@
+.training {
+  border-collapse: collapse;
+
+  thead {
+    background: var(--surface-container);
+
+    th {
+      border-top: 1px solid var(--shape-stroke-color);
+      background: var(--surface-container1);
+    }
+  }
+
+  thead, tbody {
+    border: 1px solid var(--shape-stroke-color);
+  }
+
+  tbody th {
+    background: var(--surface-container);
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  th, td {
+    padding: 0.5rem 0.75rem;
+    text-align: right;
+
+    &:is(:first-child, :nth-child(2)) {
+      border-inline-start: 1px solid var(--shape-stroke-color);
+    }
+
+    &:is(:last-child, :nth-child(3)) {
+      border-inline-start: 1px solid var(--shape-stroke-color);
+    }
+
+    &:first-child {
+      text-align: left;
+    }
+  }
+}
+
+.diff {
+  color: var(--indicator-error-plain-text);
+
+  &[data-sign="+"] {
+    color: var(--indicator-success-plain-text);
+  }
+}

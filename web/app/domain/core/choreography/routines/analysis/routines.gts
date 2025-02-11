@@ -3,7 +3,7 @@ import { LinkTo } from '@ember/routing';
 
 import { formatDate, t } from 'ember-intl';
 
-import { Score } from './artistic/-components';
+import { Score } from '../artistic/-components';
 import styles from './routines.css';
 
 import type { RoutineResult } from './domain-objects';

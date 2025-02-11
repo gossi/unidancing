@@ -1,6 +1,6 @@
 import { evaluate } from 'mathjs';
 
-import { IUF_PERFORMANCE_2019 } from '../data/systems/iuf-performance-2019';
+import { IUF_PERFORMANCE_2019 } from './data/iuf-performance-2019';
 
 import type {
   JudgingSystem,

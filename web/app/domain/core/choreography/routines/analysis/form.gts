@@ -19,9 +19,9 @@ import { TimelineForm } from './time-tracking/form';
 import { TricksStub } from './tricks/stub';
 
 import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
+import type { JudgingSystemID } from '../systems/domain-objects';
 import type { ArtisticFormData } from './artistic/form';
 import type { RoutineTest } from './domain-objects';
-import type { JudgingSystemID } from './systems/domain-objects';
 import type { TimeTracking, TimeTrackingFormData } from './time-tracking/domain';
 import type Owner from '@ember/owner';
 import type { FormBuilder } from '@hokulea/ember';

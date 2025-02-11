@@ -4,22 +4,22 @@ import { concat } from '@ember/helper';
 import { formatNumber, t } from 'ember-intl';
 
 import { CardSection, Features } from '../../../../../supporting/ui';
-import { findInterval, loadSystem, loadSystemDescriptor } from '../systems/actions';
-import { CriterionInterval, Score } from './-components';
-import { getCriterionKey, toIntlNameKey } from './-utils';
+import { CriterionInterval, Score } from '../../artistic/-components';
+import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
+import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
 import styles from './artistic.css';
 
-import type {
-  JudgingSystem,
-  JudgingSystemCriterion,
-  JudgingSystemCriterionInterval
-} from '../systems/domain-objects';
 import type {
   ArtisticResults as Results,
   CategoryResult,
   CriterionResult,
   PartResult
-} from './domain-objects';
+} from '../../artistic/domain-objects';
+import type {
+  JudgingSystem,
+  JudgingSystemCriterion,
+  JudgingSystemCriterionInterval
+} from '../../systems/domain-objects';
 import type { TOC } from '@ember/component/template-only';
 
 class Criterion extends Component<{

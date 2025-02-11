@@ -1,24 +1,8 @@
 .exportData {
+  box-sizing: border-box;
   width: 100%;
   height: 200px;
-  font-size: var(--s-1);
+
   font-family: monospace;
-  box-sizing: border-box;
-}
-
-.toolbar {
-  font-size: var(--s-2);
-}
-
-.share {
-  font-size: var(--s0);
-  div {
-    display: flex;
-    gap: var(--spacing-primitive-1);
-  }
-
-  input {
-    min-width: 15em;
-    max-width: 25em;
-  }
+  font-size: var(--s-1);
 }

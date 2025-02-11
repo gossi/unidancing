@@ -20,22 +20,22 @@ export interface SectionSignature {
 const or = (a: unknown, b: unknown) => a || b;
 
 const Section: TOC<SectionSignature> = <template>
-  <section class='{{styles.section}}' data-test-section ...attributes>
-    {{#if (or (has-block 'header') @title)}}
-      {{#let (element 'h2') as |Headline|}}
-        <header data-test-section='header' part='header'>
+  <section class="{{styles.section}}" data-test-section ...attributes>
+    {{#if (or (has-block "header") @title)}}
+      {{#let (element "h2") as |Headline|}}
+        <header data-test-section="header" part="header">
           {{#if @title}}
             <Headline class={{styles.title}}>{{@title}}</Headline>
-          {{else if (has-block 'header')}}
+          {{else if (has-block "header")}}
             {{!@glint-ignore Headline type shenanigans}}
-            {{yield Headline to='header'}}
+            {{yield Headline to="header"}}
           {{/if}}
         </header>
       {{/let}}
     {{/if}}
 
-    {{#if (has-block 'body')}}
-      {{yield to='body'}}
+    {{#if (has-block "body")}}
+      {{yield to="body"}}
     {{else if (has-block)}}
       {{yield}}
     {{/if}}

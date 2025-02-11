@@ -3,12 +3,12 @@ import { LoginWithSpotify } from './login-with-spotify';
 
 import type { TOC } from '@ember/component/template-only';
 
-const WithSpotify: TOC<{ Blocks: { default: [] }}> = <template>
+const WithSpotify: TOC<{ Blocks: { default: [] } }> = <template>
   {{#if (isAuthenticated)}}
     {{yield}}
   {{else}}
-    <LoginWithSpotify/>
+    <LoginWithSpotify />
   {{/if}}
-</template>
+</template>;
 
 export { WithSpotify };
