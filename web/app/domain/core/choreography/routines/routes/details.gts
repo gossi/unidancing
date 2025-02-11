@@ -26,7 +26,7 @@ function toUrlParam(data: RoutineResult) {
   return compressToEncodedURIComponent(JSON.stringify(data));
 }
 
-export class ChoreographyRoutineDetailsRoute extends Route<{ path: string }> {
+export class RoutineDetailsRoute extends Route<{ path: string }> {
   @service declare fastboot: FastbootService;
 
   @cached
@@ -81,4 +81,4 @@ export class ChoreographyRoutineDetailsRoute extends Route<{ path: string }> {
   </template>
 }
 
-export default CompatRoute(ChoreographyRoutineDetailsRoute);
+export default CompatRoute(RoutineDetailsRoute);

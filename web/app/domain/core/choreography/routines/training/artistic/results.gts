@@ -2,22 +2,22 @@ import Component from '@glimmer/component';
 
 import { formatNumber, t } from 'ember-intl';
 
-import { findInterval, loadSystem, loadSystemDescriptor } from '../systems/actions';
-import { Score } from './-components';
-import { getCriterionKey, toIntlNameKey } from './-utils';
+import { Score } from '../../artistic/-components';
+import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
+import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
 import styles from './artistic.css';
 
-import type {
-  JudgingSystem,
-  JudgingSystemCriterion,
-  JudgingSystemCriterionInterval
-} from '../systems/domain-objects';
 import type {
   ArtisticResults as Results,
   CategoryResult,
   CriterionResult,
   PartResult
-} from './domain-objects';
+} from '../../artistic/domain-objects';
+import type {
+  JudgingSystem,
+  JudgingSystemCriterion,
+  JudgingSystemCriterionInterval
+} from '../../systems/domain-objects';
 
 function getCriterion(part: PartResult, category: CategoryResult, criterion: CriterionResult) {
   const cat = part.categories.find((c) => c.name === category.name);

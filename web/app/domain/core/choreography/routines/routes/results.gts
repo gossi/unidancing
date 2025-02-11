@@ -16,16 +16,16 @@ import { IconButton, Page, Popover, popover, TextArea, TextInput } from '@hokule
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { Share, Toolbar } from '../analysis/-components';
-import { scoreArtistic } from '../analysis/artistic/actions';
 import { RoutineResults } from '../analysis/results';
-import { loadSystem, loadSystemDescriptor } from '../analysis/systems/actions';
 import { evaluateTimeTracking } from '../analysis/time-tracking/domain';
+import { scoreArtistic } from '../artistic/actions';
+import { loadSystem, loadSystemDescriptor } from '../systems/actions';
 import styles from './styles.css';
 
 import type { RoutineResult, RoutineTest } from '../analysis/domain-objects';
 import type { WireTimeTracking } from '../analysis/time-tracking/domain';
 
-export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
+export class RoutineResultsRoute extends Route<{ data: string }> {
   @tracked exportShown = false;
 
   get data() {
@@ -163,4 +163,4 @@ export class ChoreographyRoutineResultsRoute extends Route<{ data: string }> {
   </template>
 }
 
-export default CompatRoute(ChoreographyRoutineResultsRoute);
+export default CompatRoute(RoutineResultsRoute);

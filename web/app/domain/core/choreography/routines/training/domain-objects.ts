@@ -1,4 +1,4 @@
-import type { WireArtisticResults } from '../analysis/artistic/domain-objects';
+import type { WireArtisticResults } from '../artistic/domain-objects';
 
 export interface TrainingTest {
   rider: string;

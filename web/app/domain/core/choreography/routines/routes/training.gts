@@ -12,7 +12,7 @@ import { TrainingTesterForm } from '../training/form';
 import type { TrainingResult } from '../training/domain-objects';
 import type RouterService from '@ember/routing/router-service';
 
-export class ChoreographyRoutineTrainingRoute extends Route<{ data?: string }> {
+export class RoutineTrainingRoute extends Route<{ data?: string }> {
   @service('router') declare emberRouter: RouterService;
 
   gotoResults = (data: TrainingResult) => {
@@ -44,4 +44,4 @@ export class ChoreographyRoutineTrainingRoute extends Route<{ data?: string }> {
   </template>
 }
 
-export default CompatRoute(ChoreographyRoutineTrainingRoute);
+export default CompatRoute(RoutineTrainingRoute);

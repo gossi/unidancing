@@ -2,12 +2,12 @@ import Component from '@glimmer/component';
 
 import { t } from 'ember-intl';
 
-import { loadSystem, loadSystemDescriptor } from '../systems/actions';
-import { Score } from './-components';
-import { toIntlNameKey } from './-utils';
+import { Score } from '../../artistic/-components';
+import { toIntlNameKey } from '../../artistic/-utils';
+import { loadSystem, loadSystemDescriptor } from '../../systems/actions';
 import styles from './artistic.css';
 
-import type { ArtisticResults, CategoryResult, PartResult } from './domain-objects';
+import type { ArtisticResults, CategoryResult, PartResult } from '../../artistic/domain-objects';
 
 export class ArtisticSummary extends Component<{
   Args: { data: ArtisticResults };

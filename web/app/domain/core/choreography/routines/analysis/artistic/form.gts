@@ -6,26 +6,26 @@ import { on } from '@ember/modifier';
 import { formatNumber, t } from 'ember-intl';
 
 import { CardSection, Features } from '../../../../../supporting/ui';
-import { findInterval, loadSystem, loadSystemDescriptor } from '../systems/actions';
-import { CriterionInterval, Score } from './-components';
-import { getCriterionKey, toIntlNameKey } from './-utils';
-import { scoreArtistic } from './actions';
+import { CriterionInterval, Score } from '../../artistic/-components';
+import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
+import { scoreArtistic } from '../../artistic/actions';
+import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
 import styles from './artistic.css';
 
-import type {
-  JudgingSystem,
-  JudgingSystemCategory,
-  JudgingSystemCriterion,
-  JudgingSystemID,
-  JudgingSystemPart
-} from '../systems/domain-objects';
 import type {
   ArtisticResults,
   CategoryResult,
   CriterionResult,
   PartResult,
   WireArtisticResults
-} from './domain-objects';
+} from '../../artistic/domain-objects';
+import type {
+  JudgingSystem,
+  JudgingSystemCategory,
+  JudgingSystemCriterion,
+  JudgingSystemID,
+  JudgingSystemPart
+} from '../../systems/domain-objects';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type { FormBuilder } from '@hokulea/ember';

@@ -1,7 +1,7 @@
 import { compressToEncodedURIComponent } from 'lz-string';
 
+import type { ArtisticResults, WireArtisticResults } from '../artistic/domain-objects';
 import type { TrainingTest } from '../training/domain-objects';
-import type { ArtisticResults, WireArtisticResults } from './artistic/domain-objects';
 import type { TimeAnalysis, TimeTracking } from './time-tracking/domain';
 import type RouterService from '@ember/routing/router-service';
 

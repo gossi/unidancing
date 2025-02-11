@@ -1,9 +1,9 @@
 import { YoutubePlayer } from '../../../../supporting/youtube';
-import { scoreArtistic } from '../analysis/artistic/actions';
-import { ArtisticTrainingResults } from '../analysis/artistic/training-results';
-import { loadSystem, loadSystemDescriptor } from '../analysis/systems/actions';
+import { scoreArtistic } from '../artistic/actions';
+import { loadSystem, loadSystemDescriptor } from '../systems/actions';
+import { ArtisticTrainingResults } from './artistic/results';
 
-import type { WireArtisticResults } from '../analysis/artistic/domain-objects';
+import type { WireArtisticResults } from '../artistic/domain-objects';
 import type { TrainingResult } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
 

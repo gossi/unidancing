@@ -15,7 +15,7 @@ import { Routines } from '../analysis/routines';
 
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
-export class ChoreographyRoutinesIndexRoute extends Route<object> {
+export class RoutinesIndexRoute extends Route<object> {
   @service declare fastboot: FastbootService;
 
   @cached
@@ -47,4 +47,4 @@ export class ChoreographyRoutinesIndexRoute extends Route<object> {
 }
 
 // @ts-expect-error some broken upstream types here
-export default CompatRoute(ChoreographyRoutinesIndexRoute);
+export default CompatRoute(RoutinesIndexRoute);

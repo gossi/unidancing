@@ -12,7 +12,7 @@ import { RoutineTesterForm } from '../analysis/form';
 import type { RoutineTest } from '../analysis/domain-objects';
 import type RouterService from '@ember/routing/router-service';
 
-export class ChoreographyRoutineTesterRoute extends Route<{ data?: string }> {
+export class RoutineTesterRoute extends Route<{ data?: string }> {
   @service('router') declare emberRouter: RouterService;
 
   gotoResults = (data: RoutineTest) => {
@@ -44,4 +44,4 @@ export class ChoreographyRoutineTesterRoute extends Route<{ data?: string }> {
   </template>
 }
 
-export default CompatRoute(ChoreographyRoutineTesterRoute);
+export default CompatRoute(RoutineTesterRoute);
