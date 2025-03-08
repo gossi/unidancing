@@ -1,5 +1,8 @@
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
+# unpublished work
+/content/routines/unpublished
+
 # compiled output
 dist/
 tmp/
@@ -29,5 +32,3 @@ node_modules/
 /package.json.ember-try
 /package-lock.json.ember-try
 /yarn.lock.ember-try
-
-node_modules
