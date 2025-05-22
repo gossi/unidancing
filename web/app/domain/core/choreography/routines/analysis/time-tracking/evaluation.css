@@ -1,0 +1,91 @@
+.indicator {
+  [part="body"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container-3);
+  }
+}
+
+.effectivity {
+  details {
+    &[open] {
+      summary {
+        margin-block-end: var(--spacing-primitive-2);
+      }
+    }
+
+    summary {
+      span {
+        float: right;
+      }
+    }
+  }
+
+  table {
+    border-collapse: collapse;
+    width: 100%;
+
+    tr {
+      border-block-end: 1px solid var(--shape-stroke-color);
+
+      &:last-child {
+        border-block-end: none;
+      }
+    }
+
+    td {
+      padding: 0.5rem 0.75rem;
+
+      &:last-child {
+        text-align: right;
+      }
+    }
+
+    [data-attractivity="attractor"] {
+      color: var(--indicator-success-plain-text);
+    }
+
+    [data-attractivity="detractor"] {
+      color: var(--indicator-error-plain-text);
+    }
+  }
+
+  meter {
+    width: 100%;
+  }
+}
+
+.balance {
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--spacing-primitive-4);
+    align-items: flex-start;
+
+    &:last-child {
+      align-items: flex-end;
+    }
+  }
+
+  [data-ratio] {
+    font-size: var(--s3);
+  }
+
+  [data-bar] {
+    display: inline-block;
+    width: var(--ratio, 0);
+    height: 1em;
+
+    &[data-group="artistry"] {
+      background-color: var(--artistry);
+    }
+
+    &[data-group="tricks"] {
+      background-color: var(--tricks);
+    }
+  }
+}

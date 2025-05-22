@@ -9,7 +9,7 @@ import { Timeline } from 'vis-timeline/esnext';
 
 import { dateToSecondsWithMilli } from '../../../../../supporting/utils';
 import { YoutubePlayer } from '../../../../../supporting/youtube';
-import { groups, type TimeTracking } from './domain';
+import { GROUPS, type TimeTracking } from './domain';
 import styles from './timeline.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
@@ -129,7 +129,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
   };
 
   timeline = modifier((element: HTMLElement) => {
-    this.chart = new Timeline(element, this.data, groups, {
+    this.chart = new Timeline(element, this.data, GROUPS, {
       start: 0,
       min: 0,
       zoomMin: 0,

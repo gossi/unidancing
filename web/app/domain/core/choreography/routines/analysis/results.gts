@@ -6,11 +6,13 @@ import { not, or } from 'ember-truth-helpers';
 import { Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
+import styles from './analysis.css';
 import { ArtisticResults } from './artistic/results';
 import { ArtisticSummary } from './artistic/summary';
-import styles from './form.css';
 import { NotTodoListResults } from './not-todo-list/results';
-import { TimeTrackingEvaluation } from './time-tracking/evaluation';
+import { TimeTrackingBalanceIndicator } from './time-tracking/balance-indicator';
+import { TimeTrackingEffectivityIndicator } from './time-tracking/effectivity-indicator';
+import { TimeTrackingSummary } from './time-tracking/evaluation';
 import { TimeTrackingResults } from './time-tracking/results';
 import { TricksStub } from './tricks/stub';
 
@@ -53,15 +55,20 @@ export class RoutineResults extends Component<{
 
           {{#if @data.timeTracking}}
             <h3>Zeitaufteilung</h3>
-            <TimeTrackingEvaluation @data={{@data.timeTracking}} />
+            <TimeTrackingSummary @data={{@data.timeTracking}} />
+
+            <div class={{styles.indicators}}>
+              <TimeTrackingEffectivityIndicator @data={{@data.timeTracking}} />
+              <TimeTrackingBalanceIndicator @data={{@data.timeTracking}} />
+            </div>
           {{/if}}
 
           {{#if @data.artistic}}
             <h3>Artistik</h3>
             {{!-- <Button @importance="plain" @push={{fn this.selectTab "artistry"}}>
-                Details
-                <Icon @icon="caret-double-right" />
-              </Button> --}}
+              Details
+              <Icon @icon="caret-double-right" />
+            </Button> --}}
 
             <ArtisticSummary @data={{@data.artistic}} />
 
@@ -83,6 +90,11 @@ export class RoutineResults extends Component<{
               @playerApi={{this.player}}
               @active={{state.active}}
             />
+
+            <div class={{styles.indicators}}>
+              <TimeTrackingEffectivityIndicator @data={{@data.timeTracking}} />
+              <TimeTrackingBalanceIndicator @data={{@data.timeTracking}} />
+            </div>
           </tabs.Tab>
         {{/if}}
 

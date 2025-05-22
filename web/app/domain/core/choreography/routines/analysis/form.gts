@@ -6,13 +6,13 @@ import { fn } from '@ember/helper';
 import { Button, Form, Icon, Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
+import styles from './analysis.css';
 import {
   ARTISTIC_FORM_DATA,
   ArtisticForm,
   loadArtisticData,
   parseArtisticFormData
 } from './artistic/form';
-import styles from './form.css';
 import { NOT_TODO_LIST_FORM_DATA, type NotTodoListFormData } from './not-todo-list/domain';
 import { NotTodeListForm } from './not-todo-list/form';
 import { TimelineForm } from './time-tracking/form';
