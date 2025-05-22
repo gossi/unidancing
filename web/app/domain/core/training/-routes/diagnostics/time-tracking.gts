@@ -1,112 +1,180 @@
+import { cached } from '@glimmer/tracking';
+import { LinkTo } from '@ember/routing';
+import { service } from '@ember/service';
+
+import { Features, Section } from '@unidancing/app/domain/supporting/ui';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
 
 import { Page } from '@hokulea/ember';
 
+import {
+  findRoutine,
+  TimeTrackingBalanceIndicator,
+  TimeTrackingEffectivityIndicator,
+  TimeTrackingSummary
+} from '../../../choreography';
+
+import type { TimeAnalysis } from '../../../choreography/routines/analysis/time-tracking/domain';
+import type FastbootService from 'ember-cli-fastboot/services/fastboot';
+
+function asTimeAnalysis(data: TimeAnalysis | undefined): TimeAnalysis {
+  return data as TimeAnalysis;
+}
+
 export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
+  @service declare fastboot: FastbootService;
+
+  @cached
+  get load() {
+    const promise = use(this, findRoutine('unicon-16/kazuhiro-shimoyama')).current;
+
+    if (this.fastboot.isFastBoot) {
+      this.fastboot.deferRendering(promise);
+    }
+
+    return Task.promise(promise);
+  }
+
   <template>
     {{pageTitle "Zeitaufteilung"}}
 
     <Page @title="Zeitaufteilung">
-      <p>Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen
-        wird wieviel Zeit mit
-        <b>Tricks</b>,
-        <b>Artistik</b>,
-        <b>Filler</b>
-        und
-        <b>Void</b>
-        (nichts) verbracht wird. Aus diesem Test liegen vier Kenngrößen vor.</p>
+      {{#let this.load as |r|}}
+        <p>Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen
+          wird wieviel Zeit mit
+          <b>Tricks</b>,
+          <b>Artistik</b>,
+          <b>Filler</b>
+          und
+          <b>Void</b>
+          (nichts) verbracht wird.</p>
 
-      <dl>
-        <dt>Tricks</dt>
-        <dd>Die Zeit, die für Tricks verwendet wird.</dd>
+        <dl>
+          <dt>Tricks</dt>
+          <dd>Die Zeit, die für Tricks verwendet wird.</dd>
 
-        <dt>Artistik</dt>
-        <dd>Die Zeit, die für Artistik verwendet wird.</dd>
+          <dt>Artistik</dt>
+          <dd>Die Zeit, die für Artistik verwendet wird.</dd>
 
-        <dt>Filler</dt>
-        <dd>Die Zeit, die für überflüssige Zeit in Tricks verwendet wird. Die überflüssige Zeit
-          macht die Bewegung für den Zuschauer berechenbar und damit uninteressant. Darunter zählen
-          zum Beispiel zu lange Glidings, an deren Ende ein weiterer Trick (z.B. Tipspin) folgt, ein
-          Übergang von Wheel-Walk ins Cross-Over (das Bein stochert ewig, ehe es das Pedal trifft)
-          oder zu viele Hüpfer während einer Hopping-Serie.</dd>
+          <dt>Kommunikation</dt>
+          <dd>Wenn Fahrer den "roten Faden" aufrecht erhalten und konstant das Publikum auf der
+            Reise durch die Kür mitnehmen, dann muss das nicht zwingend hoch artistisch erfolgen.
+            Kommunikation erfordert damit kein spezielles Tanz- oder Schauspieltraining und kann von
+            jeder Person gezeigt werden.<br />
+            Das beste Beispiel ist aber das hochschauen ins Publikum und ist insbesondere im
+            Juniorenalter eine schwierige Herausforderung.
+          </dd>
 
-        <dd>Außerdem werden auch unnötige Ausgleichsbewegungen zur Herstellung des Gleichgewichts
-          als Filler gezählt.</dd>
+          <dt>Filler</dt>
+          <dd>Überflüssige Zeit während Tricks, die die Bewegung für den Zuschauer berechenbar und
+            damit uninteressant macht. Darunter zählen zum Beispiel zu lange Glidings, an deren Ende
+            ein weiterer Trick (z.B. Tipspin) folgt, ein Übergang von Wheel-Walk ins Cross-Over (das
+            Bein stochert ewig, ehe es das Pedal trifft) oder zu viele Hüpfer während einer
+            Hopping-Serie.</dd>
 
-        <dt>Void</dt>
-        <dd>Die Zeit, in der nichts passiert. Der Fahrer fährt vor sich hin, aber weder ein Trick
-          noch Artistik werden gezeigt.</dd>
-      </dl>
+          <dd>Wenn ein Trick gefahren wird nur zum Zweck damit er gewertet wird, dabei allerdings
+            einen sinnvolleren Nutzen der Kürzeit verplempert. Wird zum Beispiel Cross-Over gefahren
+            (ohne direkt in den Spin zu starten), so wird der Trick eine gewisse Zeit benötigen. Ist
+            der Fahrer mit dem Trick überfordert, wird zu dieser Zeit keine artistische Performance
+            stattfinden - die Auswahl des Tricks wird zum Beinstellen für die eigene Kür.</dd>
 
-      <h3>Durchführung</h3>
-      <p>
-        Die Zeiten werden während einer Videoaufnahme gestoppt. Im Ergebnis steht zu jedem
-        Messkriterium die gemessene Zeit. Die Messwerte werden in Relation zur Kürlänge gesetzt.
-      </p>
+          <dd>Außerdem werden auch unnötige Ausgleichsbewegungen zur Herstellung des Gleichgewichts
+            als Filler gezählt.</dd>
 
-      <h3>Auswertung</h3>
-      <p>
-        Tricks und Artistik sollten sich die Waage halten (plusminus ~10\%). Filler und keine
-        Aktivität sollten nicht auftreten. Das sind wichtige Indikator für die Attraktivität einer
-        Kür.
-      </p>
+          <dt>Void</dt>
+          <dd>Die Zeit, in der nichts passiert. Der Fahrer fährt vor sich hin, aber weder ein Trick
+            noch Artistik werden gezeigt.</dd>
 
-      <h3>Fiktives Beispiel</h3>
+          <dt>Abstiege</dt>
+          <dd>Zeit die für ungeplante Abstiege und auch des Wiederaufsteigen anfällt.</dd>
+        </dl>
 
-      <p>Zum Start ein ausgedachtes Beispiel mit selbst erdachten Werten.</p>
+        <h2>Durchführung</h2>
+        <p>
+          Die Zeiten werden während einer Videoaufnahme gestoppt. Im Ergebnis steht zu jedem
+          Messkriterium die gemessene Zeit. Die Messwerte werden in Relation zur Kürlänge gesetzt.
+        </p>
 
-      <p>Kürlänge: 4 Minuten (240 Sekunden)</p>
+        <h2>Auswertung</h2>
 
-      <p>
-        Die Tricks überwiegen eindeutig in dieser Kür (aber halten sich noch im Rahmen). Hingegen
-        ist von der Artistik wenig zu sehen. Auffällig ist, dass insgesamt sehr wenig passiert und
-        bei der Kür eher Flaute herrscht, die auch noch von vielen Filler Bewegungen verstärkt wird.
-      </p>
+        <p>In der Auswertung sind zunächst die absolut gestoppten Zeiten, sowie deren Verhältnis zur
+          Kürdauer deskriptiv notiert.</p>
 
-      <h3>Beispiel: Kazuhiro Shimoyama</h3>
+        <p>
+          Das Auswertungsbeispiel zur
+          <LinkTo
+            @route="choreography.routines.details"
+            @model="unicon-16/kazuhiro-shimoyama"
+          >Einzelkür von Kazuhiro Shimoyama an der Unicon 16 in Brixen (Italien)</LinkTo>
+          listet die erfassten Merkmale und stellt sie tabellarisch dar.
+        </p>
 
-      <p>Auswertung von Kazuhiro Shimoyamas Kür an der Unicon 16 in Brixen (Italien).</p>
+        {{#if r.resolved}}
+          <TimeTrackingSummary @data={{asTimeAnalysis r.value.timeTracking}} />
+        {{/if}}
 
-      <p>Kürlänge: 4 Minuten (240 Sekunden)</p>
+        <p>Die Durchdringung von Artistik bei nicht vorhandenen Fillern und Void ist beeindruckend.
+          Die Pause von Artistik kommt nur durch die Tricks zustande, die seine volle Aufmerksamkeit
+          erfordern, sonst findet Artistik auch während Tricks statt.</p>
 
-      <table>
-        <caption>Zeitaufteilung Kazuhiro Shimoyamas Kür an der Unicon 16 in Brixen (Italien)</caption>
-        <thead>
-          <tr>
-            <th>Messkriterium</th>
-            <th>Zeit [s]</th>
-            <th>Verhältnis [%]</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Tricks</td>
-            <td>93</td>
-            <td>38,8</td>
-          </tr>
-          <tr>
-            <td>Artistik</td>
-            <td>157</td>
-            <td>65,4</td>
-          </tr>
-          <tr>
-            <td>Filler</td>
-            <td>2</td>
-            <td>0,001</td>
-          </tr>
-          <tr>
-            <td>Void</td>
-            <td>0</td>
-            <td>0</td>
-          </tr>
-        </tbody>
-      </table>
+        <h3>Kenngröße: Effektivität</h3>
 
-      <p>Die Durchdringung von Artistik bei annähernd nicht vorhandenen Filler und Void ist
-        beeindruckend. Die Pause von Artistik kommt nur durch die Tricks zustande, die seine volle
-        Aufmerksamkeit erfordern, sonst findet Artistik auch während Tricks statt.</p>
+        <p>Die effektiv genutzte Zeit einer Kür lässt sich mathematisch berechnen. Basis hierfür
+          sind die erfassten Merkmale, die die Attraktivität einer Kür erhöhen (Promotoren) bzw.
+          senken (Detraktoren).</p>
+
+        <Features>
+          <Section>
+            <:header>Promotoren</:header>
+            <:body>
+              <ul>
+                <li>Artistik</li>
+                <li>Kommunikation</li>
+                <li>Tricks</li>
+              </ul>
+            </:body>
+          </Section>
+
+          <Section>
+            <:header>Detraktoren</:header>
+            <:body>
+              <ul>
+                <li>Filler</li>
+                <li>Void</li>
+                <li>Abstiege</li>
+              </ul>
+            </:body>
+          </Section>
+        </Features>
+
+        <p>Summiert man die Promotoren und subtrahiert die Detraktoren lässt sich die effektiv
+          genutzte Zeit für eine Kür berechnen.
+        </p>
+
+        <p>Der Effektivitätsindex ist die effektiv genutzte Zeit ins Verhältnis zur Kürdauer. Der
+          Wertebereich liegt
+          <i>theoretisch</i>
+          bei (0, 2), da Tricks zeitgleich mit Artistik gezeigt werden kann. Ein Wert von 1
+          bedeutet, dass die gesamte Kürzeit genutzt wurde.
+        </p>
+
+        {{#if r.resolved}}
+          <TimeTrackingEffectivityIndicator @data={{asTimeAnalysis r.value.timeTracking}} />
+        {{/if}}
+
+        <h3>Kenngröße: Balance</h3>
+
+        <p>Die Balance gibt das Verhältnis zwischen Artistik (inkl. Kommunikation) und Tricks an, um
+          die Ausgewogenheit beider anzuzeigen.</p>
+
+        {{#if r.resolved}}
+          <TimeTrackingBalanceIndicator @data={{asTimeAnalysis r.value.timeTracking}} />
+        {{/if}}
+      {{/let}}
     </Page>
   </template>
 }
