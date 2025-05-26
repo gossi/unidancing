@@ -178,7 +178,7 @@ export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvalua
 
 export type Effectivity = {
   duration: number;
-  ratio: number;
+  indicator: number;
   groups: (CategoryGroup & { value: number })[];
 };
 
@@ -201,36 +201,48 @@ export function calculateEffectiveness(data: TimeAnalysis, groups = CATEGORY_GRO
     }
   }
 
-  const ratio = Math.round((duration / data.duration) * 10000) / 10000;
+  const indicator = Math.round((duration / data.duration) * 10000) / 10000;
 
   return {
     duration,
-    ratio,
+    indicator,
     groups: effectiveGroups
   };
 }
 
+type BalanceGroup = Effectivity & {
+  ratio: number;
+  weighted: number;
+};
+
 export type Balance = {
-  artistry: Effectivity & {
-    relative: number;
-  };
-  technical: Effectivity & {
-    relative: number;
-  };
+  artistry: BalanceGroup;
+  technical: BalanceGroup;
 };
 
 export function calculateBalance(data: TimeAnalysis): Balance {
+  const total = calculateEffectiveness(data);
   const artistry = calculateEffectiveness(data, ARTISTIC_GROUPS);
   const technical = calculateEffectiveness(data, TECHNICAL_GROUPS);
+
+  const artistryRatio =
+    Math.round((artistry.indicator / (artistry.indicator + technical.indicator)) * 100) / 100;
+  const technicalRatio =
+    Math.round((technical.indicator / (artistry.indicator + technical.indicator)) * 100) / 100;
+
+  const weightedArtistryRatio = artistryRatio * total.indicator;
+  const weightedTechnicalRatio = technicalRatio * total.indicator;
 
   return {
     artistry: {
       ...artistry,
-      relative: Math.round((artistry.ratio / (artistry.ratio + technical.ratio)) * 100) / 100
+      ratio: artistryRatio,
+      weighted: weightedArtistryRatio
     },
     technical: {
       ...technical,
-      relative: Math.round((technical.ratio / (artistry.ratio + technical.ratio)) * 100) / 100
+      ratio: technicalRatio,
+      weighted: weightedTechnicalRatio
     }
   };
 }

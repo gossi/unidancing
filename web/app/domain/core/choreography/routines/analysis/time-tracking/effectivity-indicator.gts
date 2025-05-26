@@ -8,6 +8,7 @@ import {
 
 import { Card } from '@hokulea/ember';
 
+import { Explainer, ExplainerTable } from './-explainer';
 import { calculateEffectiveness } from './domain';
 import styles from './evaluation.css';
 
@@ -24,36 +25,30 @@ const TimeTrackingEffectivityIndicator: TOC<TimeTrackingEffectivityIndicatorSign
   {{#let (calculateEffectiveness @data) as |data|}}
     <Card class="{{styles.indicator}} {{styles.effectivity}}">
       <h4>Effektivität</h4>
-      <details>
-        <summary>
+
+      <Explainer>
+        <:title>
           Effektiv genutzte Zeit
           <span>{{formatSeconds data.duration}}</span>
-        </summary>
+        </:title>
+        <:content>
+          <ExplainerTable @groups={{data.groups}} />
+        </:content>
+      </Explainer>
 
-        <table>
-          {{#each data.groups as |group|}}
-            <tr>
-              <td>{{group.content}}</td>
-              <td data-attractivity={{group.attractivity}} class="digits">{{formatNumber
-                  group.value
-                  (hash signDisplay="exceptZero")
-                }}</td>
-            </tr>
-          {{/each}}
-        </table>
-      </details>
-
-      <details>
-        <summary>
+      <Explainer>
+        <:title>
           Effektivitäts Index
-          <span>{{formatIndicator data.ratio}}</span>
-        </summary>
+          <span>{{formatIndicator data.indicator}}</span>
+        </:title>
+        <:content>
+          {{formatNumber data.indicator (hash style="percent")}}
+          der Kürzeit wurde genutzt.
+          <meter value={{data.indicator}} max="2" />
+          {{! optimum="0.90000001" high="0.9" low="0.7" }}
+        </:content>
+      </Explainer>
 
-        {{formatNumber data.ratio (hash style="percent")}}
-        der Kürzeit wurde genutzt.
-        <meter value={{data.ratio}} max="2" />
-        {{! optimum="0.90000001" high="0.9" low="0.7" }}
-      </details>
     </Card>
   {{/let}}
 </template>;
