@@ -176,10 +176,12 @@ export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvalua
   };
 }
 
+export type AttractivityGroup = CategoryGroup & { value: number };
+
 export type Effectivity = {
   duration: number;
   indicator: number;
-  groups: (CategoryGroup & { value: number })[];
+  groups: AttractivityGroup[];
 };
 
 export function calculateEffectiveness(data: TimeAnalysis, groups = CATEGORY_GROUPS): Effectivity {
