@@ -1,9 +1,11 @@
 import { concat } from '@ember/helper';
+import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 
 import { formatPercent, formatSeconds } from '@unidancing/app/domain/supporting/utils';
+import { link } from 'ember-link';
 
-import { Card, Tabs } from '@hokulea/ember';
+import { Card, Icon, Tabs } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateBalance } from './domain';
@@ -62,7 +64,12 @@ function withBarWidth(data: Balance) {
 const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> = <template>
   {{#let (withBarWidth (calculateBalance @data)) as |data|}}
     <Card class={{styles.indicator}}>
-      <h4>Balance</h4>
+      <h4>
+        Balance
+        {{#let (link "training.diagnostics.time-tracking") as |l|}}
+          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon="info" /></a>
+        {{/let}}
+      </h4>
 
       <Explainer>
         <:title>
@@ -85,6 +92,34 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
       </Explainer>
 
       <Tabs as |t|>
+        <t.Tab @label="Gewichtet">
+          <div class={{styles.balance}}>
+            <div>
+              <span data-ratio>{{formatPercent data.artistry.weighted}}</span>
+              <span
+                style={{htmlSafe
+                  (concat "--ratio: calc(" (formatRatio data.artistry.weighted) "% * 2);")
+                }}
+                data-bar
+                data-group="artistry"
+              ></span>
+              <small>Artistik</small>
+            </div>
+
+            <div>
+              <span data-ratio>{{formatPercent data.technical.weighted}}</span>
+              <span
+                style={{htmlSafe
+                  (concat "--ratio: calc(" (formatRatio data.technical.weighted) "% * 2);")
+                }}
+                data-bar
+                data-group="tricks"
+              ></span>
+              <small>Tricks</small>
+            </div>
+          </div>
+        </t.Tab>
+
         <t.Tab @label="Absolut">
           <div class={{styles.balance}}>
             <div>
@@ -140,62 +175,7 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
             </div>
           </div>
         </t.Tab>
-
-        <t.Tab @label="Gewichtet">
-          <div class={{styles.balance}}>
-            <div>
-              <span data-ratio>{{formatPercent data.artistry.weighted}}</span>
-              <span
-                style={{htmlSafe
-                  (concat "--ratio: calc(" (formatRatio data.artistry.weighted) "% * 2);")
-                }}
-                data-bar
-                data-group="artistry"
-              ></span>
-              <small>Artistik</small>
-            </div>
-
-            <div>
-              <span data-ratio>{{formatPercent data.technical.weighted}}</span>
-              <span
-                style={{htmlSafe
-                  (concat "--ratio: calc(" (formatRatio data.technical.weighted) "% * 2);")
-                }}
-                data-bar
-                data-group="tricks"
-              ></span>
-              <small>Tricks</small>
-            </div>
-          </div>
-        </t.Tab>
       </Tabs>
-      {{!-- <div class={{styles.balance}}>
-        <div>
-          <span data-ratio>{{formatPercent data.artistry.ratio}}</span>
-          <span data-duration>{{formatSeconds data.artistry.duration}}
-            ({{formatPercent data.artistry.indicator}})</span>
-          <span
-            style={{htmlSafe (concat "--ratio: calc(" (formatRatio data.artistry.ratio) "% * 2);")}}
-            data-bar
-            data-group="artistry"
-          ></span>
-          <small>Artistik</small>
-        </div>
-
-        <div>
-          <span data-ratio>{{formatPercent data.technical.ratio}}</span>
-          <span data-duration>{{formatSeconds data.technical.duration}}
-            ({{formatPercent data.technical.indicator}})</span>
-          <span
-            style={{htmlSafe
-              (concat "--ratio: calc(" (formatRatio data.technical.ratio) "% * 2);")
-            }}
-            data-bar
-            data-group="tricks"
-          ></span>
-          <small>Tricks</small>
-        </div>
-      </div> --}}
     </Card>
   {{/let}}
 </template>;
