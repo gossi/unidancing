@@ -4,8 +4,8 @@
   }
 
   ul {
-    font-size: 80%;
     padding-left: 1em;
+    font-size: 80%;
   }
 }
 
@@ -18,4 +18,10 @@
 
   /* min() with 100% prevents overflow in extra narrow spaces */
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+}
+
+.defs {
+  dd > * + * {
+    margin-block-start: 0.5em;
+  }
 }

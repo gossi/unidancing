@@ -5,13 +5,13 @@
         "background": {
           "$value": [
             {
-              "value": "#f76eb9",
+              "value": "#ecebeb",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#f76eb9",
+              "value": "#232122",
               "features": {
                 "color-scheme": "dark"
               }
@@ -23,13 +23,13 @@
         "border": {
           "$value": [
             {
-              "value": "#b7156e",
+              "value": "#0e0d0e",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#b7156e",
+              "value": "#0e0d0e",
               "features": {
                 "color-scheme": "dark"
               }
@@ -41,13 +41,13 @@
         "text": {
           "$value": [
             {
-              "value": "#5b0b37",
+              "value": "#0e0d0e",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#5b0b37",
+              "value": "#ecebeb",
               "features": {
                 "color-scheme": "dark"
               }
@@ -61,13 +61,13 @@
         "background": {
           "$value": [
             {
-              "value": "#891053",
+              "value": "#ffe6f4",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#891053",
+              "value": "#240014",
               "features": {
                 "color-scheme": "dark"
               }
@@ -79,13 +79,13 @@
         "border": {
           "$value": [
             {
-              "value": "#891053",
+              "value": "#2e2a2c",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#891053",
+              "value": "#1b191a",
               "features": {
                 "color-scheme": "dark"
               }
@@ -97,7 +97,7 @@
         "text": {
           "$value": [
             {
-              "value": "#ecebeb",
+              "value": "#0e0d0e",
               "features": {
                 "color-scheme": "light"
               }
@@ -117,13 +117,13 @@
         "border": {
           "$value": [
             {
-              "value": "#891053",
+              "value": "#aaa3a7",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#ea48a1",
+              "value": "#0e0d0e",
               "features": {
                 "color-scheme": "dark"
               }
@@ -135,13 +135,13 @@
         "text": {
           "$value": [
             {
-              "value": "#891053",
+              "value": "#0e0d0e",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#ea48a1",
+              "value": "#ecebeb",
               "features": {
                 "color-scheme": "dark"
               }

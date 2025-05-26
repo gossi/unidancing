@@ -2,7 +2,7 @@ import { cached } from '@glimmer/tracking';
 import { LinkTo } from '@ember/routing';
 import { service } from '@ember/service';
 
-import { Features, Section } from '@unidancing/app/domain/supporting/ui';
+import { Features, Note, Section } from '@unidancing/app/domain/supporting/ui';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
@@ -17,6 +17,7 @@ import {
   TimeTrackingEffectivityIndicator,
   TimeTrackingSummary
 } from '../../../choreography';
+import styles from './styles.css';
 
 import type { TimeAnalysis } from '../../../choreography/routines/analysis/time-tracking/domain';
 import type FastbootService from 'ember-cli-fastboot/services/fastboot';
@@ -46,19 +47,20 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
       {{#let this.load as |r|}}
         <p>Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen
           wird wieviel Zeit mit
-          <b>Tricks</b>,
           <b>Artistik</b>,
+          <b>Kommunikation</b>,
+          <b>Tricks</b>,
           <b>Filler</b>
           und
           <b>Void</b>
           (nichts) verbracht wird.</p>
 
-        <dl>
-          <dt>Tricks</dt>
-          <dd>Die Zeit, die für Tricks verwendet wird.</dd>
-
+        <dl class={{styles.defs}}>
           <dt>Artistik</dt>
-          <dd>Die Zeit, die für Artistik verwendet wird.</dd>
+          <dd>Die Zeit, die für Artistik verwendet wird. Solche Bewegungen, die Training in der
+            entsprechenden
+            <LinkTo @route="arts">Kunst</LinkTo>
+            erfordert.</dd>
 
           <dt>Kommunikation</dt>
           <dd>Wenn Fahrer den "roten Faden" aufrecht erhalten und konstant das Publikum auf der
@@ -69,21 +71,30 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
             Juniorenalter eine schwierige Herausforderung.
           </dd>
 
+          <dt>Tricks</dt>
+          <dd>Die Zeit, die für Tricks verwendet wird.</dd>
+
           <dt>Filler</dt>
-          <dd>Überflüssige Zeit während Tricks, die die Bewegung für den Zuschauer berechenbar und
-            damit uninteressant macht. Darunter zählen zum Beispiel zu lange Glidings, an deren Ende
-            ein weiterer Trick (z.B. Tipspin) folgt, ein Übergang von Wheel-Walk ins Cross-Over (das
-            Bein stochert ewig, ehe es das Pedal trifft) oder zu viele Hüpfer während einer
-            Hopping-Serie.</dd>
+          <dd>
+            <p>Überflüssige Zeit während Tricks, die der Kür nicht weiterhelfen.</p>
 
-          <dd>Wenn ein Trick gefahren wird nur zum Zweck damit er gewertet wird, dabei allerdings
-            einen sinnvolleren Nutzen der Kürzeit verplempert. Wird zum Beispiel Cross-Over gefahren
-            (ohne direkt in den Spin zu starten), so wird der Trick eine gewisse Zeit benötigen. Ist
-            der Fahrer mit dem Trick überfordert, wird zu dieser Zeit keine artistische Performance
-            stattfinden - die Auswahl des Tricks wird zum Beinstellen für die eigene Kür.</dd>
+            <ol>
+              <li>
+                Wenn Bewegung(en) für den Zuschauer berechenbar und damit uninteressant macht.
+                Darunter zählen zum Beispiel zu lange Glidings, an deren Ende ein weiterer Trick
+                (z.B. Tipspin) folgt, ein Übergang von Wheel-Walk ins Cross-Over (das Bein stochert
+                ewig, ehe es das Pedal trifft) oder zu viele Hüpfer während einer Hopping-Serie.</li>
 
-          <dd>Außerdem werden auch unnötige Ausgleichsbewegungen zur Herstellung des Gleichgewichts
-            als Filler gezählt.</dd>
+              <li>Wenn ein Trick gefahren wird nur zum Zweck damit er gewertet wird, dabei
+                allerdings einen sinnvolleren Nutzen der Kürzeit verplempert. Wird zum Beispiel
+                Cross-Over gefahren (ohne direkt in den Spin zu starten), so wird der Trick eine
+                gewisse Zeit benötigen. Ist der Fahrer mit dem Trick überfordert, wird zu dieser
+                Zeit keine artistische Performance stattfinden - die Auswahl des Tricks wird zum
+                Beinstellen für die eigene Kür.</li>
+
+              <li>Unnötige Ausgleichsbewegungen zur (Wieder)Herstellung des Gleichgewichts.</li>
+            </ol>
+          </dd>
 
           <dt>Void</dt>
           <dd>Die Zeit, in der nichts passiert. Der Fahrer fährt vor sich hin, aber weder ein Trick
@@ -121,7 +132,7 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
           Die Pause von Artistik kommt nur durch die Tricks zustande, die seine volle Aufmerksamkeit
           erfordern, sonst findet Artistik auch während Tricks statt.</p>
 
-        <h3>Kenngröße: Effektivität</h3>
+        <h3 id="effectivity">Kenngröße: Effektivität</h3>
 
         <p>Die effektiv genutzte Zeit einer Kür lässt sich mathematisch berechnen. Basis hierfür
           sind die erfassten Merkmale, die die Attraktivität einer Kür erhöhen (Promotoren) bzw.
@@ -155,8 +166,9 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
           genutzte Zeit für eine Kür berechnen.
         </p>
 
-        <p>Der Effektivitätsindex ist die effektiv genutzte Zeit ins Verhältnis zur Kürdauer. Der
-          Wertebereich liegt
+        <p>Der
+          <b>Effektivitätsindex (EI)</b>
+          ist die effektiv genutzte Zeit im Verhältnis zur Kürdauer. Der Wertebereich liegt
           <i>theoretisch</i>
           bei (0, 2), da Tricks zeitgleich mit Artistik gezeigt werden kann. Ein Wert von 1
           bedeutet, dass die gesamte Kürzeit genutzt wurde.
@@ -170,6 +182,30 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
 
         <p>Die Balance gibt das Verhältnis zwischen Artistik (inkl. Kommunikation) und Tricks an, um
           die Ausgewogenheit beider anzuzeigen.</p>
+
+        <dl class={{styles.defs}}>
+          <dt>Absolut</dt>
+          <dd>
+            <p>Gibt die gemessenen Merkmale im Vehältnis zur Kürlänge wieder.</p>
+
+            <Note>Ist praktisch wenn der
+              <abbr title="Effektivitätsindex">EI</abbr>
+              sehr hoch ist.</Note>
+          </dd>
+
+          <dt>Verhältnis</dt>
+          <dd>
+            <p>Gibt das Verhältnis der gemessenen Merkmale zueinander an.</p>
+            <Note>Für die reine Betrachtung der Merkmale gegeneinander.</Note>
+          </dd>
+
+          <dt>Gewichtet</dt>
+          <dd>
+            <p>Gibt das Verhältnis der gemessenen Merkmale zueinander an mit dem Faktor
+              <abbr title="Effektivitätsindex">EI</abbr>.</p>
+            <Note>Eignet sich um zwei Küren miteinander zu vergleichen.</Note>
+          </dd>
+        </dl>
 
         {{#if r.resolved}}
           <TimeTrackingBalanceIndicator @data={{asTimeAnalysis r.value.timeTracking}} />
