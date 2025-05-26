@@ -20,6 +20,7 @@ import type { TOC } from '@ember/component/template-only';
 const EffectivityIndex: TOC<{ Args: { value: number } }> = <template>
   <div class={{styles.effectivityIndex}}>
     <meter value={{@value}} max="2" />
+    {{! template-lint-disable  no-inline-styles }}
     <span style="--value: 50%">Bonus</span>
   </div>
 </template>;

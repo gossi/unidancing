@@ -33,12 +33,14 @@ interface ExplainerTableSignature {
 
 export const ExplainerTable: TOC<ExplainerTableSignature> = <template>
   <table class={{styles.explainerTable}}>
-    {{#each @groups as |group|}}
-      <tr>
-        <td>{{group.content}}</td>
-        <td data-attractivity={{group.attractivity}} class="digits">
-          {{formatNumber group.value (hash signDisplay="exceptZero")}}</td>
-      </tr>
-    {{/each}}
+    <tbody>
+      {{#each @groups as |group|}}
+        <tr>
+          <td>{{group.content}}</td>
+          <td data-attractivity={{group.attractivity}} class="digits">
+            {{formatNumber group.value (hash signDisplay="exceptZero")}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
   </table>
 </template>;
