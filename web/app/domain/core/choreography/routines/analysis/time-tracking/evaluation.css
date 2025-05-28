@@ -1,0 +1,132 @@
+/* stylelint-disable-next-line selector-class-pattern */
+.effectivityIndex {
+  position: relative;
+  min-height: 3em;
+
+  meter {
+    width: 100%;
+    background: var(--control-background);
+
+    &::-webkit-meter-inner-element {
+      grid-template-rows: 1fr;
+    }
+
+    &::-webkit-meter-bar {
+      border: 0;
+      background: var(--control-background);
+    }
+
+    &::-moz-meter-bar {
+      background: var(--indicator-success-supreme-background);
+    }
+
+    &::-webkit-meter-optimum-value {
+      background: var(--indicator-success-supreme-background);
+    }
+
+    &:-webkit-meter-optimum-value {
+      background: var(--indicator-success-supreme-background);
+    }
+  }
+
+  span {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: var(--value);
+
+    padding: var(--spacing-primitive-2);
+    padding-block-start: calc(var(--spacing-primitive-2) + 1em);
+    border-inline-start: 1px solid var(--shape-stroke-color);
+  }
+}
+
+.indicator {
+  [part="body"] {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container-3);
+  }
+}
+
+.explainer {
+  font-size: var(--ls-1);
+
+  summary {
+    font-size: var(--s0);
+
+    span {
+      float: right;
+    }
+  }
+
+  &[open] {
+    summary {
+      margin-block-end: var(--spacing-primitive-2);
+    }
+  }
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.explainerTable {
+  border-collapse: collapse;
+  width: 100%;
+
+  tr {
+    border-block-end: 1px solid var(--shape-stroke-color);
+
+    &:last-child {
+      border-block-end: none;
+    }
+  }
+
+  td {
+    padding: 0.5rem 0.75rem;
+
+    &:last-child {
+      text-align: right;
+    }
+  }
+
+  [data-attractivity="attractor"] {
+    color: var(--indicator-success-plain-text);
+  }
+
+  [data-attractivity="detractor"] {
+    color: var(--indicator-error-plain-text);
+  }
+}
+
+.balance {
+  display: flex;
+  justify-content: space-between;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--spacing-primitive-4);
+    align-items: flex-start;
+
+    &:last-child {
+      align-items: flex-end;
+    }
+  }
+
+  [data-ratio] {
+    font-size: var(--s3);
+  }
+
+  [data-bar] {
+    display: inline-block;
+    width: var(--ratio, 0);
+    height: 1em;
+
+    &[data-group="artistry"] {
+      background-color: var(--artistry);
+    }
+
+    &[data-group="tricks"] {
+      background-color: var(--tricks);
+    }
+  }
+}

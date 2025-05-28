@@ -6,7 +6,7 @@ import { uniqueId } from '@ember/helper';
 import { modifier } from 'ember-modifier';
 
 import { dateToMilliseconds, dateToSeconds } from '../../../../../supporting/utils';
-import { groups, type TimeTracking } from './domain';
+import { CATEGORY_GROUPS, type TimeTracking } from './domain';
 import { TimelineViewer } from './viewer';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
@@ -35,7 +35,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
 
   @cached
   get keys() {
-    return groups.filter((g) => !!g.key).map((g) => g.key);
+    return CATEGORY_GROUPS.map((g) => g.key);
   }
 
   running = new Map();
@@ -148,7 +148,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     }
 
     if (this.keys.includes(event.key)) {
-      const group = groups.find((g) => g.key === event.key);
+      const group = CATEGORY_GROUPS.find((g) => g.key === event.key);
 
       if (group) {
         this.track(group.id);

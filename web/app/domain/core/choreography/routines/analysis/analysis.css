@@ -1,0 +1,15 @@
+.tabs {
+  [role="tabpanel"]:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container0);
+  }
+}
+
+.indicators {
+  --min: 15ch;
+
+  display: grid;
+  grid-gap: var(--spacing-container0);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+}
