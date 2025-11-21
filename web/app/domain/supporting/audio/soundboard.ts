@@ -2,7 +2,7 @@ import { action } from 'ember-command';
 
 import { AudioService } from './service';
 import styles from './soundboard.css';
-import { countDown, counter, fail, select, surprise } from './sounds';
+import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';
 
 export class SoundBoard {
   #sounds: Map<string, HTMLAudioElement> = new Map<string, HTMLAudioElement>();
@@ -13,6 +13,7 @@ export class SoundBoard {
     this.addSound('countDown', countDown);
     this.addSound('select', select);
     this.addSound('surprise', surprise);
+    this.addSound('slot-machine-wheel', slotMachineWheel);
   }
 
   addSound(name: string, src: string) {
@@ -22,7 +23,7 @@ export class SoundBoard {
       audio.src = src;
       audio.classList.add(styles.soundboard);
       audio.dataset.name = name;
-      document.body.appendChild(audio);
+      document.body.append(audio);
       this.#sounds.set(name, audio);
     } catch {
       // fastboot will report on document to not be defined, but also doesn't let

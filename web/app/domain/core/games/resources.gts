@@ -21,6 +21,13 @@ export const buildGameLink = resourceFactory(
         });
       }
 
+      if (game === Game.WheelOfDance) {
+        return (linkManager as LinkManagerService).createLink({
+          route: 'games',
+          models: [Game.WheelOfDance]
+        });
+      }
+
       return (linkManager as LinkManagerService).createLink({
         route: router.currentRouteName as string,
         query: {

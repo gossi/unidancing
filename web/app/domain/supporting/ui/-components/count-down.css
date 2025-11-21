@@ -1,0 +1,5 @@
+.counter {
+  font-size: 8rem;
+  font-feature-settings: "tnum";
+  text-align: center;
+}

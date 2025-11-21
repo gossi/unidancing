@@ -1,14 +1,6 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-
-// @ts-ignore
-import countDown from './count-down.wav';
-// @ts-ignore
-import counter from './counter.wav';
-// @ts-ignore
-import fail from './fail.wav';
-// @ts-ignore
-import select from './select.wav';
-// @ts-ignore
-import surprise from './surprise.wav';
-
-export { countDown, counter, fail, select, surprise };
+export { default as countDown } from './count-down.wav';
+export { default as counter } from './counter.wav';
+export { default as fail } from './fail.wav';
+export { default as select } from './select.wav';
+export { default as slotMachineWheel } from './slot-machine-wheel.wav';
+export { default as surprise } from './surprise.wav';

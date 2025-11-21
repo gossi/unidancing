@@ -1,0 +1,24 @@
+.slot {
+  overflow: hidden;
+
+  /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+  min-width: max-content;
+  height: 1lh;
+  font-size: 3rem;
+}
+
+.boxes {
+  &[data-spinning] {
+    transition: transform 1s ease-in-out;
+  }
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  [data-spinning] & {
+    /* filter: blur(1.5px); */
+  }
+}

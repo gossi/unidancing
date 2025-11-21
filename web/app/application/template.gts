@@ -66,6 +66,10 @@ export default RouteTemplate<Signature>(
             {{#let (buildGameLink Game.DanceOhMat) as |danceOhMatLink|}}
               <t.Item @push={{danceOhMatLink}}>Dance Oh! Mat!</t.Item>
             {{/let}}
+
+            {{#let (buildGameLink Game.WheelOfDance) as |wheelOfDanceLink|}}
+              <t.Item @push={{wheelOfDanceLink}}>Wheel of Dance</t.Item>
+            {{/let}}
           </:menu>
         </n.Item>
         <n.Item @push={{link "arts"}}>Künste</n.Item>
