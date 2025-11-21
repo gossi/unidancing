@@ -1,0 +1,39 @@
+.game {
+  gap: var(--spacing-container0);
+
+  header {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.canvas {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-container2);
+  margin-block-start: var(--spacing-container4);
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+  gap: var(--spacing-container0);
+
+  & > div {
+    display: grid;
+    gap: var(--spacing-container0);
+
+    padding: var(--spacing-container0);
+    border-radius: var(--shape-radius-container);
+
+    background: var(--surface-container1);
+
+    h2 {
+      text-align: center;
+    }
+
+    & > div {
+      background: var(--surface-container);
+    }
+  }
+}

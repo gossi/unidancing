@@ -1,6 +1,7 @@
 import 'ember-source/types';
 import 'ember-source/types/preview';
 import 'matomo-js-client-types';
+import '@glint/ember-tsc/types';
 
 import type Service from 'ember-polaris-service';
 import type { Scope, ServiceFactory } from 'ember-polaris-service';

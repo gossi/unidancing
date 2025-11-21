@@ -10,12 +10,13 @@
     "build": "turbo run build --filter @unidancing/app"
   },
   "devDependencies": {
-    "turbo": "^2.0.11"
+    "turbo": "^2.0.11",
+    "@glint/ember-tsc": "^1.0.8"
   },
   "engines": {
     "node": ">= 22"
   },
-  "packageManager": "pnpm@9.12.2",
+  "packageManager": "pnpm@10.23.0",
   "pnpm": {
     "patchedDependencies": {
       "ember-cli-fastboot@4.1.5": "patches/ember-cli-fastboot@4.1.5.patch",
