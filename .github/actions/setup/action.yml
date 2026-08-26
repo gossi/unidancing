@@ -1,6 +1,7 @@
-name: 'Setup'
+name: Setup
+description: Install toolchain for this repo CI tasks
 runs:
-  using: 'composite'
+  using: composite
   steps:
     - name: Install pnpm
       uses: pnpm/action-setup@v4
