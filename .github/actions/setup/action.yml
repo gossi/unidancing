@@ -16,7 +16,7 @@ runs:
         registry-url: 'https://registry.npmjs.org'
 
     - name: Install dependencies
-      run: pnpm install --prefer-frozen-lockfile
+      run: pnpm install
       shell: bash
 
     - name: Build Theme
