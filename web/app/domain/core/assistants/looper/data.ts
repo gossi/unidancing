@@ -9,8 +9,8 @@ export const data: Loops = [
     trackId: '69yfbpvmkIaB10msnKT7Q5',
     loops: [
       {
-        start: 27787,
-        end: 82648,
+        start: 27_787,
+        end: 82_648,
         description: 'verse + chorus'
       }
     ]
@@ -30,20 +30,20 @@ export const data: Loops = [
     loops: [
       {
         name: 'half-chorus+bridge',
-        start: 70000,
-        end: 130700,
+        start: 70_000,
+        end: 130_700,
         description: 'half first chorus (4/4) + bridge (6/8)'
       },
       {
         name: 'bridge',
-        start: 90100,
-        end: 130700,
+        start: 90_100,
+        end: 130_700,
         description: 'bridge (6/8)'
       },
       {
         name: 'chorus+bridge',
-        start: 54089,
-        end: 130700,
+        start: 54_089,
+        end: 130_700,
         description: 'full first chorus (4/4) + bridge (6/8)'
       }
     ]
@@ -55,8 +55,8 @@ export const data: Loops = [
     trackId: '2vcEiEb8cTgyeb0biKChCY',
     loops: [
       {
-        start: 63692,
-        end: 130065
+        start: 63_692,
+        end: 130_065
       }
     ]
   },
@@ -67,8 +67,26 @@ export const data: Loops = [
     trackId: '7uKw84AAmdvMIdxNyMmhSi',
     loops: [
       {
-        start: 96859,
-        end: 149846 // 149846
+        start: 96_859,
+        end: 149_846 // 149846
+      }
+    ]
+  },
+  // Archangel by Amaranthe
+  // https://open.spotify.com/track/63aGgWIoGfl3wxykzje8eJ?si=026a43c71c744f74
+  {
+    id: 'archangel',
+    trackId: '63aGgWIoGfl3wxykzje8eJ?si=026a43c71c744f74',
+    loops: [
+      {
+        start: 96_446,
+        end: 118_108,
+        description: 'Chorus'
+      },
+      {
+        start: 43_121,
+        end: 96_444,
+        description: 'Chorus + Verse'
       }
     ]
   },
@@ -80,8 +98,8 @@ export const data: Loops = [
     loops: [
       {
         name: 'short loop',
-        start: 47999,
-        end: 80006,
+        start: 47_999,
+        end: 80_006,
         description: '10 Takte (3 als Intro)'
       }
     ]
@@ -93,12 +111,12 @@ export const data: Loops = [
       {
         description: 'Anfang',
         start: 0,
-        end: 48401
+        end: 48_401
       },
       {
         description: 'Ref + Verse + Bridge',
-        start: 48741,
-        end: 108193
+        start: 48_741,
+        end: 108_193
       }
     ]
   }
