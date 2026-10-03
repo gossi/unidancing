@@ -19,7 +19,6 @@
   "packageManager": "pnpm@10.23.0",
   "pnpm": {
     "patchedDependencies": {
-      "ember-cli-fastboot@4.1.5": "patches/ember-cli-fastboot@4.1.5.patch",
       "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch"
     }
   }
