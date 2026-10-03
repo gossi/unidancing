@@ -3,6 +3,8 @@ import EmberRouter from '@embroider/router';
 
 import config from '@unidancing/app/config/environment';
 
+import './route-splitting';
+
 export default class Router extends EmberRouter {
   location = config.locationType;
   rootURL = config.rootURL;

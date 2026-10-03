@@ -24,9 +24,25 @@ export default class App extends EmberApp {
     './services/link-manager': LinkManagerService,
     './services/page-title': PageTitleService,
 
-    // Everything resolvable by convention from the app tree
-    ...import.meta.glob('./{routes,templates,controllers,services}/**/*.{js,ts,gjs,gts}', {
-      eager: true
-    })
+    // Everything resolvable by convention from the app tree; the route
+    // subtrees registered as lazy bundles in route-splitting.ts are loaded
+    // on demand instead.
+    ...import.meta.glob(
+      [
+        './{routes,templates,controllers,services}/**/*.{js,ts,gjs,gts}',
+        '!./routes/courses.gts',
+        '!./routes/courses/**',
+        '!./routes/skills/**',
+        '!./routes/exercises.gts',
+        '!./routes/exercises/**',
+        '!./routes/moves.gts',
+        '!./routes/moves/**',
+        '!./routes/choreography.gts',
+        '!./routes/choreography/**',
+        '!./routes/training.gts',
+        '!./routes/training/**'
+      ],
+      { eager: true }
+    )
   };
 }
