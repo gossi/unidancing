@@ -18,6 +18,9 @@
   },
   "packageManager": "pnpm@10.23.0",
   "pnpm": {
+    "overrides": {
+      "ember-cli-htmlbars": "^7.0.1"
+    },
     "patchedDependencies": {
       "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch"
     }

@@ -1,6 +1,5 @@
 import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
-import RouteTemplate from 'ember-route-template';
 import { or } from 'ember-truth-helpers';
 
 import { AppHeader, IconButton } from '@hokulea/ember';
@@ -8,18 +7,9 @@ import { AppHeader, IconButton } from '@hokulea/ember';
 import { Assistant, AssistantFactory, buildAssistantLink } from '../domain/core/assistants';
 import { buildGameLink, Game, GameFactory } from '../domain/core/games';
 import { Player } from '../domain/supporting/ui';
-import styles from './styles.module.css';
+import styles from '../application/styles.module.css';
 
-import type ApplicationController from './controller';
-
-interface Signature {
-  Args: {
-    controller: ApplicationController;
-  };
-}
-
-export default RouteTemplate<Signature>(
-  <template>
+<template>
     {{pageTitle "UniDancing"}}
 
     <AppHeader @home={{link "application"}}>
@@ -95,6 +85,6 @@ export default RouteTemplate<Signature>(
       </dialog>
     {{/if}}
 
-    <Player />
-  </template>
-);
+  <Player />
+</template>
+
