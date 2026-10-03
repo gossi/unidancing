@@ -1,5 +1,4 @@
 import { cached } from '@glimmer/tracking';
-import { service } from '@ember/service';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
@@ -11,18 +10,10 @@ import { Page } from '@hokulea/ember';
 import { MoveTeaser } from '../-components';
 import { findMoves } from '../-resource';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 export class CourseIndexRoute extends Route<{ id: string }> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findMoves()).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

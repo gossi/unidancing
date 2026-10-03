@@ -1,6 +1,5 @@
 import { cached } from '@glimmer/tracking';
 import { LinkTo } from '@ember/routing';
-import { service } from '@ember/service';
 
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
@@ -10,18 +9,10 @@ import Task from 'ember-tasks';
 
 import { findSkills } from '../-resource';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 export class CourseIndexRoute extends Route<object> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findSkills()).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

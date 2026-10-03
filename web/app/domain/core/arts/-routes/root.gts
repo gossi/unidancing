@@ -1,5 +1,4 @@
 import { cached } from '@glimmer/tracking';
-import { service } from '@ember/service';
 
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
@@ -13,18 +12,10 @@ import { ArtTree } from '../-components';
 import { findArts } from '../-resource';
 import styles from './styles.css';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 export class ArtsIndexRoute extends Route<object> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findArts()).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

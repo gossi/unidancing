@@ -2,7 +2,6 @@ import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { cached } from '@glimmer/tracking';
 import { on } from '@ember/modifier';
-import { service } from '@ember/service';
 
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
@@ -13,11 +12,8 @@ import { TAGS } from '../awful-practices/domain';
 import { filterByTag, findAwfulPractices } from '../awful-practices/resources';
 
 import type { Awfulpractice, Tag } from '../awful-practices/domain';
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
 export default class ChoreographyNotTodoList extends Component {
-  @service declare fastboot: FastbootService;
-
   @tracked tag?: Tag;
 
   setFilter = (tag: Tag) => {
@@ -33,10 +29,6 @@ export default class ChoreographyNotTodoList extends Component {
   @cached
   get load() {
     const promise = use(this, findAwfulPractices()).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

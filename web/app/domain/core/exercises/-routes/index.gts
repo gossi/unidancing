@@ -1,6 +1,5 @@
 import { cached } from '@glimmer/tracking';
 import { LinkTo } from '@ember/routing';
-import { service } from '@ember/service';
 
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
@@ -13,20 +12,12 @@ import { ExerciseTeaser } from '../-components';
 import { findExercises } from '../-resource';
 import styles from './styles.css';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 export class ExercisesIndexRoute extends Route<object> {
-  @service declare fastboot: FastbootService;
-
   findExercises = use(this, findExercises());
 
   @cached
   get load() {
     const promise = this.findExercises.current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

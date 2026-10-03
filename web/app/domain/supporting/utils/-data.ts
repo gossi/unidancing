@@ -1,5 +1,3 @@
-import { sweetenOwner } from 'ember-sweet-owner';
-
 import type Owner from '@ember/owner';
 
 type Fn = () => unknown;
@@ -9,21 +7,22 @@ export const cacheResult = async <F extends Fn>(
   owner: Owner,
   fn: F
 ): Promise<Awaited<ReturnType<F>>> => {
-  const { services } = sweetenOwner(owner);
-  const { fastboot } = services;
+  const cache = owner.lookup('service:app-data-cache');
 
   const id = key.replaceAll('/', '-');
-  const cached = fastboot.shoebox.retrieve(id);
+  const cached = cache?.retrieve<Awaited<ReturnType<F>>>(id);
 
   if (cached) {
-    return cached as Awaited<ReturnType<F>>;
+    return cached;
   }
 
-  const data = await fn();
+  const promise = (async () => {
+    const data = await fn();
 
-  if (fastboot.isFastBoot) {
-    fastboot.shoebox.put(id, data);
-  }
+    cache?.put(id, data);
 
-  return data as Awaited<ReturnType<F>>;
+    return data;
+  })();
+
+  return (await cache?.track(promise)) ?? promise;
 };

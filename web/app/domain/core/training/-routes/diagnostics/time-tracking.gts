@@ -1,6 +1,5 @@
 import { cached } from '@glimmer/tracking';
 import { LinkTo } from '@ember/routing';
-import { service } from '@ember/service';
 
 import { Features, Note, Section } from '@unidancing/app/domain/supporting/ui';
 import { pageTitle } from 'ember-page-title';
@@ -20,22 +19,15 @@ import {
 import styles from './styles.css';
 
 import type { TimeAnalysis } from '../../../choreography/routines/analysis/time-tracking/domain';
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
 
 function asTimeAnalysis(data: TimeAnalysis | undefined): TimeAnalysis {
   return data as TimeAnalysis;
 }
 
 export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findRoutine('unicon-16/kazuhiro-shimoyama')).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

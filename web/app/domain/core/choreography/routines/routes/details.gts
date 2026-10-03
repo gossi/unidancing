@@ -1,6 +1,5 @@
 import { cached } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
-import { service } from '@ember/service';
 
 import { t } from 'ember-intl';
 import formatDate from 'ember-intl/helpers/format-date';
@@ -20,22 +19,14 @@ import { findRoutine } from '../analysis/-resource';
 import { type RoutineResult } from '../analysis/domain-objects';
 import { RoutineResults } from '../analysis/results';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 function toUrlParam(data: RoutineResult) {
   return compressToEncodedURIComponent(JSON.stringify(data));
 }
 
 export class RoutineDetailsRoute extends Route<{ path: string }> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findRoutine(this.params.path)).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }
