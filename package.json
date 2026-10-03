@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "turbo": "^2.0.11",
-    "@glint/ember-tsc": "^1.0.8"
+    "@glint/ember-tsc": "^1.11.6"
   },
   "engines": {
     "node": ">= 22"

@@ -19,7 +19,7 @@ declare global {
 
 type Entries = Array<[name: string, loader: () => Promise<{ default: unknown }>]>;
 
-function routeBundle(entries: Entries) {
+export function routeBundle(entries: Entries) {
   return {
     names: entries.map(([name]) => name),
     load: async () => {
