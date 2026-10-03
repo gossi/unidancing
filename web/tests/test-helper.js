@@ -1,3 +1,5 @@
+import 'qunit/qunit/qunit.css';
+
 import { setApplication } from '@ember/test-helpers';
 import * as QUnit from 'qunit';
 import { setup } from 'qunit-dom';
@@ -8,7 +10,14 @@ import config from '@unidancing/app/config/environment';
 import setupSinon from 'ember-sinon-qunit';
 
 export function start() {
-  setApplication(Application.create(config.APP));
+  setApplication(
+    Application.create({
+      ...config.APP,
+      autoboot: false,
+      location: 'none',
+      rootElement: '#ember-testing'
+    })
+  );
   setupSinon();
   setup(QUnit.assert);
   setupEmberOnerrorValidation();

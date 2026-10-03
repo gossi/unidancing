@@ -1,33 +1,22 @@
-import loadConfigFromMeta from '@embroider/config-meta-loader';
-import { assert } from '@ember/debug';
+const ENV = {
+  modulePrefix: '@unidancing/app',
+  environment: (import.meta.env.MODE === 'production' ? 'production' : 'development') as
+    | 'development'
+    | 'production',
+  rootURL: '/',
+  locationType: 'history',
+  EmberENV: {
+    FEATURES: {},
+    EXTEND_PROTOTYPES: false
+  },
 
-const config = loadConfigFromMeta('@unidancing/app') as unknown;
+  // See config of the vite world: values are baked in at build time via
+  // import.meta.env (vite loads .env files; envPrefix exposes them).
+  workerHostURL: import.meta.env.DEV ? 'http://127.0.0.1:8787' : 'https://connect.unidancing.art',
 
-assert(
-  'config is not an object',
-  typeof config === 'object' && config !== null,
-);
-assert(
-  'modulePrefix was not detected on your config',
-  'modulePrefix' in config && typeof config.modulePrefix === 'string',
-);
-assert(
-  'locationType was not detected on your config',
-  'locationType' in config && typeof config.locationType === 'string',
-);
-assert(
-  'rootURL was not detected on your config',
-  'rootURL' in config && typeof config.rootURL === 'string',
-);
-assert(
-  'APP was not detected on your config',
-  'APP' in config && typeof config.APP === 'object',
-);
+  APP: {
+    YOUTUBE_API_KEY: import.meta.env.YOUTUBE_API_KEY as string | undefined
+  }
+};
 
-export default config as {
-  modulePrefix: string;
-  podModulePrefix?: string;
-  locationType: string;
-  rootURL: string;
-  APP: Record<string, unknown>;
-} & Record<string, unknown>;
+export default ENV;

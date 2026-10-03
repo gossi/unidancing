@@ -2,6 +2,8 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
 
+import translationsDe from 'virtual:ember-intl/translations/de';
+
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
 import type { IntlService } from 'ember-intl';
@@ -15,6 +17,7 @@ export default class ApplicationRoute extends Route {
   constructor(owner?: Owner) {
     super(owner);
 
+    this.intl.addTranslations('de', translationsDe);
     this.intl.setLocale('de');
 
     if (macroCondition(!isDevelopingApp() && !isTesting())) {

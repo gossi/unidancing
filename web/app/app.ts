@@ -1,23 +1,26 @@
-import './assets/app.css';
-import '@formatjs/intl-durationformat/polyfill';
-import 'vis-timeline/dist/vis-timeline-graph2d.min.css';
+import EmberApp from 'ember-strict-application-resolver';
 
-import Application from '@ember/application';
+import IntlService from 'ember-intl/services/intl';
+import PageTitleService from 'ember-page-title/services/page-title';
 
-import config from "./config/environment";
-import loadInitializers from 'ember-load-initializers';
-import Resolver from 'ember-resolver';
+import config from './config/environment';
+import Router from './router';
 
-import '@hokulea/core/style.css';
-
-import setupInspector from "@embroider/legacy-inspector-support/ember-source-4.12";
-import compatModules from "@embroider/virtual/compat-modules";
-
-export default class App extends Application {
+export default class App extends EmberApp {
   modulePrefix = config.modulePrefix;
-  podModulePrefix = config.podModulePrefix;
-  Resolver = Resolver.withModules(compatModules);
-  inspector = setupInspector(this);
-}
 
-loadInitializers(App, config.modulePrefix, compatModules);
+  modules = {
+    './router': Router,
+
+    // Services looked up by string (via @service declarations in the app and
+    // inside addon helpers like {{pageTitle}}). Add more here if a strict
+    // lookup ever fails at runtime.
+    './services/intl': IntlService,
+    './services/page-title': PageTitleService,
+
+    // Everything resolvable by convention from the app tree
+    ...import.meta.glob('./{routes,templates,controllers,services}/**/*.{js,ts,gjs,gts}', {
+      eager: true
+    })
+  };
+}

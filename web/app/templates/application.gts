@@ -7,7 +7,7 @@ import { AppHeader, IconButton } from '@hokulea/ember';
 import { Assistant, AssistantFactory, buildAssistantLink } from '../domain/core/assistants';
 import { buildGameLink, Game, GameFactory } from '../domain/core/games';
 import { Player } from '../domain/supporting/ui';
-import styles from '../application/styles.module.css';
+import styles from './application.module.css';
 
 <template>
     {{pageTitle "UniDancing"}}
