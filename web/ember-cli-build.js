@@ -1,5 +1,4 @@
-'use strict';
-
+'use strict';;
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
 // eslint-disable-next-line n/no-missing-require
 const { HokuleaAssetLoaderWebpackPlugin } = require('@hokulea/ember/lib');
@@ -8,11 +7,19 @@ const theemoPlugin = require('ember-theemo/lib/webpack');
 // const { browsers } = require('@gossi/config-targets');
 const path = require('node:path');
 
+const {
+  compatBuild
+} = require("@embroider/compat");
+
 function isProduction() {
   return EmberApp.env() === 'production';
 }
 
-module.exports = function (defaults) {
+module.exports = async function(defaults) {
+  const {
+    buildOnce
+  } = await import("@embroider/vite");
+
   let app = new EmberApp(defaults, {
     '@embroider/macros': {
       setConfig: {
@@ -47,8 +54,6 @@ module.exports = function (defaults) {
       defaultTheme: 'unidancing'
     }
   });
-
-  const { Webpack } = require('@embroider/webpack');
 
   const compiledApp = require('@embroider/compat').compatBuild(app, Webpack, {
     staticAddonTestSupportTrees: true,
@@ -121,7 +126,7 @@ module.exports = function (defaults) {
           mode: (resourcePath) => {
             const hostAppLocation = 'node_modules/.embroider/rewritten-app';
 
-            return resourcePath.includes(hostAppLocation) ? 'local' : 'global';
+            return compatBuild(app, buildOnce);
           }
         }
         // sourceMap: !isProduction()
@@ -130,5 +135,5 @@ module.exports = function (defaults) {
     }
   });
 
-  return compiledApp;
+  return compatBuild(app, buildOnce);
 };
