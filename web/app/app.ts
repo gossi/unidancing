@@ -1,7 +1,10 @@
 import EmberApp from 'ember-strict-application-resolver';
 
+import { default as HokuleaService } from '@hokulea/ember/services/-hokulea';
 import IntlService from 'ember-intl/services/intl';
+import LinkManagerService from 'ember-link/services/link-manager';
 import PageTitleService from 'ember-page-title/services/page-title';
+import PortalService from 'ember-stargate/services/-portal';
 
 import config from './config/environment';
 import Router from './router';
@@ -15,7 +18,10 @@ export default class App extends EmberApp {
     // Services looked up by string (via @service declarations in the app and
     // inside addon helpers like {{pageTitle}}). Add more here if a strict
     // lookup ever fails at runtime.
+    './services/-hokulea': HokuleaService,
+    './services/-portal': PortalService,
     './services/intl': IntlService,
+    './services/link-manager': LinkManagerService,
     './services/page-title': PageTitleService,
 
     // Everything resolvable by convention from the app tree

@@ -4,6 +4,8 @@ import { isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
 
 import translationsDe from 'virtual:ember-intl/translations/de';
 
+import { isSSR } from '../domain/supporting/utils';
+
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
 import type { IntlService } from 'ember-intl';
@@ -21,41 +23,44 @@ export default class ApplicationRoute extends Route {
     this.intl.setLocale('de');
 
     if (macroCondition(!isDevelopingApp() && !isTesting())) {
-      try {
-        // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/naming-convention
-        let _paq = (window._paq = window._paq || []);
+      // analytics scripts would be baked into every prerendered page and run
+      // twice on rehydrated boots; only inject in the browser
+      if (!isSSR()) {
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/naming-convention
+          let _paq = (window._paq = window._paq || []);
 
-        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-        _paq.push(['enableLinkTracking']);
+          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+          _paq.push(['enableLinkTracking']);
 
-        (function () {
-          let u = 'https://analytics.otherwheel.com/';
+          (function () {
+            let u = 'https://analytics.otherwheel.com/';
 
-          _paq.push(['setTrackerUrl', u + 'js/index.php']);
-          _paq.push(['setSiteId', '6']);
+            _paq.push(['setTrackerUrl', u + 'js/index.php']);
+            _paq.push(['setSiteId', '6']);
 
-          let d = document,
-            g = d.createElement('script'),
-            s = d.getElementsByTagName('script')[0];
+            let d = document,
+              g = d.createElement('script'),
+              s = d.getElementsByTagName('script')[0];
 
-          g.async = true;
-          g.src = u + 'js/index.php';
-          (s.parentNode as HTMLElement).insertBefore(g, s);
-        })();
+            g.async = true;
+            g.src = u + 'js/index.php';
+            (s.parentNode as HTMLElement).insertBefore(g, s);
+          })();
 
-        this.pageTitle.titleDidUpdate = (title: string) => {
-          const page = this.router.currentURL;
+          this.pageTitle.titleDidUpdate = (title: string) => {
+            const page = this.router.currentURL;
 
-          try {
-            _paq.push(['setCustomUrl', page]);
-            _paq.push(['trackPageView', title.replace(' | UniDancing', '')]);
-          } catch {
-            // fastboot will report on document to not be defined, but also doesn't let
-            // you check for it
-          }
-        };
-      } catch {
-        //
+            try {
+              _paq.push(['setCustomUrl', page]);
+              _paq.push(['trackPageView', title.replace(' | UniDancing', '')]);
+            } catch {
+              //
+            }
+          };
+        } catch {
+          //
+        }
       }
     }
 

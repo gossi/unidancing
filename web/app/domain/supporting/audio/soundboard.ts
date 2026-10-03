@@ -1,5 +1,7 @@
 import { action } from 'ember-command';
 
+import { isSSR } from '../utils';
+
 import { AudioService } from './service';
 import styles from './soundboard.module.css';
 import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';
@@ -8,6 +10,12 @@ export class SoundBoard {
   #sounds: Map<string, HTMLAudioElement> = new Map<string, HTMLAudioElement>();
 
   constructor() {
+    // during prerendering there is nothing to play; creating the elements
+    // would leak them into the serialized HTML
+    if (isSSR()) {
+      return;
+    }
+
     this.addSound('fail', fail);
     this.addSound('counter', counter);
     this.addSound('countDown', countDown);
