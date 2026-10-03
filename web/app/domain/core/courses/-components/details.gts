@@ -3,7 +3,7 @@ import { Page } from '@hokulea/ember';
 import { VideoPlayer } from '../../../supporting/ui';
 import { asString } from '../../../supporting/utils';
 import { ExerciseTeaser } from '../../exercises';
-import styles from './details.css';
+import styles from './details.module.css';
 
 import type { Exercise } from '../../exercises';
 import type { Course } from '..';

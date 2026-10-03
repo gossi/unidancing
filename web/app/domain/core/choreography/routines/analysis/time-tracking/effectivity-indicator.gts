@@ -12,7 +12,7 @@ import { Card, Icon } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateEffectiveness } from './domain';
-import styles from './evaluation.css';
+import styles from './evaluation.module.css';
 
 import type { TimeAnalysis } from './domain';
 import type { TOC } from '@ember/component/template-only';

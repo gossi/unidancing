@@ -1,4 +1,4 @@
-import styles from './note.css';
+import styles from './note.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 

@@ -6,7 +6,7 @@ import { IconButton, Popover, popover, Tabs, TextInput } from '@hokulea/ember';
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { canUseForTraining, makeTrainingLink } from './domain-objects';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { RoutineResult } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';

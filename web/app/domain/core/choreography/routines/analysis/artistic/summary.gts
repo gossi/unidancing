@@ -5,7 +5,7 @@ import { t } from 'ember-intl';
 import { Score } from '../../artistic/-components';
 import { toIntlNameKey } from '../../artistic/-utils';
 import { loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.css';
+import styles from './artistic.module.css';
 
 import type { ArtisticResults, CategoryResult, PartResult } from '../../artistic/domain-objects';
 

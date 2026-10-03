@@ -16,7 +16,7 @@ import {
   TimeTrackingEffectivityIndicator,
   TimeTrackingSummary
 } from '../../../choreography';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { TimeAnalysis } from '../../../choreography/routines/analysis/time-tracking/domain';
 

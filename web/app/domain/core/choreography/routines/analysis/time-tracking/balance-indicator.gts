@@ -9,7 +9,7 @@ import { Card, Icon, Tabs } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateBalance } from './domain';
-import styles from './evaluation.css';
+import styles from './evaluation.module.css';
 
 import type { Balance, TimeAnalysis } from './domain';
 import type { TOC } from '@ember/component/template-only';

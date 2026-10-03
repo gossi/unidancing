@@ -2,7 +2,7 @@ import { hash } from '@ember/helper';
 
 import { formatNumber } from '@unidancing/app/domain/supporting/utils';
 
-import styles from './evaluation.css';
+import styles from './evaluation.module.css';
 
 import type { AttractivityGroup } from './domain';
 import type { TOC } from '@ember/component/template-only';

@@ -3,7 +3,7 @@ import { LinkTo } from '@ember/routing';
 
 import { type TimeTracking, type TimeTrackingFormData, validateTimeTracking } from './domain';
 import { TimelineEditor } from './editor';
-import styles from './timeline.css';
+import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { FormBuilder } from '@hokulea/ember';

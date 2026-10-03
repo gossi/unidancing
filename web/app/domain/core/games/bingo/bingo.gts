@@ -13,7 +13,7 @@ import { v4 as uuid } from 'uuid';
 import { Button, Form, Icon, IconButton } from '@hokulea/ember';
 
 import { findAwfulPractices } from '../../choreography';
-import styles from './bingo.css';
+import styles from './bingo.module.css';
 
 import type { Awfulpractice } from '../../choreography';
 import type { TOC } from '@ember/component/template-only';

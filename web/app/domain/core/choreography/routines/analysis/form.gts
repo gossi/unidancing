@@ -6,7 +6,7 @@ import { fn } from '@ember/helper';
 import { Button, Form, Icon, Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
-import styles from './analysis.css';
+import styles from './analysis.module.css';
 import {
   ARTISTIC_FORM_DATA,
   ArtisticForm,

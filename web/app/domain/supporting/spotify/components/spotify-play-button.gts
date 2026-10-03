@@ -4,7 +4,7 @@ import { on } from '@ember/modifier';
 import { eq, not } from 'ember-truth-helpers';
 
 import { isReadyForPlayback } from '../abilities';
-import styles from './spotify-play-button.css';
+import styles from './spotify-play-button.module.css';
 
 interface SpotifyPlayButtonSignature {
   Element: HTMLButtonElement;

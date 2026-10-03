@@ -10,7 +10,7 @@ import { CriterionInterval, Score } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { scoreArtistic } from '../../artistic/actions';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.css';
+import styles from './artistic.module.css';
 
 import type {
   ArtisticResults,

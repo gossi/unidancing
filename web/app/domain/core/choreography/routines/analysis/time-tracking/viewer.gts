@@ -10,7 +10,7 @@ import { Timeline } from 'vis-timeline/esnext';
 import { dateToSecondsWithMilli } from '../../../../../supporting/utils';
 import { YoutubePlayer } from '../../../../../supporting/youtube';
 import { GROUPS, type TimeTracking } from './domain';
-import styles from './timeline.css';
+import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type Owner from '@ember/owner';

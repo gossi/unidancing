@@ -26,7 +26,7 @@ import {
   WithSpotify
 } from '../../../supporting/spotify';
 import { data } from './data';
-import styles from './looper.css';
+import styles from './looper.module.css';
 
 import type { Track } from '../../../supporting/spotify';
 import type { LoopDescriptor, LoopTrackDescriptor } from './domain-objects';

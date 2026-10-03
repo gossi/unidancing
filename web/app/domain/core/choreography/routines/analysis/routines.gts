@@ -4,7 +4,7 @@ import { LinkTo } from '@ember/routing';
 import { formatDate, t } from 'ember-intl';
 
 import { Score } from '../artistic/-components';
-import styles from './routines.css';
+import styles from './routines.module.css';
 
 import type { RoutineResult } from './domain-objects';
 import type { Document } from '@/tina/types';

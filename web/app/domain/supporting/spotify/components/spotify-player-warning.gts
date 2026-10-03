@@ -1,6 +1,6 @@
 import { Icon } from '@hokulea/ember';
 
-import styles from './spotify-player-warning.css';
+import styles from './spotify-player-warning.module.css';
 
 export const SpotifyPlayerWarning = <template>
   <p>

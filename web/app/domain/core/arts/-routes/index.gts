@@ -5,7 +5,7 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 import { Icon } from '@hokulea/ember';
 
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export class ArtsIndexRoute extends Route<object> {
   <template>

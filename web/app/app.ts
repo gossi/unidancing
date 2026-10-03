@@ -8,7 +8,7 @@ import config from "./config/environment";
 import loadInitializers from 'ember-load-initializers';
 import Resolver from 'ember-resolver';
 
-import '@hokulea/core/index.css';
+import '@hokulea/core/style.css';
 
 import setupInspector from "@embroider/legacy-inspector-support/ember-source-4.12";
 import compatModules from "@embroider/virtual/compat-modules";

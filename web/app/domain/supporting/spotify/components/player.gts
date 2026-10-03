@@ -10,7 +10,7 @@ import { Button, Icon, IconButton, Popover, popover } from '@hokulea/ember';
 import { device2Icon, formatArtists } from '../helpers';
 import { SpotifyService } from '../service';
 import { LoginWithSpotify } from './login-with-spotify';
-import styles from './player.css';
+import styles from './player.module.css';
 
 import type { Device } from '../domain-objects';
 

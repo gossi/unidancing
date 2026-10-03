@@ -5,7 +5,7 @@ import { Card } from '@hokulea/ember';
 import { TinaMarkdown } from '../../../supporting/tina';
 import { Icon } from '../../../supporting/ui';
 import { buildMoveLink } from '../-resource';
-import styles from './teaser.css';
+import styles from './teaser.module.css';
 
 import type { Move } from '..';
 import type { TOC } from '@ember/component/template-only';

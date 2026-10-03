@@ -5,7 +5,7 @@ import { registerDestructor } from '@ember/destroyable';
 import { dropTask, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
 
-import styles from './slot-machine.css';
+import styles from './slot-machine.module.css';
 
 import type Owner from '@ember/owner';
 import type { WithBoundArgs } from '@glint/template';

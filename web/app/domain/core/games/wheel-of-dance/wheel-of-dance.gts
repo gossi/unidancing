@@ -26,7 +26,7 @@ import { Button, Form, IconButton } from '@hokulea/ember';
 
 import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';
-import styles from './wheel-of-dance.css';
+import styles from './wheel-of-dance.module.css';
 
 import type { Context, Genre } from './data';
 import type { TOC } from '@ember/component/template-only';

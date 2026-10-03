@@ -4,7 +4,7 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 import { Button, Page } from '@hokulea/ember';
 
-import styles from './home.css';
+import styles from './home.module.css';
 
 class HomeRoute extends Route<object> {
   <template>

@@ -12,7 +12,7 @@ import { buildExerciseLink } from '..';
 import { asDifficulty, asLocomotion, asPersonal } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';
 import Difficulty from './difficulty';
-import styles from './teaser.css';
+import styles from './teaser.module.css';
 
 import type { Exercise } from '..';
 import type { TOC } from '@ember/component/template-only';

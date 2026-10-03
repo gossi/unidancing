@@ -28,7 +28,7 @@ import {
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
-import styles from './dance-oh-mat.css';
+import styles from './dance-oh-mat.module.css';
 
 import type { Playlist, SpotifyClient, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';

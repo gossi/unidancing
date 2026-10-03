@@ -5,7 +5,7 @@ import { or } from 'ember-truth-helpers';
 
 import { IconButton } from '@hokulea/ember';
 
-import styles from './dialog.css';
+import styles from './dialog.module.css';
 
 export interface DialogSignature {
   Element: HTMLDialogElement;

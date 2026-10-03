@@ -19,7 +19,7 @@ import {
   isMaterial
 } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';
-import styles from './details.css';
+import styles from './details.module.css';
 import Difficulty from './difficulty';
 import { Instruction } from './instruction';
 import { Media } from './media';

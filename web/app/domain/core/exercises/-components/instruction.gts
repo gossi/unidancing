@@ -9,7 +9,7 @@ import { Dialog, VideoPlayer } from '../../../supporting/ui';
 import { asNumber, asString } from '../../../supporting/utils';
 import { asMethod, formatDuration, formatMethod, formatMethodAbbr } from '../-helpers';
 import { asMediaCollection } from '../domain-objects';
-import styles from './instruction.css';
+import styles from './instruction.module.css';
 import { Media } from './media';
 
 import type { Instruction as ExerciseInstruction } from '../domain-objects';

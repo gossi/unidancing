@@ -7,7 +7,7 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 import { Page } from '@hokulea/ember';
 
 import { Features, Section } from '../../../../supporting/ui';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 

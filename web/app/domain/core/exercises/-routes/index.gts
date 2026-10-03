@@ -10,7 +10,7 @@ import { Page } from '@hokulea/ember';
 
 import { ExerciseTeaser } from '../-components';
 import { findExercises } from '../-resource';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export class ExercisesIndexRoute extends Route<object> {
   findExercises = use(this, findExercises());

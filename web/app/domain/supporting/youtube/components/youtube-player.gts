@@ -12,7 +12,7 @@ import YTPlayer from 'youtube-player';
 import { Button, IconButton, RangeInput } from '@hokulea/ember';
 
 import { durationToSeconds, formatDuration, secondsToDuration } from '../../utils';
-import styles from './player.css';
+import styles from './player.module.css';
 
 import type { TaskInstance } from 'ember-concurrency';
 import type { Temporal } from 'temporal-polyfill';

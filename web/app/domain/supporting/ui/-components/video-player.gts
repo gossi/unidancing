@@ -1,4 +1,4 @@
-import styles from './video-player.css';
+import styles from './video-player.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 

@@ -4,7 +4,7 @@ import { htmlSafe } from '@ember/template';
 import { formatNumber } from '@unidancing/app/domain/supporting/utils';
 
 import { CATEGORY_GROUPS } from './domain';
-import styles from './timeline.css';
+import styles from './timeline.module.css';
 
 import type { TimeAnalysis, TimeTrackingGroupsEvaluation } from './domain';
 import type { TOC } from '@ember/component/template-only';

@@ -1,6 +1,6 @@
 import { TinaMarkdown } from '../../../supporting/tina';
 import { asTag, type Awfulpractice, type Tag } from './domain';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 

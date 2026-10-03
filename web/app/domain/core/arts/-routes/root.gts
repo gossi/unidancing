@@ -10,7 +10,7 @@ import { Page } from '@hokulea/ember';
 
 import { ArtTree } from '../-components';
 import { findArts } from '../-resource';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export class ArtsIndexRoute extends Route<object> {
   @cached

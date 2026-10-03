@@ -29,7 +29,7 @@ import {
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
-import styles from './dance-mix.css';
+import styles from './dance-mix.module.css';
 
 import type { Playlist, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';

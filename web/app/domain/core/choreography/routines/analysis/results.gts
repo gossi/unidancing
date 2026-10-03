@@ -6,7 +6,7 @@ import { not, or } from 'ember-truth-helpers';
 import { Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
-import styles from './analysis.css';
+import styles from './analysis.module.css';
 import { ArtisticResults } from './artistic/results';
 import { ArtisticSummary } from './artistic/summary';
 import { NotTodoListResults } from './not-todo-list/results';

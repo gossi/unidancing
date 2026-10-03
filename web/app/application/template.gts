@@ -8,7 +8,7 @@ import { AppHeader, IconButton } from '@hokulea/ember';
 import { Assistant, AssistantFactory, buildAssistantLink } from '../domain/core/assistants';
 import { buildGameLink, Game, GameFactory } from '../domain/core/games';
 import { Player } from '../domain/supporting/ui';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type ApplicationController from './controller';
 
