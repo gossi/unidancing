@@ -1,10 +1,24 @@
-import { getHokuleaIcon } from '../../supporting/ui/-components/icon';
+import IconFootprints from '~icons/ph/footprints';
+import IconUser from '~icons/ph/user';
+import IconUsers from '~icons/ph/users';
+import IconUsersThree from '~icons/ph/users-three';
+import IconUnicycle from '~icons/custom/unicycle';
 
-import type { HokuleaIcons } from '../../supporting/ui';
 import type { Locomotion, Personal } from './domain-objects';
 
+const LocomotionIcon = {
+  pedes: IconFootprints,
+  unicycle: IconUnicycle
+} as const;
+
+const PersonalIcon = {
+  individual: IconUser,
+  pair: IconUsers,
+  group: IconUsersThree
+} as const;
+
 export function getLocomotionIcon(locomotion: Locomotion) {
-  return getHokuleaIcon(locomotion as unknown as HokuleaIcons);
+  return LocomotionIcon[locomotion];
 }
 
 export function getLocomotionText(locomotion: Locomotion) {
@@ -18,7 +32,7 @@ export function getLocomotionText(locomotion: Locomotion) {
 }
 
 export function getPersonalIcon(personal: Personal) {
-  return getHokuleaIcon(personal as unknown as HokuleaIcons);
+  return PersonalIcon[personal];
 }
 
 export function getPersonalText(personal: Personal) {

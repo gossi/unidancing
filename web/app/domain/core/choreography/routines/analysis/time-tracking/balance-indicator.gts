@@ -6,6 +6,7 @@ import { formatPercent, formatSeconds } from '@unidancing/app/domain/supporting/
 import { link } from 'ember-link';
 
 import { Card, Icon, Tabs } from '@hokulea/ember';
+import IconInfo from '~icons/ph/info';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateBalance } from './domain';
@@ -67,7 +68,7 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
       <h4>
         Balance
         {{#let (link "training.diagnostics.time-tracking") as |l|}}
-          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon="info" /></a>
+          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon={{IconInfo}} /></a>
         {{/let}}
       </h4>
 

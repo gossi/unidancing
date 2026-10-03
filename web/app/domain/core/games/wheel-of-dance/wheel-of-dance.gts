@@ -23,6 +23,7 @@ import { useMachine } from 'ember-statecharts';
 import { assign } from 'xstate';
 
 import { Button, Form, IconButton } from '@hokulea/ember';
+import IconGear from '~icons/ph/gear';
 
 import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';
@@ -163,7 +164,7 @@ class Game extends Component {
       {{else}}
         <Portal @target="wof-header">
           <IconButton
-            @icon="gear"
+            @icon={{IconGear}}
             @importance="subtle"
             @spacing="-1"
             @disabled={{this.machine.state.matches "dancing"}}

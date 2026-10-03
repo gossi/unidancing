@@ -1,12 +1,17 @@
+import IconDeviceMobile from '~icons/ph/device-mobile';
+import IconDesktop from '~icons/ph/desktop';
+import IconSpeakerHifi from '~icons/ph/speaker-hifi';
+import IconTelevisionSimple from '~icons/ph/television-simple';
+
 export function formatArtists(artists: SpotifyApi.ArtistObjectSimplified[]) {
   return artists.map((artist) => artist.name).join(', ');
 }
 
 const deviceMap = {
-  computer: 'desktop',
-  tv: 'television-simple',
-  smartphone: 'device-mobile',
-  speaker: 'speaker-hifi'
+  computer: IconDesktop,
+  tv: IconTelevisionSimple,
+  smartphone: IconDeviceMobile,
+  speaker: IconSpeakerHifi
 } as const;
 
 type DeviceIcon = (typeof deviceMap)[keyof typeof deviceMap];

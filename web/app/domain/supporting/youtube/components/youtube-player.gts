@@ -10,6 +10,8 @@ import getVideoId from 'get-video-id';
 import YTPlayer from 'youtube-player';
 
 import { Button, IconButton, RangeInput } from '@hokulea/ember';
+import IconPauseFill from '~icons/ph/pause-fill';
+import IconPlayFill from '~icons/ph/play-fill';
 
 import { durationToSeconds, formatDuration, secondsToDuration } from '../../utils';
 import styles from './player.module.css';
@@ -305,8 +307,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
         <div class={{styles.controls}}>
           <IconButton
             @spacing="-1"
-            @icon={{if this.playing "pause" "play"}}
-            @iconStyle="fill"
+            @icon={{if this.playing IconPauseFill IconPlayFill}}
             @push={{this.toggle}}
             @label={{if this.playing "pause" "play"}}
           />

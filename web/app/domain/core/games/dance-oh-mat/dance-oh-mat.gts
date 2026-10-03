@@ -16,6 +16,9 @@ import { useMachine } from 'ember-statecharts';
 import { assign, createMachine } from 'xstate';
 
 import { Button, Form, IconButton } from '@hokulea/ember';
+import IconPauseFill from '~icons/ph/pause-fill';
+import IconPlayFill from '~icons/ph/play-fill';
+import IconQuestion from '~icons/ph/question';
 
 import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
 import {
@@ -235,8 +238,7 @@ class Manual extends Component {
           <li>
             Musik zur Song Auswahl:
             <IconButton
-              @icon={{if this.spotify.client.playing "pause" "play"}}
-              @iconStyle="fill"
+              @icon={{if this.spotify.client.playing IconPauseFill IconPlayFill}}
               @push={{this.togglePlay}}
               @label="Lobby Musik an/aus"
               @spacing="-1"
@@ -490,7 +492,7 @@ class Game extends Component {
   <template>
     <Portal @target="dance-oh-mat-header">
       <IconButton
-        @icon="question"
+        @icon={{IconQuestion}}
         @importance="plain"
         @spacing="-1"
         @disabled={{this.machine.state.matches "playing"}}

@@ -3,6 +3,7 @@ import { pageTitle } from 'ember-page-title';
 import { or } from 'ember-truth-helpers';
 
 import { AppHeader, IconButton } from '@hokulea/ember';
+import IconX from '~icons/ph/x';
 
 import { Assistant, AssistantFactory, buildAssistantLink } from '../domain/core/assistants';
 import { buildGameLink, Game, GameFactory } from '../domain/core/games';
@@ -71,7 +72,7 @@ import styles from './application.module.css';
     {{#if (or @controller.game @controller.assistant)}}
       <dialog data-game={{@controller.game}} data-assistant={{@controller.assistant}} open>
         <IconButton
-          @icon="x"
+          @icon={{IconX}}
           @label="Schließen"
           @importance="plain"
           @push={{@controller.close}}

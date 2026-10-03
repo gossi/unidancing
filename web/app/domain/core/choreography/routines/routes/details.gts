@@ -13,6 +13,7 @@ import { or } from 'ember-truth-helpers';
 import { compressToEncodedURIComponent } from 'lz-string';
 
 import { IconButton, Page } from '@hokulea/ember';
+import IconPencilSimple from '~icons/ph/pencil-simple';
 
 import { Share, Toolbar } from '../analysis/-components';
 import { findRoutine } from '../analysis/-resource';
@@ -54,7 +55,7 @@ export class RoutineDetailsRoute extends Route<{ path: string }> {
                 <Share @routine={{r.value}} />
 
                 <IconButton
-                  @icon="pencil-simple"
+                  @icon={{IconPencilSimple}}
                   @importance="subtle"
                   @spacing="-1"
                   @label="Bearbeiten"

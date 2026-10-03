@@ -9,6 +9,7 @@ import {
 import { link } from 'ember-link';
 
 import { Card, Icon } from '@hokulea/ember';
+import IconInfo from '~icons/ph/info';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateEffectiveness } from './domain';
@@ -38,7 +39,7 @@ const TimeTrackingEffectivityIndicator: TOC<TimeTrackingEffectivityIndicatorSign
         Effektivität
 
         {{#let (link "training.diagnostics.time-tracking") as |l|}}
-          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon="info" /></a>
+          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon={{IconInfo}} /></a>
         {{/let}}
       </h4>
 

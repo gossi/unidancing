@@ -11,6 +11,11 @@ import { TrackedObject, TrackedSet } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
 
 import { Button, Form, Icon, IconButton } from '@hokulea/ember';
+import IconArrowRight from '~icons/ph/arrow-right';
+import IconCheck from '~icons/ph/check';
+import IconPencil from '~icons/ph/pencil';
+import IconPlus from '~icons/ph/plus';
+import IconTrash from '~icons/ph/trash';
 
 import { findAwfulPractices } from '../../choreography';
 import styles from './bingo.module.css';
@@ -353,13 +358,13 @@ class CounterManager extends Component<{ Args: { counters: Counters } }> {
         >
           <f.Text @name="name" @label={{concat "Zählerstand: " counter.count}} />
 
-          <f.Submit><Icon @icon="pencil" /></f.Submit>
+          <f.Submit><Icon @icon={{IconPencil}} /></f.Submit>
 
           {{#if (eq id @counters.activeCounter.id)}}
-            <IconButton @icon="check" @disabled={{true}} @label="Zähler aktiv" />
+            <IconButton @icon={{IconCheck}} @disabled={{true}} @label="Zähler aktiv" />
           {{else}}
             <IconButton
-              @icon="arrow-right"
+              @icon={{IconArrowRight}}
               @push={{fn @counters.activateCounter id}}
               @label="Zähler aktivieren"
             />
@@ -368,7 +373,7 @@ class CounterManager extends Component<{ Args: { counters: Counters } }> {
           <IconButton
             @intent="danger"
             @importance="subtle"
-            @icon="trash"
+            @icon={{IconTrash}}
             @push={{fn @counters.deleteCounter id}}
             @label="Zähler löschen"
           />
@@ -380,7 +385,7 @@ class CounterManager extends Component<{ Args: { counters: Counters } }> {
       <Form @data={{hash name=""}} @submit={{this.newCounter}} class="{{styles.form}}" as |f|>
         <f.Text @name="name" @label="Name für den Zähler" />
 
-        <f.Submit><Icon @icon="plus" /></f.Submit>
+        <f.Submit><Icon @icon={{IconPlus}} /></f.Submit>
       </Form>
     </div>
   </template>

@@ -1,6 +1,7 @@
 /// <reference types="@embroider/core/virtual" />
 /// <reference types="vite/client" />
 /// <reference types="@ember-intl/vite/virtual" />
+/// <reference types="unplugin-icons/types/ember" />
 import 'ember-source/types';
 import 'ember-source/types/preview';
 import 'matomo-js-client-types';

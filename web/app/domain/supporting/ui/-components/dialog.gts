@@ -4,6 +4,7 @@ import { modifier } from 'ember-modifier';
 import { or } from 'ember-truth-helpers';
 
 import { IconButton } from '@hokulea/ember';
+import IconX from '~icons/ph/x';
 
 import styles from './dialog.module.css';
 
@@ -31,7 +32,7 @@ export class Dialog extends Component<DialogSignature> {
   <template>
     <dialog class={{styles.dialog}} {{this.ref}} ...attributes>
       <IconButton
-        @icon="x"
+        @icon={{IconX}}
         @label="Schließen"
         @importance="plain"
         @push={{this.close}}

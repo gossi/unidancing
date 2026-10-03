@@ -5,6 +5,8 @@ import { loadTranslations } from '@ember-intl/vite';
 import { babel } from '@rollup/plugin-babel';
 import { ember, extensions } from '@embroider/vite';
 import { theemo } from '@theemo/vite';
+import { FileSystemIconLoader } from 'unplugin-icons/loaders';
+import icons from 'unplugin-icons/vite';
 import { emberSsg } from 'vite-ember-ssr/vite-plugin';
 import { defineConfig } from 'vite';
 
@@ -101,6 +103,16 @@ export default defineConfig(async ({ command, mode }) => {
         defaultTheme: 'unidancing'
       }),
       loadTranslations(),
+      // hokulea is icon-agnostic; icons are provided through unplugin-icons
+      // (Phosphor via iconify, custom SVGs from ./public/icons)
+      // https://hokulea.netlify.app/?path=/story/documentation-getting-started-installation--installation
+      icons({
+        autoInstall: true,
+        compiler: 'ember',
+        customCollections: {
+          custom: FileSystemIconLoader('./public/icons')
+        }
+      }),
       ...(prerender ? [emberSsg({ routes, shoebox: true })] : [])
     ],
     resolve: {

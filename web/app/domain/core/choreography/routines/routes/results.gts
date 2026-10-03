@@ -13,6 +13,10 @@ import { or } from 'ember-truth-helpers';
 import { decompressFromEncodedURIComponent } from 'lz-string';
 
 import { IconButton, Page, Popover, popover, TextArea, TextInput } from '@hokulea/ember';
+import IconClipboardText from '~icons/ph/clipboard-text';
+import IconDownloadSimple from '~icons/ph/download-simple';
+import IconExport from '~icons/ph/export';
+import IconPencilSimple from '~icons/ph/pencil-simple';
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { Share, Toolbar } from '../analysis/-components';
@@ -104,7 +108,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
             <Share @routine={{this.data}} />
 
             <IconButton
-              @icon="pencil-simple"
+              @icon={{IconPencilSimple}}
               @importance="subtle"
               @spacing="-1"
               @label="Bearbeiten"
@@ -112,7 +116,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
             />
             {{#if this.exportAvailable}}
               <IconButton
-                @icon="download-simple"
+                @icon={{IconDownloadSimple}}
                 @importance="subtle"
                 @spacing="-1"
                 @label="Speichern"
@@ -122,7 +126,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
 
               {{#let (popover position="bottom-start") as |po|}}
                 <IconButton
-                  @icon="export"
+                  @icon={{IconExport}}
                   @importance="subtle"
                   @spacing="-1"
                   @label="Teilen auf unidancing.art"
@@ -134,7 +138,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
                   <div>
                     <TextInput @value={{this.exportLink}} readonly {{selectWhenFocus}} />
                     <IconButton
-                      @icon="clipboard-text"
+                      @icon={{IconClipboardText}}
                       @importance="subtle"
                       @spacing="-1"
                       @label="Kopieren"

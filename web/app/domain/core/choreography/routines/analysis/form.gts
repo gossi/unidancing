@@ -4,6 +4,7 @@ import { hash } from '@ember/helper';
 import { fn } from '@ember/helper';
 
 import { Button, Form, Icon, Tabs } from '@hokulea/ember';
+import IconWarningFill from '~icons/ph/warning-fill';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
 import styles from './analysis.module.css';
@@ -170,7 +171,7 @@ export class RoutineTesterForm extends Component<{
             <:label>
               {{#if f.rawErrors}}
                 {{#if (includes f.rawErrors "timeTracking")}}
-                  <Icon @icon="warning" @style="fill" />
+                  <Icon @icon={{IconWarningFill}} />
                 {{/if}}
               {{/if}}
               Zeitaufteilung
