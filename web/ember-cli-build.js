@@ -96,11 +96,6 @@ module.exports = function (defaults) {
       enableTypeScriptTransform: true
     },
 
-    svgJar: {
-      sourceDirs: ['public/icons'],
-      optimizer: false
-    },
-
     fingerprint: {
       exlude: ['media/']
     },
