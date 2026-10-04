@@ -1,5 +1,6 @@
-import { Icon } from '@hokulea/ember';
 import IconWarningFill from '~icons/ph/warning-fill';
+
+import { Icon } from '@hokulea/ember';
 
 import styles from './spotify-player-warning.module.css';
 

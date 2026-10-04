@@ -1,10 +1,10 @@
 import Component from '@glimmer/component';
-import { fn } from '@ember/helper';
 import { service } from '@ember/service';
 
-import { IconButton, Popover, popover, Tabs, TextInput } from '@hokulea/ember';
 import IconClipboardText from '~icons/ph/clipboard-text';
 import IconShareFat from '~icons/ph/share-fat';
+
+import { IconButton, Popover, popover, Tabs, TextInput } from '@hokulea/ember';
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { canUseForTraining, makeTrainingLink } from './domain-objects';
@@ -23,7 +23,7 @@ export class Share extends Component<{
 
   get shareLink() {
     try {
-      return window.location.href;
+      return globalThis.location.href;
     } catch {
       return '';
     }

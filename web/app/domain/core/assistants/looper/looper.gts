@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 
 import { ability } from 'ember-ability';
 import { action } from 'ember-command';
@@ -10,7 +8,6 @@ import { restartableTask, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
 import Service, { service } from 'ember-polaris-service';
 import { resource, resourceFactory, use } from 'ember-resources';
-import { and } from 'ember-truth-helpers';
 import { trackedFunction } from 'reactiveweb/function';
 
 import { Form } from '@hokulea/ember';
@@ -55,7 +52,7 @@ function isSameLoop(a: LoopData, b: LoopData) {
 export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
   return resource(({ use: useResource }): (() => LoopTrackData) => {
     const request = useResource(
-      trackedFunction(async () => {
+      trackedFunction(() => {
         const trackResource = useResource(findTrack(loop.trackId));
 
         return {
@@ -74,7 +71,7 @@ export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
               };
             });
           }
-        } as LoopTrackData;
+        };
       })
     );
 
@@ -103,11 +100,10 @@ class LoopService extends Service {
 
     this.elapsedTime = offset ? (offset < 0 ? max + offset : offset) : 0;
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       await this.spotify.client.play({
         uris: [loop.track.uri],
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         position_ms: loop.start + this.elapsedTime // elapsed time includes the duration offset
       });
 
@@ -134,7 +130,7 @@ class LoopService extends Service {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-shadow
-const start = action(({ service }) => async (loop: LoopData, offset: number = 0) => {
+const start = action(({ service }) => async (loop: LoopData, offset = 0) => {
   const loopService = service(LoopService);
 
   await loopService.start(loop, offset);
@@ -173,7 +169,7 @@ const formatDuration = (ms: number) => {
   if (ms < 0) ms = -ms;
 
   const time = {
-    m: Math.floor(ms / 60000) % 60,
+    m: Math.floor(ms / 60_000) % 60,
     s: Math.floor(ms / 1000) % 60,
     ms: Math.floor(ms) % 1000
   };
@@ -271,7 +267,9 @@ class Loop extends Component<LoopSignature> {
   getLoop = (track: LoopTrackData) => {
     if (track.loops.length === 1) {
       return track.loops[0];
-    } else if (this.args.loop) {
+    }
+
+    if (this.args.loop) {
       return track.loops.find((loop) => loop.name === this.args.loop);
     }
   };

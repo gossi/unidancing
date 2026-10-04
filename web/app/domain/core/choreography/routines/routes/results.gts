@@ -1,6 +1,5 @@
 import { tracked } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
-import { fn } from '@ember/helper';
 import { isDevelopingApp } from '@embroider/macros';
 
 import { t } from 'ember-intl';
@@ -9,14 +8,14 @@ import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
-import { or } from 'ember-truth-helpers';
 import { decompressFromEncodedURIComponent } from 'lz-string';
 
-import { IconButton, Page, Popover, popover, TextArea, TextInput } from '@hokulea/ember';
 import IconClipboardText from '~icons/ph/clipboard-text';
 import IconDownloadSimple from '~icons/ph/download-simple';
 import IconExport from '~icons/ph/export';
 import IconPencilSimple from '~icons/ph/pencil-simple';
+
+import { IconButton, Page, Popover, popover, TextArea, TextInput } from '@hokulea/ember';
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { Share, Toolbar } from '../analysis/-components';
@@ -61,7 +60,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
 
   get shareLink() {
     try {
-      return window.location.href;
+      return globalThis.location.href;
     } catch {
       return '';
     }

@@ -22,45 +22,43 @@ export default class ApplicationRoute extends Route {
     this.intl.addTranslations('de', translationsDe);
     this.intl.setLocale('de');
 
-    if (macroCondition(!isDevelopingApp() && !isTesting())) {
-      // analytics scripts would be baked into every prerendered page and run
+    if (
+      macroCondition(!isDevelopingApp() && !isTesting()) && // analytics scripts would be baked into every prerendered page and run
       // twice on rehydrated boots; only inject in the browser
-      if (!isSSR()) {
-        try {
-          // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, @typescript-eslint/naming-convention
-          let _paq = (window._paq = window._paq || []);
+      !isSSR()
+    ) {
+      try {
+        const _paq = (globalThis._paq = globalThis._paq || []);
 
-          /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-          _paq.push(['enableLinkTracking']);
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['enableLinkTracking']);
 
-          (function () {
-            let u = 'https://analytics.otherwheel.com/';
+        (function () {
+          const u = 'https://analytics.otherwheel.com/';
 
-            _paq.push(['setTrackerUrl', u + 'js/index.php']);
-            _paq.push(['setSiteId', '6']);
+          _paq.push(['setTrackerUrl', u + 'js/index.php'], ['setSiteId', '6']);
 
-            let d = document,
-              g = d.createElement('script'),
-              s = d.getElementsByTagName('script')[0];
+          const d = document,
+            g = d.createElement('script'),
+            s = d.querySelector('script');
 
-            g.async = true;
-            g.src = u + 'js/index.php';
-            (s.parentNode as HTMLElement).insertBefore(g, s);
-          })();
+          g.async = true;
+          g.src = u + 'js/index.php';
+          (s.parentNode as HTMLElement).insertBefore(g, s);
+        })();
 
-          this.pageTitle.titleDidUpdate = (title: string) => {
-            const page = this.router.currentURL;
+        this.pageTitle.titleDidUpdate = (title: string) => {
+          const page = this.router.currentURL;
 
-            try {
-              _paq.push(['setCustomUrl', page]);
-              _paq.push(['trackPageView', title.replace(' | UniDancing', '')]);
-            } catch {
-              //
-            }
-          };
-        } catch {
-          //
-        }
+          try {
+            _paq.push(['setCustomUrl', page]);
+            _paq.push(['trackPageView', title.replace(' | UniDancing', '')]);
+          } catch {
+            //
+          }
+        };
+      } catch {
+        //
       }
     }
 
@@ -71,7 +69,7 @@ export default class ApplicationRoute extends Route {
 
     //     inspect({
     //       // options
-    //       // url: 'https://stately.ai/viz?inspect', // (default)
+    //       // URL: 'https://stately.ai/viz?inspect', // (default)
     //       iframe: false // open in new window
     //     });
     //   }

@@ -42,7 +42,7 @@ export class TrainingTesterForm extends Component<{
   constructor(owner: Owner, args: TrainingTesterFormArgs) {
     super(owner, args);
 
-    this.video = args.data.video as string;
+    this.video = args.data.video;
   }
 
   submit = (data: ArtisticFormData) => {

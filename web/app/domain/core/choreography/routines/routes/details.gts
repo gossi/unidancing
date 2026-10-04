@@ -9,11 +9,11 @@ import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
-import { or } from 'ember-truth-helpers';
 import { compressToEncodedURIComponent } from 'lz-string';
 
-import { IconButton, Page } from '@hokulea/ember';
 import IconPencilSimple from '~icons/ph/pencil-simple';
+
+import { IconButton, Page } from '@hokulea/ember';
 
 import { Share, Toolbar } from '../analysis/-components';
 import { findRoutine } from '../analysis/-resource';

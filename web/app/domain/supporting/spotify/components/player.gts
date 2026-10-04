@@ -1,15 +1,14 @@
 import Component from '@glimmer/component';
-import { fn } from '@ember/helper';
 
 import { command } from 'ember-command';
 import { service } from 'ember-polaris-service';
-import { and, not } from 'ember-truth-helpers';
 
-import { Button, Icon, IconButton, Popover, popover } from '@hokulea/ember';
+import IconSpotifyLogo from '~icons/custom/spotify-logo';
 import IconArrowRightThin from '~icons/ph/arrow-right-thin';
 import IconDevicesBold from '~icons/ph/devices-bold';
 import IconWarningFill from '~icons/ph/warning-fill';
-import IconSpotifyLogo from '~icons/custom/spotify-logo';
+
+import { Button, Icon, IconButton, Popover, popover } from '@hokulea/ember';
 
 import { device2Icon, formatArtists } from '../helpers';
 import { SpotifyService } from '../service';

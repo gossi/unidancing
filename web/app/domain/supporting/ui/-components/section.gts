@@ -1,5 +1,3 @@
-import { element } from 'ember-element-helper';
-
 import styles from './content.module.css';
 
 import type { TOC } from '@ember/component/template-only';
@@ -17,8 +15,6 @@ export interface SectionSignature {
   };
 }
 
-const or = (a: unknown, b: unknown) => a || b;
-
 const Section: TOC<SectionSignature> = <template>
   <section class="{{styles.section}}" data-test-section ...attributes>
     {{#if (or (has-block "header") @title)}}
@@ -27,7 +23,7 @@ const Section: TOC<SectionSignature> = <template>
           {{#if @title}}
             <Headline class={{styles.title}}>{{@title}}</Headline>
           {{else if (has-block "header")}}
-            {{!@glint-ignore Headline type shenanigans}}
+            {{! @glint-ignore Headline type shenanigans }}
             {{yield Headline to="header"}}
           {{/if}}
         </header>

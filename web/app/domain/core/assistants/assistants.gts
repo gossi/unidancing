@@ -16,16 +16,18 @@ export interface AssistantParams {
 
 export type AllAssistantParams = DanceMixParams;
 
-export const ALL_ASSISTANT_PARAMS = [...Object.values(DanceMixParam)];
+export const ALL_ASSISTANT_PARAMS = Object.values(DanceMixParam);
 
 export function findAssistant(assistant?: Assistant) {
   switch (assistant) {
-    case Assistant.DanceMix:
+    case Assistant.DanceMix: {
       return DanceMix;
+    }
 
-    case Assistant.Looper:
+    case Assistant.Looper: {
       return Looper;
+    }
   }
 
-  return undefined;
+  return;
 }

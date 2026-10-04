@@ -1,8 +1,5 @@
 import { htmlSafe } from '@ember/template';
 
-import { element } from 'ember-element-helper';
-import { eq, or } from 'ember-truth-helpers';
-
 import type { TOC } from '@ember/component/template-only';
 
 type TinaMarkdownContent = {
@@ -13,7 +10,7 @@ type TinaMarkdownContent = {
   url: string;
   // type = img
   caption: string;
-  // type = code_block | html | html_inline
+  // type = code_block | HTML | html_inline
   value: string;
 
   // anyway
@@ -22,17 +19,21 @@ type TinaMarkdownContent = {
 
 function elementFor(type: string) {
   switch (type) {
-    case 'bold':
+    case 'bold': {
       return 'b';
+    }
 
-    case 'italic':
+    case 'italic': {
       return 'i';
+    }
 
-    case 'strikethrough':
+    case 'strikethrough': {
       return 's';
+    }
 
-    case 'underline':
+    case 'underline': {
       return 'u';
+    }
 
     // case 'h1':
     // case 'h2':
@@ -46,8 +47,9 @@ function elementFor(type: string) {
     // case 'ul':
     // case 'li':
     // case 'code':
-    default:
+    default: {
       return type;
+    }
   }
 }
 

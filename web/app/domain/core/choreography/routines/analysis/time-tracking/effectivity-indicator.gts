@@ -1,6 +1,3 @@
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-
 import {
   formatIndicator,
   formatNumber,
@@ -8,8 +5,9 @@ import {
 } from '@unidancing/app/domain/supporting/utils';
 import { link } from 'ember-link';
 
-import { Card, Icon } from '@hokulea/ember';
 import IconInfo from '~icons/ph/info';
+
+import { Card, Icon } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateEffectiveness } from './domain';

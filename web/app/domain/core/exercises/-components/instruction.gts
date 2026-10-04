@@ -1,7 +1,3 @@
-import { fn } from '@ember/helper';
-
-import { and, or } from 'ember-truth-helpers';
-
 import { Button } from '@hokulea/ember';
 
 import { TinaMarkdown } from '../../../supporting/tina';
@@ -70,7 +66,7 @@ export const Instruction: TOC<InstructionSignature> = <template>
             </abbr>
           </div>
           <div data-media>
-            {{#if (and s.media)}}
+            {{#if s.media}}
               <Media @media={{asMediaCollection s.media}} />
             {{/if}}
 

@@ -1,10 +1,10 @@
 import Component from '@glimmer/component';
 
 import { modifier } from 'ember-modifier';
-import { or } from 'ember-truth-helpers';
+
+import IconX from '~icons/ph/x';
 
 import { IconButton } from '@hokulea/ember';
-import IconX from '~icons/ph/x';
 
 import styles from './dialog.module.css';
 
@@ -18,7 +18,6 @@ export interface DialogSignature {
 }
 
 export class Dialog extends Component<DialogSignature> {
-  // @ts-expect-error overriding parent type with more precise one for our case
   element?: HTMLDialogElement;
 
   ref = modifier((element: HTMLDialogElement) => {

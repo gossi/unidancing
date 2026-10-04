@@ -1,7 +1,6 @@
 import { action } from 'ember-command';
 
 import { isSSR } from '../utils';
-
 import { AudioService } from './service';
 import styles from './soundboard.module.css';
 import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';

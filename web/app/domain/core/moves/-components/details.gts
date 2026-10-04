@@ -1,5 +1,3 @@
-import { on } from '@ember/modifier';
-
 import { Page } from '@hokulea/ember';
 
 import { TinaMarkdown } from '../../../supporting/tina';

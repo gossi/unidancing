@@ -38,7 +38,7 @@ export class TrainingDiagnosticsBodyLanguageRoute extends Route<object> {
         Körpersprache während einer Kür. Bei dieser Methode werden Kostüm und Musik für den
         Zuschauer ausgesetzt, um damit verbundene Assoziationen auszuschalten. Anhand dieser Methode
         lässt sich der Inhalt und die Aussage
-        {{!(siehe \fullref{sec:Unidancing_Umsetzung})}}
+        {{! (siehe \fullref{sec:Unidancing_Umsetzung}) }}
         einer Kür erkennen. Im Gegensatz zu den vorigen drei diagnostischen Tests, wird hierbei
         keine objektive Kenngröße ermittelt. Es handelt sich vielmehr um eine Methode, die durch
         Kostüm und Musik getrübte Sicht auf eine Kür deutlich zu machen, um die subjektive

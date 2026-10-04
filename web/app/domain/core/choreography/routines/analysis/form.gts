@@ -1,10 +1,9 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { hash } from '@ember/helper';
-import { fn } from '@ember/helper';
+
+import IconWarningFill from '~icons/ph/warning-fill';
 
 import { Button, Form, Icon, Tabs } from '@hokulea/ember';
-import IconWarningFill from '~icons/ph/warning-fill';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
 import styles from './analysis.module.css';
@@ -35,15 +34,15 @@ interface Data extends ArtisticFormData, TimeTrackingFormData, NotTodoListFormDa
 }
 
 function asArtisticFormBuilder(f: FormBuilder<Data, void>) {
-  return f as FormBuilder<ArtisticFormData, void>;
+  return f;
 }
 
 function asTimeTrackingFormBuilder(f: FormBuilder<Data, void>) {
-  return f as FormBuilder<TimeTrackingFormData, void>;
+  return f;
 }
 
 function asNotTodoListFormBuilder(f: FormBuilder<Data, void>) {
-  return f as FormBuilder<NotTodoListFormData, void>;
+  return f;
 }
 
 function includes(haystack: Record<string, unknown> | unknown[], needle: unknown) {

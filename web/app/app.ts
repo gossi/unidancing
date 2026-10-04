@@ -1,10 +1,10 @@
-import EmberApp from 'ember-strict-application-resolver';
-
-import { default as HokuleaService } from '@hokulea/ember/services/-hokulea';
 import IntlService from 'ember-intl/services/intl';
 import LinkManagerService from 'ember-link/services/link-manager';
 import PageTitleService from 'ember-page-title/services/page-title';
 import PortalService from 'ember-stargate/services/-portal';
+import EmberApp from 'ember-strict-application-resolver';
+
+import HokuleaService from '@hokulea/ember/services/-hokulea';
 
 import config from './config/environment';
 import Router from './router';

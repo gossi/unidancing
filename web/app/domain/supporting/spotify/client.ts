@@ -114,7 +114,7 @@ export class SpotifyClient {
     if (this.player.ready) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       await this.selectDevice({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

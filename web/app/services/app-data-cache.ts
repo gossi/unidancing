@@ -15,7 +15,7 @@ const pending = new Set<Promise<unknown>>();
 
 export async function drainPending(): Promise<void> {
   while (pending.size > 0) {
-    await Promise.allSettled(Array.from(pending));
+    await Promise.allSettled(pending);
   }
 }
 
@@ -93,9 +93,9 @@ export default class AppDataCacheService extends Service {
 
     script.type = 'application/json';
     script.id = ISLAND_ID;
-    script.textContent = JSON.stringify(Object.fromEntries(this.#data)).replace(
+    script.textContent = JSON.stringify(Object.fromEntries(this.#data)).replaceAll(
       /<\/(script)/gi,
-      '<\\/$1'
+      String.raw`<\/$1`
     );
 
     document.head.append(script);

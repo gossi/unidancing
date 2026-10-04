@@ -25,7 +25,7 @@ module('Spotify | Integration | Tracks', function (hooks) {
     assert.true(
       play.calledOnceWith({
         uris: [RADIOACTIVE.uri],
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         position_ms: 0
       })
     );

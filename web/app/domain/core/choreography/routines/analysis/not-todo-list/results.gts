@@ -17,16 +17,16 @@ interface NotTodoListResultsSignature {
 }
 
 export class NotTodoListResults extends Component<NotTodoListResultsSignature> {
+  filter = (practices: Awfulpractice[]): Awfulpractice[] => {
+    return practices.filter((p) => this.args.data.includes(p._sys.filename));
+  };
+
   @cached
   get load() {
     const promise = use(this, findAwfulPractices()).current;
 
     return Task.promise(promise);
   }
-
-  filter = (practices: Awfulpractice[]): Awfulpractice[] => {
-    return practices.filter((p) => this.args.data.includes(p._sys.filename));
-  };
 
   <template>
     {{#let this.load as |r|}}

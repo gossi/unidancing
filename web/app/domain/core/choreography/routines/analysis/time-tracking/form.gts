@@ -11,7 +11,7 @@ import type { FormBuilder } from '@hokulea/ember';
 interface TimelineFormSignature {
   Args: {
     active: boolean;
-    form: FormBuilder<TimeTrackingFormData, void>;
+    form: FormBuilder<TimeTrackingFormData>;
     playerApi?: YoutubePlayerAPI;
   };
 }
@@ -28,7 +28,7 @@ export class TimelineForm extends Component<TimelineFormSignature> {
       }));
     }
 
-    return undefined;
+    return;
   };
 
   <template>

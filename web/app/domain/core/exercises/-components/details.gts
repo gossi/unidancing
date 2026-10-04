@@ -1,7 +1,4 @@
 import { uniqueId } from '@ember/helper';
-import { on } from '@ember/modifier';
-
-import { or } from 'ember-truth-helpers';
 
 import { Page } from '@hokulea/ember';
 

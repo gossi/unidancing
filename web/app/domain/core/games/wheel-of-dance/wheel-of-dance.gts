@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { fn } from '@ember/helper';
 import { getOwner } from '@ember/owner';
 
 import { AudioPlayer, AudioService } from '@unidancing/app/domain/supporting/audio';
@@ -22,8 +21,9 @@ import PortalTarget from 'ember-stargate/components/portal-target';
 import { useMachine } from 'ember-statecharts';
 import { assign } from 'xstate';
 
-import { Button, Form, IconButton } from '@hokulea/ember';
 import IconGear from '~icons/ph/gear';
+
+import { Button, Form, IconButton } from '@hokulea/ember';
 
 import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';

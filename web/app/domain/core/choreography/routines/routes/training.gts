@@ -29,10 +29,10 @@ export class RoutineTrainingRoute extends Route<{ data?: string }> {
         return data;
       }
     } catch {
-      return undefined;
+      return;
     }
 
-    return undefined;
+    return;
   }
 
   <template>

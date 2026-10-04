@@ -1,8 +1,8 @@
+import IconUnicycle from '~icons/custom/unicycle';
 import IconFootprints from '~icons/ph/footprints';
 import IconUser from '~icons/ph/user';
 import IconUsers from '~icons/ph/users';
 import IconUsersThree from '~icons/ph/users-three';
-import IconUnicycle from '~icons/custom/unicycle';
 
 import type { Locomotion, Personal } from './domain-objects';
 
@@ -23,11 +23,13 @@ export function getLocomotionIcon(locomotion: Locomotion) {
 
 export function getLocomotionText(locomotion: Locomotion) {
   switch (locomotion) {
-    case 'pedes':
+    case 'pedes': {
       return 'per Pedes';
+    }
 
-    case 'unicycle':
+    case 'unicycle': {
       return 'per Unicycle';
+    }
   }
 }
 
@@ -37,14 +39,17 @@ export function getPersonalIcon(personal: Personal) {
 
 export function getPersonalText(personal: Personal) {
   switch (personal) {
-    case 'individual':
+    case 'individual': {
       return 'Einzel';
+    }
 
-    case 'pair':
+    case 'pair': {
       return 'Paar';
+    }
 
-    case 'group':
+    case 'group': {
       return 'Gruppe';
+    }
   }
 }
 
@@ -73,7 +78,7 @@ const METHOD = {
     label: 'Showcase',
     abbr: 'SC'
   },
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   'frontal-teaching': {
     label: 'Frontalunterricht',
     abbr: 'FU'

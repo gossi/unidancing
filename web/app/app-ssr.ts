@@ -2,11 +2,10 @@ import '@formatjs/intl-durationformat/polyfill';
 
 import { settled as emberSettled } from '@ember/test-helpers';
 
-import { setSSRMode } from './domain/supporting/utils';
-import { drainPending } from './services/app-data-cache';
-
 import Application from './app';
 import config from './config/environment';
+import { setSSRMode } from './domain/supporting/utils';
+import { drainPending } from './services/app-data-cache';
 
 // Marks the app as server-rendering: data fetches are awaited by the
 // renderer and their results are serialized into a JSON data island in

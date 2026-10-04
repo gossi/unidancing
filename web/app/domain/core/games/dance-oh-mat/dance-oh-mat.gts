@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { array, fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
 
@@ -15,10 +13,11 @@ import PortalTarget from 'ember-stargate/components/portal-target';
 import { useMachine } from 'ember-statecharts';
 import { assign, createMachine } from 'xstate';
 
-import { Button, Form, IconButton } from '@hokulea/ember';
 import IconPauseFill from '~icons/ph/pause-fill';
 import IconPlayFill from '~icons/ph/play-fill';
 import IconQuestion from '~icons/ph/question';
+
+import { Button, Form, IconButton } from '@hokulea/ember';
 
 import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
 import {
@@ -68,7 +67,7 @@ const getParam =
       return router.currentRoute.queryParams[param] as A[P];
     }
 
-    return DEFAULTS[param] as A[P];
+    return DEFAULTS[param];
   };
 
 type Context = { rounds: number; duration: number; roundsToGo: number };
@@ -147,8 +146,8 @@ const Machine = createMachine(
     },
     schema: {
       events: {} as
-        | { type: 'help' }
         | ({ type: 'play' } & GameParams)
+        | { type: 'help' }
         | { type: 'dance'; track: Track }
         | { type: 'start' }
         | { type: 'finish' }

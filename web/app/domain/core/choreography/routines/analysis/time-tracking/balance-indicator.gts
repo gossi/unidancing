@@ -1,12 +1,12 @@
 import { concat } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 
 import { formatPercent, formatSeconds } from '@unidancing/app/domain/supporting/utils';
 import { link } from 'ember-link';
 
-import { Card, Icon, Tabs } from '@hokulea/ember';
 import IconInfo from '~icons/ph/info';
+
+import { Card, Icon, Tabs } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateBalance } from './domain';

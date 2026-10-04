@@ -164,7 +164,7 @@ export function evaluateTimeTracking(data: WireTimeTracking): TimeTrackingEvalua
   const evaluation = Object.fromEntries(
     Object.entries(Object.groupBy(data.scenes, ({ category }) => category)).map(([k, points]) => {
       const dur = Math.round(points.reduce((acc, d) => acc + (d.end - d.start), 0) * 1000) / 1000;
-      const ratio = Math.round((dur / duration) * 10000) / 10000;
+      const ratio = Math.round((dur / duration) * 10_000) / 10_000;
 
       return [k, { duration: dur, ratio }];
     })
@@ -189,10 +189,10 @@ export function calculateEffectiveness(data: TimeAnalysis, groups = CATEGORY_GRO
   const effectiveGroups = [];
 
   for (const group of groups) {
-    if (data.evaluation[group.id as keyof TimeTrackingGroupsEvaluation]) {
+    if (data.evaluation[group.id]) {
       const value =
-        (data.evaluation[group.id as keyof TimeTrackingGroupsEvaluation] as EvaluationPoint)
-          .duration * (group.attractivity === Attractivity.Attractor ? 1 : -1);
+        (data.evaluation[group.id] as EvaluationPoint).duration *
+        (group.attractivity === Attractivity.Attractor ? 1 : -1);
 
       duration += value;
 
@@ -203,7 +203,7 @@ export function calculateEffectiveness(data: TimeAnalysis, groups = CATEGORY_GRO
     }
   }
 
-  const indicator = Math.round((duration / data.duration) * 10000) / 10000;
+  const indicator = Math.round((duration / data.duration) * 10_000) / 10_000;
 
   return {
     duration,

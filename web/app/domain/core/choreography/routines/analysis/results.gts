@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import { not, or } from 'ember-truth-helpers';
-
 import { Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';

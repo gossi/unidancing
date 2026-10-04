@@ -1,21 +1,19 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
-import { concat, hash } from '@ember/helper';
-import { on } from '@ember/modifier';
+import { concat } from '@ember/helper';
 import { next } from '@ember/runloop';
 
 import { use } from 'ember-resources';
-import { eq } from 'ember-truth-helpers';
 import { TrackedObject, TrackedSet } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
 
-import { Button, Form, Icon, IconButton } from '@hokulea/ember';
 import IconArrowRight from '~icons/ph/arrow-right';
 import IconCheck from '~icons/ph/check';
 import IconPencil from '~icons/ph/pencil';
 import IconPlus from '~icons/ph/plus';
 import IconTrash from '~icons/ph/trash';
+
+import { Button, Form, Icon, IconButton } from '@hokulea/ember';
 
 import { findAwfulPractices } from '../../choreography';
 import styles from './bingo.module.css';
@@ -52,20 +50,20 @@ class Bingo {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   @tracked winner: Set<Awfulpractice> = new TrackedSet();
-  @tracked finished: boolean = false;
+  @tracked finished = false;
 
-  private static STORAGE_PRINCIPLES: string = 'bullshit_bingo.principles';
-  private static STORAGE_SELECTION: string = 'bullshit_bingo.selection';
+  private static STORAGE_PRINCIPLES = 'bullshit_bingo.principles';
+  private static STORAGE_SELECTION = 'bullshit_bingo.selection';
 
   static hasSavegame() {
-    const principles = window.localStorage.getItem(Bingo.STORAGE_PRINCIPLES);
+    const principles = globalThis.localStorage.getItem(Bingo.STORAGE_PRINCIPLES);
 
     return Boolean(principles);
   }
 
   static loadSavegame(): Bingo | undefined {
-    const data = window.localStorage.getItem(Bingo.STORAGE_PRINCIPLES);
-    const selection = window.localStorage.getItem(Bingo.STORAGE_SELECTION);
+    const data = globalThis.localStorage.getItem(Bingo.STORAGE_PRINCIPLES);
+    const selection = globalThis.localStorage.getItem(Bingo.STORAGE_SELECTION);
 
     if (!data) {
       return;
@@ -94,8 +92,8 @@ class Bingo {
     this.principles = principles;
 
     // clear local storage for a fresh game
-    window.localStorage.removeItem(Bingo.STORAGE_PRINCIPLES);
-    window.localStorage.removeItem(Bingo.STORAGE_SELECTION);
+    globalThis.localStorage.removeItem(Bingo.STORAGE_PRINCIPLES);
+    globalThis.localStorage.removeItem(Bingo.STORAGE_SELECTION);
 
     // save new game
     this.persistPrinciples();
@@ -185,14 +183,18 @@ class Bingo {
       }
     }
 
-    const lines = [rows, cols, cross].reduce((acc, val) => acc.concat(val), []);
-    const winnerLine = lines.findIndex((line) => line.every((v) => v === true));
+    const lines = [rows, cols, cross].flat();
+    const winnerLine = lines.findIndex((line) => line.every(Boolean));
 
-    if (winnerLine >= 0 && winnerLine <= 4) {
+    if (winnerLine !== -1 && winnerLine <= 4) {
       return ['row', winnerLine + 1];
-    } else if (winnerLine >= 5 && winnerLine <= 9) {
+    }
+
+    if (winnerLine >= 5 && winnerLine <= 9) {
       return ['col', winnerLine + 1 - 5];
-    } else if (winnerLine >= 10) {
+    }
+
+    if (winnerLine >= 10) {
       return ['cross', winnerLine - 10];
     }
 
@@ -210,14 +212,11 @@ class Bingo {
   }
 
   private persistPrinciples() {
-    window.localStorage.setItem(Bingo.STORAGE_PRINCIPLES, JSON.stringify(this.principles));
+    globalThis.localStorage.setItem(Bingo.STORAGE_PRINCIPLES, JSON.stringify(this.principles));
   }
 
   private persistSelection() {
-    window.localStorage.setItem(
-      Bingo.STORAGE_SELECTION,
-      JSON.stringify(Array.from(this.selection))
-    );
+    globalThis.localStorage.setItem(Bingo.STORAGE_SELECTION, JSON.stringify([...this.selection]));
   }
 }
 
@@ -228,14 +227,14 @@ interface Counter {
 }
 
 class Counters {
-  private static STORAGE_COUNTER: string = 'bullshit_bingo.counter';
-  private static STORAGE_ACTIVE_COUNTER_ID: string = 'bullshit_bingo.active_counter_id';
+  private static STORAGE_COUNTER = 'bullshit_bingo.counter';
+  private static STORAGE_ACTIVE_COUNTER_ID = 'bullshit_bingo.active_counter_id';
 
   @tracked counters: Record<string, Counter> = new TrackedObject();
   @tracked activeCounter!: Counter;
 
   constructor() {
-    if (window !== undefined) {
+    if (globalThis !== undefined) {
       this.load();
     }
 
@@ -246,8 +245,8 @@ class Counters {
   }
 
   load() {
-    const activeCounter = window.localStorage.getItem(Counters.STORAGE_ACTIVE_COUNTER_ID);
-    const data = window.localStorage.getItem(Counters.STORAGE_COUNTER);
+    const activeCounter = globalThis.localStorage.getItem(Counters.STORAGE_ACTIVE_COUNTER_ID);
+    const data = globalThis.localStorage.getItem(Counters.STORAGE_COUNTER);
     const counters: Record<string, Counter> = data ? new TrackedObject(JSON.parse(data)) : {};
 
     for (const [id, counter] of Object.entries(counters)) {
@@ -275,10 +274,12 @@ class Counters {
   }
 
   activateCounter = (id: string) => {
-    if (this.counters[id]) {
-      this.activeCounter = this.counters[id];
-      window.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
+    if (!this.counters[id]) {
+      return;
     }
+
+    this.activeCounter = this.counters[id];
+    globalThis.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
   };
 
   renameCounter = (id: string, name: string) => {
@@ -319,8 +320,8 @@ class Counters {
   };
 
   persistCounters() {
-    window.localStorage.setItem(Counters.STORAGE_COUNTER, JSON.stringify(this.counters));
-    window.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, this.activeCounter.id);
+    globalThis.localStorage.setItem(Counters.STORAGE_COUNTER, JSON.stringify(this.counters));
+    globalThis.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, this.activeCounter.id);
   }
 }
 
@@ -397,7 +398,7 @@ export default class BingoComponent extends Component {
   @tracked principles: Awfulpractice[] = [];
 
   @tracked gamePrinciples: Awfulpractice[] = [];
-  @tracked display: string = 'game';
+  @tracked display = 'game';
   @tracked game?: Bingo;
   counters = new Counters();
 

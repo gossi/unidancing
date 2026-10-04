@@ -15,7 +15,8 @@ export default defineConfig([
   ...ember(import.meta.dirname),
   {
     rules: {
-      'unicorn/consistent-function-scoping': 'off'
+      'unicorn/consistent-function-scoping': 'off',
+      'unicorn/consistent-class-member-order': 'off'
     }
   }
 ]);

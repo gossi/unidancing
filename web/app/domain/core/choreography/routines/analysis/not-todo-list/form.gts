@@ -11,7 +11,7 @@ import type { FormBuilder } from '@hokulea/ember';
 
 interface NotTodoListFormSignature {
   Args: {
-    form: FormBuilder<NotTodoListFormData, void>;
+    form: FormBuilder<NotTodoListFormData>;
   };
 }
 

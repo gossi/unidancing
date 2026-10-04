@@ -3,7 +3,7 @@ module.exports = function (/* environment */) {
     // Path where translations are stored, relative to the project root.
     inputPath: 'translations',
 
-    // Prevents the translations from being bundled with the application code.
+    // Prevents the translations from being bundled with the app code.
     // See: https://ember-intl.github.io/ember-intl/docs/guide/asynchronously-loading-translations
     publicOnly: false,
 

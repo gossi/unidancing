@@ -1,5 +1,3 @@
-import { element } from 'ember-element-helper';
-
 import styles from './content.module.css';
 
 import type { TOC } from '@ember/component/template-only';

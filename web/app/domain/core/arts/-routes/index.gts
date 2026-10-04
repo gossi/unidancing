@@ -3,8 +3,9 @@ import { LinkTo } from '@ember/routing';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Icon } from '@hokulea/ember';
 import IconArrowLeft from '~icons/ph/arrow-left';
+
+import { Icon } from '@hokulea/ember';
 
 import styles from './styles.module.css';
 

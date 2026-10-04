@@ -12,6 +12,10 @@ import type { ArtisticResults, CategoryResult, PartResult } from '../../artistic
 export class ArtisticSummary extends Component<{
   Args: { data: ArtisticResults };
 }> {
+  categoryIntlName = (part: PartResult, category: CategoryResult) => {
+    return `artistic-${part.name}-${category.name}`;
+  };
+
   get system() {
     return loadSystem(loadSystemDescriptor(this.args.data.name));
   }
@@ -19,10 +23,6 @@ export class ArtisticSummary extends Component<{
   get score() {
     return (this.args.data.parts.find((p) => p.name === 'performance') as PartResult).score;
   }
-
-  categoryIntlName = (part: PartResult, category: CategoryResult) => {
-    return `artistic-${part.name}-${category.name}`;
-  };
 
   <template>
     <div class={{styles.summary}}>

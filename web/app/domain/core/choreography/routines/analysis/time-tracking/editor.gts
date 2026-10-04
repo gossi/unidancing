@@ -130,14 +130,10 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     this.currentTime = currentTime;
 
     // update running
-    const updates = [];
-
-    for (const datapoints of this.running.values()) {
-      updates.push({
-        ...datapoints,
-        end: currentTime * 1000
-      });
-    }
+    const updates = Array.from(this.running.values(), (datapoints) => ({
+      ...datapoints,
+      end: currentTime * 1000
+    }));
 
     this.data.update(updates);
   };
@@ -161,7 +157,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   };
 
   trackStartStop = (time: number) => {
-    const data = this.args.data ?? ({} as TimeTracking);
+    const data = this.args.data ?? {};
 
     const startExists = data.start !== undefined;
     const endExists = data.end !== undefined;
@@ -235,7 +231,9 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   };
 
   maybeMerge = (item: TimelineItem, callback: (item: TimelineItem | null) => void) => {
-    if (item.group !== 'marker') {
+    if (item.group === 'marker') {
+      item.start = dateToMilliseconds(item.start as Date);
+    } else {
       const start = (item.start = dateToMilliseconds(item.start as Date));
       const end = (item.end = dateToMilliseconds(item.end as Date));
 
@@ -254,8 +252,6 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
 
         this.data.remove(overlap);
       }
-    } else {
-      item.start = dateToMilliseconds(item.start as Date);
     }
 
     callback(item);

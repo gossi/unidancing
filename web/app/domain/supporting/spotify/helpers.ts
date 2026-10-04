@@ -1,5 +1,5 @@
-import IconDeviceMobile from '~icons/ph/device-mobile';
 import IconDesktop from '~icons/ph/desktop';
+import IconDeviceMobile from '~icons/ph/device-mobile';
 import IconSpeakerHifi from '~icons/ph/speaker-hifi';
 import IconTelevisionSimple from '~icons/ph/television-simple';
 
@@ -21,5 +21,5 @@ export function device2Icon(
     ? 'Computer' | 'TV' | 'Smartphone' | 'Speaker'
     : string
 ): DeviceIcon {
-  return deviceMap[device.toLowerCase() as keyof typeof deviceMap] as DeviceIcon;
+  return deviceMap[device.toLowerCase() as keyof typeof deviceMap];
 }

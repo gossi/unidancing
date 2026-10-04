@@ -17,7 +17,6 @@
     "noEmit": true,
     "inlineSourceMap": true,
     "inlineSources": true,
-    "baseUrl": ".",
     "module": "ESNext",
     "experimentalDecorators": true,
     "skipLibCheck": true,
@@ -75,19 +74,19 @@
       //   "app/domain/supporting/utils"
       // ],
       "@/tina/*": [
-        "tina/__generated__/*"
+        "./tina/__generated__/*"
       ],
       /*
         App
       */
       "@unidancing/app/tests/*": [
-        "tests/*"
+        "./tests/*"
       ],
       "@unidancing/app/*": [
-        "app/*"
+        "./app/*"
       ],
       "*": [
-        "types/*"
+        "./types/*"
       ]
     }
   },

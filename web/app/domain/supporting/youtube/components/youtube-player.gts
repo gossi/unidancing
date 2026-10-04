@@ -1,17 +1,15 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 
 import { task, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
-import { notEq } from 'ember-truth-helpers';
 import getVideoId from 'get-video-id';
 import YTPlayer from 'youtube-player';
 
-import { Button, IconButton, RangeInput } from '@hokulea/ember';
 import IconPauseFill from '~icons/ph/pause-fill';
 import IconPlayFill from '~icons/ph/play-fill';
+
+import { Button, IconButton, RangeInput } from '@hokulea/ember';
 
 import { durationToSeconds, formatDuration, secondsToDuration } from '../../utils';
 import styles from './player.module.css';
@@ -37,9 +35,9 @@ declare namespace YT {
  */
 interface Parameters {
   autoplay?: 0 | 1 | undefined;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   cc_lang_pref?: string | undefined;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   cc_load_policy?: 1 | undefined;
   color?: 'red' | 'white' | undefined;
   controls?: 0 | 1 | undefined;
@@ -48,7 +46,7 @@ interface Parameters {
   end?: number | undefined;
   fs?: 0 | 1 | undefined;
   hl?: string | undefined;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   iv_load_policy?: 1 | 3 | undefined;
   list?: string | undefined;
   listType?: 'playlist' | 'search' | 'user_uploads' | undefined;
@@ -59,7 +57,7 @@ interface Parameters {
   playsinline?: 0 | 1 | undefined;
   rel?: 0 | 1 | undefined;
   start?: number | undefined;
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+
   widget_referrer?: string | undefined;
 }
 
@@ -160,11 +158,11 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
     const self = this;
 
     (player as YoutubePlayerAPI).toggle = () => {
-      return self.toggle();
+      self.toggle();
     };
 
     (player as YoutubePlayerAPI).seek = (offset: number) => {
-      return self.seek(offset);
+      self.seek(offset);
     };
 
     return new Proxy(player, {
@@ -208,7 +206,6 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
   seeking = task(async () => {
     let counter = 0;
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       await timeout(10);
       this.currentTime = this.currentTime?.add({ milliseconds: 10 });
@@ -243,14 +240,15 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
 
   handleKeyboard = (event: KeyboardEvent) => {
     switch (event.key) {
-      case ' ':
+      case ' ': {
         this.toggle();
         event.preventDefault();
         event.stopPropagation();
 
         break;
+      }
 
-      case 'ArrowRight':
+      case 'ArrowRight': {
         if (event.altKey) {
           this.seek(0.25);
         } else if (event.ctrlKey) {
@@ -265,8 +263,9 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
         event.stopPropagation();
 
         break;
+      }
 
-      case 'ArrowLeft':
+      case 'ArrowLeft': {
         if (event.altKey) {
           this.seek(-0.25);
         } else if (event.ctrlKey) {
@@ -281,6 +280,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
         event.stopPropagation();
 
         break;
+      }
     }
   };
 
@@ -303,7 +303,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
         {{on "keydown" this.preventDefault}}
       />
 
-      {{#if (notEq @controls false)}}
+      {{#if (neq @controls false)}}
         <div class={{styles.controls}}>
           <IconButton
             @spacing="-1"

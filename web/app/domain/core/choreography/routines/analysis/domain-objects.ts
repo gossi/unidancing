@@ -48,7 +48,7 @@ export function makeTrainingLink(routine: RoutineResult, router: RouterService) 
     const qs = compressToEncodedURIComponent(JSON.stringify(data));
     const path = router.urlFor('choreography.routines.training', qs);
 
-    return `${window.location.origin}${path}`;
+    return `${globalThis.location.origin}${path}`;
   } catch {
     return '';
   }

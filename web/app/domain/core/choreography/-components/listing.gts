@@ -1,11 +1,8 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { cached } from '@glimmer/tracking';
-import { on } from '@ember/modifier';
+import { cached, tracked } from '@glimmer/tracking';
 
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
-import { eq } from 'ember-truth-helpers';
 
 import { AwfulPracticeDetails, TagLabel } from '../awful-practices/components';
 import { TAGS } from '../awful-practices/domain';
@@ -18,11 +15,7 @@ export default class ChoreographyNotTodoList extends Component {
 
   setFilter = (tag: Tag) => {
     return () => {
-      if (tag === this.tag) {
-        this.tag = undefined;
-      } else {
-        this.tag = tag;
-      }
+      this.tag = tag === this.tag ? undefined : tag;
     };
   };
 

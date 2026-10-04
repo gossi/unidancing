@@ -21,15 +21,11 @@ export const findAwfulPractices = resourceFactory(
       };
 
       const practices = await cacheResult('awful-practices', owner, async () => {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
         const apResponse = await client.queries.awfulpracticeConnection(vars);
 
-        return (
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-          (apResponse.data.awfulpracticeConnection.edges as Edges[] | undefined)?.map(
-            (ap) => ap.node
-          ) as Awfulpractice[]
-        );
+        return (apResponse.data.awfulpracticeConnection.edges as Edges[] | undefined)?.map(
+          (ap) => ap.node
+        ) as Awfulpractice[];
       });
 
       return practices;

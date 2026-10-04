@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
 import { next } from '@ember/runloop';
 import { service } from '@ember/service';
@@ -111,7 +109,7 @@ const DanceMixMachine = createMachine({
         }
       }
     },
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     'choosing-playlist': {
       on: {
         selectPlaylist: {
@@ -158,23 +156,25 @@ class Play extends Component<PlaySignature> {
   }
 
   start = async () => {
-    if (this.args.playlist.tracks) {
-      this.tracks = getRandomTracks(getTracks(this.args.playlist), this.args.amount);
-
-      try {
-        await this.mix.perform({
-          duration: this.args.duration,
-          pause: this.args.pause,
-          tracks: this.tracks
-        });
-      } catch (e) {
-        if (!didCancel(e)) {
-          throw e;
-        }
-      }
-
-      this.finish();
+    if (!this.args.playlist.tracks) {
+      return;
     }
+
+    this.tracks = getRandomTracks(getTracks(this.args.playlist), this.args.amount);
+
+    try {
+      await this.mix.perform({
+        duration: this.args.duration,
+        pause: this.args.pause,
+        tracks: this.tracks
+      });
+    } catch (error) {
+      if (!didCancel(error)) {
+        throw error;
+      }
+    }
+
+    this.finish();
   };
 
   mix = dropTask(

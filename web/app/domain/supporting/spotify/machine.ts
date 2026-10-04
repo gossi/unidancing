@@ -106,22 +106,12 @@ export const SpotifyMachine = createMachine({
   }
 }).withConfig({
   guards: {
-    hasDevices() {
-      return false;
-    }
+    hasDevices: () => false
   },
   services: {
-    connectPlayer: createMachine({
-      /* ... */
-    }),
-    loadDevices: createMachine({
-      /* ... */
-    }),
-    autoselectDevice: createMachine({
-      /* ... */
-    }),
-    loadPlayback: createMachine({
-      /* ... */
-    })
+    connectPlayer: createMachine({/* ... */}),
+    loadDevices: createMachine({/* ... */}),
+    autoselectDevice: createMachine({/* ... */}),
+    loadPlayback: createMachine({/* ... */})
   }
 });

@@ -1,7 +1,3 @@
-import { on } from '@ember/modifier';
-
-import { or } from 'ember-truth-helpers';
-
 import { Card } from '@hokulea/ember';
 
 import { Icon, Tag } from '../../../supporting/ui';

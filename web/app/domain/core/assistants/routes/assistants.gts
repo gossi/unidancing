@@ -6,14 +6,13 @@ import { findAssistant } from '../assistants';
 import type { Assistant } from '../assistants';
 
 export class AssistantsRoute extends Route<{ assistant: string }> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   get Assistant() {
     return findAssistant(this.params.assistant as Assistant);
   }
 
   <template>
     {{#if this.Assistant}}
-      {{!@glint-ignore}}
+      {{! @glint-ignore }}
       <this.Assistant />
     {{/if}}
   </template>

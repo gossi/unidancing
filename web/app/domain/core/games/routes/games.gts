@@ -9,7 +9,6 @@ import { asGame, findGame, getGameTitle } from '../games';
 import type { Game } from '../games';
 
 export class GamesRoute extends Route<{ game: Game }> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   get Game() {
     return findGame(this.params.game as Game);
   }
