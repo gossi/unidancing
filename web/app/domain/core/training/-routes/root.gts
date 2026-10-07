@@ -1,28 +1,27 @@
-import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { SectionedPage } from '@hokulea/ember';
 
 export class TrainingRootRoute extends Route<object> {
   <template>
     {{pageTitle "Training"}}
 
-    <Page>
+    <SectionedPage>
       <:title>Training</:title>
       <:nav as |Item|>
-        <Item @link={{link "training.index"}}>Übersicht</Item>
-        <Item @link={{link "training.athletic-profile"}}>Leistungsprofil</Item>
-        <Item @link={{link "training.planning"}}>Planung</Item>
-        <Item @link={{link "training.control"}}>Steuerung</Item>
-        <Item @link={{link "training.diagnostics"}}>Diagnostik</Item>
+        <Item @href="/training/">Übersicht</Item>
+        <Item @href="/training/leistungsprofil">Leistungsprofil</Item>
+        <Item @href="/training/planning">Planung</Item>
+        <Item @href="/training/control">Steuerung</Item>
+        <Item @href="/training/diagnostics">Diagnostik</Item>
       </:nav>
 
       <:content>
         {{outlet}}
       </:content>
-    </Page>
+    </SectionedPage>
   </template>
 }
 

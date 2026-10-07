@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
+  '@hokulea/ember@0.16.1':
+    hash: 8a2de2a983e5b0eddf383cacb398e30e6147a0b6a22ade30090ca5328d036d09
+    path: patches/@hokulea__ember@0.16.1.patch
   spotify-web-playback@1.4.0:
     hash: 607d53da921f96da0a40e2680e2307516e20bee10b7df67592b20bea47ad295e
     path: patches/spotify-web-playback@1.4.0.patch
@@ -98,6 +101,9 @@ importers:
       '@ember-intl/vite':
         specifier: ^2.0.4
         version: 2.0.4
+      '@ember/app-tsconfig':
+        specifier: 2.1.0
+        version: 2.1.0
       '@ember/string':
         specifier: ^4.0.1
         version: 4.0.1
@@ -157,7 +163,7 @@ importers:
         version: 0.12.0
       '@hokulea/ember':
         specifier: ^0.16.1
-        version: 0.16.1(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)
+        version: 0.16.1(patch_hash=8a2de2a983e5b0eddf383cacb398e30e6147a0b6a22ade30090ca5328d036d09)(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)
       '@iconify-json/ph':
         specifier: ^1.2.2
         version: 1.2.2
@@ -219,8 +225,8 @@ importers:
         specifier: ^2.3.1
         version: 2.4.0(@babel/core@7.29.7)
       ember-ability:
-        specifier: ^0.1.1
-        version: 0.1.1(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)(ember-resources@6.5.1(@babel/core@7.29.7)(@ember/test-waiters@4.1.2)(@glimmer/component@2.1.1)(@glimmer/tracking@1.1.2)(@glint/template@1.9.0)(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-source@7.3.0(@glimmer/component@2.1.1)))
+        specifier: ^1.0.0
+        version: 1.0.0(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)(ember-resources@6.5.1(@babel/core@7.29.7)(@ember/test-waiters@4.1.2)(@glimmer/component@2.1.1)(@glimmer/tracking@1.1.2)(@glint/template@1.9.0)(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-source@7.3.0(@glimmer/component@2.1.1)))
       ember-async-data:
         specifier: ^1.0.3
         version: 1.0.3(ember-source@7.3.0(@glimmer/component@2.1.1))
@@ -279,8 +285,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1(@babel/core@7.29.7)
       ember-sweet-owner:
-        specifier: ^0.2.0
-        version: 0.2.0(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)
+        specifier: ^1.0.1
+        version: 1.0.1(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)
       ember-tasks:
         specifier: ^0.5.1
         version: 0.5.1(tracked-built-ins@4.1.2(@babel/core@7.29.7))
@@ -308,9 +314,6 @@ importers:
       mathjs:
         specifier: ^13.2.0
         version: 13.2.0
-      matomo-js-client-types:
-        specifier: ^5.0.0
-        version: 5.0.0
       postcss:
         specifier: ^8.4.47
         version: 8.5.28
@@ -1404,6 +1407,9 @@ packages:
     resolution: {integrity: sha512-S9jRmlsbPd+X7tl48dx6ohhxJP0wlYv7MR0arzypPb86m2SPEhihblYKN2Cufo6lFt30iu9Hsr6V+TdHImkxeQ==}
     engines: {node: 22.* || >= 24}
 
+  '@ember/app-tsconfig@2.1.0':
+    resolution: {integrity: sha512-s44smHIQVM2Ews1+bIAwqibVF6OHsw3/G14xV0DA0/GchVolqTG/Kfzqn/jZnU4zlXPEndJdTpn+PFEsuFs7mg==}
+
   '@ember/edition-utils@1.2.0':
     resolution: {integrity: sha512-VmVq/8saCaPdesQmftPqbFtxJWrzxNGSQ+e8x8LLe3Hjm36pJ04Q8LeORGZkAeOhldoUX9seLGmSaHeXkIqoog==}
 
@@ -2000,8 +2006,8 @@ packages:
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
 
-  '@graphql-codegen/plugin-helpers@7.4.0':
-    resolution: {integrity: sha512-yRvRKsaa3EZMVmrBoOfTbiorGD6D1K459hE7h78/ROsw2jaBPQI3uN/3lG90skZAT+9KuD2roaIbOh+HGpPu7Q==}
+  '@graphql-codegen/plugin-helpers@7.4.1':
+    resolution: {integrity: sha512-T9BZKoz3bRqvPJHDxJo2/QFy/AeTqw/z+7aiL1viky0Wolu+z2VVJ6MZv+Dh7pGHzjtqn6f/vOC0Au9Ll/rF6A==}
     engines: {node: '>=16'}
     peerDependencies:
       graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
@@ -5539,9 +5545,9 @@ packages:
   electron-to-chromium@1.5.444:
     resolution: {integrity: sha512-5ss/uJfoDYDHT0lfJzT6FbcskIzROIOPf0BbbFkGcvDzoJU7i//9GDrwwIHQVmIsrAGiF3ihpADBRIsrEFt1rQ==}
 
-  ember-ability@0.1.1:
-    resolution: {integrity: sha512-n9z3dTnq749pLJ+w/InBD+P+VOreQEEtL45Gg/Ey2YxT8Ld784QN/kdsQAv9EBt/mDhQ/LyPPaUo6a1/KP4CCA==}
-    engines: {node: 18.* || >= 20}
+  ember-ability@1.0.0:
+    resolution: {integrity: sha512-T/CT8Rn5e8b0ljHsQfuolAmP6WyhrPZgl42cFLt1NKfZwWKRWRf8LNRs/yaFWzBPXO05P8GmsDqbFTK7TeL6cQ==}
+    engines: {node: ^20.11.0 || >=22}
     peerDependencies:
       ember-resources: '>=5.0.0'
 
@@ -5756,15 +5762,6 @@ packages:
 
   ember-strict-application-resolver@0.1.1:
     resolution: {integrity: sha512-/49JZ2Yk2ggicAGIoFNWcz05llhe2i+/2dpH5Pv1KlwZOBKkqMMJpTKEB4IMg+FjKBiE0r2yxuZzo9Oly9vc1A==}
-
-  ember-sweet-owner@0.2.0:
-    resolution: {integrity: sha512-p7U0Rt/qmOdzQoPVIs7BUzm2KCTktr9ubLJH3wZfTX2LN9SUBCCEdbHDvkBcMcE1QBGBBZVqPrI7DJf6H5KKZg==}
-    engines: {node: 18.* || >= 20}
-    peerDependencies:
-      ember-polaris-service: ^0.5.0
-    peerDependenciesMeta:
-      ember-polaris-service:
-        optional: true
 
   ember-sweet-owner@1.0.1:
     resolution: {integrity: sha512-jeBRvC83Jh7eRG5Cm//mbQpGA0AyIsCFHf3ZAQzup1/EOA4H6qsfTv4K7DuYKpaofgFP+hXWIdSiGay1CbP4PQ==}
@@ -7557,9 +7554,6 @@ packages:
 
   mathml-tag-names@4.0.0:
     resolution: {integrity: sha512-aa6AU2Pcx0VP/XWnh8IGL0SYSgQHDT6Ucror2j2mXeFAlN3ahaNs8EZtG1YiticMkSLj3Gt6VPFfZogt7G5iFQ==}
-
-  matomo-js-client-types@5.0.0:
-    resolution: {integrity: sha512-CF41gD+0MjLz/yTtEC0WDTt+NT2qJiW5kl+dZse3f6WMPM1gR9LTcHm5VH86UIKZBJmh1gqQhb71n8v3jEnzBw==}
 
   mdast-util-compact@4.1.1:
     resolution: {integrity: sha512-h/UFPIkf4ZlJw50k9UC+CkY+/urhFHZB25GXGh0f+kbqSulzZMSEGWeFjAe2jEQsFu9bSjf0s/TdZXsjvtmxIQ==}
@@ -11851,6 +11845,8 @@ snapshots:
       '@codemod-utils/files': 4.1.0
       js-yaml: 5.4.2
 
+  '@ember/app-tsconfig@2.1.0': {}
+
   '@ember/edition-utils@1.2.0': {}
 
   '@ember/string@4.0.1': {}
@@ -12558,7 +12554,7 @@ snapshots:
       lodash: 4.17.21
       tslib: 2.6.3
 
-  '@graphql-codegen/plugin-helpers@7.4.0(graphql@15.8.0)':
+  '@graphql-codegen/plugin-helpers@7.4.1(graphql@15.8.0)':
     dependencies:
       '@graphql-tools/utils': 11.2.2(graphql@15.8.0)
       change-case-all: 2.1.0
@@ -12760,7 +12756,7 @@ snapshots:
       - '@glint/template'
       - supports-color
 
-  '@hokulea/ember@0.16.1(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)':
+  '@hokulea/ember@0.16.1(patch_hash=8a2de2a983e5b0eddf383cacb398e30e6147a0b6a22ade30090ca5328d036d09)(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)':
     dependencies:
       '@embroider/addon-shim': 1.10.3
       '@hokulea/core': 0.12.0
@@ -13945,7 +13941,7 @@ snapshots:
   '@tinacms/cli@1.6.10(@codemirror/language@6.0.0)(@types/node@22.10.7)(@types/react@18.2.55)(abstract-level@1.0.4)(immer@10.1.1)(lightningcss@1.33.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(rollup@3.29.4)(scheduler@0.23.2)(sucrase@3.35.0)(terser@5.27.0)':
     dependencies:
       '@graphql-codegen/core': 2.6.8(graphql@15.8.0)
-      '@graphql-codegen/plugin-helpers': 7.4.0(graphql@15.8.0)
+      '@graphql-codegen/plugin-helpers': 7.4.1(graphql@15.8.0)
       '@graphql-codegen/typescript': 4.1.0(graphql@15.8.0)
       '@graphql-codegen/typescript-operations': 4.3.0(graphql@15.8.0)
       '@graphql-codegen/visitor-plugin-common': 4.1.2(graphql@15.8.0)
@@ -16851,11 +16847,12 @@ snapshots:
 
   electron-to-chromium@1.5.444: {}
 
-  ember-ability@0.1.1(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)(ember-resources@6.5.1(@babel/core@7.29.7)(@ember/test-waiters@4.1.2)(@glimmer/component@2.1.1)(@glimmer/tracking@1.1.2)(@glint/template@1.9.0)(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-source@7.3.0(@glimmer/component@2.1.1))):
+  ember-ability@1.0.0(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)(ember-resources@6.5.1(@babel/core@7.29.7)(@ember/test-waiters@4.1.2)(@glimmer/component@2.1.1)(@glimmer/tracking@1.1.2)(@glint/template@1.9.0)(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-source@7.3.0(@glimmer/component@2.1.1))):
     dependencies:
       '@embroider/addon-shim': 1.10.3
+      decorator-transforms: 2.4.0(@babel/core@7.29.7)
       ember-resources: 6.5.1(@babel/core@7.29.7)(@ember/test-waiters@4.1.2)(@glimmer/component@2.1.1)(@glimmer/tracking@1.1.2)(@glint/template@1.9.0)(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-source@7.3.0(@glimmer/component@2.1.1))
-      ember-sweet-owner: 0.2.0(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)
+      ember-sweet-owner: 1.0.1(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'
@@ -17286,18 +17283,6 @@ snapshots:
       decorator-transforms: 2.4.0(@babel/core@7.29.7)
     transitivePeerDependencies:
       - '@babel/core'
-      - supports-color
-
-  ember-sweet-owner@0.2.0(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0):
-    dependencies:
-      '@embroider/addon-shim': 1.10.3
-      '@embroider/macros': 1.21.1(@babel/core@7.29.7)(@glint/template@1.9.0)
-      inflection: 3.0.2
-    optionalDependencies:
-      ember-polaris-service: 0.5.0
-    transitivePeerDependencies:
-      - '@babel/core'
-      - '@glint/template'
       - supports-color
 
   ember-sweet-owner@1.0.1(@babel/core@7.29.7)(@glint/template@1.9.0)(ember-polaris-service@0.5.0):
@@ -19586,8 +19571,6 @@ snapshots:
       typed-function: 4.2.1
 
   mathml-tag-names@4.0.0: {}
-
-  matomo-js-client-types@5.0.0: {}
 
   mdast-util-compact@4.1.1:
     dependencies:

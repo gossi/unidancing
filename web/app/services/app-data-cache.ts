@@ -44,11 +44,13 @@ export default class AppDataCacheService extends Service {
       pending.delete(promise);
     };
 
+    // eslint-disable-next-line unicorn/prefer-await
     void promise.then(cleanup, cleanup);
 
     return promise;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   retrieve<T>(key: string): T | undefined {
     if (!this.#islandLoaded && !isSSR()) {
       this.#islandLoaded = true;
@@ -67,6 +69,7 @@ export default class AppDataCacheService extends Service {
   }
 
   #loadIsland(): void {
+    // eslint-disable-next-line unicorn/prefer-query-selector
     const node = document.getElementById(ISLAND_ID);
 
     if (!node?.textContent) {
@@ -87,6 +90,7 @@ export default class AppDataCacheService extends Service {
   #writeIsland(): void {
     // The SSG worker reuses one document across renders: drop any island left
     // over from a previous render so each page only embeds its own data.
+    // eslint-disable-next-line unicorn/prefer-query-selector
     document.getElementById(ISLAND_ID)?.remove();
 
     const script = document.createElement('script');

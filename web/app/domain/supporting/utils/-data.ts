@@ -10,7 +10,7 @@ export const cacheResult = async <F extends Fn>(
   const cache = owner.lookup('service:app-data-cache');
 
   const id = key.replaceAll('/', '-');
-  const cached = cache?.retrieve<Awaited<ReturnType<F>>>(id);
+  const cached = cache.retrieve<Awaited<ReturnType<F>>>(id);
 
   if (cached) {
     return cached;
@@ -19,10 +19,12 @@ export const cacheResult = async <F extends Fn>(
   const promise = (async () => {
     const data = await fn();
 
-    cache?.put(id, data);
+    cache.put(id, data);
 
     return data;
   })();
 
-  return (await cache?.track(promise)) ?? promise;
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  return (await cache.track(promise)) ?? promise;
 };

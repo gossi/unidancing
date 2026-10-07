@@ -1,7 +1,4 @@
-import { action } from 'ember-command';
-
 import { isSSR } from '../utils';
-import { AudioService } from './service';
 import styles from './soundboard.module.css';
 import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';
 
@@ -28,7 +25,7 @@ export class SoundBoard {
       const audio = document.createElement('audio');
 
       audio.src = src;
-      audio.classList.add(styles.soundboard);
+      audio.classList.add(styles.soundboard as string);
       audio.dataset.name = name;
       document.body.append(audio);
       this.#sounds.set(name, audio);
@@ -48,9 +45,3 @@ export class SoundBoard {
     return undefined;
   }
 }
-
-export const playSound = action(({ service }) => async (name: string) => {
-  const soundboard = service(AudioService).soundboard;
-
-  return soundboard.play(name);
-});

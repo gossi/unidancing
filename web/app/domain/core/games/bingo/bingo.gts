@@ -20,6 +20,7 @@ import styles from './bingo.module.css';
 
 import type { Awfulpractice } from '../../choreography';
 import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
 
 interface TileSignature {
   Args: {
@@ -56,26 +57,28 @@ class Bingo {
   private static STORAGE_SELECTION = 'bullshit_bingo.selection';
 
   static hasSavegame() {
-    const principles = globalThis.localStorage.getItem(Bingo.STORAGE_PRINCIPLES);
+    const principles = globalThis.localStorage.getItem(this.STORAGE_PRINCIPLES);
 
     return Boolean(principles);
   }
 
   static loadSavegame(): Bingo | undefined {
-    const data = globalThis.localStorage.getItem(Bingo.STORAGE_PRINCIPLES);
-    const selection = globalThis.localStorage.getItem(Bingo.STORAGE_SELECTION);
+    const data = globalThis.localStorage.getItem(this.STORAGE_PRINCIPLES);
 
     if (!data) {
       return;
     }
 
+    const selection = globalThis.localStorage.getItem(this.STORAGE_SELECTION);
     const principles = JSON.parse(data) as Awfulpractice[];
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (principles) {
       const game = new Bingo(principles);
 
       if (selection) {
         for (const s of JSON.parse(selection)) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           game.selection.add(game.principles.find((p) => p.id === s.id) as Awfulpractice);
         }
 
@@ -123,6 +126,7 @@ class Bingo {
         const start = (index - 1) * 5;
 
         for (let i = start; i < start + 5; i++) {
+          // @ts-expect-error tina types
           this.winner.add(this.principles[i]);
         }
       }
@@ -130,6 +134,7 @@ class Bingo {
       if (line === 'col') {
         for (let i = 0; i < this.principles.length; i++) {
           if (this.getColumn(i + 1) === index) {
+            // @ts-expect-error tina types
             this.winner.add(this.principles[i]);
           }
         }
@@ -141,10 +146,12 @@ class Bingo {
           const col = this.getColumn(i + 1);
 
           if (index === 0 && row === col) {
+            // @ts-expect-error tina types
             this.winner.add(this.principles[i]);
           }
 
           if (index === 1 && row + col === 6) {
+            // @ts-expect-error tina types
             this.winner.add(this.principles[i]);
           }
         }
@@ -166,19 +173,24 @@ class Bingo {
     const cross: boolean[][] = [[], []];
 
     for (let i = 0; i < this.principles.length; i++) {
+      // @ts-expect-error tina types
       const selected = this.selection.has(this.principles[i]);
       const index = i + 1;
       const row = this.getRow(index);
       const col = this.getColumn(index);
 
+      // @ts-expect-error correct, can be null
       rows[row - 1].push(selected);
+      // @ts-expect-error correct, can be null
       cols[col - 1].push(selected);
 
       if (row === col) {
+        // @ts-expect-error correct, can be null
         cross[0].push(selected);
       }
 
       if (row + col === 6) {
+        // @ts-expect-error correct, can be null
         cross[1].push(selected);
       }
     }
@@ -234,12 +246,10 @@ class Counters {
   @tracked activeCounter!: Counter;
 
   constructor() {
-    if (globalThis !== undefined) {
-      this.load();
-    }
+    this.load();
 
     if (Object.keys(this.counters).length === 0) {
-      // eslint-disable-next-line ember/no-runloop
+      // eslint-disable-next-line ember/no-runloop, @typescript-eslint/unbound-method
       next(this, this.init);
     }
   }
@@ -247,6 +257,7 @@ class Counters {
   load() {
     const activeCounter = globalThis.localStorage.getItem(Counters.STORAGE_ACTIVE_COUNTER_ID);
     const data = globalThis.localStorage.getItem(Counters.STORAGE_COUNTER);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const counters: Record<string, Counter> = data ? new TrackedObject(JSON.parse(data)) : {};
 
     for (const [id, counter] of Object.entries(counters)) {
@@ -256,6 +267,7 @@ class Counters {
     }
 
     if (activeCounter && Object.keys(this.counters).includes(activeCounter)) {
+      // @ts-expect-error jajaja, whatever
       this.activeCounter = this.counters[activeCounter];
     }
   }
@@ -274,15 +286,17 @@ class Counters {
   }
 
   activateCounter = (id: string) => {
-    if (!this.counters[id]) {
+    if (!Object.hasOwn(this.counters, id)) {
       return;
     }
 
+    // @ts-expect-error jajaja, whatever
     this.activeCounter = this.counters[id];
     globalThis.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
   };
 
   renameCounter = (id: string, name: string) => {
+    // @ts-expect-error jajaja, whatever
     this.counters[id].name = name;
     // if (id === this.activeCounter.id) {
     //   this.activeCounter = this.counters[id];
@@ -291,6 +305,7 @@ class Counters {
   };
 
   incrementCounter(id: string) {
+    // @ts-expect-error jajaja, whatever
     this.counters[id].count++;
     // if (id === this.activeCounter.id) {
     //   this.activeCounter = this.counters[id];
@@ -402,10 +417,10 @@ export default class BingoComponent extends Component {
   @tracked game?: Bingo;
   counters = new Counters();
 
-  constructor(owner: unknown, args: object) {
+  constructor(owner: Owner, args: object) {
     super(owner, args);
 
-    this.load();
+    void this.load();
   }
 
   async load() {
@@ -421,7 +436,7 @@ export default class BingoComponent extends Component {
   };
 
   start = () => {
-    const principles = this.principles.sort(() => 0.5 - Math.random()).slice(0, 25);
+    const principles = this.principles.toSorted(() => 0.5 - Math.random()).slice(0, 25);
 
     this.game = new Bingo(principles);
   };

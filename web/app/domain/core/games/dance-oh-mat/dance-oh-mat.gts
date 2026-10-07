@@ -59,10 +59,11 @@ const DEFAULTS = {
 const getParam =
   <A extends DanceOhMatParams>(args: A, router: RouterService) =>
   <P extends DanceOhMatParam>(param: P): A[P] => {
-    if (args[param]) {
+    if (Object.hasOwn(args, param)) {
       return args[param];
     }
 
+    // eslint-disable-next-line unicorn/no-computed-property-existence-check
     if (router.currentRoute?.queryParams[param]) {
       return router.currentRoute.queryParams[param] as A[P];
     }
@@ -146,6 +147,7 @@ const Machine = createMachine(
     },
     schema: {
       events: {} as
+        // eslint-disable-next-line unicorn/prefer-type-literal-last
         | ({ type: 'play' } & GameParams)
         | { type: 'help' }
         | { type: 'dance'; track: Track }
@@ -159,11 +161,13 @@ const Machine = createMachine(
   },
   {
     actions: {
+      /* eslint-disable @typescript-eslint/no-empty-function */
       select: (_context, _event) => {},
       dance: (_context, _event) => {},
       play: (_context, _event) => {},
       finish: (_context, _event) => {},
       finishRound: (_context, _event) => {}
+      /* eslint-enable @typescript-eslint/no-empty-function */
     },
     services: {},
     guards: {
@@ -221,7 +225,7 @@ class Manual extends Component {
 
   togglePlay = async () => {
     if (this.spotify.client.playing) {
-      this.spotify.client.pause();
+      await this.spotify.client.pause();
     } else {
       await playLobby(this.spotify.client);
     }
@@ -323,7 +327,9 @@ class Game extends Component {
 
   //  PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.epic }))
   // surprisePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.surprise }));
+  // @ts-expect-error jaja, whatever
   dancePlaylistResource = use(this, loadPlaylist(PLAYLISTS.epic));
+  // @ts-expect-error jaja, whatever
   surprisePlaylistResource = use(this, loadPlaylist(PLAYLISTS.surprise));
 
   get dancePlaylist() {
@@ -361,6 +367,7 @@ class Game extends Component {
 
     return {
       machine: Machine.withConfig({
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         actions: { play, select, dance, finish, finishRound },
         guards: { isGameOver }
       })
@@ -381,7 +388,7 @@ class Game extends Component {
 
   countDown = dropTask(async () => {
     while ((this.counter as number) > 0) {
-      this.playSound('counter');
+      void this.playSound('counter');
       await timeout(1000);
       (this.counter as number)--;
     }
@@ -395,6 +402,7 @@ class Game extends Component {
 
   // ACTIONS
 
+  // eslint-disable-next-line unicorn/prefer-type-literal-last
   play = assign((_context: Context, params: { type: 'play' } & GameParams) => {
     return {
       rounds: params.rounds,
@@ -411,8 +419,10 @@ class Game extends Component {
     await timeout(1100);
     await this.countDown.perform();
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const songSelected = this.song !== undefined;
     const coinToss = this.tossCoin(songSelected);
+    // eslint-disable-next-line unicorn/prefer-minimal-ternary
     const playlist = coinToss === 0 ? this.dancePlaylist : this.surprisePlaylist;
     const track = this.findTrack(playlist);
 

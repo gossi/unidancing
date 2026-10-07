@@ -10,7 +10,10 @@ import { buildGameLink, Game, GameFactory } from '../domain/core/games';
 import { Player } from '../domain/supporting/ui';
 import styles from './application.module.css';
 
-<template>
+import type ApplicationController from '../controllers/application.gts';
+import type { TOC } from '@ember/component/template-only';
+
+const ApplicationTemplate: TOC<{ Args: { controller: ApplicationController } }> = <template>
   {{pageTitle "UniDancing"}}
 
   <AppHeader @home={{link "application"}}>
@@ -87,4 +90,6 @@ import styles from './application.module.css';
   {{/if}}
 
   <Player />
-</template>
+</template>;
+
+export default ApplicationTemplate;

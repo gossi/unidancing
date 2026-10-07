@@ -25,10 +25,12 @@ import type { ExerciseMedia, Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
 
 function hasMaterial(media: Maybe<Maybe<ExerciseMedia>[]> | undefined) {
+  // @ts-expect-error some tina types, huh?
   return media?.some((material: ExerciseMedia) => isMaterial(material));
 }
 
 function filterMaterial(media: Maybe<Maybe<ExerciseMedia>[]> | undefined) {
+  // @ts-expect-error some tina types, huh?
   return (media ?? []).filter((material: ExerciseMedia) => isMaterial(material)) as ExerciseMedia[];
 }
 

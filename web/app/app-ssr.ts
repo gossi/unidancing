@@ -10,6 +10,7 @@ import { drainPending } from './services/app-data-cache';
 // Marks the app as server-rendering: data fetches are awaited by the
 // renderer and their results are serialized into a JSON data island in
 // <head> (see services/app-data-cache.ts).
+// eslint-disable-next-line unicorn/no-top-level-side-effects
 setSSRMode(true);
 
 // The SSR environment installs a curated set of browser globals from the

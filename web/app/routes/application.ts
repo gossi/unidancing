@@ -28,7 +28,8 @@ export default class ApplicationRoute extends Route {
       !isSSR()
     ) {
       try {
-        const _paq = (globalThis._paq = globalThis._paq || []);
+        // eslint-disable-next-line unicorn/no-global-object-property-assignment
+        const _paq = (globalThis._paq = globalThis._paq ?? []);
 
         /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
         _paq.push(['enableLinkTracking']);
@@ -40,7 +41,8 @@ export default class ApplicationRoute extends Route {
 
           const d = document,
             g = d.createElement('script'),
-            s = d.querySelector('script');
+            // eslint-disable-next-line unicorn/prefer-scoped-selector
+            s = d.querySelector('script') as HTMLScriptElement;
 
           g.async = true;
           g.src = u + 'js/index.php';
@@ -52,6 +54,7 @@ export default class ApplicationRoute extends Route {
 
           try {
             _paq.push(['setCustomUrl', page]);
+            // eslint-disable-next-line unicorn/prefer-single-call
             _paq.push(['trackPageView', title.replace(' | UniDancing', '')]);
           } catch {
             //

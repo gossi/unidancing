@@ -10,8 +10,8 @@
     "build": "turbo run build --filter @unidancing/app"
   },
   "devDependencies": {
-    "turbo": "^2.0.11",
-    "@glint/ember-tsc": "^1.11.6"
+    "@glint/ember-tsc": "^1.11.6",
+    "turbo": "^2.0.11"
   },
   "engines": {
     "node": ">= 22"
@@ -19,7 +19,8 @@
   "packageManager": "pnpm@10.23.0",
   "pnpm": {
     "patchedDependencies": {
-      "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch"
+      "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch",
+      "@hokulea/ember@0.16.1": "patches/@hokulea__ember@0.16.1.patch"
     }
   }
 }

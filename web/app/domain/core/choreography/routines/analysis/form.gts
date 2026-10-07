@@ -1,9 +1,8 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
-import IconWarningFill from '~icons/ph/warning-fill';
-
-import { Button, Form, Icon, Tabs } from '@hokulea/ember';
+// import IconWarningFill from '~icons/ph/warning-fill';
+import { Button, Form, Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
 import styles from './analysis.module.css';
@@ -33,21 +32,21 @@ interface Data extends ArtisticFormData, TimeTrackingFormData, NotTodoListFormDa
   event: string;
 }
 
-function asArtisticFormBuilder(f: FormBuilder<Data, void>) {
-  return f;
+function asArtisticFormBuilder(f: FormBuilder<Data>) {
+  return f as unknown as FormBuilder<ArtisticFormData>;
 }
 
-function asTimeTrackingFormBuilder(f: FormBuilder<Data, void>) {
-  return f;
+function asTimeTrackingFormBuilder(f: FormBuilder<Data>) {
+  return f as unknown as FormBuilder<TimeTrackingFormData>;
 }
 
-function asNotTodoListFormBuilder(f: FormBuilder<Data, void>) {
-  return f;
+function asNotTodoListFormBuilder(f: FormBuilder<Data>) {
+  return f as unknown as FormBuilder<NotTodoListFormData>;
 }
 
-function includes(haystack: Record<string, unknown> | unknown[], needle: unknown) {
-  return (Array.isArray(haystack) ? haystack : Object.keys(haystack)).includes(needle);
-}
+// function includes(haystack: Record<string, unknown> | unknown[], needle: unknown) {
+//   return (Array.isArray(haystack) ? haystack : Object.keys(haystack)).includes(needle);
+// }
 
 interface RoutineTesterFormArgs {
   data?: RoutineTest;
@@ -57,7 +56,7 @@ interface RoutineTesterFormArgs {
 export class RoutineTesterForm extends Component<{
   Args: RoutineTesterFormArgs;
 }> {
-  Form = Form<Data, void>;
+  Form = Form<Data>;
 
   artisticSystemID: JudgingSystemID = 'iuf-performance-2019';
 
@@ -168,11 +167,11 @@ export class RoutineTesterForm extends Component<{
 
           <tabs.Tab @value="time">
             <:label>
-              {{#if f.rawErrors}}
+              {{!-- {{#if f.rawErrors}}
                 {{#if (includes f.rawErrors "timeTracking")}}
                   <Icon @icon={{IconWarningFill}} />
                 {{/if}}
-              {{/if}}
+              {{/if}} --}}
               Zeitaufteilung
             </:label>
             <:content as |state|>

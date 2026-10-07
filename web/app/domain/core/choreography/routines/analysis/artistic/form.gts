@@ -100,7 +100,12 @@ export function parseArtisticFormData(
   );
 
   for (const [path, v] of Object.entries(filteredData)) {
-    const [, partName, categoryName, criterionName] = path.split('-');
+    const [, partName, categoryName, criterionName] = path.split('-') as [
+      string,
+      string,
+      string,
+      string
+    ];
 
     results.parts ??= [];
 
@@ -136,7 +141,7 @@ interface CriterionSignature {
 class Criterion extends Component<CriterionSignature> {
   @tracked value?: number;
 
-  updateScore = (e: InputEvent) => {
+  updateScore = (e: Event) => {
     const target = e.target as HTMLInputElement;
 
     this.value = target.valueAsNumber;

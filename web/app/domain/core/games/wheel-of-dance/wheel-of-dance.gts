@@ -29,7 +29,7 @@ import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';
 import styles from './wheel-of-dance.module.css';
 
-import type { Context, Genre } from './data';
+import type { Context, DanceStyle, Genre } from './data';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 
@@ -59,6 +59,7 @@ class Game extends Component {
 
     return {
       machine: Machine.withConfig({
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         actions: { play, dance, stop, roll, startSelection, stopSelection }
       })
     };
@@ -131,6 +132,7 @@ class Game extends Component {
   };
 
   dance = async (context: Context) => {
+    // @ts-expect-error yeah, but this is a given
     const track = getRandomTrack(getTracks(this.playlists[this.genre as Genre]));
 
     await this.playTrackForDancing(track, context.duration);
@@ -144,7 +146,7 @@ class Game extends Component {
     this.machine.send('start', data);
   };
 
-  prepare = ({ genre }: { genre: Genre }) => {
+  prepare = ({ genre }: { genre: Genre; style: DanceStyle }) => {
     this.genre = genre;
     this.machine.send('prepare');
 

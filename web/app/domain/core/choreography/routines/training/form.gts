@@ -24,7 +24,7 @@ interface TrainingTesterFormArgs {
 export class TrainingTesterForm extends Component<{
   Args: TrainingTesterFormArgs;
 }> {
-  Form = Form<ArtisticFormData, void>;
+  Form = Form<ArtisticFormData>;
 
   video: string;
   @tracked started = false;

@@ -1,27 +1,26 @@
-import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { SectionedPage } from '@hokulea/ember';
 
 export class ChoreographyRootRoute extends Route<object> {
   <template>
     {{pageTitle "Choreographie"}}
 
-    <Page>
+    <SectionedPage>
       <:title>Choreographie</:title>
       <:nav as |Item|>
-        <Item @link={{link "choreography.index"}}>Übersicht</Item>
-        <Item @link={{link "choreography.routines"}}>Küren</Item>
-        <Item @link={{link "choreography.unidance-writing"}}>UniDance Writing</Item>
-        <Item @link={{link "choreography.not-todo-list"}}>Not Todo Liste</Item>
+        <Item @href="/choreography">Übersicht</Item>
+        <Item @href="/choreography/routines">Küren</Item>
+        <Item @href="/choreography/unidance-writing">UniDance Writing</Item>
+        <Item @href="/choreography/not-todo-list">Not Todo Liste</Item>
       </:nav>
 
       <:content>
         {{outlet}}
       </:content>
-    </Page>
+    </SectionedPage>
   </template>
 }
 

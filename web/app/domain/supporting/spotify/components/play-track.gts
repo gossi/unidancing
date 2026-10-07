@@ -12,6 +12,7 @@ import { SpotifyService } from '../service';
 import { SpotifyPlayButton } from './spotify-play-button';
 
 import type { Track } from '../domain-objects';
+import type Owner from '@ember/owner';
 
 interface PlayTrackSignature {
   Args: {
@@ -26,7 +27,7 @@ export class PlayTrack extends Component<PlayTrackSignature> {
 
   @tracked playStarted = false;
 
-  constructor(owner: unknown, args: PlayTrackSignature['Args']) {
+  constructor(owner: Owner, args: PlayTrackSignature['Args']) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;
@@ -35,7 +36,7 @@ export class PlayTrack extends Component<PlayTrackSignature> {
       this.audio.player = undefined;
 
       if (this.playStarted && this.spotify.client.playing) {
-        this.spotify.client.pause();
+        void this.spotify.client.pause();
       }
     });
   }
@@ -57,7 +58,7 @@ export class PlayTrack extends Component<PlayTrackSignature> {
     this.playStarted = !this.playStarted;
 
     if (this.spotify.client.playing) {
-      this.spotify.client.pause();
+      void this.spotify.client.pause();
     } else {
       this.args.play(track);
     }

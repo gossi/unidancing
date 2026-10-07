@@ -6,7 +6,7 @@ import { TimelineEditor } from './editor';
 import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
-import type { FormBuilder } from '@hokulea/ember';
+import type { FieldValidationHandler, FormBuilder } from '@hokulea/ember';
 
 interface TimelineFormSignature {
   Args: {
@@ -17,13 +17,17 @@ interface TimelineFormSignature {
 }
 
 export class TimelineForm extends Component<TimelineFormSignature> {
-  validate = (data: TimeTracking) => {
-    const validation = validateTimeTracking(data);
+  validate: FieldValidationHandler<TimeTrackingFormData, 'timeTracking', TimeTracking> = ({
+    value
+  }) => {
+    if (!value) return;
+
+    const validation = validateTimeTracking(value);
 
     if (validation) {
       return validation.map((err) => ({
         type: 'error',
-        value: data,
+        value,
         message: err
       }));
     }

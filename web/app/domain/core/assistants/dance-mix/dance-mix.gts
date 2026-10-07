@@ -29,7 +29,7 @@ import {
 } from '../../../supporting/spotify';
 import styles from './dance-mix.module.css';
 
-import type { Playlist, Track } from '../../../supporting/spotify';
+import type { Playlist, Track, UserPlaylist } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -75,10 +75,11 @@ const DEFAULTS = {
 const getParam =
   <A extends DanceMixParams>(args: A, router: RouterService) =>
   <P extends DanceMixParam>(param: P): A[P] => {
-    if (args[param]) {
+    if (Object.hasOwn(args, param)) {
       return args[param];
     }
 
+    // eslint-disable-next-line unicorn/no-computed-property-existence-check
     if (router.currentRoute?.queryParams[param]) {
       return router.currentRoute.queryParams[param] as A[P];
     }
@@ -152,10 +153,11 @@ class Play extends Component<PlaySignature> {
   constructor(owner: Owner, args: PlaySignature['Args']) {
     super(owner, args);
 
-    this.start();
+    void this.start();
   }
 
   start = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (!this.args.playlist.tracks) {
       return;
     }
@@ -174,7 +176,7 @@ class Play extends Component<PlaySignature> {
       }
     }
 
-    this.finish();
+    void this.finish();
   };
 
   mix = dropTask(
@@ -193,7 +195,7 @@ class Play extends Component<PlaySignature> {
         }
 
         // pause
-        this.spotify.client.pause();
+        void this.spotify.client.pause();
         await timeout(pause * 1000);
       }
     }
@@ -218,7 +220,7 @@ class Play extends Component<PlaySignature> {
     // await this.playTrack.cancelAll();
     await this.mix.cancelAll();
 
-    this.finish();
+    void this.finish();
   };
 
   finish = async () => {
@@ -336,7 +338,8 @@ class Game extends Component<DanceMixSignature> {
 
     const playlist = this.getParam(DanceMixParam.Playlist) as PlaylistOptions;
 
-    if (playlist && PLAYLISTS[playlist]) {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (playlist && Object.hasOwn(PLAYLISTS, playlist)) {
       return PLAYLISTS[playlist];
     }
 
@@ -359,7 +362,7 @@ class Game extends Component<DanceMixSignature> {
     return this.playlistResource.current;
   }
 
-  selectPlaylist = (playlist: Playlist) => {
+  selectPlaylist = (playlist: UserPlaylist) => {
     const id = playlist.id;
 
     localStorage.setItem('dance-playlist', id);

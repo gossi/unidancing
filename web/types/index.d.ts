@@ -2,11 +2,6 @@
 /// <reference types="vite/client" />
 /// <reference types="@ember-intl/vite/virtual" />
 /// <reference types="unplugin-icons/types/ember" />
-import 'ember-source/types';
-import 'ember-source/types/preview';
-import 'matomo-js-client-types';
-import '@glint/ember-tsc/types';
-
 import type Service from 'ember-polaris-service';
 import type { Scope, ServiceFactory } from 'ember-polaris-service';
 
