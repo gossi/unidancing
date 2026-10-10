@@ -8,7 +8,8 @@ import { theemo } from '@theemo/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import icons from 'unplugin-icons/vite';
 import { emberSsg } from 'vite-ember-ssr/vite-plugin';
-import { defineConfig } from 'vite';
+import { playwright } from '@vitest/browser-playwright';
+import { defineConfig } from 'vitest/config';
 
 /**
  * Enumerates the routes to prerender, mirroring the content tree (Tina CMS).
@@ -92,6 +93,19 @@ export default defineConfig(async ({ command, mode }) => {
   return {
     // expose .env values the app config reads (besides the default VITE_)
     envPrefix: ['VITE_', 'YOUTUBE_'],
+    test: {
+      include: ['tests/**/*-test.{gjs,gts,js,ts}'],
+      // Ember boots one app instance per test file in a single browser tab;
+      // keep runs serial (see ember-vitest setup guide).
+      maxConcurrency: 1,
+      browser: {
+        enabled: true,
+        headless: true,
+        provider: playwright(),
+        instances: [{ browser: 'chromium' }]
+      },
+      setupFiles: ['./tests/test-setup.ts']
+    },
     plugins: [
       ember(),
       // extra plugins here

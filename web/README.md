@@ -14,7 +14,7 @@ the generated client in `tina/__generated__/`.
 * [Git](https://git.com/)
 * [Node.js](https://nodejs.org/) >= 22 (see `.node-version` at the repo root)
 * [pnpm](https://pnpm.io/)
-* [Google Chrome](https://google.com/chrome/) (for the test suite)
+* [Playwright chromium](https://playwright.dev/) (for the test suite — `pnpm exec playwright install chromium`)
 
 ## Running / Development
 
@@ -25,7 +25,8 @@ pnpm dev            # tinacms dev server + Vite dev server
 ```
 
 * Visit your app at [http://localhost:4200](http://localhost:4200).
-* Visit the tests at [http://localhost:4200/tests](http://localhost:4200/tests).
+* Run the tests with `pnpm test:watch` (vitest UI) — tests live in `tests/`,
+  served by vitest browser mode (chromium via playwright).
 * Tina admin at [http://localhost:4001/admin](http://localhost:4001/admin).
 
 `pnpm start` runs only the Vite dev server. Content queries then still require
@@ -63,10 +64,10 @@ through by turbo). `pnpm build:tina` must run before `vite build`.
 ### Running Tests
 
 ```sh
-pnpm test           # vite build --mode development && ember test --path dist
+pnpm test           # vitest run (browser mode, chromium via playwright)
 ```
 
-The development-mode build includes the test entry (`tests/index.html`). Run
+Tests run in vitest browser mode (see `vite.config.mts` → `test`). Run
 `pnpm test:prebuild` first to generate a local Tina client when testing offline.
 
 ### Linting

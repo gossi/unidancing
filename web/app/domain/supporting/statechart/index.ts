@@ -1,23 +1,19 @@
 // Vendored replacement for ember-statecharts (unmaintained since 2023, built
 // on the legacy class-based `Resource` API which ember-resources v7 removes).
-// This implements the same `useMachine` contract using function-based
-// resources. See https://github.com/LevelbossMike/ember-statecharts for the
-// original; deliberate deviations:
-// - no `update` option (restart-on-argument-change stops the previous
-//   interpreter via the resource's cleanup hook, which is safe for xstate
-//   services)
+// This implements the same `useMachine` contract with plain function-based
+// wiring: an eagerly booted, tracked handle object — no `Resource` subclass,
+// no lazy `resource()` proxy (whose property reads do not participate in
+// render tracking the same way plain fields do).
+//
+// See https://github.com/LevelbossMike/ember-statecharts for the original;
+// deliberate deviations:
+// - no `update` option (the machine is booted once, like every consumer here)
 // - no `config:environment` / `runloopClockService` lookup (never configured
 //   in this app, and unresolvable in the strict resolver setup anyway)
-//
-// NOTE: ember-resources v6 `resource(context, fn)` is LAZY — `fn` runs on the
-// first property read of the returned proxy, not at definition time. The
-// proxy must therefore be the public value we hand back to consumers (they
-// read `.state` / `.send` through it, which boots and keeps the machine
-// alive); discarding it would mean the interpreter never starts.
 
 import { tracked } from '@glimmer/tracking';
+import { registerDestructor } from '@ember/destroyable';
 
-import { resource } from 'ember-resources';
 import { interpret } from 'xstate';
 
 import type {
@@ -63,56 +59,55 @@ export interface Statechart<M extends AnyMachine> {
 // loosely and narrowed once at the public boundary.
 /* eslint-disable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */
 class StateBox {
-  @tracked state: any;
+  // NOTE: the `= undefined` initializer is required: with babel's
+  // allowDeclareFields, a type-annotated field without initializer is erased
+  // as a type-only declaration — @tracked would silently become a plain
+  // property and never invalidate renders.
+  @tracked state: any = undefined;
 
   interpreter: any;
 
-  // stable identity across interpreter restarts (reads the live one)
+  // stable identity; reads the live interpreter
   send = (event: any, payload?: any) => this.interpreter?.send(event, payload);
 }
 
 /**
- * Binds an xstate machine to a destroyable context (component, service, ...)
- * via a function-based resource. Re-evaluates `setup` when its tracked
- * dependencies change, restarting the interpreter with the new machine.
+ * Binds an xstate machine to a destroyable context (component, service, ...).
+ *
+ * The machine boots immediately (like the legacy `Statechart.from()`, which
+ * evaluated eagerly at creation) and the returned value is a plain object with
+ * a `@tracked state` — so templates subscribe to it exactly like any other
+ * tracked field, and `send` transitions re-render reliably.
  */
 export function useMachine<M extends AnyMachine>(
   context: object,
   setup: () => MachineSetup<M>
 ): Statechart<M> {
+  const { machine, initialState, onTransition, interpreterOptions } = setup();
+
   const box = new StateBox();
 
-  return resource(context, ({ on }) => {
-    const { machine, initialState, onTransition, interpreterOptions } = setup();
+  const interpreter: any = interpret(machine, interpreterOptions);
 
-    const interpreter: any = interpret(machine, interpreterOptions);
-
-    interpreter.onTransition((state: { changed?: boolean }) => {
-      if (state.changed || state.changed === undefined) {
-        box.state = state;
-      }
-    });
-
-    if (onTransition) {
-      interpreter.onTransition(onTransition);
+  interpreter.onTransition((state: { changed?: boolean }) => {
+    if (state.changed || state.changed === undefined) {
+      box.state = state;
     }
-
-    // start() synchronously delivers the initial state through onTransition
-    interpreter.start(initialState ?? interpreter.machine.initialState);
-    box.interpreter = interpreter;
-
-    // v6 lifecycle: runs when the resource re-runs (deps changed) *and* when
-    // the context is destroyed — replaces manual stop()/registerDestructor
-    on.cleanup(() => {
-      if (box.interpreter === interpreter) {
-        box.interpreter = undefined;
-      }
-
-      interpreter.stop();
-    });
-
-    // resource values must be objects; property reads land on the box
-    return box;
   });
+
+  if (onTransition) {
+    interpreter.onTransition(onTransition);
+  }
+
+  // start() synchronously delivers the initial state through onTransition
+  interpreter.start(initialState ?? machine.initialState);
+  box.interpreter = interpreter;
+
+  registerDestructor(context, () => {
+    box.interpreter = undefined;
+    interpreter.stop();
+  });
+
+  return box;
 }
 /* eslint-enable @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-return */

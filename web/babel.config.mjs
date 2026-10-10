@@ -7,7 +7,6 @@ const __filename = fileURLToPath(import.meta.url);
 const macros = buildMacros({
   configure: (config) => {
     config.setGlobalConfig(__filename, '@embroider/core', { active: true });
-    config.setConfig(__filename, 'ember-qunit', { theme: 'ember' });
   }
 });
 
