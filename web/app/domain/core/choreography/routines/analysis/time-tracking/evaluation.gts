@@ -20,7 +20,7 @@ function formatRatio(value: number) {
 }
 
 function getData(data: TimeAnalysis, group: string) {
-  return data.evaluation?.[group as keyof TimeTrackingGroupsEvaluation];
+  return data.evaluation[group as keyof TimeTrackingGroupsEvaluation];
 }
 
 const TimeTrackingSummary: TOC<TimeTrackingSummarySignature> = <template>

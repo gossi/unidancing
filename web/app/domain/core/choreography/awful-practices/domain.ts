@@ -13,5 +13,5 @@ export enum Tag {
 export const TAGS = Object.values(Tag);
 
 export function asTag(tag: Maybe<string>): Tag {
-  return tag as Tag;
+  return tag as unknown as Tag;
 }

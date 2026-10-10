@@ -5,9 +5,9 @@ import { findAssistant } from '../assistants';
 
 import type { Assistant } from '../assistants';
 
-export class AssistantsRoute extends Route<{ assistant: string }> {
+export class AssistantsRoute extends Route<{ assistant: Assistant }> {
   get Assistant() {
-    return findAssistant(this.params.assistant as Assistant);
+    return findAssistant(this.params.assistant as unknown as Assistant);
   }
 
   <template>

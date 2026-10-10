@@ -1,4 +1,4 @@
-const Category = {
+export const Category = {
   Artistry: 'artistry',
   Communication: 'communication',
   Tricks: 'tricks',
@@ -7,7 +7,7 @@ const Category = {
   Dismounts: 'dismounts'
 } as const;
 
-type Category = (typeof Category)[keyof typeof Category];
+export type Category = (typeof Category)[keyof typeof Category];
 
 export const Attractivity = {
   Attractor: 'attractor',

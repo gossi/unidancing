@@ -14,7 +14,7 @@ import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type Owner from '@ember/owner';
-import type { DataItem, TimelineOptions } from 'vis-timeline/esnext';
+import type { DataItem, TimelineEventPropertiesResult, TimelineOptions } from 'vis-timeline/esnext';
 
 interface TimelineViewerSignature {
   Element: HTMLElement;
@@ -59,7 +59,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     this.player = api;
     this.player.on('seek', this.seeked.bind(this));
 
-    this.init();
+    void this.init();
   };
 
   init = async () => {
@@ -137,7 +137,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
       min: 0,
       zoomMin: 0,
       orientation: 'top',
-      snap: null,
+      snap: undefined,
       showCurrentTime: false,
       showMajorLabels: false,
       format: {
@@ -159,11 +159,11 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     this.chart.addCustomTime(0, 'currentTime');
     this.chart.setCustomTimeTitle('', 'currentTime');
 
-    this.chart.on('click', (e) => {
+    this.chart.on('click', (e: TimelineEventPropertiesResult) => {
       element.focus();
 
       if (e.what === 'background') {
-        this.player.seekTo(dateToSecondsWithMilli(e.time as Date), true);
+        void this.player.seekTo(dateToSecondsWithMilli(e.time), true);
       }
     });
 
