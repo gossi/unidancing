@@ -76,7 +76,7 @@ jobs:
       - uses: actions/checkout@v6
       - id: read
         run: |
-          version=$(grep -E '^[[:space:]]+playwright:' pnpm-workspace.yaml | head -n 1 | sed -E 's/.*"([^"]+)".*/\1/')
+          version=$(grep -E '^[[:space:]]+playwright:' pnpm-workspace.yaml | head -n 1 | sed -E "s/.*playwright:[[:space:]]*[\"']?[\^~]?([^\"'[:space:]]+)[\"']?.*/\1/")
           echo "version=$version" >> "$GITHUB_OUTPUT"
 
   test:
