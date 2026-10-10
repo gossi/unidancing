@@ -1,10 +1,10 @@
 import { tracked } from '@glimmer/tracking';
 
 import { dropTask } from 'ember-concurrency';
-import { useMachine } from 'ember-statecharts';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPlayer from 'spotify-web-playback';
 
+import { useMachine } from '../statechart';
 import { SpotifyMachine } from './machine';
 
 import type { Device, Track } from './domain-objects';

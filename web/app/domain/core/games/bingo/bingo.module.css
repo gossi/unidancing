@@ -1,4 +1,6 @@
 .bingo {
+  padding: var(--s-4);
+
   nav {
     display: flex;
     justify-content: space-between;
@@ -81,32 +83,32 @@
 }
 
 .tile {
-  appearance: none;
   display: flex;
   align-items: center;
   justify-content: center;
 
-  background-color: transparent;
   min-height: 100px;
   padding: 0.25rem;
+  border: 1px solid grey;
 
   font-size: 80%;
   hyphens: auto;
   text-align: center;
 
-  border: 1px solid grey;
+  appearance: none;
+  background-color: transparent;
 
   &[data-selected] {
+    border-color: var(--indicator-warning-plain-border);
     color: var(--indicator-warning-subtle-text);
     background-color: var(--indicator-warning-subtle-background);
-    border-color: var(--indicator-warning-plain-border);
   }
 
   &[data-winner] {
-    color: var(--indicator-success-subtle-text);
-    background-color: var(--indicator-success-subtle-background);
     border-color: var(--indicator-success-subtle-border);
     border-width: 2px;
+    color: var(--indicator-success-subtle-text);
+    background-color: var(--indicator-success-subtle-background);
   }
 }
 

@@ -1,10 +1,10 @@
-.game {
-  gap: var(--spacing-container0);
+.game header h1 {
+  display: flex;
+  justify-content: space-between;
+}
 
-  header {
-    display: flex;
-    justify-content: space-between;
-  }
+.toolbar {
+  font-size: var(--s-1);
 }
 
 .canvas {

@@ -9,7 +9,6 @@ import { htmlSafe } from '@ember/template';
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
-import { useMachine } from 'ember-statecharts';
 import { createMachine } from 'xstate';
 
 import { Button, Form } from '@hokulea/ember';
@@ -27,6 +26,7 @@ import {
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
+import { useMachine } from '../../../supporting/statechart';
 import styles from './dance-mix.module.css';
 
 import type { Playlist, Track, UserPlaylist } from '../../../supporting/spotify';
@@ -75,11 +75,12 @@ const DEFAULTS = {
 const getParam =
   <A extends DanceMixParams>(args: A, router: RouterService) =>
   <P extends DanceMixParam>(param: P): A[P] => {
-    if (Object.hasOwn(args, param)) {
+    // NB: `Object.hasOwn(args, param)` throws here — `this.args` is Glimmer's
+    // NamedArgsProxy and has no real property descriptors. Keep truthy check.
+    if (args[param]) {
       return args[param];
     }
 
-    // eslint-disable-next-line unicorn/no-computed-property-existence-check
     if (router.currentRoute?.queryParams[param]) {
       return router.currentRoute.queryParams[param] as A[P];
     }
@@ -339,7 +340,7 @@ class Game extends Component<DanceMixSignature> {
     const playlist = this.getParam(DanceMixParam.Playlist) as PlaylistOptions;
 
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-    if (playlist && Object.hasOwn(PLAYLISTS, playlist)) {
+    if (playlist && PLAYLISTS[playlist]) {
       return PLAYLISTS[playlist];
     }
 

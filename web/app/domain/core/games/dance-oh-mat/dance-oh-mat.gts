@@ -10,7 +10,6 @@ import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
-import { useMachine } from 'ember-statecharts';
 import { assign, createMachine } from 'xstate';
 
 import IconPauseFill from '~icons/ph/pause-fill';
@@ -30,6 +29,7 @@ import {
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
+import { useMachine } from '../../../supporting/statechart';
 import styles from './dance-oh-mat.module.css';
 
 import type { Playlist, SpotifyClient, Track } from '../../../supporting/spotify';
@@ -59,11 +59,12 @@ const DEFAULTS = {
 const getParam =
   <A extends DanceOhMatParams>(args: A, router: RouterService) =>
   <P extends DanceOhMatParam>(param: P): A[P] => {
-    if (Object.hasOwn(args, param)) {
+    // NB: `Object.hasOwn(args, param)` throws here — `this.args` is Glimmer's
+    // NamedArgsProxy and has no real property descriptors. Keep truthy check.
+    if (args[param]) {
       return args[param];
     }
 
-    // eslint-disable-next-line unicorn/no-computed-property-existence-check
     if (router.currentRoute?.queryParams[param]) {
       return router.currentRoute.queryParams[param] as A[P];
     }

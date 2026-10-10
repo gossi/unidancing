@@ -34,11 +34,11 @@ const asExercise = (exercise?: Maybe<Exercise>): Exercise => {
 
 const CourseDetails: TOC<CourseDetailsSignature> = <template>
   <Page @title={{@course.title}} @description={{asString @course.about}}>
-    <div class="grid">
+    <div class={{styles.grid}}>
       <div>
         <h2>Lernziele</h2>
 
-        <ul class={{styles.goals}}>
+        <ul>
           {{#each @course.learn as |learn|}}
             <li>{{learn}}</li>
           {{/each}}
@@ -48,13 +48,12 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
       <div>
         <h2>Kursinhalte</h2>
 
-        <ol class={{styles.contents}}>
+        <ol>
           {{#each @course.lessons as |lesson idx|}}
             <li><a href="#lesson-{{add1 idx}}">{{lesson.title}}</a></li>
           {{/each}}
         </ol>
       </div>
-
     </div>
 
     {{#if @course.examples}}

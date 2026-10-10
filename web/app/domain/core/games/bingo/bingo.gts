@@ -286,11 +286,10 @@ class Counters {
   }
 
   activateCounter = (id: string) => {
-    if (!Object.hasOwn(this.counters, id)) {
+    if (!this.counters[id]) {
       return;
     }
 
-    // @ts-expect-error jajaja, whatever
     this.activeCounter = this.counters[id];
     globalThis.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
   };

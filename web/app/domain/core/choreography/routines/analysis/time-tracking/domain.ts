@@ -189,7 +189,7 @@ export function calculateEffectiveness(data: TimeAnalysis, groups = CATEGORY_GRO
   const effectiveGroups = [];
 
   for (const group of groups) {
-    if (Object.hasOwn(data.evaluation, group.id)) {
+    if (data.evaluation[group.id]) {
       const value =
         (data.evaluation[group.id] as EvaluationPoint).duration *
         (group.attractivity === Attractivity.Attractor ? 1 : -1);

@@ -12,18 +12,18 @@ import {
   WithSpotify
 } from '@unidancing/app/domain/supporting/spotify';
 import { SpotifyService } from '@unidancing/app/domain/supporting/spotify/service';
+import { useMachine } from '@unidancing/app/domain/supporting/statechart';
 import { CountDown, SlotMachine } from '@unidancing/app/domain/supporting/ui';
 import { asNumber } from '@unidancing/app/domain/supporting/utils';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
-import { useMachine } from 'ember-statecharts';
 import { assign } from 'xstate';
 
 import IconGear from '~icons/ph/gear';
 
-import { Button, Form, IconButton } from '@hokulea/ember';
+import { Button, Form, IconButton, Page } from '@hokulea/ember';
 
 import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';
@@ -219,18 +219,24 @@ class Game extends Component {
 }
 
 const WheelOfDance: TOC<object> = <template>
-  <section class={{styles.game}}>
+  <Page class={{styles.game}}>
+    <:title>
+      Wheel of Dance
+      <PortalTarget @name="wof-header" class={{styles.toolbar}} />
+    </:title>
+    <:content>
+      <WithSpotify>
+        <Game />
+      </WithSpotify>
+    </:content>
+  </Page>
+  {{!-- <section class={{styles.game}}>
     <header>
-      <h1>Wheel of Dance</h1>
-      <div>
-        <PortalTarget @name="wof-header" />
-      </div>
+
     </header>
 
-    <WithSpotify>
-      <Game />
-    </WithSpotify>
-  </section>
+
+  </section> --}}
 </template>;
 
 export { WheelOfDance };

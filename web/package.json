@@ -93,7 +93,6 @@
     "ember-sinon-qunit": "^7.5.0",
     "ember-source": "~7.3.0",
     "ember-stargate": "^1.0.2",
-    "ember-statecharts": "^0.16.1",
     "ember-strict-application-resolver": "^0.1.1",
     "ember-sweet-owner": "^1.0.1",
     "ember-tasks": "^0.5.1",

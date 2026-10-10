@@ -14,6 +14,7 @@ export default class App extends EmberApp {
 
   modules = {
     './router': Router,
+    './config/environment': config,
 
     // Services looked up by string (via @service declarations in the app and
     // inside addon helpers like {{pageTitle}}). Add more here if a strict

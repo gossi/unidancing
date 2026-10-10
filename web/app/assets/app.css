@@ -25,7 +25,7 @@
   --typo-display-weight: 300;
   --typo-display-tracking: -0.003em;
   --sizing-max-content-width: 60rem;
-  --inset-bottom: 0px; /* px for calc() later on */
+  --inset-bottom: var(--s0); /* px for calc() later on */
 }
 
 body:has(div[data-player]) {
