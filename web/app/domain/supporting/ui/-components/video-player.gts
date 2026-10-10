@@ -18,7 +18,7 @@ const parseUrl = (url: string) => {
     embedUrl.searchParams.set('start', u.searchParams.get('t') as string);
   }
 
-  return embedUrl.toString();
+  return embedUrl.href;
 };
 
 const VideoPlayer: TOC<{ Element: HTMLIFrameElement; Args: { url: string } }> = <template>

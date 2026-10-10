@@ -8,7 +8,7 @@ import type { Game } from '../games';
 
 export class GamesRoute extends Route<{ game: Game }> {
   get Game() {
-    return findGame(this.params.game as Game);
+    return findGame(this.params.game as unknown as Game);
   }
 
   <template>

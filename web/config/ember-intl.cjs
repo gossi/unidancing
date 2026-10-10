@@ -1,4 +1,4 @@
-module.exports = function (/* environment */) {
+module.exports = function config(/* environment */) {
   return {
     // Path where translations are stored, relative to the project root.
     inputPath: 'translations',

@@ -43,10 +43,12 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     super(owner, args);
 
     try {
-      document.body.addEventListener('keydown', this.handleKeyboard.bind(this));
+      const keyboardHandler = this.handleKeyboard.bind(this);
+
+      document.body.addEventListener('keydown', keyboardHandler);
 
       registerDestructor(this, () => {
-        document.body.removeEventListener('keydown', this.handleKeyboard.bind(this));
+        document.body.removeEventListener('keydown', keyboardHandler);
       });
     } catch {
       /**/

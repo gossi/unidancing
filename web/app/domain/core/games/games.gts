@@ -56,5 +56,5 @@ export function getGameTitle(game: Game) {
 }
 
 export function asGame(game: string) {
-  return game as Game;
+  return game as unknown as Game;
 }

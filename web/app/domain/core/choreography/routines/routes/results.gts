@@ -73,11 +73,11 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
     url.port = '';
     url.protocol = 'https';
 
-    return url.toString();
+    return url.href;
   }
 
   get exportData() {
-    return JSON.stringify(this.data, null, '  ');
+    return JSON.stringify(this.data, undefined, '  ');
   }
 
   toggleExport = () => {

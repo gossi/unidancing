@@ -16,7 +16,7 @@ interface SongSignature {
 export class Song extends Component<SongSignature> {
   playTrack = playTrack(getOwner(this) as Owner);
 
-  play = (track: Track) => {
+  play = async (track: Track) => {
     const start =
       this.args.media.play === 'dance'
         ? getStartForDancing(track)
@@ -24,7 +24,7 @@ export class Song extends Component<SongSignature> {
           ? this.args.media.start * 1000
           : 0;
 
-    this.playTrack(track, start);
+    await this.playTrack(track, start);
   };
 
   <template><PlayTrack @track={{@media.id}} @play={{this.play}} /></template>

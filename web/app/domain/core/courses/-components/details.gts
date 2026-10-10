@@ -21,7 +21,7 @@ const add1 = (number: number) => {
 };
 
 const pickExamples = (videos: string[]) => {
-  return videos.sort(() => 0.5 - Math.random()).slice(0, 2);
+  return videos.toSorted(() => 0.5 - Math.random()).slice(0, 2);
 };
 
 const asStringArray = (strings: Maybe<string>[]): string[] => {

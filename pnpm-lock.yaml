@@ -12,11 +12,14 @@ catalogs:
 
 patchedDependencies:
   '@hokulea/ember@0.16.1':
-    hash: 8a2de2a983e5b0eddf383cacb398e30e6147a0b6a22ade30090ca5328d036d09
+    hash: 1845574337be50db53e4a526682582f0110478989c0083486cb03207bf98067d
     path: patches/@hokulea__ember@0.16.1.patch
   spotify-web-playback@1.4.0:
     hash: 607d53da921f96da0a40e2680e2307516e20bee10b7df67592b20bea47ad295e
     path: patches/spotify-web-playback@1.4.0.patch
+  unplugin-icons@24.0.0:
+    hash: 5fcad8389abe0a877ff94eca475eca0ab1193bac9e5d397cdc50d8ab97e0dc85
+    path: patches/unplugin-icons@24.0.0.patch
 
 importers:
 
@@ -169,7 +172,7 @@ importers:
         version: 0.12.0
       '@hokulea/ember':
         specifier: ^0.16.1
-        version: 0.16.1(patch_hash=8a2de2a983e5b0eddf383cacb398e30e6147a0b6a22ade30090ca5328d036d09)(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)
+        version: 0.16.1(patch_hash=1845574337be50db53e4a526682582f0110478989c0083486cb03207bf98067d)(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)
       '@iconify-json/ph':
         specifier: ^1.2.2
         version: 1.2.2
@@ -352,7 +355,7 @@ importers:
         version: 5.7.3
       unplugin-icons:
         specifier: ^24.0.0
-        version: 24.0.0(@svgr/core@8.1.0(typescript@5.7.3))(rolldown@1.2.12)(rollup@3.29.4)(vite@8.3.2(@types/node@22.10.7)(jiti@1.21.0)(terser@5.27.0)(yaml@2.9.1))
+        version: 24.0.0(patch_hash=5fcad8389abe0a877ff94eca475eca0ab1193bac9e5d397cdc50d8ab97e0dc85)(@svgr/core@8.1.0(typescript@5.7.3))(rolldown@1.2.12)(rollup@3.29.4)(vite@8.3.2(@types/node@22.10.7)(jiti@1.21.0)(terser@5.27.0)(yaml@2.9.1))
       uuid:
         specifier: ^10.0.0
         version: 10.0.0
@@ -12881,7 +12884,7 @@ snapshots:
       - '@glint/template'
       - supports-color
 
-  '@hokulea/ember@0.16.1(patch_hash=8a2de2a983e5b0eddf383cacb398e30e6147a0b6a22ade30090ca5328d036d09)(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)':
+  '@hokulea/ember@0.16.1(patch_hash=1845574337be50db53e4a526682582f0110478989c0083486cb03207bf98067d)(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glimmer/component@2.1.1)(@glint/template@1.9.0)(ember-command@2.0.8(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0)(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-polaris-service@0.5.0))(ember-concurrency@5.3.0(@babel/core@7.29.7)(@glint/template@1.9.0))(ember-element-helper@0.8.8)(ember-link@3.5.0(@babel/core@7.29.7)(@ember/test-helpers@5.7.0(@babel/core@7.29.7))(@glint/template@1.9.0))(ember-modifier@4.3.0(@babel/core@7.29.7))(sinon@19.0.2)':
     dependencies:
       '@embroider/addon-shim': 1.10.3
       '@hokulea/core': 0.12.0
@@ -23043,7 +23046,7 @@ snapshots:
 
   unpipe@1.0.0: {}
 
-  unplugin-icons@24.0.0(@svgr/core@8.1.0(typescript@5.7.3))(rolldown@1.2.12)(rollup@3.29.4)(vite@8.3.2(@types/node@22.10.7)(jiti@1.21.0)(terser@5.27.0)(yaml@2.9.1)):
+  unplugin-icons@24.0.0(patch_hash=5fcad8389abe0a877ff94eca475eca0ab1193bac9e5d397cdc50d8ab97e0dc85)(@svgr/core@8.1.0(typescript@5.7.3))(rolldown@1.2.12)(rollup@3.29.4)(vite@8.3.2(@types/node@22.10.7)(jiti@1.21.0)(terser@5.27.0)(yaml@2.9.1)):
     dependencies:
       '@antfu/install-pkg': 1.1.0
       '@iconify/utils': 3.1.7

@@ -66,7 +66,7 @@ export class SpotifyService extends Service {
     this.persist();
 
     if (refreshToken && expiresIn) {
-      void this.refresher.perform(refreshToken, Number.parseInt(expiresIn, 10) * 1000 - 300);
+      void this.refresher.perform(refreshToken, Number(expiresIn) * 1000 - 300);
     }
 
     if (accessToken) {

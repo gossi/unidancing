@@ -20,7 +20,8 @@
   "pnpm": {
     "patchedDependencies": {
       "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch",
-      "@hokulea/ember@0.16.1": "patches/@hokulea__ember@0.16.1.patch"
+      "@hokulea/ember@0.16.1": "patches/@hokulea__ember@0.16.1.patch",
+      "unplugin-icons@24.0.0": "patches/unplugin-icons@24.0.0.patch"
     }
   }
 }

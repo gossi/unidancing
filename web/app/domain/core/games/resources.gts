@@ -9,6 +9,7 @@ import type { Link, LinkManagerService } from 'ember-link';
 export type GameLinkBuilder<P extends keyof GameParams> = (game: P, params?: GameParams[P]) => Link;
 
 export const buildGameLink = resourceFactory(
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-parameters
   <P extends keyof GameParams>(game: Game, params?: GameParams[P]) => {
     return resource(({ owner }) => {
       const { services } = sweetenOwner(owner);

@@ -102,10 +102,12 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
   }
 
   registerKeyboardShortcuts = modifier((elem: HTMLElement) => {
-    elem.addEventListener('keyup', this.handleKeyboard.bind(this));
+    const keyboardHandler = this.handleKeyboard.bind(this);
+
+    elem.addEventListener('keyup', keyboardHandler);
 
     return () => {
-      elem.removeEventListener('keyup', this.handleKeyboard.bind(this));
+      elem.removeEventListener('keyup', keyboardHandler);
     };
   });
 
@@ -129,7 +131,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
     this.args.setApi?.(this.api);
 
     return () => {
-      player.destroy();
+      void player.destroy();
     };
   });
 
@@ -139,34 +141,36 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
   }
 
   proxyApi(player: YouTubePlayer) {
-    player.on('stateChange', async ({ data }) => {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    player.on('stateChange', async ({ data }: { data: YT.PlayerState }) => {
       this.playing = data === YT.PlayerState.PLAYING;
 
       if (this.playing) {
-        // start timer
-        this.timer = this.seeking.perform();
+        // start timers
+        this.timer = void this.seeking.perform();
       }
 
       if ([YT.PlayerState.PAUSED, YT.PlayerState.BUFFERING, YT.PlayerState.ENDED].includes(data)) {
-        this.timer?.cancel();
+        void this.timer?.cancel();
         this.currentTime = secondsToDuration(await player.getCurrentTime());
         this.notifySeekListener(this.currentTime.total('second'));
       }
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-this-alias
+    // eslint-disable-next-line @typescript-eslint/no-this-alias, unicorn/no-this-assignment
     const self = this;
 
     (player as YoutubePlayerAPI).toggle = () => {
-      self.toggle();
+      void self.toggle();
     };
 
     (player as YoutubePlayerAPI).seek = (offset: number) => {
-      self.seek(offset);
+      void self.seek(offset);
     };
 
     return new Proxy(player, {
       get(target, prop, receiver) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const value = Reflect.get(target, prop, receiver);
 
         if (prop === 'seekTo') {
@@ -174,6 +178,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
             self.currentTime = secondsToDuration(seconds);
             self.notifySeekListener(seconds);
 
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
             return value.call(target, seconds, allowSeekAhead);
           };
         }
@@ -184,6 +189,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
               self.seekListener.add(listener as unknown as SeekListener);
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
             return value.call(target, event, listener);
           };
         }
@@ -194,10 +200,12 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
               self.seekListener.delete(listener as unknown as SeekListener);
             }
 
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
             return value.call(target, event, listener);
           };
         }
 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return value;
       }
     }) as YoutubePlayerAPI;
@@ -206,6 +214,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
   seeking = task(async () => {
     let counter = 0;
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) {
       await timeout(10);
       this.currentTime = this.currentTime?.add({ milliseconds: 10 });
@@ -222,26 +231,26 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
     }
   });
 
-  seek = (offset: number) => {
-    this.api?.seekTo(durationToSeconds(this.currentTime) + offset, true);
+  seek = async (offset: number) => {
+    await this.api?.seekTo(durationToSeconds(this.currentTime) + offset, true);
   };
 
-  seekTo = (to: number) => {
-    this.api?.seekTo(to, true);
+  seekTo = async (to: number) => {
+    await this.api?.seekTo(to, true);
   };
 
-  toggle = () => {
+  toggle = async () => {
     if (this.playing) {
-      this.api?.pauseVideo();
+      await this.api?.pauseVideo();
     } else {
-      this.api?.playVideo();
+      await this.api?.playVideo();
     }
   };
 
   handleKeyboard = (event: KeyboardEvent) => {
     switch (event.key) {
       case ' ': {
-        this.toggle();
+        void this.toggle();
         event.preventDefault();
         event.stopPropagation();
 
@@ -250,13 +259,13 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
 
       case 'ArrowRight': {
         if (event.altKey) {
-          this.seek(0.25);
+          void this.seek(0.25);
         } else if (event.ctrlKey) {
-          this.seek(1);
+          void this.seek(1);
         } else if (event.shiftKey) {
-          this.seek(10);
+          void this.seek(10);
         } else {
-          this.seek(0.1);
+          void this.seek(0.1);
         }
 
         event.preventDefault();
@@ -267,13 +276,13 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
 
       case 'ArrowLeft': {
         if (event.altKey) {
-          this.seek(-0.25);
+          void this.seek(-0.25);
         } else if (event.ctrlKey) {
-          this.seek(-1);
+          void this.seek(-1);
         } else if (event.shiftKey) {
-          this.seek(-10);
+          void this.seek(-10);
         } else {
-          this.seek(-0.1);
+          void this.seek(-0.1);
         }
 
         event.preventDefault();
