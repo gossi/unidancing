@@ -28,7 +28,13 @@ async function findRoutes(): Promise<string[]> {
     throw new Error('Could not read Tina content URL from tina/__generated__/client.ts');
   }
 
-  const filenames = async (field: string): Promise<string[]> => {
+  /**
+   * Folder-aware document ids. `_sys.filename` is only the file's base name, so
+   * it silently drops subfolders — routines live in `content/routines/<event>/`.
+   * The app links to documents with `_sys.relativePath` minus its extension
+   * (see routines/analysis/routines.gts), so enumerate the same way here.
+   */
+  const slugs = async (field: string): Promise<string[]> => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -36,27 +42,37 @@ async function findRoutes(): Promise<string[]> {
         ...(token ? { 'X-API-KEY': token } : {})
       },
       body: JSON.stringify({
-        query: `{ ${field} { edges { node { _sys { filename } } } } }`
+        query: `{ ${field} { edges { node { _sys { relativePath extension } } } } }`
       })
     });
 
     const { data, errors } = (await response.json()) as {
-      data?: Record<string, { edges: { node: { _sys: { filename: string } } }[] }>;
+      data?: Record<
+        string,
+        { edges: { node: { _sys: { relativePath: string; extension: string } } }[] }
+      >;
       errors?: unknown;
     };
 
     if (!data?.[field]) {
-      throw new Error(`Failed to query ${field} from Tina content source: ${JSON.stringify(errors)}`);
+      throw new Error(
+        `Failed to query ${field} from Tina content source: ${JSON.stringify(errors)}`
+      );
     }
 
-    return data[field].edges.map(({ node }) => node._sys.filename);
+    return data[field].edges.map(({ node }) =>
+      node._sys.relativePath.slice(0, -node._sys.extension.length)
+    );
   };
 
-  const arts = (await filenames('artConnection')).map((f) => `kuenste/${f}`);
-  const courses = (await filenames('courseConnection')).map((f) => `courses/${f}`);
-  const exercises = (await filenames('exerciseConnection')).map((f) => `uebungen/${f}`);
-  const moves = (await filenames('moveConnection')).map((f) => `moves/${f}`);
-  const skills = (await filenames('skillConnection')).map((f) => `fertigkeiten/${f}`);
+  const arts = (await slugs('artConnection')).map((slug) => `kuenste/${slug}`);
+  const courses = (await slugs('courseConnection')).map((slug) => `courses/${slug}`);
+  const exercises = (await slugs('exerciseConnection')).map((slug) => `uebungen/${slug}`);
+  const moves = (await slugs('moveConnection')).map((slug) => `moves/${slug}`);
+  const skills = (await slugs('skillConnection')).map((slug) => `fertigkeiten/${slug}`);
+  const routines = (await slugs('routinesConnection')).map(
+    (slug) => `choreography/routines/${slug}`
+  );
 
   return [
     'index',
@@ -71,9 +87,14 @@ async function findRoutes(): Promise<string[]> {
     'moves',
     ...moves,
     'choreography',
+    'choreography/unidance-writing',
+    'choreography/routines',
+    ...routines,
     'choreography/not-todo-list',
     'training',
+    'training/leistungsprofil',
     'training/planning',
+    'training/planning/units',
     'training/planning/assistants',
     'training/planning/games',
     'training/control',
@@ -135,7 +156,8 @@ export default defineConfig(async ({ command, mode }) => {
         // ember-source provides @glimmer/tracking virtually at its root specifier,
         // but older addons (ember-resources 6, statecharts) deep-import this
         // subpath, which needs to be mapped onto ember-source's own dist file.
-        '@glimmer/tracking/primitives/cache': 'ember-source/@glimmer/tracking/primitives/cache/index.js'
+        '@glimmer/tracking/primitives/cache':
+          'ember-source/@glimmer/tracking/primitives/cache/index.js'
       }
     }
   };
