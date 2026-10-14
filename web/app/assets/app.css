@@ -79,6 +79,7 @@ a {
 
 dialog:is([data-game], [data-assistant]) {
   --top: calc(var(--spacing-container0) * 2 + var(--s0) * var(--line-height));
+  --content-width: auto;
 
   position: fixed;
   top: var(--top);
@@ -89,7 +90,7 @@ dialog:is([data-game], [data-assistant]) {
   flex-direction: column;
   gap: var(--spacing-container0);
 
-  width: auto;
+  width: var(--content-width);
   height: calc(100dvh - var(--top) - var(--spacing-container0) * 2 - var(--inset-bottom));
   margin: var(--spacing-container0);
   padding: var(--spacing-container0);
@@ -121,9 +122,9 @@ dialog:is([data-game], [data-assistant]) {
   }
 
   body:has(dialog:is([data-game], [data-assistant])) main > :is(header, div, [part="content"]) > :is(*, section) {
+    --content-width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
+
     grid-template-columns: initial;
-    /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-    width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
   }
 }
 

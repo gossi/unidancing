@@ -1,5 +1,5 @@
 .home [part="content"] section {
-  grid-template-columns: subgrid;
+  grid-template-columns: subgrid !important; /* important overwrites the handling for the game/assisstant dialog */
   padding-block: var(--spacing-container0);
 
   & > div {
@@ -9,8 +9,11 @@
   }
 
   &:nth-child(even) {
+    display: grid;
     grid-column: 1 / 4;
+
     text-align: right;
+
     background-color: var(--surface-container1);
     clip-path: polygon(
       0 6%, /* left top */
@@ -21,6 +24,7 @@
 
     & > div {
       grid-column: 2 / 3;
+      width: var(--content-width);
       padding-block: var(--spacing-container0) var(--spacing-container2);
     }
   }
