@@ -16,15 +16,18 @@
     "radius": {
       "primitive": {
         "$value": "{ls-3}",
-        "$description": ""
+        "$description": "",
+        "$type": "number"
       },
       "container": {
         "$value": "{spacing.container-2}",
-        "$description": ""
+        "$description": "",
+        "$type": "number"
       },
       "container-nested": {
         "$value": "{spacing.container-3}",
-        "$description": ""
+        "$description": "",
+        "$type": "number"
       }
     },
     "stroke": {

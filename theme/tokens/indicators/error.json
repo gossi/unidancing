@@ -5,13 +5,13 @@
         "background": {
           "$value": [
             {
-              "value": "#e8a29c",
+              "value": "#a93328",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#e8a29c",
+              "value": "#a93328",
               "features": {
                 "color-scheme": "dark"
               }
@@ -41,13 +41,13 @@
         "text": {
           "$value": [
             {
-              "value": "#882920",
+              "value": "#ecebeb",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#882920",
+              "value": "#ecebeb",
               "features": {
                 "color-scheme": "dark"
               }
@@ -61,13 +61,13 @@
         "background": {
           "$value": [
             {
-              "value": "#a93328",
+              "value": "#e8a29c",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#a93328",
+              "value": "#e8a29c",
               "features": {
                 "color-scheme": "dark"
               }
@@ -79,13 +79,13 @@
         "border": {
           "$value": [
             {
-              "value": "#a93328",
+              "value": "#882920",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#a93328",
+              "value": "#882920",
               "features": {
                 "color-scheme": "dark"
               }
@@ -97,13 +97,13 @@
         "text": {
           "$value": [
             {
-              "value": "#ecebeb",
+              "value": "#882920",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#ecebeb",
+              "value": "#882920",
               "features": {
                 "color-scheme": "dark"
               }

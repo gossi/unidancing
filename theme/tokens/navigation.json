@@ -2,16 +2,100 @@
   "navigation": {
     "links": {
       "base": {
-        "$value": "{intent.action.plain.base.text}",
-        "$description": ""
+        "$value": [
+          {
+            "value": "{intent.action.plain.base.text}",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "{intent.action.plain.base.text}",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
       },
       "hover": {
-        "$value": "{intent.action.plain.hover.text}",
-        "$description": ""
+        "$value": [
+          {
+            "value": "{intent.action.plain.hover.text}",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "{intent.action.plain.hover.text}",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
       },
       "active": {
-        "$value": "{intent.action.plain.active.text}",
-        "$description": ""
+        "$value": [
+          {
+            "value": "{intent.action.plain.active.text}",
+            "features": {
+              "color-scheme": "light"
+            }
+          },
+          {
+            "value": "{intent.action.plain.active.text}",
+            "features": {
+              "color-scheme": "dark"
+            }
+          }
+        ],
+        "$description": "",
+        "$type": "color"
+      }
+    },
+    "item": {
+      "active": {
+        "background": {
+          "$value": [
+            {
+              "value": "#e7e5e6",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#232122",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
+      },
+      "hover": {
+        "background": {
+          "$value": [
+            {
+              "value": "#ecebeb",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#2e2a2c",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
       }
     }
   }

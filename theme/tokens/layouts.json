@@ -75,13 +75,13 @@
     "window": {
       "$value": [
         {
-          "value": "#ffffff",
+          "value": "#f4f3f3",
           "features": {
             "color-scheme": "light"
           }
         },
         {
-          "value": "#ffffff",
+          "value": "#232122",
           "features": {
             "color-scheme": "dark"
           }
@@ -89,6 +89,20 @@
       ],
       "$description": "",
       "$type": "color"
+    }
+  },
+  "layout": {
+    "page": {
+      "max-content-width": {
+        "$value": "1200px",
+        "$description": "",
+        "$type": "dimension"
+      },
+      "max-narrow-content-width": {
+        "$value": "800px",
+        "$description": "",
+        "$type": "dimension"
+      }
     }
   }
 }

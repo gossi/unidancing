@@ -1,79 +1,83 @@
-const StyleDictionary = require('style-dictionary');
-const {
-  registerTheemo,
-  makeConstrainedFilter
-} = require('@theemo/style-dictionary');
-const { isConstrainedValue } = require('@theemo/tokens');
+import StyleDictionary from 'style-dictionary';
+
+import {
+  isConstrainedByPlatform,
+  isConstrainedToken,
+  isCSSProperty,
+  matchesConstraints,
+  registerTheemo
+} from '@theemo/style-dictionary';
 
 registerTheemo(StyleDictionary);
 
-module.exports = {
+function isDynamicToken(token) {
+  return token.dynamic === true;
+}
+
+function makeDensityPlatform(density) {
+  return {
+    transformGroup: 'theemo',
+    buildPath: 'build/',
+    constraints: {
+      features: {
+        density: density
+      }
+    },
+    options: {
+      outputReferences: true,
+      showFileHeader: false
+    },
+    files: [
+      {
+        format: 'css/variables',
+        destination: `density-${density}.css`,
+        filter: isConstrainedByPlatform
+      }
+    ]
+  };
+}
+
+/** @type import("style-dictionary/types").Config */
+export default {
   source: ['tokens/**/*.json'],
+  preprocessors: ['theemo/token'],
   platforms: {
-    base: {
+    css: {
       transformGroup: 'theemo',
       buildPath: 'build/',
-      files: [
-        {
-          format: 'css/variables',
-          destination: 'base.css',
-          options: {
-            outputReferences: true,
-            showFileHeader: false
-          },
-          filter: (token) => {
-            return !isConstrainedValue(token.value) && !token.dynamic;
-          }
-        }
-      ]
-    },
-    dark: {
-      transformGroup: 'theemo',
-      buildPath: 'build/',
-      constraints: {
-        features: {
-          'color-scheme': 'dark'
-        }
+      options: {
+        outputReferences: true,
+        showFileHeader: false,
+        useCSSColorTransform: true
       },
       files: [
         {
+          format: 'css/properties',
+          destination: 'properties.css',
+          filter: (token) => isCSSProperty(token) && !isDynamicToken(token)
+        },
+        {
           format: 'css/variables',
-          destination: 'dark.css',
-          options: {
-            outputReferences: true,
-            showFileHeader: false
-          },
-          filter: makeConstrainedFilter({
-            features: {
-              'color-scheme': 'dark'
-            }
-          })
+          destination: 'vars.css',
+          filter: (token) =>
+            // when no CSS property
+            !isCSSProperty(token) &&
+            // no dynamic token
+            !isDynamicToken(token) &&
+            // and matches color-scheme constraint
+            (matchesConstraints(token, {
+              features: {
+                'color-scheme': ['light', 'dark']
+              }
+            }) ||
+              // but no other constraint
+              !isConstrainedToken(token))
         }
       ]
     },
-    light: {
-      transformGroup: 'theemo',
-      buildPath: 'build/',
-      constraints: {
-        features: {
-          'color-scheme': 'light'
-        }
-      },
-      files: [
-        {
-          format: 'css/variables',
-          destination: 'light.css',
-          options: {
-            outputReferences: true,
-            showFileHeader: false
-          },
-          filter: makeConstrainedFilter({
-            features: {
-              'color-scheme': 'light'
-            }
-          })
-        }
-      ]
-    }
+    // constrained tokens (to combine them later under given selectors)
+    'density-comfortable': makeDensityPlatform('comfortable'),
+    'density-spacious': makeDensityPlatform('spacious'),
+    'density-compact': makeDensityPlatform('compact')
   }
 };

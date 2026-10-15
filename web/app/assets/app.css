@@ -24,7 +24,7 @@
   --typo-display-feature-settings: "liga" 1, "calt" 1, "salt" 1, "kern" 1;
   --typo-display-weight: 300;
   --typo-display-tracking: -0.003em;
-  --sizing-max-content-width: 60rem;
+  --layout-page-max-content-width: 60rem;
   --inset-bottom: var(--s0); /* px for calc() later on */
 }
 

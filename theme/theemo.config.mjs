@@ -1,18 +1,11 @@
-import {
-  figmaReader,
-  getNameFromStyle,
-  theemoPlugin,
-  getNameFromVariable
-} from '@theemo/figma';
-import { styleDictionaryWriter } from '@theemo/style-dictionary';
 import { defineConfig } from '@theemo/cli';
-import inflection from 'inflection';
+import { figmaReader, getNameFromStyle, isTokenByVariable, theemoPlugin } from '@theemo/figma';
+import { styleDictionaryWriter } from '@theemo/style-dictionary';
 
-const { FIGMA_SECRET } = process.env;
+const { FIGMA_SECRET, DEV } = process.env;
 
-const NESTED_TOPICS = ['intents', 'indicators'];
-const TOPICS = ['shape', 'sizing'];
-const DYNAMIC = [
+const NESTED_TOPICS = new Set(['intents', 'indicators']);
+const DYNAMIC = new Set([
   's-4',
   's-3',
   's-2',
@@ -49,12 +42,36 @@ const DYNAMIC = [
   'spacing.container2',
   'spacing.container3',
   'spacing.container4'
-];
+]);
+
+const PIXEL_TOKENS = new Set([
+  'control.border-width',
+  'control.focus.stroke-offset',
+  'control.focus.stroke-width',
+  'shape.stroke.width',
+  'layout.page.max-content-width',
+  'layout.page.max-narrow-content-width'
+]);
 
 function cleanTopic(topic) {
   if (topic) {
     return topic.replace(/\s+\(.*\)/, '');
   }
+}
+
+function normalizeNumericValue(value) {
+  if (Array.isArray(value)) {
+    return value.map((contraint) => ({
+      ...contraint,
+      value: normalizeNumericValue(contraint.value)
+    }));
+  }
+
+  if (typeof value === 'number') {
+    return Number.parseFloat(Number.parseFloat(value).toFixed(2));
+  }
+
+  return value;
 }
 
 export default defineConfig({
@@ -68,38 +85,22 @@ export default defineConfig({
         plugins: [theemoPlugin()],
 
         parser: {
-          getNameFromVariable(variable) {
-            if (
-              variable.name.toLowerCase().startsWith('global/') ||
-              variable.name.toLowerCase().startsWith('local/')
-            ) {
-              return variable.name
-                .toLowerCase()
-                .replace('global/', '')
-                .replace('local/', '');
-            }
-
-            if (
-              TOPICS.includes(
-                cleanTopic(variable.collection.name.toLowerCase())
-              )
-            ) {
-              return `${inflection
-                .singularize(cleanTopic(variable.collection.name))
-                .toLowerCase()}.${getNameFromVariable(variable)}`;
-            }
-
-            return getNameFromVariable(variable);
-          },
-
           considerMode(mode) {
-            return ['light', 'dark'].includes(mode);
+            return ['light', 'dark', 'comfortable', 'spacious', 'compact'].includes(mode);
           },
 
           getConstraints(mode) {
-            if (mode === 'light' || mode === 'dark') {
+            if (['light', 'dark'].includes(mode)) {
               return { features: { 'color-scheme': mode } };
             }
+
+            if (['comfortable', 'spacious', 'compact'].includes(mode)) {
+              return { features: { density: mode } };
+            }
+          },
+
+          isTokenByVariable(variable) {
+            return DEV ? true : isTokenByVariable(variable);
           },
 
           getNameFromStyle(style) {
@@ -115,24 +116,29 @@ export default defineConfig({
 
           isTokenByStyle(style) {
             return style.styleType === 'TEXT' || style.styleType === 'EFFECT';
-            // return !style.name.includes('(') && !style.name.includes(')') && isTokenByStyle(style);
           },
 
           getPropertiesForToken(token) {
             let dynamics = {};
 
-            if (DYNAMIC.includes(token.name)) {
+            if (DYNAMIC.has(token.name)) {
               dynamics = {
                 dynamic: true
               };
             }
 
+            let topic = '';
+
+            if (token.figma.variable) {
+              topic = cleanTopic(token.figma.variable.collection.name.toLowerCase());
+            } else if (token.figma.style) {
+              topic = token.name.split('.')[0];
+              topic = topic === 'shape' ? 'shapes' : topic;
+            }
+
             return {
               ...dynamics,
-              topic:
-                cleanTopic(
-                  token.figma.variable?.collection?.name?.toLowerCase()
-                ) ?? ''
+              topic
             };
           }
         }
@@ -141,33 +147,28 @@ export default defineConfig({
 
     lexer: {
       normalizeToken(token) {
-        if (
-          [
-            'control.border-width',
-            'control.focus.stroke-offset',
-            'control.focus.stroke-width'
-          ].includes(token.name)
-        ) {
+        if (PIXEL_TOKENS.has(token.name)) {
+          const value = Array.isArray(token.value) ? token.value[0].value : token.value;
+
           return {
             ...token,
-            value: `${token.value[0].value}px`,
+            value: `${value}px`,
             type: 'dimension'
           };
         }
 
-        if (['shape.stroke.width'].includes(token.name)) {
+        // merge constrained values, because Figma can't
+        if (token.topic === 'controls' && token.type !== 'color') {
           return {
             ...token,
-            value: `${token.value}px`,
-            type: 'dimension'
+            value: token.value[0].value
           };
         }
 
-        // if (['sizing.factor', 'sizing.ratio'].includes(token.name)) {
         if (token.type === 'number') {
           return {
             ...token,
-            value: parseFloat(parseFloat(token.value).toFixed(2))
+            value: normalizeNumericValue(token.value)
           };
         }
 
@@ -182,20 +183,12 @@ export default defineConfig({
         },
 
         fileForToken(token) {
-          const parts = token.name.split('.');
+          let fileName = token.topic;
 
-          if (token.topic) {
-            if (NESTED_TOPICS.includes(token.topic)) {
-              return `${token.topic}/${parts[1]}`;
-            }
+          if (NESTED_TOPICS.has(token.topic)) {
+            const parts = token.name.split('.');
 
-            return token.topic;
-          }
-
-          let fileName = 'misc';
-
-          if (parts.length > 1) {
-            fileName = parts[0];
+            fileName += `/${parts[1]}`;
           }
 
           return fileName;
@@ -209,21 +202,26 @@ export default defineConfig({
       })
     }
   },
+
   build: {
-    input: 'build',
-    output: 'dist',
-    auto: true,
-    defaultColorScheme: 'light',
-    colorSchemes: {
-      light: {
-        auto: true,
-        manual: false
+    outDir: 'dist',
+    files: ['build/properties.css', 'build/vars.css'],
+    layerName: 'tokens',
+    features: [
+      {
+        name: 'color-scheme',
+        browserFeature: 'color-scheme',
+        options: ['light', 'dark']
       },
-      dark: {
-        auto: true,
-        manual: false
-        // selector: 'html[data-theme="dark"]'
+      {
+        name: 'density',
+        options: {
+          compact: 'build/density-compact.css',
+          comfortable: 'build/density-comfortable.css',
+          spacious: 'build/density-spacious.css'
+        },
+        defaultOption: 'comfortable'
       }
-    }
+    ]
   }
 });
