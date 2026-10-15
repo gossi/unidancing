@@ -1,3 +1,1 @@
-import { client } from '@/tina/client';
-
-export { client };
+export { client } from '@/tina/client';

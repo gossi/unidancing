@@ -1,4 +1,4 @@
-import styles from './tag.css';
+import styles from './tag.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 

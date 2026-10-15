@@ -1,9 +1,8 @@
 {
+  "extends": "@ember/app-tsconfig",
   "compilerOptions": {
     "target": "esnext",
-    "allowJs": true,
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
+
     "noImplicitAny": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
@@ -13,15 +12,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
-    "noEmitOnError": false,
-    "noEmit": true,
+
     "inlineSourceMap": true,
     "inlineSources": true,
-    "baseUrl": ".",
-    "module": "ESNext",
-    "experimentalDecorators": true,
-    "skipLibCheck": true,
-    "resolveJsonModule": true,
+
     "paths": {
       // /*
       //   The core
@@ -75,21 +69,27 @@
       //   "app/domain/supporting/utils"
       // ],
       "@/tina/*": [
-        "tina/__generated__/*"
+        "./tina/__generated__/*"
       ],
       /*
         App
       */
       "@unidancing/app/tests/*": [
-        "tests/*"
+        "./tests/*"
       ],
       "@unidancing/app/*": [
-        "app/*"
+        "./app/*"
       ],
       "*": [
-        "types/*"
+        "./types/*"
       ]
-    }
+    },
+    "types": [
+      "ember-source/types",
+      "@glint/ember-tsc/types",
+      "@vitest/browser/context",
+      "unplugin-icons/types/ember"
+    ]
   },
   "include": [
     "tina/**/*",

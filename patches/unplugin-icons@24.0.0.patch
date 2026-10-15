@@ -1,0 +1,11 @@
+diff --git a/types/ember.d.ts b/types/ember.d.ts
+index 881c3307759c7caae6aba4af432bfef0f0b70365..4bb90e2931a079356eb197cf8c5aa24a8a9ac3a5 100644
+--- a/types/ember.d.ts
++++ b/types/ember.d.ts
+@@ -12,5 +12,5 @@ declare module '~icons/*' {
+   const IconComponent: ComponentLike<{
+     Element: SVGElement
+   }>
+-  export default component
++  export default IconComponent
+ }

@@ -5,7 +5,7 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 import { Card, Page } from '@hokulea/ember';
 
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export class TrainingDiagnosticsIndexRoute extends Route<object> {
   <template>

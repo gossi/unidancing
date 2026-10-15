@@ -1,7 +1,3 @@
-import { fn } from '@ember/helper';
-
-import { and, or } from 'ember-truth-helpers';
-
 import { Button } from '@hokulea/ember';
 
 import { TinaMarkdown } from '../../../supporting/tina';
@@ -9,7 +5,7 @@ import { Dialog, VideoPlayer } from '../../../supporting/ui';
 import { asNumber, asString } from '../../../supporting/utils';
 import { asMethod, formatDuration, formatMethod, formatMethodAbbr } from '../-helpers';
 import { asMediaCollection } from '../domain-objects';
-import styles from './instruction.css';
+import styles from './instruction.module.css';
 import { Media } from './media';
 
 import type { Instruction as ExerciseInstruction } from '../domain-objects';
@@ -17,6 +13,7 @@ import type { Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
 
 function openDialog(id: string) {
+  // eslint-disable-next-line unicorn/prefer-query-selector
   const diag = document.getElementById(id);
 
   if (diag) {
@@ -70,7 +67,7 @@ export const Instruction: TOC<InstructionSignature> = <template>
             </abbr>
           </div>
           <div data-media>
-            {{#if (and s.media)}}
+            {{#if s.media}}
               <Media @media={{asMediaCollection s.media}} />
             {{/if}}
 
@@ -78,6 +75,7 @@ export const Instruction: TOC<InstructionSignature> = <template>
               <Button
                 @importance="subtle"
                 @spacing="-1"
+                {{! @glint-ignore }}
                 @push={{fn openDialog s.move._sys.filename}}
               >
                 Video

@@ -11,7 +11,6 @@ export interface GameSignature {
 }
 
 export class GameFactory extends Component<GameSignature> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   get Game() {
     return findGame(this.args.game);
   }

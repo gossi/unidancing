@@ -1,4 +1,4 @@
-import styles from './video-player.css';
+import styles from './video-player.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 
@@ -18,7 +18,7 @@ const parseUrl = (url: string) => {
     embedUrl.searchParams.set('start', u.searchParams.get('t') as string);
   }
 
-  return embedUrl.toString();
+  return embedUrl.href;
 };
 
 const VideoPlayer: TOC<{ Element: HTMLIFrameElement; Args: { url: string } }> = <template>

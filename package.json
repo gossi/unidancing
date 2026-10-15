@@ -10,17 +10,18 @@
     "build": "turbo run build --filter @unidancing/app"
   },
   "devDependencies": {
-    "turbo": "^2.0.11",
-    "@glint/ember-tsc": "^1.0.8"
+    "@glint/ember-tsc": "^1.11.6",
+    "turbo": "^2.0.11"
   },
   "engines": {
-    "node": ">= 22"
+    "node": ">= 24"
   },
   "packageManager": "pnpm@10.23.0",
   "pnpm": {
     "patchedDependencies": {
-      "ember-cli-fastboot@4.1.5": "patches/ember-cli-fastboot@4.1.5.patch",
-      "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch"
+      "spotify-web-playback@1.4.0": "patches/spotify-web-playback@1.4.0.patch",
+      "@hokulea/ember@0.16.1": "patches/@hokulea__ember@0.16.1.patch",
+      "unplugin-icons@24.0.0": "patches/unplugin-icons@24.0.0.patch"
     }
   }
 }

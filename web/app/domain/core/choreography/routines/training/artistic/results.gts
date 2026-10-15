@@ -5,7 +5,7 @@ import { formatNumber, t } from 'ember-intl';
 import { Score } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.css';
+import styles from './artistic.module.css';
 
 import type {
   ArtisticResults as Results,

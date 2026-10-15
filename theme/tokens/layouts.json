@@ -1,0 +1,108 @@
+{
+  "surface": {
+    "base": {
+      "$value": [
+        {
+          "value": "#fbfbfb",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#1b191a",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "container": {
+      "$value": [
+        {
+          "value": "#f4f3f3",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#232122",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "container1": {
+      "$value": [
+        {
+          "value": "#ecebeb",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#2e2a2c",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "popover": {
+      "$value": [
+        {
+          "value": "#f4f3f3",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#232122",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    },
+    "window": {
+      "$value": [
+        {
+          "value": "#f4f3f3",
+          "features": {
+            "color-scheme": "light"
+          }
+        },
+        {
+          "value": "#232122",
+          "features": {
+            "color-scheme": "dark"
+          }
+        }
+      ],
+      "$description": "",
+      "$type": "color"
+    }
+  },
+  "layout": {
+    "page": {
+      "max-content-width": {
+        "$value": "1200px",
+        "$description": "",
+        "$type": "dimension"
+      },
+      "max-narrow-content-width": {
+        "$value": "800px",
+        "$description": "",
+        "$type": "dimension"
+      }
+    }
+  }
+}

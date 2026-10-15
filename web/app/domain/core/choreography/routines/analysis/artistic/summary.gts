@@ -5,13 +5,17 @@ import { t } from 'ember-intl';
 import { Score } from '../../artistic/-components';
 import { toIntlNameKey } from '../../artistic/-utils';
 import { loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.css';
+import styles from './artistic.module.css';
 
 import type { ArtisticResults, CategoryResult, PartResult } from '../../artistic/domain-objects';
 
 export class ArtisticSummary extends Component<{
   Args: { data: ArtisticResults };
 }> {
+  categoryIntlName = (part: PartResult, category: CategoryResult) => {
+    return `artistic-${part.name}-${category.name}`;
+  };
+
   get system() {
     return loadSystem(loadSystemDescriptor(this.args.data.name));
   }
@@ -19,10 +23,6 @@ export class ArtisticSummary extends Component<{
   get score() {
     return (this.args.data.parts.find((p) => p.name === 'performance') as PartResult).score;
   }
-
-  categoryIntlName = (part: PartResult, category: CategoryResult) => {
-    return `artistic-${part.name}-${category.name}`;
-  };
 
   <template>
     <div class={{styles.summary}}>

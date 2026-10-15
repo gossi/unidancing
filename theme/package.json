@@ -16,7 +16,26 @@
       "light",
       "dark"
     ],
-    "file": "dist/unidancing.css"
+    "file": "dist/unidancing.css",
+    "features": [
+      {
+        "name": "color-scheme",
+        "browserFeature": "color-scheme",
+        "options": [
+          "light",
+          "dark"
+        ]
+      },
+      {
+        "name": "density",
+        "options": [
+          "compact",
+          "comfortable",
+          "spacious"
+        ],
+        "defaultOption": "comfortable"
+      }
+    ]
   },
   "scripts": {
     "clean": "rm -rf build/ dist/ tokens/",
@@ -28,14 +47,14 @@
     "clean-magic": "pnpm clean && pnpm magic"
   },
   "devDependencies": {
-    "@theemo/build": "^0.2.4",
-    "@theemo/cli": "^0.2.4",
-    "@theemo/figma": "^0.2.3",
-    "@theemo/style-dictionary": "^0.2.3",
+    "@theemo/build": "1.1.0",
+    "@theemo/cli": "1.0.2",
+    "@theemo/figma": "1.0.1",
+    "@theemo/style-dictionary": "1.0.1",
     "inflection": "^3.0.0",
-    "style-dictionary": "^3.9.1"
+    "style-dictionary": "5.0.0"
   },
   "engines": {
-    "node": ">= 22"
+    "node": ">= 24"
   }
 }

@@ -33,7 +33,9 @@ export function formatDuration(
 ) {
   if (!duration) return;
 
-  return new Intl.DurationFormat('en', { style: 'digital', ...options }).format(duration);
+  const durationFormatter = new Intl.DurationFormat('en', { style: 'digital', ...options });
+
+  return durationFormatter.format(duration);
 }
 
 export function dateToSecondsWithMilli(time: Date) {

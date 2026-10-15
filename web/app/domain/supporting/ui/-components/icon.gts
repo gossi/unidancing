@@ -1,79 +1,42 @@
-import Component from '@glimmer/component';
+import IconBasketball from '~icons/ph/basketball';
+import IconLink from '~icons/ph/link';
+import IconMedal from '~icons/ph/medal';
+import IconPalette from '~icons/ph/palette';
+import IconPersonSimpleWalk from '~icons/ph/person-simple-walk';
+import IconTarget from '~icons/ph/target';
 
 import { Icon as HokIcon } from '@hokulea/ember';
 
-const Icon = {
-  learn: '🏫',
-  training: '🏋️', // '🏆',
-  motion: '🏃',
-  literature: '📚',
-  skill: '🎓',
-  exercise: '🤼',
-  move: '💃',
-  course: '🎓',
-  art: '🎭',
-  technique: '🎯', // 🪄,
-  game: '🎲',
-  link: '🌐',
-  play: '▶️',
-  pause: '⏸️',
-  // individual:  '🧑',
-  // pair:  '🧑‍🤝‍🧑',
-  // group:  '👪',
-  // pedes:  '🦶',
-  // unicycle:  '🚲',
-  computer: '💻',
-  tv: '🖥️',
-  smartphone: '📱',
-  speaker: '🔈',
-  choreo: '📜',
-  plus: '➕',
-  trash: '🗑️',
-  go: '➡️',
-  check: '✅',
-  reload: '🔄',
-  info: 'ℹ️'
+import type { TOC } from '@ember/component/template-only';
+
+/**
+ * Semantic domain icons for UniDancing content kinds, backed by Phosphor
+ * icons via unplugin-icons (replaces the old emoji map).
+ */
+const Icons = {
+  art: IconPalette,
+  exercise: IconBasketball,
+  link: IconLink,
+  move: IconPersonSimpleWalk,
+  skill: IconMedal,
+  technique: IconTarget
 } as const;
 
-const HokuleaIcon = {
-  pedes: 'footprints',
-  unicycle: 'unicycle',
-  individual: 'user',
-  pair: 'users',
-  group: 'users-three'
-} as const;
-
-export type Icons = keyof typeof Icon;
-export type HokuleaIcons = keyof typeof HokuleaIcon;
+export type Icons = keyof typeof Icons;
 
 export function getIcon(icon: Icons) {
-  return Icon[icon];
-}
-
-export function getHokuleaIcon(icon: HokuleaIcons) {
-  return HokuleaIcon[icon];
-}
-
-function asHokuleaIcon(icon: Icons | HokuleaIcons): HokuleaIcons {
-  return icon as HokuleaIcons;
+  return Icons[icon];
 }
 
 export interface IconSignature {
+  Element: HTMLSpanElement;
   Args: {
-    icon: Icons | HokuleaIcons;
+    icon: Icons;
   };
 }
 
-export default class IconComponent extends Component<IconSignature> {
-  get icon() {
-    return getIcon(this.args.icon as Icons);
-  }
+const IconComponent: TOC<IconSignature> = <template>
+  <HokIcon @icon={{getIcon @icon}} data-test-icon={{@icon}} ...attributes />
+</template>;
 
-  <template>
-    {{#if this.icon}}
-      {{this.icon}}
-    {{else}}
-      <HokIcon @icon={{getHokuleaIcon (asHokuleaIcon @icon)}} />
-    {{/if}}
-  </template>
-}
+export default IconComponent;

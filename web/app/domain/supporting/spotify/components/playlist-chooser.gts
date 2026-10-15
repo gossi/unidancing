@@ -5,7 +5,7 @@ import { use } from 'ember-resources';
 import { Form } from '@hokulea/ember';
 
 import { loadPlaylists } from '../resources/playlists';
-import styles from './playlist-chooser.css';
+import styles from './playlist-chooser.module.css';
 
 import type { UserPlaylist } from '../domain-objects';
 

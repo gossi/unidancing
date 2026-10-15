@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
 import { next } from '@ember/runloop';
 import { service } from '@ember/service';
@@ -11,7 +9,6 @@ import { htmlSafe } from '@ember/template';
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
-import { useMachine } from 'ember-statecharts';
 import { createMachine } from 'xstate';
 
 import { Button, Form } from '@hokulea/ember';
@@ -29,9 +26,10 @@ import {
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
-import styles from './dance-mix.css';
+import { useMachine } from '../../../supporting/statechart';
+import styles from './dance-mix.module.css';
 
-import type { Playlist, Track } from '../../../supporting/spotify';
+import type { Playlist, Track, UserPlaylist } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
@@ -77,6 +75,8 @@ const DEFAULTS = {
 const getParam =
   <A extends DanceMixParams>(args: A, router: RouterService) =>
   <P extends DanceMixParam>(param: P): A[P] => {
+    // NB: `Object.hasOwn(args, param)` throws here — `this.args` is Glimmer's
+    // NamedArgsProxy and has no real property descriptors. Keep truthy check.
     if (args[param]) {
       return args[param];
     }
@@ -111,7 +111,7 @@ const DanceMixMachine = createMachine({
         }
       }
     },
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     'choosing-playlist': {
       on: {
         selectPlaylist: {
@@ -154,27 +154,30 @@ class Play extends Component<PlaySignature> {
   constructor(owner: Owner, args: PlaySignature['Args']) {
     super(owner, args);
 
-    this.start();
+    void this.start();
   }
 
   start = async () => {
-    if (this.args.playlist.tracks) {
-      this.tracks = getRandomTracks(getTracks(this.args.playlist), this.args.amount);
-
-      try {
-        await this.mix.perform({
-          duration: this.args.duration,
-          pause: this.args.pause,
-          tracks: this.tracks
-        });
-      } catch (e) {
-        if (!didCancel(e)) {
-          throw e;
-        }
-      }
-
-      this.finish();
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (!this.args.playlist.tracks) {
+      return;
     }
+
+    this.tracks = getRandomTracks(getTracks(this.args.playlist), this.args.amount);
+
+    try {
+      await this.mix.perform({
+        duration: this.args.duration,
+        pause: this.args.pause,
+        tracks: this.tracks
+      });
+    } catch (error) {
+      if (!didCancel(error)) {
+        throw error;
+      }
+    }
+
+    void this.finish();
   };
 
   mix = dropTask(
@@ -193,7 +196,7 @@ class Play extends Component<PlaySignature> {
         }
 
         // pause
-        this.spotify.client.pause();
+        void this.spotify.client.pause();
         await timeout(pause * 1000);
       }
     }
@@ -218,7 +221,7 @@ class Play extends Component<PlaySignature> {
     // await this.playTrack.cancelAll();
     await this.mix.cancelAll();
 
-    this.finish();
+    void this.finish();
   };
 
   finish = async () => {
@@ -336,6 +339,7 @@ class Game extends Component<DanceMixSignature> {
 
     const playlist = this.getParam(DanceMixParam.Playlist) as PlaylistOptions;
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     if (playlist && PLAYLISTS[playlist]) {
       return PLAYLISTS[playlist];
     }
@@ -359,7 +363,7 @@ class Game extends Component<DanceMixSignature> {
     return this.playlistResource.current;
   }
 
-  selectPlaylist = (playlist: Playlist) => {
+  selectPlaylist = (playlist: UserPlaylist) => {
     const id = playlist.id;
 
     localStorage.setItem('dance-playlist', id);

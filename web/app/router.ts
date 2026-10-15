@@ -8,7 +8,9 @@ export default class Router extends EmberRouter {
   rootURL = config.rootURL;
 }
 
+/* eslint-disable unicorn/no-top-level-side-effects */
 Router.map(function () {
+  /* eslint-disable unicorn/no-this-outside-of-class */
   this.route('auth', function () {
     this.route('spotify');
   });
@@ -57,4 +59,6 @@ Router.map(function () {
       this.route('body-language');
     });
   });
+  /* eslint-enable unicorn/no-this-outside-of-class */
 });
+/* eslint-enable unicorn/no-top-level-side-effects */

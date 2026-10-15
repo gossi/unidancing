@@ -3,9 +3,11 @@ import { LinkTo } from '@ember/routing';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
+import IconArrowLeft from '~icons/ph/arrow-left';
+
 import { Icon } from '@hokulea/ember';
 
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 export class ArtsIndexRoute extends Route<object> {
   <template>
@@ -16,7 +18,7 @@ export class ArtsIndexRoute extends Route<object> {
         <LinkTo @route="exercises">Übungen</LinkTo>
         die diesen Kunstformen zugeschrieben werden können.</p>
 
-      <p><Icon @icon="arrow-left" /> Kunstform auswählen</p>
+      <p><Icon @icon={{IconArrowLeft}} /> Kunstform auswählen</p>
     </div>
   </template>
 }

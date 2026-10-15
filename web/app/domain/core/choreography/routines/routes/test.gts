@@ -24,15 +24,15 @@ export class RoutineTesterRoute extends Route<{ data?: string }> {
   get data() {
     try {
       if (this.params.data) {
-        const data = JSON.parse(decompressFromEncodedURIComponent(this.params.data));
+        const data = JSON.parse(decompressFromEncodedURIComponent(this.params.data)) as RoutineTest;
 
         return data;
       }
     } catch {
-      return undefined;
+      return;
     }
 
-    return undefined;
+    return;
   }
 
   <template>

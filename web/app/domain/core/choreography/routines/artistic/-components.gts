@@ -3,7 +3,7 @@ import Component from '@glimmer/component';
 import { formatNumber, t } from 'ember-intl';
 
 import { getCriterionKey, toIntlIntervalKey } from './-utils';
-import styles from './artistic.css';
+import styles from './artistic.module.css';
 
 import type {
   JudgingSystemCriterion,

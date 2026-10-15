@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 
 import { ability } from 'ember-ability';
 import { action } from 'ember-command';
@@ -10,7 +8,6 @@ import { restartableTask, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
 import Service, { service } from 'ember-polaris-service';
 import { resource, resourceFactory, use } from 'ember-resources';
-import { and } from 'ember-truth-helpers';
 import { trackedFunction } from 'reactiveweb/function';
 
 import { Form } from '@hokulea/ember';
@@ -26,11 +23,12 @@ import {
   WithSpotify
 } from '../../../supporting/spotify';
 import { data } from './data';
-import styles from './looper.css';
+import styles from './looper.module.css';
 
 import type { Track } from '../../../supporting/spotify';
 import type { LoopDescriptor, LoopTrackDescriptor } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
 
 const DEV = false;
 
@@ -55,7 +53,7 @@ function isSameLoop(a: LoopData, b: LoopData) {
 export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
   return resource(({ use: useResource }): (() => LoopTrackData) => {
     const request = useResource(
-      trackedFunction(async () => {
+      trackedFunction(() => {
         const trackResource = useResource(findTrack(loop.trackId));
 
         return {
@@ -74,7 +72,7 @@ export const loadLoop = resourceFactory((loop: LoopTrackDescriptor) => {
               };
             });
           }
-        } as LoopTrackData;
+        };
       })
     );
 
@@ -103,11 +101,11 @@ class LoopService extends Service {
 
     this.elapsedTime = offset ? (offset < 0 ? max + offset : offset) : 0;
 
-    // eslint-disable-next-line no-constant-condition
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     while (true) {
       await this.spotify.client.play({
         uris: [loop.track.uri],
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         position_ms: loop.start + this.elapsedTime // elapsed time includes the duration offset
       });
 
@@ -133,7 +131,7 @@ class LoopService extends Service {
   };
 }
 
-// eslint-disable-next-line @typescript-eslint/no-shadow
+// eslint-disable-next-line @typescript-eslint/no-shadow, @typescript-eslint/no-inferrable-types
 const start = action(({ service }) => async (loop: LoopData, offset: number = 0) => {
   const loopService = service(LoopService);
 
@@ -165,15 +163,15 @@ const playingPercentage = ability(({ service }) => () => {
   return Math.round((loopService.elapsedTime / loopService.playing.duration) * 100);
 });
 
-const applyPercentage = modifier((element, [percentage]) => {
-  (element as HTMLElement).style.setProperty('--percent', `${percentage}%`);
+const applyPercentage = modifier((element: HTMLElement, [percentage]: [number]) => {
+  element.style.setProperty('--percent', `${percentage}%`);
 });
 
 const formatDuration = (ms: number) => {
   if (ms < 0) ms = -ms;
 
   const time = {
-    m: Math.floor(ms / 60000) % 60,
+    m: Math.floor(ms / 60_000) % 60,
     s: Math.floor(ms / 1000) % 60,
     ms: Math.floor(ms) % 1000
   };
@@ -184,8 +182,9 @@ const formatDuration = (ms: number) => {
 class Latency extends Component {
   @service(LoopService) declare loop: LoopService;
 
-  updateLatency = (event: Event) => {
-    this.loop.latency = Number.parseFloat((event.target as HTMLInputElement).value);
+  // eslint-disable-next-line @typescript-eslint/no-shadow
+  updateLatency = (data: { latency: number }) => {
+    this.loop.latency = data.latency;
   };
 
   get data() {
@@ -198,8 +197,8 @@ class Latency extends Component {
     <details>
       <summary>Einstellungen</summary>
 
-      <Form @data={{this.loop}} @dataMode="mutable" as |f|>
-        <f.Number @name="latency" @label="Latenz [ms]" />
+      <Form @data={{this.loop}} @submit={{this.updateLatency}} as |f|>
+        <f.Number @name="latency" @label="Latenz [ms]" {{on "blur" f.submit}} />
       </Form>
     </details>
   </template>
@@ -242,7 +241,7 @@ class Loop extends Component<LoopSignature> {
 
   loaded = false;
 
-  constructor(owner: unknown, args: LoopSignature['Args']) {
+  constructor(owner: Owner, args: LoopSignature['Args']) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;
@@ -250,10 +249,11 @@ class Loop extends Component<LoopSignature> {
     registerDestructor(this, () => {
       this.audio.player = undefined;
 
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (this.track && this.loop.playing) {
         for (const loop of this.track.loops) {
           if (isSameLoop(loop, this.loop.playing)) {
-            this.loop.stop();
+            void this.loop.stop();
           }
         }
       }
@@ -271,7 +271,9 @@ class Loop extends Component<LoopSignature> {
   getLoop = (track: LoopTrackData) => {
     if (track.loops.length === 1) {
       return track.loops[0];
-    } else if (this.args.loop) {
+    }
+
+    if (this.args.loop) {
       return track.loops.find((loop) => loop.name === this.args.loop);
     }
   };
@@ -300,14 +302,15 @@ interface LoopCardSignature {
 class LoopCard extends Component<LoopCardSignature> {
   @service(LoopService) declare loop: LoopService;
 
-  constructor(owner: unknown, args: LoopCardSignature['Args']) {
+  constructor(owner: Owner, args: LoopCardSignature['Args']) {
     super(owner, args);
 
     registerDestructor(this, () => {
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (this.data && this.loop.playing) {
         for (const loop of this.data.loops) {
           if (isSameLoop(loop, this.loop.playing)) {
-            this.loop.stop();
+            void this.loop.stop();
           }
         }
       }
@@ -352,7 +355,7 @@ class LoopCard extends Component<LoopCardSignature> {
 class Game extends Component {
   @service(AudioService) declare audio: AudioService;
 
-  constructor(owner: unknown, args: object) {
+  constructor(owner: Owner, args: object) {
     super(owner, args);
 
     this.audio.player = AudioPlayer.Spotify;

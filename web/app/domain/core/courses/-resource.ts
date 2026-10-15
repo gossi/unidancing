@@ -13,15 +13,11 @@ import type { LinkManagerService } from 'ember-link';
 export const findCourses = resourceFactory(() => {
   return resource(async ({ owner }): Promise<Course[]> => {
     return cacheResult('courses', owner, async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const courseResponse = await client.queries.courseConnection();
 
       return (
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        (courseResponse.data.courseConnection.edges as CourseConnectionEdges[] | undefined)?.map(
-          (ex) => ex.node
-        ) as Course[]
-      );
+        courseResponse.data.courseConnection.edges as CourseConnectionEdges[] | undefined
+      )?.map((ex) => ex.node) as Course[];
     });
   });
 });
@@ -29,10 +25,8 @@ export const findCourses = resourceFactory(() => {
 export const findCourse = resourceFactory((id: string) => {
   return resource(async ({ owner }): Promise<Course> => {
     return cacheResult(`course-${id}`, owner, async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const courseResponse = await client.queries.course({ relativePath: `${id}.md` });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return courseResponse.data.course as Course;
     });
   });

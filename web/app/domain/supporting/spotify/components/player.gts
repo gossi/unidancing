@@ -1,16 +1,19 @@
 import Component from '@glimmer/component';
-import { fn } from '@ember/helper';
 
 import { command } from 'ember-command';
 import { service } from 'ember-polaris-service';
-import { and, not } from 'ember-truth-helpers';
+
+import IconSpotifyLogo from '~icons/custom/spotify-logo';
+import IconArrowRightThin from '~icons/ph/arrow-right-thin';
+import IconDevicesBold from '~icons/ph/devices-bold';
+import IconWarningFill from '~icons/ph/warning-fill';
 
 import { Button, Icon, IconButton, Popover, popover } from '@hokulea/ember';
 
 import { device2Icon, formatArtists } from '../helpers';
 import { SpotifyService } from '../service';
 import { LoginWithSpotify } from './login-with-spotify';
-import styles from './player.css';
+import styles from './player.module.css';
 
 import type { Device } from '../domain-objects';
 
@@ -36,7 +39,7 @@ export class SpotifyPlayer extends Component {
   <template>
     <div class={{styles.layout}}>
       <div class={{styles.content}}>
-        <Icon @icon="spotify-logo" @style="fill" class={{styles.spotify}} />
+        <Icon @icon={{IconSpotifyLogo}} class={{styles.spotify}} />
 
         {{#if (and this.client.authenticated (not this.client.error))}}
           {{!-- {{#if this.client.ready}}
@@ -48,7 +51,7 @@ export class SpotifyPlayer extends Component {
             </p>
             {{!-- {{else if this.client.error}}
             <p>
-              <Icon @icon="warning" @style="fill" class={{styles.warning}} />
+              <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
               Fehler:
               {{this.client.error}}
             </p> --}
@@ -63,15 +66,15 @@ export class SpotifyPlayer extends Component {
             </p>
             {{!-- {{else if this.client.error}}
             <p>
-              <Icon @icon="warning" @style="fill" class={{styles.warning}} />
+              <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
               Fehler:
               {{this.client.error}}
             </p> --}}
           {{else}}
             <p>
-              <Icon @icon="warning" @style="fill" class={{styles.warning}} />
+              <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
               Bitte Player auswählen
-              <Icon @icon="arrow-right" @style="thin" />
+              <Icon @icon={{IconArrowRightThin}} />
             </p>
           {{/if}}
         {{else}}
@@ -83,8 +86,7 @@ export class SpotifyPlayer extends Component {
         {{#if this.client.authenticated}}
           {{#let (popover opened=this.client.loadDevices.perform) as |pop|}}
             <IconButton
-              @icon="devices"
-              @iconStyle="bold"
+              @icon={{IconDevicesBold}}
               @importance="plain"
               @label="Spotify Player auswählen"
               class={{styles.trigger}}

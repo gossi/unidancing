@@ -1,14 +1,12 @@
 import type {
-  Exercise,
-  ExerciseInstruction,
   ExerciseInstructionMedia,
   ExerciseMedia,
   ExerciseMediaDancemix,
   ExerciseMediaLoop,
   ExerciseMediaMaterial,
-  ExerciseMediaSong
+  ExerciseMediaSong,
+  Maybe
 } from '@/tina/types';
-import type { Maybe } from '@/tina/types';
 
 export type Personal = 'individual' | 'pair' | 'group';
 export type Locomotion = 'unicycle' | 'pedes';
@@ -29,12 +27,10 @@ export function asDifficulty(difficulty?: Difficulty | string | Maybe<string>): 
   return difficulty as Difficulty;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export function asMedia(media?: ExerciseMedia | string | Maybe<string>): ExerciseMedia {
   return media as ExerciseMedia;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
 export function asMediaCollection(
   media?: Maybe<ExerciseMedia>[] | Maybe<Maybe<ExerciseInstructionMedia>[]> | null
 ): ExerciseMedia[] {
@@ -75,13 +71,13 @@ export function isMaterial(
   );
 }
 
-export type {
-  Exercise,
-  ExerciseInstructionMedia,
-  ExerciseMedia,
-  ExerciseMediaDancemix,
-  ExerciseMediaLoop,
-  ExerciseMediaMaterial,
-  ExerciseMediaSong,
-  ExerciseInstruction as Instruction
-};
+export {
+  type Exercise,
+  type ExerciseInstructionMedia,
+  type ExerciseMedia,
+  type ExerciseMediaDancemix,
+  type ExerciseMediaLoop,
+  type ExerciseMediaMaterial,
+  type ExerciseMediaSong,
+  type ExerciseInstruction as Instruction
+} from '@/tina/types';

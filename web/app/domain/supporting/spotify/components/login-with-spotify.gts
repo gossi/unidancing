@@ -1,5 +1,4 @@
 import Component from '@glimmer/component';
-import { on } from '@ember/modifier';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 
@@ -16,9 +15,11 @@ export class LoginWithSpotify extends Component {
   }
 
   <template>
-    <a href="{{config.workerHostURL}}/spotify/login" {{on "click" this.loginWithSpotify}}>
-      Login with Spotify
-    </a><br />
-    (derzeit nur für ausgewählte Personen - wir arbeiten daran es für alle zugänglich zu machen).
+    <p>
+      <a href="{{config.workerHostURL}}/spotify/login" {{on "click" this.loginWithSpotify}}>
+        Login with Spotify
+      </a><br />
+      (derzeit nur für ausgewählte Personen - wir arbeiten daran es für alle zugänglich zu machen).
+    </p>
   </template>
 }

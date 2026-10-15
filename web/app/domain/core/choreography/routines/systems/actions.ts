@@ -86,5 +86,5 @@ export function findInterval(intervals: JudgingSystemCriterionInterval[], value:
     }
   }
 
-  return undefined;
+  return;
 }

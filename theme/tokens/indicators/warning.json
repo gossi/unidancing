@@ -5,13 +5,69 @@
         "background": {
           "$value": [
             {
-              "value": "#ffe299",
+              "value": "#ffb700",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
               "value": "#b28000",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "border": {
+          "$value": [
+            {
+              "value": "#b28000",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#b28000",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        },
+        "text": {
+          "$value": [
+            {
+              "value": "#0e0d0e",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#0e0d0e",
+              "features": {
+                "color-scheme": "dark"
+              }
+            }
+          ],
+          "$description": "",
+          "$type": "color"
+        }
+      },
+      "supreme": {
+        "background": {
+          "$value": [
+            {
+              "value": "#ffe299",
+              "features": {
+                "color-scheme": "light"
+              }
+            },
+            {
+              "value": "#ffcc4d",
               "features": {
                 "color-scheme": "dark"
               }
@@ -47,63 +103,7 @@
               }
             },
             {
-              "value": "#0e0d0e",
-              "features": {
-                "color-scheme": "dark"
-              }
-            }
-          ],
-          "$description": "",
-          "$type": "color"
-        }
-      },
-      "supreme": {
-        "background": {
-          "$value": [
-            {
-              "value": "#ffb700",
-              "features": {
-                "color-scheme": "light"
-              }
-            },
-            {
-              "value": "#ffe299",
-              "features": {
-                "color-scheme": "dark"
-              }
-            }
-          ],
-          "$description": "",
-          "$type": "color"
-        },
-        "border": {
-          "$value": [
-            {
-              "value": "#b28000",
-              "features": {
-                "color-scheme": "light"
-              }
-            },
-            {
-              "value": "#b28000",
-              "features": {
-                "color-scheme": "dark"
-              }
-            }
-          ],
-          "$description": "",
-          "$type": "color"
-        },
-        "text": {
-          "$value": [
-            {
-              "value": "#0e0d0e",
-              "features": {
-                "color-scheme": "light"
-              }
-            },
-            {
-              "value": "#0e0d0e",
+              "value": "#664900",
               "features": {
                 "color-scheme": "dark"
               }

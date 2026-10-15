@@ -1,6 +1,5 @@
 import { cached } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
-import { service } from '@ember/service';
 
 import { t } from 'ember-intl';
 import formatDate from 'ember-intl/helpers/format-date';
@@ -10,8 +9,9 @@ import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
-import { or } from 'ember-truth-helpers';
 import { compressToEncodedURIComponent } from 'lz-string';
+
+import IconPencilSimple from '~icons/ph/pencil-simple';
 
 import { IconButton, Page } from '@hokulea/ember';
 
@@ -20,22 +20,14 @@ import { findRoutine } from '../analysis/-resource';
 import { type RoutineResult } from '../analysis/domain-objects';
 import { RoutineResults } from '../analysis/results';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 function toUrlParam(data: RoutineResult) {
   return compressToEncodedURIComponent(JSON.stringify(data));
 }
 
 export class RoutineDetailsRoute extends Route<{ path: string }> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findRoutine(this.params.path)).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }
@@ -63,7 +55,7 @@ export class RoutineDetailsRoute extends Route<{ path: string }> {
                 <Share @routine={{r.value}} />
 
                 <IconButton
-                  @icon="pencil-simple"
+                  @icon={{IconPencilSimple}}
                   @importance="subtle"
                   @spacing="-1"
                   @label="Bearbeiten"

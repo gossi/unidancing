@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { cached } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { fn } from '@ember/helper';
 import { getOwner } from '@ember/owner';
 
 import { AudioPlayer, AudioService } from '@unidancing/app/domain/supporting/audio';
@@ -13,22 +12,24 @@ import {
   WithSpotify
 } from '@unidancing/app/domain/supporting/spotify';
 import { SpotifyService } from '@unidancing/app/domain/supporting/spotify/service';
+import { useMachine } from '@unidancing/app/domain/supporting/statechart';
 import { CountDown, SlotMachine } from '@unidancing/app/domain/supporting/ui';
 import { asNumber } from '@unidancing/app/domain/supporting/utils';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
-import { useMachine } from 'ember-statecharts';
 import { assign } from 'xstate';
 
-import { Button, Form, IconButton } from '@hokulea/ember';
+import IconGear from '~icons/ph/gear';
+
+import { Button, Form, IconButton, Page } from '@hokulea/ember';
 
 import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';
-import styles from './wheel-of-dance.css';
+import styles from './wheel-of-dance.module.css';
 
-import type { Context, Genre } from './data';
+import type { Context, DanceStyle, Genre } from './data';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 
@@ -58,6 +59,7 @@ class Game extends Component {
 
     return {
       machine: Machine.withConfig({
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         actions: { play, dance, stop, roll, startSelection, stopSelection }
       })
     };
@@ -130,6 +132,7 @@ class Game extends Component {
   };
 
   dance = async (context: Context) => {
+    // @ts-expect-error yeah, but this is a given
     const track = getRandomTrack(getTracks(this.playlists[this.genre as Genre]));
 
     await this.playTrackForDancing(track, context.duration);
@@ -143,7 +146,7 @@ class Game extends Component {
     this.machine.send('start', data);
   };
 
-  prepare = ({ genre }: { genre: Genre }) => {
+  prepare = ({ genre }: { genre: Genre; style: DanceStyle }) => {
     this.genre = genre;
     this.machine.send('prepare');
 
@@ -163,7 +166,7 @@ class Game extends Component {
       {{else}}
         <Portal @target="wof-header">
           <IconButton
-            @icon="gear"
+            @icon={{IconGear}}
             @importance="subtle"
             @spacing="-1"
             @disabled={{this.machine.state.matches "dancing"}}
@@ -216,18 +219,24 @@ class Game extends Component {
 }
 
 const WheelOfDance: TOC<object> = <template>
-  <section class={{styles.game}}>
+  <Page class={{styles.game}}>
+    <:title>
+      Wheel of Dance
+      <PortalTarget @name="wof-header" class={{styles.toolbar}} />
+    </:title>
+    <:content>
+      <WithSpotify>
+        <Game />
+      </WithSpotify>
+    </:content>
+  </Page>
+  {{!-- <section class={{styles.game}}>
     <header>
-      <h1>Wheel of Dance</h1>
-      <div>
-        <PortalTarget @name="wof-header" />
-      </div>
+
     </header>
 
-    <WithSpotify>
-      <Game />
-    </WithSpotify>
-  </section>
+
+  </section> --}}
 </template>;
 
 export { WheelOfDance };

@@ -5,15 +5,14 @@ import { findAssistant } from '../assistants';
 
 import type { Assistant } from '../assistants';
 
-export class AssistantsRoute extends Route<{ assistant: string }> {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
+export class AssistantsRoute extends Route<{ assistant: Assistant }> {
   get Assistant() {
-    return findAssistant(this.params.assistant as Assistant);
+    return findAssistant(this.params.assistant as unknown as Assistant);
   }
 
   <template>
     {{#if this.Assistant}}
-      {{!@glint-ignore}}
+      {{! @glint-ignore }}
       <this.Assistant />
     {{/if}}
   </template>

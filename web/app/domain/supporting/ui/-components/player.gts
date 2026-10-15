@@ -2,7 +2,7 @@ import { ability } from 'ember-ability';
 
 import { AudioPlayer, AudioService } from '../../audio';
 import { SpotifyPlayer } from '../../spotify';
-import styles from './player.css';
+import styles from './player.module.css';
 
 const isSpotifyPlayer = ability(({ service }) => () => {
   return service(AudioService).player === AudioPlayer.Spotify;

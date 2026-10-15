@@ -3,7 +3,7 @@ import { Page } from '@hokulea/ember';
 import { VideoPlayer } from '../../../supporting/ui';
 import { asString } from '../../../supporting/utils';
 import { ExerciseTeaser } from '../../exercises';
-import styles from './details.css';
+import styles from './details.module.css';
 
 import type { Exercise } from '../../exercises';
 import type { Course } from '..';
@@ -21,7 +21,7 @@ const add1 = (number: number) => {
 };
 
 const pickExamples = (videos: string[]) => {
-  return videos.sort(() => 0.5 - Math.random()).slice(0, 2);
+  return videos.toSorted(() => 0.5 - Math.random()).slice(0, 2);
 };
 
 const asStringArray = (strings: Maybe<string>[]): string[] => {
@@ -34,11 +34,11 @@ const asExercise = (exercise?: Maybe<Exercise>): Exercise => {
 
 const CourseDetails: TOC<CourseDetailsSignature> = <template>
   <Page @title={{@course.title}} @description={{asString @course.about}}>
-    <div class="grid">
+    <div class={{styles.grid}}>
       <div>
         <h2>Lernziele</h2>
 
-        <ul class={{styles.goals}}>
+        <ul>
           {{#each @course.learn as |learn|}}
             <li>{{learn}}</li>
           {{/each}}
@@ -48,13 +48,12 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
       <div>
         <h2>Kursinhalte</h2>
 
-        <ol class={{styles.contents}}>
+        <ol>
           {{#each @course.lessons as |lesson idx|}}
             <li><a href="#lesson-{{add1 idx}}">{{lesson.title}}</a></li>
           {{/each}}
         </ol>
       </div>
-
     </div>
 
     {{#if @course.examples}}

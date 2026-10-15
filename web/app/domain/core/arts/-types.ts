@@ -1,1 +1,1 @@
-export { Art, Technique } from '@/tina/types';
+export type { Art, Technique } from '@/tina/types';

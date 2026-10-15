@@ -24,7 +24,7 @@ interface TrainingTesterFormArgs {
 export class TrainingTesterForm extends Component<{
   Args: TrainingTesterFormArgs;
 }> {
-  Form = Form<ArtisticFormData, void>;
+  Form = Form<ArtisticFormData>;
 
   video: string;
   @tracked started = false;
@@ -42,7 +42,7 @@ export class TrainingTesterForm extends Component<{
   constructor(owner: Owner, args: TrainingTesterFormArgs) {
     super(owner, args);
 
-    this.video = args.data.video as string;
+    this.video = args.data.video;
   }
 
   submit = (data: ArtisticFormData) => {
