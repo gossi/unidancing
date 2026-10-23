@@ -28,21 +28,15 @@
   --inset-bottom: var(--s0); /* px for calc() later on */
 }
 
-body:has(div[data-player]) {
-  --inset-bottom: calc(var(--s0) * pow(2, 2.15));
-}
-
-/* For embroider-css-modules */
-
-/* body {
-  position: relative;
-  min-height: 100vh;
-  margin: 0;
-} */
-
-main {
+body {
   padding-block-end: var(--inset-bottom);
 
+  &:has(div[data-player]) {
+    --inset-bottom: calc(var(--s0) * pow(2, 2.15) + var(--s0));
+  }
+}
+
+main {
   ul {
     padding-inline-start: 1em;
   }
@@ -76,10 +70,14 @@ a {
   scroll-margin-block: calc(70px + 2ex);
 }
 
+@property --content-width {
+  inherits: true;
+  initial-value: auto;
+  syntax: "<length> | <percentage>";
+}
 
 dialog:is([data-game], [data-assistant]) {
   --top: calc(var(--spacing-container0) * 2 + var(--s0) * var(--line-height));
-  --content-width: auto;
 
   position: fixed;
   top: var(--top);
@@ -112,17 +110,17 @@ dialog:is([data-game], [data-assistant]) {
   }
 }
 
-/* 72rem = 60rem (--sizing-max-content-width) + "padding" */
+/* 72rem = 60rem (--layout-page-max-content-width) + "padding" */
 @media (width >= 72rem) {
   dialog:is([data-game], [data-assistant]) {
     right: 0;
     left: 50%;
     /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
-    width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
+    width: calc(var(--layout-page-max-content-width) / 2 - var(--spacing-container0));
   }
 
   body:has(dialog:is([data-game], [data-assistant])) main > :is(header, div, [part="content"]) > :is(*, section) {
-    --content-width: calc(var(--sizing-max-content-width) / 2 - var(--spacing-container0));
+    --content-width: calc(var(--layout-page-max-content-width) / 2 - var(--spacing-container0));
 
     grid-template-columns: initial;
   }
