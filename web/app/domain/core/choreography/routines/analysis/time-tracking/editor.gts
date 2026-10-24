@@ -6,13 +6,20 @@ import { uniqueId } from '@ember/helper';
 import { modifier } from 'ember-modifier';
 
 import { dateToMilliseconds, dateToSeconds } from '../../../../../supporting/utils';
-import { CATEGORY_GROUPS, type TimeTracking } from './domain';
+import { CATEGORY_GROUPS } from './domain';
 import { TimelineViewer } from './viewer';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
+import type { Category, Scene, TimeTracking } from './domain';
 import type Owner from '@ember/owner';
 import type { DataSet } from 'vis-data/esnext';
-import type { DataItem, Timeline, TimelineItem, TimelineOptions } from 'vis-timeline/esnext';
+import type {
+  DataItem,
+  Timeline,
+  TimelineEventPropertiesResult,
+  TimelineItem,
+  TimelineOptions
+} from 'vis-timeline/esnext';
 
 interface TimelineEditorSignature {
   Args: {
@@ -38,7 +45,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     return CATEGORY_GROUPS.map((g) => g.key);
   }
 
-  running = new Map();
+  running = new Map<Category | 'marker', Scene>();
 
   constructor(owner: Owner, args: TimelineEditorSignature['Args']) {
     super(owner, args);
@@ -51,10 +58,12 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     };
 
     try {
-      document.body.addEventListener('keyup', this.handleKeyboard.bind(this));
+      const keyboardHandler = this.handleKeyboard.bind(this);
+
+      document.body.addEventListener('keyup', keyboardHandler);
 
       registerDestructor(this, () => {
-        document.body.removeEventListener('keyup', this.handleKeyboard.bind(this));
+        document.body.removeEventListener('keyup', keyboardHandler);
       });
     } catch {
       /**/
@@ -62,10 +71,12 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   }
 
   registerKeyboardShortcuts = modifier((elem: HTMLElement) => {
-    elem.addEventListener('keyup', this.handleKeyboard.bind(this));
+    const keyboardHandler = this.handleKeyboard.bind(this);
+
+    elem.addEventListener('keyup', keyboardHandler);
 
     return () => {
-      elem.removeEventListener('keyup', this.handleKeyboard.bind(this));
+      elem.removeEventListener('keyup', keyboardHandler);
     };
   });
 
@@ -78,13 +89,14 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   processResults = () => {
     const results: TimeTracking = {};
 
+    // eslint-disable-next-line unicorn/no-immediate-mutation
     results.scenes = this.data
       .map((d) => ({
         start: (d.start as number) / 1000,
         end: (d.end as number) / 1000,
-        category: d.group
+        category: d.group as Category
       }))
-      .filter((d) => d.category !== 'marker');
+      .filter((d) => (d.category as Category | 'marker') !== 'marker');
 
     const start = this.data.get('start');
 
@@ -109,12 +121,12 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     this.chart = chart;
     this.data = data;
 
-    this.chart.on('click', (e) => {
+    this.chart.on('click', (e: TimelineEventPropertiesResult) => {
       if (e.what === 'group-label') {
-        if (e.group === 'marker') {
+        if ((e.group as unknown as string) === 'marker') {
           this.trackStartStop(this.currentTime as number);
         } else {
-          this.track(e.group);
+          this.track(e.group as unknown as Category);
         }
       }
     });
@@ -130,14 +142,10 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     this.currentTime = currentTime;
 
     // update running
-    const updates = [];
-
-    for (const datapoints of this.running.values()) {
-      updates.push({
-        ...datapoints,
-        end: currentTime * 1000
-      });
-    }
+    const updates = Array.from(this.running.values(), (datapoints) => ({
+      ...datapoints,
+      end: currentTime * 1000
+    })) as Scene[];
 
     this.data.update(updates);
   };
@@ -161,7 +169,7 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
   };
 
   trackStartStop = (time: number) => {
-    const data = this.args.data ?? ({} as TimeTracking);
+    const data = this.args.data ?? {};
 
     const startExists = data.start !== undefined;
     const endExists = data.end !== undefined;
@@ -210,11 +218,11 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
     this.processResults();
   };
 
-  track = (category: string) => {
+  track = (category: Category) => {
     if (this.running.has(category)) {
-      const datapoint = this.running.get(category);
+      const datapoint = this.running.get(category) as Scene;
 
-      datapoint.end = this.currentTime;
+      datapoint.end = this.currentTime as number;
 
       this.running.delete(category);
 
@@ -230,12 +238,14 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
 
       this.data.add(datapoint);
 
-      this.running.set(category, datapoint);
+      this.running.set(category, datapoint as unknown as Scene);
     }
   };
 
   maybeMerge = (item: TimelineItem, callback: (item: TimelineItem | null) => void) => {
-    if (item.group !== 'marker') {
+    if (item.group === 'marker') {
+      item.start = dateToMilliseconds(item.start as Date);
+    } else {
       const start = (item.start = dateToMilliseconds(item.start as Date));
       const end = (item.end = dateToMilliseconds(item.end as Date));
 
@@ -254,8 +264,6 @@ export class TimelineEditor extends Component<TimelineEditorSignature> {
 
         this.data.remove(overlap);
       }
-    } else {
-      item.start = dateToMilliseconds(item.start as Date);
     }
 
     callback(item);

@@ -1,6 +1,3 @@
-import { hash } from '@ember/helper';
-import { on } from '@ember/modifier';
-
 import {
   formatIndicator,
   formatNumber,
@@ -8,11 +5,13 @@ import {
 } from '@unidancing/app/domain/supporting/utils';
 import { link } from 'ember-link';
 
+import IconInfo from '~icons/ph/info';
+
 import { Card, Icon } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateEffectiveness } from './domain';
-import styles from './evaluation.css';
+import styles from './evaluation.module.css';
 
 import type { TimeAnalysis } from './domain';
 import type { TOC } from '@ember/component/template-only';
@@ -38,7 +37,7 @@ const TimeTrackingEffectivityIndicator: TOC<TimeTrackingEffectivityIndicatorSign
         Effektivität
 
         {{#let (link "training.diagnostics.time-tracking") as |l|}}
-          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon="info" /></a>
+          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon={{IconInfo}} /></a>
         {{/let}}
       </h4>
 

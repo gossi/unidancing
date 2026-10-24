@@ -1,15 +1,16 @@
 import { concat } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { htmlSafe } from '@ember/template';
 
 import { formatPercent, formatSeconds } from '@unidancing/app/domain/supporting/utils';
 import { link } from 'ember-link';
 
+import IconInfo from '~icons/ph/info';
+
 import { Card, Icon, Tabs } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateBalance } from './domain';
-import styles from './evaluation.css';
+import styles from './evaluation.module.css';
 
 import type { Balance, TimeAnalysis } from './domain';
 import type { TOC } from '@ember/component/template-only';
@@ -67,7 +68,7 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
       <h4>
         Balance
         {{#let (link "training.diagnostics.time-tracking") as |l|}}
-          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon="info" /></a>
+          <a href="{{l.url}}#effectivity" {{on "click" l.open}}><Icon @icon={{IconInfo}} /></a>
         {{/let}}
       </h4>
 

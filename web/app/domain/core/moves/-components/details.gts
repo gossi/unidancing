@@ -1,12 +1,10 @@
-import { on } from '@ember/modifier';
-
 import { Page } from '@hokulea/ember';
 
 import { TinaMarkdown } from '../../../supporting/tina';
 import { Icon, VideoPlayer } from '../../../supporting/ui';
 import { asString } from '../../../supporting/utils';
 import { buildMoveLink } from '../-resource';
-import styles from './details.css';
+import styles from './details.module.css';
 
 import type { Move } from '..';
 import type { TOC } from '@ember/component/template-only';

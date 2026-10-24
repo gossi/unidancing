@@ -1,6 +1,5 @@
 import { tracked } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
-import { fn } from '@ember/helper';
 import { isDevelopingApp } from '@embroider/macros';
 
 import { t } from 'ember-intl';
@@ -9,8 +8,12 @@ import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
-import { or } from 'ember-truth-helpers';
 import { decompressFromEncodedURIComponent } from 'lz-string';
+
+import IconClipboardText from '~icons/ph/clipboard-text';
+import IconDownloadSimple from '~icons/ph/download-simple';
+import IconExport from '~icons/ph/export';
+import IconPencilSimple from '~icons/ph/pencil-simple';
 
 import { IconButton, Page, Popover, popover, TextArea, TextInput } from '@hokulea/ember';
 
@@ -20,7 +23,7 @@ import { RoutineResults } from '../analysis/results';
 import { evaluateTimeTracking } from '../analysis/time-tracking/domain';
 import { scoreArtistic } from '../artistic/actions';
 import { loadSystem, loadSystemDescriptor } from '../systems/actions';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { RoutineResult, RoutineTest } from '../analysis/domain-objects';
 import type { WireTimeTracking } from '../analysis/time-tracking/domain';
@@ -57,7 +60,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
 
   get shareLink() {
     try {
-      return window.location.href;
+      return globalThis.location.href;
     } catch {
       return '';
     }
@@ -70,11 +73,11 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
     url.port = '';
     url.protocol = 'https';
 
-    return url.toString();
+    return url.href;
   }
 
   get exportData() {
-    return JSON.stringify(this.data, null, '  ');
+    return JSON.stringify(this.data, undefined, '  ');
   }
 
   toggleExport = () => {
@@ -104,7 +107,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
             <Share @routine={{this.data}} />
 
             <IconButton
-              @icon="pencil-simple"
+              @icon={{IconPencilSimple}}
               @importance="subtle"
               @spacing="-1"
               @label="Bearbeiten"
@@ -112,7 +115,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
             />
             {{#if this.exportAvailable}}
               <IconButton
-                @icon="download-simple"
+                @icon={{IconDownloadSimple}}
                 @importance="subtle"
                 @spacing="-1"
                 @label="Speichern"
@@ -122,7 +125,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
 
               {{#let (popover position="bottom-start") as |po|}}
                 <IconButton
-                  @icon="export"
+                  @icon={{IconExport}}
                   @importance="subtle"
                   @spacing="-1"
                   @label="Teilen auf unidancing.art"
@@ -134,7 +137,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
                   <div>
                     <TextInput @value={{this.exportLink}} readonly {{selectWhenFocus}} />
                     <IconButton
-                      @icon="clipboard-text"
+                      @icon={{IconClipboardText}}
                       @importance="subtle"
                       @spacing="-1"
                       @label="Kopieren"

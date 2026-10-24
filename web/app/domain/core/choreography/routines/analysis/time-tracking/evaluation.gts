@@ -4,7 +4,7 @@ import { htmlSafe } from '@ember/template';
 import { formatNumber } from '@unidancing/app/domain/supporting/utils';
 
 import { CATEGORY_GROUPS } from './domain';
-import styles from './timeline.css';
+import styles from './timeline.module.css';
 
 import type { TimeAnalysis, TimeTrackingGroupsEvaluation } from './domain';
 import type { TOC } from '@ember/component/template-only';
@@ -20,7 +20,7 @@ function formatRatio(value: number) {
 }
 
 function getData(data: TimeAnalysis, group: string) {
-  return data.evaluation?.[group as keyof TimeTrackingGroupsEvaluation];
+  return data.evaluation[group as keyof TimeTrackingGroupsEvaluation];
 }
 
 const TimeTrackingSummary: TOC<TimeTrackingSummarySignature> = <template>

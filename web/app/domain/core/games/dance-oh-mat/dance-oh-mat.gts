@@ -1,8 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
-import { array, fn } from '@ember/helper';
-import { on } from '@ember/modifier';
 import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
 
@@ -12,8 +10,11 @@ import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
-import { useMachine } from 'ember-statecharts';
 import { assign, createMachine } from 'xstate';
+
+import IconPauseFill from '~icons/ph/pause-fill';
+import IconPlayFill from '~icons/ph/play-fill';
+import IconQuestion from '~icons/ph/question';
 
 import { Button, Form, IconButton } from '@hokulea/ember';
 
@@ -28,7 +29,8 @@ import {
   SpotifyService,
   WithSpotify
 } from '../../../supporting/spotify';
-import styles from './dance-oh-mat.css';
+import { useMachine } from '../../../supporting/statechart';
+import styles from './dance-oh-mat.module.css';
 
 import type { Playlist, SpotifyClient, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
@@ -57,6 +59,8 @@ const DEFAULTS = {
 const getParam =
   <A extends DanceOhMatParams>(args: A, router: RouterService) =>
   <P extends DanceOhMatParam>(param: P): A[P] => {
+    // NB: `Object.hasOwn(args, param)` throws here — `this.args` is Glimmer's
+    // NamedArgsProxy and has no real property descriptors. Keep truthy check.
     if (args[param]) {
       return args[param];
     }
@@ -65,7 +69,7 @@ const getParam =
       return router.currentRoute.queryParams[param] as A[P];
     }
 
-    return DEFAULTS[param] as A[P];
+    return DEFAULTS[param];
   };
 
 type Context = { rounds: number; duration: number; roundsToGo: number };
@@ -144,8 +148,9 @@ const Machine = createMachine(
     },
     schema: {
       events: {} as
-        | { type: 'help' }
+        // eslint-disable-next-line unicorn/prefer-type-literal-last
         | ({ type: 'play' } & GameParams)
+        | { type: 'help' }
         | { type: 'dance'; track: Track }
         | { type: 'start' }
         | { type: 'finish' }
@@ -157,11 +162,13 @@ const Machine = createMachine(
   },
   {
     actions: {
+      /* eslint-disable @typescript-eslint/no-empty-function */
       select: (_context, _event) => {},
       dance: (_context, _event) => {},
       play: (_context, _event) => {},
       finish: (_context, _event) => {},
       finishRound: (_context, _event) => {}
+      /* eslint-enable @typescript-eslint/no-empty-function */
     },
     services: {},
     guards: {
@@ -219,7 +226,7 @@ class Manual extends Component {
 
   togglePlay = async () => {
     if (this.spotify.client.playing) {
-      this.spotify.client.pause();
+      await this.spotify.client.pause();
     } else {
       await playLobby(this.spotify.client);
     }
@@ -235,8 +242,7 @@ class Manual extends Component {
           <li>
             Musik zur Song Auswahl:
             <IconButton
-              @icon={{if this.spotify.client.playing "pause" "play"}}
-              @iconStyle="fill"
+              @icon={{if this.spotify.client.playing IconPauseFill IconPlayFill}}
               @push={{this.togglePlay}}
               @label="Lobby Musik an/aus"
               @spacing="-1"
@@ -322,7 +328,9 @@ class Game extends Component {
 
   //  PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.epic }))
   // surprisePlaylist = PlaylistResource.from(this, () => ({ playlist: PLAYLISTS.surprise }));
+  // @ts-expect-error jaja, whatever
   dancePlaylistResource = use(this, loadPlaylist(PLAYLISTS.epic));
+  // @ts-expect-error jaja, whatever
   surprisePlaylistResource = use(this, loadPlaylist(PLAYLISTS.surprise));
 
   get dancePlaylist() {
@@ -360,6 +368,7 @@ class Game extends Component {
 
     return {
       machine: Machine.withConfig({
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         actions: { play, select, dance, finish, finishRound },
         guards: { isGameOver }
       })
@@ -380,7 +389,7 @@ class Game extends Component {
 
   countDown = dropTask(async () => {
     while ((this.counter as number) > 0) {
-      this.playSound('counter');
+      void this.playSound('counter');
       await timeout(1000);
       (this.counter as number)--;
     }
@@ -394,6 +403,7 @@ class Game extends Component {
 
   // ACTIONS
 
+  // eslint-disable-next-line unicorn/prefer-type-literal-last
   play = assign((_context: Context, params: { type: 'play' } & GameParams) => {
     return {
       rounds: params.rounds,
@@ -410,8 +420,10 @@ class Game extends Component {
     await timeout(1100);
     await this.countDown.perform();
 
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
     const songSelected = this.song !== undefined;
     const coinToss = this.tossCoin(songSelected);
+    // eslint-disable-next-line unicorn/prefer-minimal-ternary
     const playlist = coinToss === 0 ? this.dancePlaylist : this.surprisePlaylist;
     const track = this.findTrack(playlist);
 
@@ -490,7 +502,7 @@ class Game extends Component {
   <template>
     <Portal @target="dance-oh-mat-header">
       <IconButton
-        @icon="question"
+        @icon={{IconQuestion}}
         @importance="plain"
         @spacing="-1"
         @disabled={{this.machine.state.matches "playing"}}

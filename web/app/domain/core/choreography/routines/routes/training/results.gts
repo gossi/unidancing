@@ -24,15 +24,17 @@ export class RoutineTrainingResultsRoute extends Route<{ data?: string }> {
   get data() {
     try {
       if (this.params.data) {
-        const data = JSON.parse(decompressFromEncodedURIComponent(this.params.data));
+        const data = JSON.parse(
+          decompressFromEncodedURIComponent(this.params.data)
+        ) as TrainingResult;
 
         return data;
       }
     } catch {
-      return undefined;
+      return;
     }
 
-    return undefined;
+    return;
   }
 
   <template>

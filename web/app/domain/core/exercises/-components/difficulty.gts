@@ -1,5 +1,5 @@
 import { Tag } from '../../../supporting/ui';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { Difficulty as ExerciseDifficulty } from '../domain-objects';
 import type { TOC } from '@ember/component/template-only';

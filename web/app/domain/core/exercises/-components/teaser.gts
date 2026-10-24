@@ -1,7 +1,3 @@
-import { on } from '@ember/modifier';
-
-import { or } from 'ember-truth-helpers';
-
 import { Card } from '@hokulea/ember';
 
 import { Icon, Tag } from '../../../supporting/ui';
@@ -12,7 +8,7 @@ import { buildExerciseLink } from '..';
 import { asDifficulty, asLocomotion, asPersonal } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';
 import Difficulty from './difficulty';
-import styles from './teaser.css';
+import styles from './teaser.module.css';
 
 import type { Exercise } from '..';
 import type { TOC } from '@ember/component/template-only';

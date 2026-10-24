@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { concat } from '@ember/helper';
-import { on } from '@ember/modifier';
 
 import { formatNumber, t } from 'ember-intl';
 
@@ -10,7 +9,7 @@ import { CriterionInterval, Score } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { scoreArtistic } from '../../artistic/actions';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.css';
+import styles from './artistic.module.css';
 
 import type {
   ArtisticResults,
@@ -30,7 +29,6 @@ import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type { FormBuilder } from '@hokulea/ember';
 
-/* eslint-disable @typescript-eslint/naming-convention */
 export interface ArtisticFormData {
   'artistic-performance-execution-presence': number;
   'artistic-performance-execution-carriage': number;
@@ -66,7 +64,6 @@ export const ARTISTIC_FORM_DATA = {
   'artistic-performance-music-finesse': 0,
   'artistic-performance-music-timing': 0
 };
-/* eslint-enable @typescript-eslint/naming-convention */
 
 function toDataKey(name: string) {
   return ('artistic-' + name.replaceAll('.', '-')) as keyof ArtisticFormData;
@@ -80,7 +77,7 @@ export function loadArtisticData(data: WireArtisticResults): ArtisticFormData {
   for (const p of data.parts) {
     for (const c of p.categories) {
       for (const cr of c.criteria) {
-        const key = toDataKey(`${p.name}.${c.name}.${cr.name}`) as keyof ArtisticFormData;
+        const key = toDataKey(`${p.name}.${c.name}.${cr.name}`);
 
         results[key] = cr.value;
       }
@@ -103,11 +100,14 @@ export function parseArtisticFormData(
   );
 
   for (const [path, v] of Object.entries(filteredData)) {
-    const [, partName, categoryName, criterionName] = path.split('-');
+    const [, partName, categoryName, criterionName] = path.split('-') as [
+      string,
+      string,
+      string,
+      string
+    ];
 
-    if (!results.parts) {
-      results.parts = [];
-    }
+    results.parts ??= [];
 
     let part = results.parts.find((p) => p.name === partName);
 
@@ -131,7 +131,7 @@ export function parseArtisticFormData(
 
 interface CriterionSignature {
   Args: {
-    form: FormBuilder<ArtisticFormData, void>;
+    form: FormBuilder<ArtisticFormData>;
     criterion: JudgingSystemCriterion;
     updateScore: (name: keyof ArtisticFormData, value: number) => void;
     results?: ArtisticResults;
@@ -139,6 +139,15 @@ interface CriterionSignature {
 }
 
 class Criterion extends Component<CriterionSignature> {
+  @tracked value?: number;
+
+  updateScore = (e: Event) => {
+    const target = e.target as HTMLInputElement;
+
+    this.value = target.valueAsNumber;
+    this.args.updateScore(target.name as keyof ArtisticFormData, target.valueAsNumber);
+  };
+
   constructor(owner: Owner, args: CriterionSignature['Args']) {
     super(owner, args);
 
@@ -161,21 +170,12 @@ class Criterion extends Component<CriterionSignature> {
     }
   }
 
-  @tracked value?: number;
-
   get name() {
     return `artistic-${getCriterionKey(this.args.criterion).replaceAll(
       '.',
       '-'
     )}` as keyof ArtisticFormData;
   }
-
-  updateScore = (e: InputEvent) => {
-    const target = e.target as HTMLInputElement;
-
-    this.value = target.valueAsNumber;
-    this.args.updateScore(target.name as keyof ArtisticFormData, target.valueAsNumber);
-  };
 
   <template>
     {{#let @form as |f|}}
@@ -204,7 +204,7 @@ class Criterion extends Component<CriterionSignature> {
 
 class Category extends Component<{
   Args: {
-    form: FormBuilder<ArtisticFormData, void>;
+    form: FormBuilder<ArtisticFormData>;
     results?: ArtisticResults;
     updateScore: (name: keyof ArtisticFormData, value: number) => void;
     category: JudgingSystemCategory;
@@ -215,7 +215,7 @@ class Category extends Component<{
   }
 
   get score() {
-    let score = undefined;
+    let score;
 
     try {
       score = (
@@ -257,7 +257,7 @@ class Category extends Component<{
 
 const Part: TOC<{
   Args: {
-    form: FormBuilder<ArtisticFormData, void>;
+    form: FormBuilder<ArtisticFormData>;
     results?: ArtisticResults;
     updateScore: (name: keyof ArtisticFormData, value: number) => void;
     part: JudgingSystemPart;
@@ -277,7 +277,7 @@ const Part: TOC<{
 
 interface ArtisticFormSignature {
   Args: {
-    form: FormBuilder<ArtisticFormData, void>;
+    form: FormBuilder<ArtisticFormData>;
     systemID: JudgingSystemID;
     results?: WireArtisticResults;
   };
@@ -288,6 +288,11 @@ export class ArtisticForm extends Component<ArtisticFormSignature> {
   @tracked results?: ArtisticResults;
 
   system: JudgingSystem;
+
+  updateScore = (name: keyof ArtisticFormData, value: number) => {
+    this.data[name] = value;
+    this.results = scoreArtistic(this.system, parseArtisticFormData(this.data, this.args.systemID));
+  };
 
   constructor(owner: Owner, args: ArtisticFormSignature['Args']) {
     super(owner, args);
@@ -300,7 +305,7 @@ export class ArtisticForm extends Component<ArtisticFormSignature> {
   }
 
   get score() {
-    let score = undefined;
+    let score;
 
     try {
       score = (this.results?.parts.find((p) => p.name === 'performance') as PartResult).score;
@@ -310,11 +315,6 @@ export class ArtisticForm extends Component<ArtisticFormSignature> {
 
     return score;
   }
-
-  updateScore = (name: keyof ArtisticFormData, value: number) => {
-    this.data[name] = value;
-    this.results = scoreArtistic(this.system, parseArtisticFormData(this.data, this.args.systemID));
-  };
 
   <template>
     <p>

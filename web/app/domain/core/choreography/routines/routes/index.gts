@@ -1,5 +1,4 @@
 import { cached } from '@glimmer/tracking';
-import { service } from '@ember/service';
 
 import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
@@ -13,18 +12,10 @@ import { Button, Page } from '@hokulea/ember';
 import { findRoutines } from '../analysis/-resource';
 import { Routines } from '../analysis/routines';
 
-import type FastbootService from 'ember-cli-fastboot/services/fastboot';
-
 export class RoutinesIndexRoute extends Route<object> {
-  @service declare fastboot: FastbootService;
-
   @cached
   get load() {
     const promise = use(this, findRoutines()).current;
-
-    if (this.fastboot.isFastBoot) {
-      this.fastboot.deferRendering(promise);
-    }
 
     return Task.promise(promise);
   }

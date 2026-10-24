@@ -44,8 +44,8 @@ export class SpotifyAuthRoute extends Route {
       const redirectAfterLogin = localStorage.getItem('redirectAfterLogin');
 
       if (redirectAfterLogin) {
-        const [routeURL, qp] = redirectAfterLogin.split('?');
-        const query = Object.fromEntries(new URLSearchParams(qp).entries());
+        const [routeURL, qp] = redirectAfterLogin.split('?') as [string, string];
+        const query = Object.fromEntries(new URLSearchParams(qp));
 
         localStorage.removeItem('redirectAfterLogin');
 

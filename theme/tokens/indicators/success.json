@@ -5,13 +5,13 @@
         "background": {
           "$value": [
             {
-              "value": "#a6f2d2",
+              "value": "#0d5939",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#a6f2d2",
+              "value": "#0d5939",
               "features": {
                 "color-scheme": "dark"
               }
@@ -41,13 +41,13 @@
         "text": {
           "$value": [
             {
-              "value": "#0d5939",
+              "value": "#a6f2d2",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#0d5939",
+              "value": "#a6f2d2",
               "features": {
                 "color-scheme": "dark"
               }
@@ -61,13 +61,13 @@
         "background": {
           "$value": [
             {
-              "value": "#0d5939",
+              "value": "#a6f2d2",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#0d5939",
+              "value": "#63e9b1",
               "features": {
                 "color-scheme": "dark"
               }
@@ -97,13 +97,13 @@
         "text": {
           "$value": [
             {
-              "value": "#ecebeb",
+              "value": "#0d5939",
               "features": {
                 "color-scheme": "light"
               }
             },
             {
-              "value": "#ecebeb",
+              "value": "#0d5939",
               "features": {
                 "color-scheme": "dark"
               }

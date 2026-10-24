@@ -1,13 +1,17 @@
-import { action } from 'ember-command';
-
-import { AudioService } from './service';
-import styles from './soundboard.css';
+import { isSSR } from '../utils';
+import styles from './soundboard.module.css';
 import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';
 
 export class SoundBoard {
   #sounds: Map<string, HTMLAudioElement> = new Map<string, HTMLAudioElement>();
 
   constructor() {
+    // during prerendering there is nothing to play; creating the elements
+    // would leak them into the serialized HTML
+    if (isSSR()) {
+      return;
+    }
+
     this.addSound('fail', fail);
     this.addSound('counter', counter);
     this.addSound('countDown', countDown);
@@ -21,7 +25,7 @@ export class SoundBoard {
       const audio = document.createElement('audio');
 
       audio.src = src;
-      audio.classList.add(styles.soundboard);
+      audio.classList.add(styles.soundboard as string);
       audio.dataset.name = name;
       document.body.append(audio);
       this.#sounds.set(name, audio);
@@ -41,9 +45,3 @@ export class SoundBoard {
     return undefined;
   }
 }
-
-export const playSound = action(({ service }) => async (name: string) => {
-  const soundboard = service(AudioService).soundboard;
-
-  return soundboard.play(name);
-});

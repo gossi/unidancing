@@ -10,11 +10,11 @@ import { Timeline } from 'vis-timeline/esnext';
 import { dateToSecondsWithMilli } from '../../../../../supporting/utils';
 import { YoutubePlayer } from '../../../../../supporting/youtube';
 import { GROUPS, type TimeTracking } from './domain';
-import styles from './timeline.css';
+import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type Owner from '@ember/owner';
-import type { DataItem, TimelineOptions } from 'vis-timeline/esnext';
+import type { DataItem, TimelineEventPropertiesResult, TimelineOptions } from 'vis-timeline/esnext';
 
 interface TimelineViewerSignature {
   Element: HTMLElement;
@@ -43,10 +43,12 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     super(owner, args);
 
     try {
-      document.body.addEventListener('keydown', this.handleKeyboard.bind(this));
+      const keyboardHandler = this.handleKeyboard.bind(this);
+
+      document.body.addEventListener('keydown', keyboardHandler);
 
       registerDestructor(this, () => {
-        document.body.removeEventListener('keydown', this.handleKeyboard.bind(this));
+        document.body.removeEventListener('keydown', keyboardHandler);
       });
     } catch {
       /**/
@@ -57,7 +59,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     this.player = api;
     this.player.on('seek', this.seeked.bind(this));
 
-    this.init();
+    void this.init();
   };
 
   init = async () => {
@@ -70,7 +72,8 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
       zoomMax: this.duration * 1000
     });
 
-    const seek = async ({ id, time }: { id: string; time: Date }) => {
+    const seek = ({ id, time }: { id: string; time: Date }) => {
+      // eslint-disable-next-line unicorn/prefer-early-return
       if (id === 'currentTime') {
         const ms = dateToSecondsWithMilli(time);
 
@@ -81,7 +84,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
         } else if (ms >= (this.duration as number)) {
           this.chart.setCustomTime((this.duration as number) * 1000, 'currentTime');
         } else {
-          this.player.seekTo(seekTo, true);
+          void this.player.seekTo(seekTo, true);
         }
       }
     };
@@ -134,35 +137,33 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
       min: 0,
       zoomMin: 0,
       orientation: 'top',
-      snap: null,
+      snap: undefined,
       showCurrentTime: false,
       showMajorLabels: false,
       format: {
-        minorLabels: (date: Date, scale: string /*, step*/) => {
+        minorLabels: (date: Date, scale: string /* , step */) => {
           return Intl.DateTimeFormat('de', {
             dateStyle: undefined,
             hour: undefined,
             minute: '2-digit',
             second: '2-digit',
-            ...(scale === 'millisecond'
-              ? {
-                  fractionalSecondDigits: 3
-                }
-              : {})
+            ...(scale === 'millisecond' && {
+              fractionalSecondDigits: 3
+            })
           }).format(date);
         }
       },
-      ...(this.args.options ?? {})
+      ...this.args.options
     });
 
     this.chart.addCustomTime(0, 'currentTime');
     this.chart.setCustomTimeTitle('', 'currentTime');
 
-    this.chart.on('click', (e) => {
+    this.chart.on('click', (e: TimelineEventPropertiesResult) => {
       element.focus();
 
       if (e.what === 'background') {
-        this.player.seekTo(dateToSecondsWithMilli(e.time as Date), true);
+        void this.player.seekTo(dateToSecondsWithMilli(e.time), true);
       }
     });
 
@@ -179,14 +180,15 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
     }
 
     switch (event.key) {
-      case ' ':
+      case ' ': {
         this.player.toggle();
         event.preventDefault();
         event.stopPropagation();
 
         break;
+      }
 
-      case 'ArrowRight':
+      case 'ArrowRight': {
         if (event.altKey) {
           this.player.seek(0.25);
         } else if (event.ctrlKey) {
@@ -201,8 +203,9 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
         event.stopPropagation();
 
         break;
+      }
 
-      case 'ArrowLeft':
+      case 'ArrowLeft': {
         if (event.altKey) {
           this.player.seek(-0.25);
         } else if (event.ctrlKey) {
@@ -217,6 +220,7 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
         event.stopPropagation();
 
         break;
+      }
     }
   };
 

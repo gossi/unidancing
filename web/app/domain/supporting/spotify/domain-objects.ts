@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 export type UserPlaylist = SpotifyApi.PlaylistObjectSimplified;
 export type Playlist = SpotifyApi.SinglePlaylistResponse;
 export type Device = SpotifyApi.UserDevice;

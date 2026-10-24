@@ -6,7 +6,7 @@ import { getOwner } from '@ember/owner';
 import { dropTask, timeout } from 'ember-concurrency';
 
 import { playSound } from '../../audio';
-import styles from './count-down.css';
+import styles from './count-down.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';

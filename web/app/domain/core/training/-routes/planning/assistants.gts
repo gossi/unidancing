@@ -1,4 +1,3 @@
-import { on } from '@ember/modifier';
 import { service } from '@ember/service';
 
 import { pageTitle } from 'ember-page-title';

@@ -1,7 +1,4 @@
 import { uniqueId } from '@ember/helper';
-import { on } from '@ember/modifier';
-
-import { or } from 'ember-truth-helpers';
 
 import { Page } from '@hokulea/ember';
 
@@ -19,7 +16,7 @@ import {
   isMaterial
 } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';
-import styles from './details.css';
+import styles from './details.module.css';
 import Difficulty from './difficulty';
 import { Instruction } from './instruction';
 import { Media } from './media';
@@ -28,10 +25,12 @@ import type { ExerciseMedia, Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
 
 function hasMaterial(media: Maybe<Maybe<ExerciseMedia>[]> | undefined) {
+  // @ts-expect-error some tina types, huh?
   return media?.some((material: ExerciseMedia) => isMaterial(material));
 }
 
 function filterMaterial(media: Maybe<Maybe<ExerciseMedia>[]> | undefined) {
+  // @ts-expect-error some tina types, huh?
   return (media ?? []).filter((material: ExerciseMedia) => isMaterial(material)) as ExerciseMedia[];
 }
 

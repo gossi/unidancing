@@ -3,32 +3,36 @@ import { LinkTo } from '@ember/routing';
 
 import { type TimeTracking, type TimeTrackingFormData, validateTimeTracking } from './domain';
 import { TimelineEditor } from './editor';
-import styles from './timeline.css';
+import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
-import type { FormBuilder } from '@hokulea/ember';
+import type { FieldValidationHandler, FormBuilder } from '@hokulea/ember';
 
 interface TimelineFormSignature {
   Args: {
     active: boolean;
-    form: FormBuilder<TimeTrackingFormData, void>;
+    form: FormBuilder<TimeTrackingFormData>;
     playerApi?: YoutubePlayerAPI;
   };
 }
 
 export class TimelineForm extends Component<TimelineFormSignature> {
-  validate = (data: TimeTracking) => {
-    const validation = validateTimeTracking(data);
+  validate: FieldValidationHandler<TimeTrackingFormData, 'timeTracking', TimeTracking> = ({
+    value
+  }) => {
+    if (!value) return;
+
+    const validation = validateTimeTracking(value);
 
     if (validation) {
       return validation.map((err) => ({
         type: 'error',
-        value: data,
+        value,
         message: err
       }));
     }
 
-    return undefined;
+    return;
   };
 
   <template>

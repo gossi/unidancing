@@ -2,7 +2,6 @@
 // @ts-ignore
 import type { Track } from '@unidancing/app/domain/supporting/spotify';
 
-/* eslint-disable @typescript-eslint/naming-convention */
 export const RADIOACTIVE: Track = {
   album: {
     album_type: 'single',
@@ -64,7 +63,7 @@ export const RADIOACTIVE: Track = {
   ],
   available_markets: [],
   disc_number: 1,
-  duration_ms: 276040,
+  duration_ms: 276_040,
   explicit: true,
   external_ids: { isrc: 'USUM71400693' },
   external_urls: { spotify: 'https://open.spotify.com/track/69yfbpvmkIaB10msnKT7Q5' },

@@ -1,6 +1,6 @@
 export { cacheResult } from './-data';
 export { formatIndicator, formatNumber, formatPercent, formatSeconds } from './-formatter';
-export { asBoolean, asNumber, asString, isSSR } from './-helpers';
+export { asBoolean, asNumber, asString, isSSR, setSSRMode } from './-helpers';
 export { deserialize } from './-serde';
 export {
   dateToMilliseconds,

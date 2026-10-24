@@ -1,4 +1,3 @@
-import { on } from '@ember/modifier';
 import { LinkTo } from '@ember/routing';
 
 import { link } from 'ember-link';

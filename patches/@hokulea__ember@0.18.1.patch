@@ -1,0 +1,61 @@
+diff --git a/declarations/components/form/field.d.ts b/declarations/components/form/field.d.ts
+index 60f7ed4..e6967b9 100644
+--- a/declarations/components/form/field.d.ts
++++ b/declarations/components/form/field.d.ts
+@@ -4,6 +4,34 @@ import type { LabelSignature } from './label';
+ import type { AttrValue, ComponentLike, WithBoundArgs } from '@glint/template';
+ import type { FieldAPI, FieldConfig, FieldNames, FieldValue, FormAPI, Issue, UserData } from '@hokulea/ember-pahu';
+ export type BoundField<DATA extends UserData, NAME extends string = FieldNames<DATA> | (string & {}), VALUE = NAME extends keyof DATA ? DATA[NAME] : AttrValue> = WithBoundArgs<typeof Field<DATA, NAME, VALUE>, 'form'>;
++export type NameValue<DATA extends UserData, NAME extends string> = NAME extends keyof DATA
++  ? DATA[NAME]
++  : NAME extends `${infer Key}.${infer Rest}`
++    ? Key extends keyof DATA
++      ? NameValue<Extract<DATA[Key], object>, Rest>
++      : AttrValue
++    : AttrValue;
++/**
++ * A yielded `Field` whose `NAME` is inferred from `@name` at each invocation,
++ * so value/validate types resolve against the actual form data. Uses the
++ * documented public "Type Parameters" recipe (abstract new + InstanceType),
++ * because `WithBoundArgs` collapses generic class signatures.
++ */
++export type FieldComponent<DATA extends UserData> = abstract new <
++  NAME extends FieldNames<DATA> | (string & {}),
++  VALUE = NameValue<DATA, NAME>
++>() => InstanceType<
++  ComponentLike<{
++    Element: HTMLDivElement;
++    Args: Omit<FieldArgs<DATA, NAME, VALUE>, 'name'> & {
++      name: NAME;
++      form?: FormAPI<DATA>;
++    };
++    Blocks: {
++      default: [FieldBlock<DATA, NAME, VALUE>];
++    };
++  }>
++>;
+ export type FieldArgs<DATA extends UserData, NAME extends string = FieldNames<DATA> | (string & {}), VALUE = NAME extends keyof DATA ? DATA[NAME] : AttrValue> = FieldConfig<DATA, NAME, VALUE> & {
+     /**
+      * The label for your field.
+diff --git a/declarations/components/form/form.d.ts b/declarations/components/form/form.d.ts
+index 92eb6cb..cc692d1 100644
+--- a/declarations/components/form/form.d.ts
++++ b/declarations/components/form/form.d.ts
+@@ -16,7 +16,7 @@ import { TextField } from './fields/text';
+ import { TextAreaField } from './fields/text-area';
+ import { Reset } from './reset';
+ import { Submit } from './submit';
+-import type { BoundField } from './field';
++import type { BoundField, FieldComponent } from './field';
+ import type { TOC } from '@ember/component/template-only';
+ import type { WithBoundArgs } from '@glint/template';
+ import type { FormAPI, FormConfig, Issue, UserData } from '@hokulea/ember-pahu';
+@@ -40,7 +40,7 @@ export interface FormBuilder<DATA extends UserData> {
+     SingularChoice: WithBoundArgs<typeof SingularChoiceField<DATA>, 'Field'>;
+     Text: WithBoundArgs<typeof TextField<DATA>, 'Field'>;
+     TextArea: WithBoundArgs<typeof TextAreaField<DATA>, 'Field'>;
+-    Field: BoundField<DATA>;
++    Field: FieldComponent<DATA>;
+     Errors: WithBoundArgs<typeof FormErrors, 'errors'>;
+     Submit: typeof Submit;
+     Reset: typeof Reset;

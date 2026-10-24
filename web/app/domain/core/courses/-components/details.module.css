@@ -1,0 +1,41 @@
+.units {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-top: var(--spacing-container-3);
+
+  article {
+    margin: 0;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-container0);
+
+  div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container-2);
+  }
+}
+
+.lesson {
+  counter-increment: lesson;
+}
+
+.lesson::before {
+  content: counter(lesson) ". ";
+}
+
+.examples {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 10px;
+  margin-bottom: var(--spacing-container1);
+}

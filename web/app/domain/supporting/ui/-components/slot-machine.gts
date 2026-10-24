@@ -5,7 +5,7 @@ import { registerDestructor } from '@ember/destroyable';
 import { dropTask, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
 
-import styles from './slot-machine.css';
+import styles from './slot-machine.module.css';
 
 import type Owner from '@ember/owner';
 import type { WithBoundArgs } from '@glint/template';
@@ -25,7 +25,7 @@ function shuffle<T extends any[] = any[]>(arr: T): T {
 }
 
 function repeat(arr: string[], amount: number): string[] {
-  // eslint-disable-next-line unicorn/no-new-array
+  // eslint-disable-next-line unicorn/no-new-array, unicorn/no-unreadable-new-expression
   return new Array<string[]>(amount).fill(arr).flat();
 }
 
@@ -80,6 +80,7 @@ class Slot extends Component<SlotSignature> {
 
         e.dataset.spinning = 'true';
 
+        // eslint-disable-next-line unicorn/prefer-await
         void this.spin.perform(duration).finally(() => {
           delete e.dataset.spinning;
         });
@@ -102,13 +103,23 @@ class Slot extends Component<SlotSignature> {
   </template>
 }
 
-interface SlotMachineSignature {
+interface SlotMachineSignature<D extends (value: never) => void> {
   Element: HTMLDivElement;
   Args: Partial<Omit<Args, 'name' | 'register' | 'unregister' | 'drawn'>> & {
-    drawn?: (result: string | Record<string, string>) => void;
+    /**
+     * One arm per API form:
+     * - single-slot (`@options`, no block): called with the drawn string
+     * - block form (yielded `<Slot>`s): called with the results record, keyed
+     *   by `@name`, once all slots finished
+     *
+     * `D` is inferred from this handler at each invocation, so consumers may
+     * write a handler narrowed to the form they use (e.g. destructured slot
+     * results); non-function values are still rejected.
+     */
+    drawn?: D;
   };
   Blocks: {
-    default: [WithBoundArgs<typeof Slot, 'start' | 'register' | 'unregister'>];
+    default: [WithBoundArgs<typeof Slot, 'start' | 'reset' | 'drawn' | 'register' | 'unregister'>];
   };
 }
 
@@ -116,9 +127,13 @@ function asStringArray(strings: string[] | undefined): string[] {
   return strings as string[];
 }
 
-class SlotMachine extends Component<SlotMachineSignature> {
+class SlotMachine<
+  D extends (value: never) => void = (value: string | Record<string, string>) => void
+> extends Component<SlotMachineSignature<D>> {
   slots = new Set();
   results: Record<string, string> = {};
+
+  placeholderOptions: string[] = [];
 
   register = (slot: Slot) => {
     this.slots.add(slot);
@@ -134,12 +149,22 @@ class SlotMachine extends Component<SlotMachineSignature> {
     }
   });
 
-  collectResults = (result: string, slot: string) => {
+  collectResults = (result: string, slot?: string) => {
+    if (slot === undefined) {
+      return;
+    }
+
     this.results[slot] = result;
 
     if (Object.keys(this.results).length === this.slots.size) {
-      this.args.drawn?.(this.results);
+      // block form: deliver the results record to the consumer's handler
+      (this.args.drawn as ((results: Record<string, string>) => void) | undefined)?.(this.results);
     }
+  };
+
+  // single-slot form: forward the drawn string to the consumer's handler
+  singleDrawn = (result: string) => {
+    (this.args.drawn as ((result: string) => void) | undefined)?.(result);
   };
 
   <template>
@@ -151,12 +176,18 @@ class SlotMachine extends Component<SlotMachineSignature> {
             start=@start
             reset=@reset
             drawn=this.collectResults
+            options=this.placeholderOptions
             register=this.register
             unregister=this.unregister
           )
         }}
       {{else}}
-        <Slot @options={{asStringArray @options}} @drawn={{@drawn}} />
+        <Slot
+          @options={{asStringArray @options}}
+          @drawn={{this.singleDrawn}}
+          @start={{@start}}
+          @reset={{@reset}}
+        />
       {{/if}}
     </div>
   </template>

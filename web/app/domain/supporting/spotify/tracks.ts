@@ -4,8 +4,8 @@ import { SpotifyService } from './service';
 
 import type { Track } from './domain-objects';
 
-function randomItem<T>(items: T[]) {
-  return items[Math.floor(Math.random() * items.length)];
+function randomItem<T>(items: T[]): T {
+  return items[Math.floor(Math.random() * items.length)] as T;
 }
 
 export function getRandomTracks(list: Track[], amount = 5): Track[] {
@@ -23,7 +23,7 @@ export function getRandomTracks(list: Track[], amount = 5): Track[] {
 }
 
 export function getRandomTrack(list: Track[]): Track {
-  return getRandomTracks(list, 1)[0];
+  return getRandomTracks(list, 1)[0] as Track;
 }
 
 function randomNumber(min: number, max: number) {
@@ -51,7 +51,7 @@ export const playTrackForDancing = action(
 
       await client.play({
         uris: [track.uri],
-        // eslint-disable-next-line @typescript-eslint/naming-convention
+
         position_ms: start
       });
     }
@@ -62,7 +62,7 @@ export const playTrack = action(({ service }) => async (track: Track, start?: nu
 
   await client.play({
     uris: [track.uri],
-    // eslint-disable-next-line @typescript-eslint/naming-convention
+
     position_ms: start ?? 0
   });
 });

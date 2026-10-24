@@ -3,3 +3,7 @@ packages:
   - web/
   - database/
   - gatekeeper/
+
+catalogs:
+  test:
+    playwright: 1.64.0

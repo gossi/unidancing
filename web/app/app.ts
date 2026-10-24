@@ -1,19 +1,33 @@
-import './assets/app.css';
-import '@formatjs/intl-durationformat/polyfill';
-import 'vis-timeline/dist/vis-timeline-graph2d.min.css';
+import IntlService from 'ember-intl/services/intl';
+import LinkManagerService from 'ember-link/services/link-manager';
+import PageTitleService from 'ember-page-title/services/page-title';
+import PortalService from 'ember-stargate/services/-portal';
+import EmberApp from 'ember-strict-application-resolver';
 
-import Application from '@ember/application';
+import HokuleaService from '@hokulea/ember/services/-hokulea';
 
-import config from '@unidancing/app/config/environment';
-import loadInitializers from 'ember-load-initializers';
-import Resolver from 'ember-resolver';
+import config from './config/environment';
+import Router from './router';
 
-import '@hokulea/core/index.css';
-
-export default class App extends Application {
+export default class App extends EmberApp {
   modulePrefix = config.modulePrefix;
-  podModulePrefix = config.podModulePrefix;
-  Resolver = Resolver;
-}
 
-loadInitializers(App, config.modulePrefix);
+  modules = {
+    './router': Router,
+    './config/environment': config,
+
+    // Services looked up by string (via @service declarations in the app and
+    // inside addon helpers like {{pageTitle}}). Add more here if a strict
+    // lookup ever fails at runtime.
+    './services/-hokulea': HokuleaService,
+    './services/-portal': PortalService,
+    './services/intl': IntlService,
+    './services/link-manager': LinkManagerService,
+    './services/page-title': PageTitleService,
+
+    // Everything resolvable by convention from the app tree.
+    ...import.meta.glob('./{routes,templates,controllers,services}/**/*.{js,ts,gjs,gts}', {
+      eager: true
+    })
+  };
+}

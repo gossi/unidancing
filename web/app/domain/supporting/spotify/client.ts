@@ -1,10 +1,10 @@
 import { tracked } from '@glimmer/tracking';
 
 import { dropTask } from 'ember-concurrency';
-import { useMachine } from 'ember-statecharts';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPlayer from 'spotify-web-playback';
 
+import { useMachine } from '../statechart';
 import { SpotifyMachine } from './machine';
 
 import type { Device, Track } from './domain-objects';
@@ -59,6 +59,7 @@ export class SpotifyClient {
 
       return true;
     } catch {
+      // eslint-disable-next-line unicorn/no-null
       this.api.setAccessToken(null);
 
       return false;
@@ -71,7 +72,7 @@ export class SpotifyClient {
     return (
       this.statechart.state?.matches({
         authenticated: 'ready'
-      }) ||
+      }) ??
       this.statechart.state?.matches({
         authenticated: 'playback'
       })
@@ -102,11 +103,13 @@ export class SpotifyClient {
     await this.player.connect(accessToken);
 
     if (!this.player.ready) {
+      // eslint-disable-next-line unicorn/error-message
       throw new Error();
     }
   };
 
   loadDevices = dropTask(async () => {
+    // eslint-disable-next-line unicorn/no-await-expression-member
     this.devices = (await this.api.getMyDevices()).devices;
   });
 
@@ -114,7 +117,7 @@ export class SpotifyClient {
     if (this.player.ready) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+
       await this.selectDevice({
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

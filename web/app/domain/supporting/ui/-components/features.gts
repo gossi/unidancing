@@ -1,4 +1,4 @@
-import styles from './features.css';
+import styles from './features.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 

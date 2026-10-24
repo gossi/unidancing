@@ -24,7 +24,7 @@ export class YoutubeService extends Service {
 
     p.set('key', config.APP.YOUTUBE_API_KEY);
 
-    let response = await fetch(url);
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error('Failed to fetch YouTube videos');

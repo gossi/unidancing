@@ -1,12 +1,14 @@
 import Component from '@glimmer/component';
-import { fn } from '@ember/helper';
 import { service } from '@ember/service';
+
+import IconClipboardText from '~icons/ph/clipboard-text';
+import IconShareFat from '~icons/ph/share-fat';
 
 import { IconButton, Popover, popover, Tabs, TextInput } from '@hokulea/ember';
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { canUseForTraining, makeTrainingLink } from './domain-objects';
-import styles from './styles.css';
+import styles from './styles.module.css';
 
 import type { RoutineResult } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
@@ -21,7 +23,7 @@ export class Share extends Component<{
 
   get shareLink() {
     try {
-      return window.location.href;
+      return globalThis.location.href;
     } catch {
       return '';
     }
@@ -30,7 +32,7 @@ export class Share extends Component<{
   <template>
     {{#let (popover position="bottom-start") as |po|}}
       <IconButton
-        @icon="share-fat"
+        @icon={{IconShareFat}}
         @importance="subtle"
         @spacing="-1"
         @label="Teilen"
@@ -44,7 +46,7 @@ export class Share extends Component<{
             <div>
               <TextInput @value={{this.shareLink}} readonly {{selectWhenFocus}} />
               <IconButton
-                @icon="clipboard-text"
+                @icon={{IconClipboardText}}
                 @importance="subtle"
                 @spacing="-1"
                 @label="Kopieren"
@@ -60,7 +62,7 @@ export class Share extends Component<{
                 <div>
                   <TextInput @value={{trainingLink}} readonly {{selectWhenFocus}} />
                   <IconButton
-                    @icon="clipboard-text"
+                    @icon={{IconClipboardText}}
                     @importance="subtle"
                     @spacing="-1"
                     @label="Kopieren"

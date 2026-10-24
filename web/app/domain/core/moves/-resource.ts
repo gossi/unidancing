@@ -13,10 +13,8 @@ import type { LinkManagerService } from 'ember-link';
 export const findMoves = resourceFactory(() => {
   return resource(async ({ owner }): Promise<Move[]> => {
     return cacheResult('moves', owner, async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const movesResponse = await client.queries.moveConnection();
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return (movesResponse.data.moveConnection.edges as MoveConnectionEdges[] | undefined)?.map(
         (ex) => ex.node
       ) as Move[];
@@ -27,10 +25,8 @@ export const findMoves = resourceFactory(() => {
 export const findMove = resourceFactory((id: string) => {
   return resource(async ({ owner }): Promise<Move> => {
     return cacheResult(`move-${id}`, owner, async () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
       const ex = await client.queries.move({ relativePath: `${id}.md` });
 
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       return ex.data.move as Move;
     });
   });

@@ -1,5 +1,3 @@
-import { on } from '@ember/modifier';
-
 import { buildArtLink } from '..';
 
 import type { Art } from '..';

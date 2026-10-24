@@ -1,1 +1,1 @@
-export { Course } from '@/tina/types';
+export type { Course } from '@/tina/types';
