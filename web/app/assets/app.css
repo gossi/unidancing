@@ -28,7 +28,16 @@
   --inset-bottom: var(--s0); /* px for calc() later on */
 }
 
+
+/* @property --content-width {
+  inherits: true;
+  initial-value: auto;
+  syntax: "<length> | <percentage>";
+} */
+
 body {
+  --content-width: auto;
+
   padding-block-end: var(--inset-bottom);
 
   &:has(div[data-player]) {
@@ -68,12 +77,6 @@ a {
 
 :target {
   scroll-margin-block: calc(70px + 2ex);
-}
-
-@property --content-width {
-  inherits: true;
-  initial-value: auto;
-  syntax: "<length> | <percentage>";
 }
 
 dialog:is([data-game], [data-assistant]) {
