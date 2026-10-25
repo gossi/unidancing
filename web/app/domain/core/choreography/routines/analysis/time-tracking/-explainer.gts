@@ -1,7 +1,5 @@
 import { formatNumber } from '@unidancing/app/domain/supporting/utils';
 
-import styles from './evaluation.module.css';
-
 import type { AttractivityGroup } from './domain';
 import type { TOC } from '@ember/component/template-only';
 
@@ -14,13 +12,33 @@ interface ExplainerSignature {
 }
 
 export const Explainer: TOC<ExplainerSignature> = <template>
-  <details ...attributes class={{styles.explainer}}>
+  <details ...attributes class="explainer">
     <summary>
       {{yield to="title"}}
     </summary>
 
     {{yield to="content"}}
   </details>
+
+  <style scoped>
+    .explainer {
+      font-size: var(--ls-1);
+
+      summary {
+        font-size: var(--s0);
+
+        span {
+          float: right;
+        }
+      }
+
+      &[open] {
+        summary {
+          margin-block-end: var(--spacing-primitive-2);
+        }
+      }
+    }
+  </style>
 </template>;
 
 interface ExplainerTableSignature {
@@ -30,7 +48,7 @@ interface ExplainerTableSignature {
 }
 
 export const ExplainerTable: TOC<ExplainerTableSignature> = <template>
-  <table class={{styles.explainerTable}}>
+  <table class="explainerTable">
     <tbody>
       {{#each @groups as |group|}}
         <tr>
@@ -41,4 +59,35 @@ export const ExplainerTable: TOC<ExplainerTableSignature> = <template>
       {{/each}}
     </tbody>
   </table>
+
+  <style scoped>
+    .explainerTable {
+      border-collapse: collapse;
+      width: 100%;
+
+      tr {
+        border-block-end: 1px solid var(--shape-stroke-color);
+
+        &:last-child {
+          border-block-end: none;
+        }
+      }
+
+      td {
+        padding: 0.5rem 0.75rem;
+
+        &:last-child {
+          text-align: right;
+        }
+      }
+
+      [data-attractivity="attractor"] {
+        color: var(--indicator-success-plain-text);
+      }
+
+      [data-attractivity="detractor"] {
+        color: var(--indicator-error-plain-text);
+      }
+    }
+  </style>
 </template>;

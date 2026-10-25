@@ -23,7 +23,6 @@ import { RoutineResults } from '../analysis/results';
 import { evaluateTimeTracking } from '../analysis/time-tracking/domain';
 import { scoreArtistic } from '../artistic/actions';
 import { loadSystem, loadSystemDescriptor } from '../systems/actions';
-import styles from './styles.module.css';
 
 import type { RoutineResult, RoutineTest } from '../analysis/domain-objects';
 import type { WireTimeTracking } from '../analysis/time-tracking/domain';
@@ -132,7 +131,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
                   {{po.trigger}}
                 />
 
-                <Popover {{po.target}} class={{styles.share}}>
+                <Popover {{po.target}} class="share">
                   <p>Teile den Link zur Kür-Analyse auf unidancing.art:</p>
                   <div>
                     <TextInput @value={{this.exportLink}} readonly {{selectWhenFocus}} />
@@ -150,12 +149,7 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
           </Toolbar>
 
           {{#if this.exportShown}}
-            <TextArea
-              @value={{this.exportData}}
-              class={{styles.exportData}}
-              readonly
-              {{selectWhenFocus}}
-            />
+            <TextArea @value={{this.exportData}} class="exportData" readonly {{selectWhenFocus}} />
           {{/if}}
         </:description>
         <:content>
@@ -163,6 +157,16 @@ export class RoutineResultsRoute extends Route<{ data: string }> {
         </:content>
       </Page>
     {{/let}}
+    <style scoped>
+      .exportData {
+        box-sizing: border-box;
+        width: 100%;
+        height: 200px;
+
+        font-family: monospace;
+        font-size: var(--s-1);
+      }
+    </style>
   </template>
 }
 

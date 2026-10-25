@@ -10,7 +10,6 @@ import { Card, Icon, Tabs } from '@hokulea/ember';
 
 import { Explainer, ExplainerTable } from './-explainer';
 import { calculateBalance } from './domain';
-import styles from './evaluation.module.css';
 
 import type { Balance, TimeAnalysis } from './domain';
 import type { TOC } from '@ember/component/template-only';
@@ -64,7 +63,7 @@ function withBarWidth(data: Balance) {
 
 const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> = <template>
   {{#let (withBarWidth (calculateBalance @data)) as |data|}}
-    <Card class={{styles.indicator}}>
+    <Card class="indicator">
       <h4>
         Balance
         {{#let (link "training.diagnostics.time-tracking") as |l|}}
@@ -94,7 +93,7 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
 
       <Tabs as |t|>
         <t.Tab @label="Gewichtet">
-          <div class={{styles.balance}}>
+          <div class="balance">
             <div>
               <span data-ratio>{{formatPercent data.artistry.weighted}}</span>
               <span
@@ -122,7 +121,7 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
         </t.Tab>
 
         <t.Tab @label="Absolut">
-          <div class={{styles.balance}}>
+          <div class="balance">
             <div>
               <span data-ratio>{{formatPercent data.artistry.indicator}}</span>
               <span
@@ -150,7 +149,7 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
         </t.Tab>
 
         <t.Tab @label="Verhältnis">
-          <div class={{styles.balance}}>
+          <div class="balance">
             <div>
               <span data-ratio>{{formatPercent data.artistry.ratio}}</span>
               <span
@@ -179,6 +178,51 @@ const TimeTrackingBalanceIndicator: TOC<TimeTrackingBalanceIndicatorSignature> =
       </Tabs>
     </Card>
   {{/let}}
+
+  <style scoped>
+    .indicator {
+      :global([part="body"]) {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-container-3);
+      }
+    }
+
+    .balance {
+      display: flex;
+      justify-content: space-between;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: var(--spacing-primitive-4);
+        align-items: flex-start;
+
+        &:last-child {
+          align-items: flex-end;
+        }
+      }
+
+      [data-ratio] {
+        font-size: var(--s3);
+      }
+
+      [data-bar] {
+        display: inline-block;
+        width: var(--ratio, 0);
+        height: 1em;
+
+        &[data-group="artistry"] {
+          background-color: var(--artistry);
+        }
+
+        &[data-group="tricks"] {
+          background-color: var(--tricks);
+        }
+      }
+    }
+  </style>
 </template>;
 
 export { TimeTrackingBalanceIndicator };

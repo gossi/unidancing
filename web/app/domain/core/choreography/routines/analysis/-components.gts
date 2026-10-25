@@ -8,7 +8,6 @@ import { IconButton, Popover, popover, Tabs, TextInput } from '@hokulea/ember';
 
 import { copyToClipboard, selectWhenFocus } from '../-utils';
 import { canUseForTraining, makeTrainingLink } from './domain-objects';
-import styles from './styles.module.css';
 
 import type { RoutineResult } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
@@ -39,7 +38,7 @@ export class Share extends Component<{
         {{po.trigger}}
       />
 
-      <Popover {{po.target}} class={{styles.share}}>
+      <Popover {{po.target}} class="share">
         <Tabs as |tab|>
           <tab.Tab @label="Link">
             <p>Teile den Link zur Kür-Analyse:</p>
@@ -75,13 +74,34 @@ export class Share extends Component<{
         </Tabs>
       </Popover>
     {{/let}}
+
+    <style scoped>
+      .share {
+        font-size: var(--s0);
+
+        div {
+          display: flex;
+          gap: var(--spacing-primitive-1);
+        }
+
+        input {
+          min-width: 15em;
+          max-width: 25em;
+        }
+      }
+    </style>
   </template>
 }
 
 const Toolbar: TOC<{ Blocks: { default: [] } }> = <template>
-  <p class={{styles.toolbar}}>
+  <p class="toolbar">
     {{yield}}
   </p>
+  <style scoped>
+    .toolbar {
+      font-size: var(--s-2);
+    }
+  </style>
 </template>;
 
 export { Toolbar };

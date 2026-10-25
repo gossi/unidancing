@@ -10,7 +10,6 @@ import { Timeline } from 'vis-timeline/esnext';
 import { dateToSecondsWithMilli } from '../../../../../supporting/utils';
 import { YoutubePlayer } from '../../../../../supporting/youtube';
 import { GROUPS, type TimeTracking } from './domain';
-import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type Owner from '@ember/owner';
@@ -231,6 +230,88 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
       <YoutubePlayer @url={{@video}} @controls={{true}} @setApi={{this.setPlayerApi}} />
     {{/if}}
 
-    <div tabindex="0" class={{styles.timeline}} {{this.timeline}}></div>
+    <div tabindex="0" class="timeline" {{this.timeline}}></div>
+
+    <style scoped>
+      .timeline {
+        :global(svg) {
+          background: none !important;
+        }
+
+        :global(.vis-timeline > .vis-background:first-child) {
+          background-color: var(--surface-container1);
+        }
+
+        :global(.vis-time-axis.vis-background) {
+          background-color: var(--surface-container);
+        }
+
+        :global(.vis-label) {
+          border-color: var(--control-border-color);
+          color: var(--typography-subtle);
+        }
+
+        :global(.vis-text) {
+          border-right: 0.5px solid var(--control-border-color);
+          color: var(--typography-muted);
+          background-color: var(--surface-container1);
+        }
+
+        :global(.vis-panel),
+        :global(.vis-timeline),
+        :global(.vis-group) {
+          border-color: var(--control-border-color);
+        }
+
+        :global(.vis-time-axis .vis-grid.vis-vertical) {
+          border-left: 0.5px solid hsl(from var(--control-border-color) h s calc(l - 5));
+        }
+
+        :global(.vis-group:first-child .vis-item) {
+          margin-top: -15px;
+        }
+
+        :global(.marker .vis-item) {
+          border-color: var(--shape-stroke-color);
+          color: var(--typography-main);
+          background-color: var(--surface-popover);
+        }
+
+        :global(.artistry .vis-item) {
+          border-color: var(--artistry);
+          background-color: var(--artistry);
+        }
+
+        :global(.communication .vis-item) {
+          border-color: var(--comm);
+          background-color: var(--comm);
+        }
+
+        :global(.tricks .vis-item) {
+          border-color: var(--tricks);
+          background-color: var(--tricks);
+        }
+
+        :global(.filler .vis-item) {
+          border-color: var(--filler);
+          background-color: var(--filler);
+        }
+
+        :global(.void .vis-item) {
+          border-color: var(--void);
+          background-color: var(--void);
+        }
+
+        :global(.dismounts .vis-item) {
+          border-color: var(--dismounts);
+          background-color: var(--dismounts);
+        }
+
+        :global(.vis-item.vis-selected) {
+          border-color: var(--control-border-color);
+          background-color: var(--control-focus-selected-background);
+        }
+      }
+    </style>
   </template>
 }

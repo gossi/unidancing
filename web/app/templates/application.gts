@@ -8,7 +8,6 @@ import { AppHeader, IconButton } from '@hokulea/ember';
 import { Assistant, AssistantFactory, buildAssistantLink } from '../domain/core/assistants';
 import { buildGameLink, Game, GameFactory } from '../domain/core/games';
 import { Player } from '../domain/supporting/ui';
-import styles from './application.module.css';
 
 import type ApplicationController from '../controllers/application.gts';
 import type { TOC } from '@ember/component/template-only';
@@ -31,7 +30,7 @@ const ApplicationTemplate: TOC<{ Args: { controller: ApplicationController } }> 
           <c.Item @push={{link "choreography.unidance-writing"}}>UniDance Writing</c.Item>
           <c.Item @push={{link "choreography.not-todo-list"}}>Not-Todo-Liste</c.Item>
           <hr />
-          <span class={{styles.label}}>Spiele</span>
+          <span class="label">Spiele</span>
           {{#let (buildGameLink Game.Bingo) as |bingoLink|}}
             <c.Item @push={{bingoLink}}>Bingo</c.Item>
           {{/let}}
@@ -48,7 +47,7 @@ const ApplicationTemplate: TOC<{ Args: { controller: ApplicationController } }> 
           <t.Item @push={{link "training.diagnostics"}}>Diagnostik</t.Item>
           <hr />
 
-          <span class={{styles.label}}>Assistenten</span>
+          <span class="label">Assistenten</span>
           {{#let (buildAssistantLink Assistant.DanceMix) as |danceMixLink|}}
             <t.Item @push={{danceMixLink}}>Dance Mix</t.Item>
           {{/let}}
@@ -56,7 +55,7 @@ const ApplicationTemplate: TOC<{ Args: { controller: ApplicationController } }> 
             <t.Item @push={{loopsLink}}>Loops</t.Item>
           {{/let}}
 
-          <span class={{styles.label}}>Spiele</span>
+          <span class="label">Spiele</span>
           {{#let (buildGameLink Game.DanceOhMat) as |danceOhMatLink|}}
             <t.Item @push={{danceOhMatLink}}>Dance Oh! Mat!</t.Item>
           {{/let}}
@@ -90,6 +89,31 @@ const ApplicationTemplate: TOC<{ Args: { controller: ApplicationController } }> 
   {{/if}}
 
   <Player />
+  <style scoped>
+    .main {
+      padding-top: 4.5rem;
+      padding-bottom: 6rem;
+
+      main {
+        position: relative;
+      }
+
+      :is(&[data-game], &[data-assistant]) main {
+        @media (width <= 992px) {
+          display: none;
+        }
+      }
+    }
+
+    .label {
+      padding-block: var(--spacing-primitive-4);
+      padding-inline: var(--spacing-primitive-3);
+
+      font-size: 80%;
+      font-weight: 400;
+      color: var(--typography-muted);
+    }
+  </style>
 </template>;
 
 export default ApplicationTemplate;

@@ -7,12 +7,11 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 import { Page } from '@hokulea/ember';
 
 import { Features, Section } from '../../../../supporting/ui';
-import styles from './styles.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 
 const Comparison: TOC<{ Blocks: { pro: []; contra: [] } }> = <template>
-  <Features class={{styles.comparison}}>
+  <Features class="comparison">
     <Section>
       <:header>Vorteile</:header>
       <:body>
@@ -27,6 +26,20 @@ const Comparison: TOC<{ Blocks: { pro: []; contra: [] } }> = <template>
       </:body>
     </Section>
   </Features>
+
+  <style scoped>
+    .comparison {
+      /* <header> is rendered by the Section children, not this template */
+      :global(header) {
+        border-bottom: var(--border-width) solid var(--table-border-color);
+      }
+
+      ul {
+        padding-left: 1em;
+        font-size: 80%;
+      }
+    }
+  </style>
 </template>;
 
 export class TrainingDiagnosticsBodyLanguageRoute extends Route<object> {

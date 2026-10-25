@@ -30,7 +30,6 @@ import {
   WithSpotify
 } from '../../../supporting/spotify';
 import { useMachine } from '../../../supporting/statechart';
-import styles from './dance-oh-mat.module.css';
 
 import type { Playlist, SpotifyClient, Track } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
@@ -235,7 +234,7 @@ class Manual extends Component {
   <template>
     <h2>Anleitung</h2>
 
-    <ol class={{styles.manual}}>
+    <ol class="manual">
       <li>Es werden vier Runden gespielt, jede Runde wird zu einem Song getanzt.</li>
       <li>Die Runde beginnt:
         <ul>
@@ -281,6 +280,26 @@ class Manual extends Component {
       </li>
       <li><i>Dance!</i></li>
     </ol>
+
+    <style scoped>
+      .manual {
+        padding-inline-start: 1.25em;
+
+        > li + li {
+          margin-block-start: var(--spacing-primitive-1);
+        }
+
+        ul {
+          padding-inline-start: 1em;
+        }
+      }
+
+      .manual button {
+        display: inline;
+        width: unset;
+        padding: 0.25em 0.5em;
+      }
+    </style>
   </template>
 }
 
@@ -534,12 +553,12 @@ class Game extends Component {
     {{else if (this.machine.state.matches "lobby")}}
       <Lobby @play={{this.startGame}} />
     {{else if (this.machine.state.matches "playing")}}
-      <div class={{styles.playing}}>
+      <div class="playing">
 
         {{#if (this.machine.state.matches "playing.selection")}}
-          <p class={{styles.counter}}>{{this.counter}}</p>
+          <p class="counter">{{this.counter}}</p>
 
-          <div class={{styles.selection}}>
+          <div class="selection">
             {{#each (array 1 2 3 4) as |song|}}
               <Button @push={{fn this.selectSong song}}>
                 {{song}}
@@ -547,31 +566,87 @@ class Game extends Component {
             {{/each}}
           </div>
         {{else}}
-          <p class={{styles.counter}}>{{this.counter}}</p>
+          <p class="counter">{{this.counter}}</p>
 
-          <p class={{styles.dance}}>
+          <p class="dance">
             Dance!
           </p>
         {{/if}}
 
         <SpotifyPlayButton
           @intent="stop"
-          class={{styles.stop}}
+          class="stop"
           {{on "click" this.stop}}
         >Stop</SpotifyPlayButton>
       </div>
     {{/if}}
+
+    <style scoped>
+      .playing {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: var(--spacing-container0);
+
+        /* min-height: calc(100dvh - var(--offset)); */
+      }
+
+      .selection {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(40%, 1fr));
+        gap: 2rem;
+        justify-content: center;
+
+        button {
+          /* touch */
+          @media (hover: none) and (pointer: coarse) {
+            aspect-ratio: 1;
+          }
+        }
+      }
+
+      .counter {
+        font-size: 8rem;
+        text-align: center;
+      }
+
+      .dance {
+        font-size: 36px;
+        font-style: italic;
+        text-align: center;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+      }
+
+      .stop {
+        margin-block-start: auto;
+      }
+    </style>
   </template>
 }
 
 const DanceOhMat: TOC<object> = <template>
-  <header class={{styles.header}}>
+  <header class="header">
     <h1>Dance Oh! Mat</h1>
     <PortalTarget @name="dance-oh-mat-header" />
   </header>
   <WithSpotify>
     <Game />
   </WithSpotify>
+
+  <style scoped>
+    .header {
+      display: flex;
+
+      h1 {
+        margin-bottom: 0;
+      }
+
+      button {
+        font-size: var(--s0);
+      }
+    }
+  </style>
 </template>;
 
 export { DanceOhMat };

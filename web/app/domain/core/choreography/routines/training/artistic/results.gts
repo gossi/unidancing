@@ -5,7 +5,6 @@ import { formatNumber, t } from 'ember-intl';
 import { Score } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.module.css';
 
 import type {
   ArtisticResults as Results,
@@ -31,10 +30,19 @@ class Diff extends Component<{ Args: { value: number } }> {
   }
 
   <template>
-    <span class={{styles.diff}} data-sign={{this.sign}}>{{this.sign}}{{formatNumber
+    <span class="diff" data-sign={{this.sign}}>{{this.sign}}{{formatNumber
         @value
         maximumFractionDigits=2
       }}</span>
+    <style scoped>
+      .diff {
+        color: var(--indicator-error-plain-text);
+
+        &[data-sign="+"] {
+          color: var(--indicator-success-plain-text);
+        }
+      }
+    </style>
   </template>
 }
 
@@ -151,7 +159,7 @@ class Part extends Component<{
 
   <template>
     {{! template-lint-disable table-groups  }}
-    <table class={{styles.training}}>
+    <table class="training">
       <thead>
         <tr>
           <td></td>
@@ -175,6 +183,48 @@ class Part extends Component<{
         />
       {{/each}}
     </table>
+    <style scoped>
+      .training {
+        border-collapse: collapse;
+
+        thead {
+          background: var(--surface-container);
+
+          th {
+            border-top: 1px solid var(--shape-stroke-color);
+            background: var(--surface-container1);
+          }
+        }
+
+        thead,
+        tbody {
+          border: 1px solid var(--shape-stroke-color);
+        }
+
+        tbody th {
+          background: var(--surface-container);
+        }
+
+        /* stylelint-disable-next-line no-descending-specificity */
+        th,
+        td {
+          padding: 0.5rem 0.75rem;
+          text-align: right;
+
+          &:is(:first-child, :nth-child(2)) {
+            border-inline-start: 1px solid var(--shape-stroke-color);
+          }
+
+          &:is(:last-child, :nth-child(3)) {
+            border-inline-start: 1px solid var(--shape-stroke-color);
+          }
+
+          &:first-child {
+            text-align: left;
+          }
+        }
+      }
+    </style>
   </template>
 }
 

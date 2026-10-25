@@ -27,7 +27,6 @@ import {
   WithSpotify
 } from '../../../supporting/spotify';
 import { useMachine } from '../../../supporting/statechart';
-import styles from './dance-mix.module.css';
 
 import type { Playlist, Track, UserPlaylist } from '../../../supporting/spotify';
 import type { TOC } from '@ember/component/template-only';
@@ -123,7 +122,7 @@ const DanceMixMachine = createMachine({
 });
 
 const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = <template>
-  <div class={{styles.header}}>
+  <div class="header">
     <p>
       {{#if @playlist}}
         <strong>{{htmlSafe @playlist.name}}</strong><br />
@@ -133,6 +132,23 @@ const Header: TOC<{ Args: { playlist?: Playlist }; Blocks: { default: [] } }> = 
 
     {{yield}}
   </div>
+
+  <style scoped>
+    .header {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(0%, 1fr));
+      gap: var(--spacing-container-2);
+
+      p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        small {
+          white-space: nowrap;
+        }
+      }
+    }
+  </style>
 </template>;
 
 interface PlaySignature {
@@ -234,10 +250,10 @@ class Play extends Component<PlaySignature> {
 
   <template>
     <SpotifyPlayButton @intent="stop" {{on "click" this.stop}}>Stop</SpotifyPlayButton>
-    <div class={{styles.play}}>
-      <ol class={{styles.tracks}}>
+    <div class="play">
+      <ol class="tracks">
         {{#each this.tracks as |track|}}
-          <li>
+          <li aria-selected={{eq track this.currentTrack}}>
             {{track.name}}<br />
             <small>{{formatArtists track.artists}}</small>
           </li>
@@ -245,9 +261,41 @@ class Play extends Component<PlaySignature> {
       </ol>
 
       <div>
-        <p class={{styles.counter}}>{{this.counter}}</p>
+        <p class="counter">{{this.counter}}</p>
       </div>
     </div>
+
+    <style scoped>
+      .play {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--spacing-container-4);
+      }
+
+      .tracks {
+        padding-inline-start: 1.25em;
+
+        li {
+          margin-bottom: var(--spacing-container0);
+        }
+
+        [aria-selected] {
+          font-weight: bold;
+        }
+      }
+
+      .counter {
+        position: sticky;
+        top: 0;
+
+        font-size: 8rem;
+        font-variant-numeric: tabular-nums;
+        text-align: center;
+        white-space: nowrap;
+      }
+    </style>
   </template>
 }
 

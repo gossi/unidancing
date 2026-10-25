@@ -88,7 +88,8 @@
       "ember-source/types",
       "@glint/ember-tsc/types",
       "@vitest/browser/context",
-      "unplugin-icons/types/ember"
+      "unplugin-icons/types/ember",
+      "ember-scoped-css/types"
     ]
   },
   "include": [

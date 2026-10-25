@@ -4,7 +4,6 @@ import { htmlSafe } from '@ember/template';
 import { formatNumber } from '@unidancing/app/domain/supporting/utils';
 
 import { CATEGORY_GROUPS } from './domain';
-import styles from './timeline.module.css';
 
 import type { TimeAnalysis, TimeTrackingGroupsEvaluation } from './domain';
 import type { TOC } from '@ember/component/template-only';
@@ -24,7 +23,7 @@ function getData(data: TimeAnalysis, group: string) {
 }
 
 const TimeTrackingSummary: TOC<TimeTrackingSummarySignature> = <template>
-  <table class={{styles.summary}}>
+  <table class="summary">
     <thead>
       <tr>
         <th>Messkriterium</th>
@@ -57,6 +56,81 @@ const TimeTrackingSummary: TOC<TimeTrackingSummarySignature> = <template>
       {{/each}}
     </tbody>
   </table>
+  <style scoped>
+    .summary {
+      border-collapse: collapse;
+
+      thead {
+        background: var(--surface-container);
+      }
+
+      tfoot {
+        background: var(--surface-container1);
+      }
+
+      thead,
+      tbody,
+      tfoot {
+        border: 1px solid var(--shape-stroke-color);
+      }
+
+      th {
+        text-align: left;
+      }
+
+      th,
+      td {
+        padding: 0.5rem 0.75rem;
+
+        &:first-child {
+          border-inline-end: 1px solid var(--shape-stroke-color);
+        }
+
+        &:last-child {
+          border-inline-start: 1px solid var(--shape-stroke-color);
+        }
+      }
+
+      td:last-child,
+      td:nth-child(3) {
+        text-align: right;
+      }
+
+      [data-vis] {
+        width: 40%;
+      }
+
+      [data-bar] {
+        display: inline-block;
+        width: var(--ratio, 0);
+        height: 1em;
+
+        &[data-group="artistry"] {
+          background-color: var(--artistry);
+        }
+
+        &[data-group="communication"] {
+          background-color: var(--comm);
+        }
+
+        &[data-group="tricks"] {
+          background-color: var(--tricks);
+        }
+
+        &[data-group="filler"] {
+          background-color: var(--filler);
+        }
+
+        &[data-group="dismounts"] {
+          background-color: var(--dismounts);
+        }
+
+        &[data-group="void"] {
+          background-color: var(--void);
+        }
+      }
+    }
+  </style>
 </template>;
 
 export { TimeTrackingSummary };

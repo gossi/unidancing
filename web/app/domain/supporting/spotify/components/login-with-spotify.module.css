@@ -1,6 +1,0 @@
-.scene {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--s0);
-  align-items: center;
-}

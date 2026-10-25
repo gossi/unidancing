@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 
 import { isReadyForPlayback } from '../abilities';
-import styles from './spotify-play-button.module.css';
 
 interface SpotifyPlayButtonSignature {
   Element: HTMLButtonElement;
@@ -20,7 +19,7 @@ export class SpotifyPlayButton extends Component<SpotifyPlayButtonSignature> {
   <template>
     <button
       type="button"
-      class={{styles.playbutton}}
+      class="playbutton"
       disabled={{not (isReadyForPlayback)}}
       {{on "click" this.push}}
       ...attributes
@@ -42,5 +41,51 @@ export class SpotifyPlayButton extends Component<SpotifyPlayButtonSignature> {
       </svg>
       {{yield}}
     </button>
+    <style scoped>
+      .playbutton {
+        --background-base: #1ed760;
+        --background-highlight: #1fdf64;
+        --background-press: #169c46;
+
+        position: relative;
+
+        display: inline-flex;
+        gap: 0.25em;
+        align-items: center;
+        justify-content: center;
+
+        padding: var(--spacing-primitive0);
+        padding-inline: var(--spacing-primitive2);
+
+        color: #000;
+
+        background-color: var(--background-base);
+        border-color: var(--background-base);
+        border-radius: 5em;
+
+        svg {
+          aspect-ratio: 1;
+          width: 1em;
+          fill: currentcolor;
+          stroke: currentcolor;
+        }
+
+        &:hover {
+          background-color: var(--background-highlight);
+          border-color: var(--background-highlight);
+        }
+
+        &:active {
+          background-color: var(--background-press);
+          border-color: var(--background-press);
+        }
+
+        &[disabled] {
+          pointer-events: none;
+          cursor: not-allowed;
+          opacity: 0.5;
+        }
+      }
+    </style>
   </template>
 }

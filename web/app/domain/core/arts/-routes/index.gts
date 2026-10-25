@@ -7,11 +7,9 @@ import IconArrowLeft from '~icons/ph/arrow-left';
 
 import { Icon } from '@hokulea/ember';
 
-import styles from './styles.module.css';
-
 export class ArtsIndexRoute extends Route<object> {
   <template>
-    <div class={{styles.index}}>
+    <div class="content">
       <p>Kurze Vorstellung der Kunstformen inklusive Geschichte und historische Relevanz, sowie die
         <LinkTo @route="moves">Moves</LinkTo>
         und
@@ -20,6 +18,14 @@ export class ArtsIndexRoute extends Route<object> {
 
       <p><Icon @icon={{IconArrowLeft}} /> Kunstform auswählen</p>
     </div>
+
+    <style scoped>
+      .content {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-primitive0);
+      }
+    </style>
   </template>
 }
 

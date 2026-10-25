@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { loadTranslations } from '@ember-intl/vite';
 import { babel } from '@rollup/plugin-babel';
 import { ember, extensions } from '@embroider/vite';
+import { scopedCSS } from 'ember-scoped-css/vite';
 import { theemo } from '@theemo/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import icons from 'unplugin-icons/vite';
@@ -129,6 +130,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     plugins: [
       ember(),
+      scopedCSS({layerName: 'app'}),
       // extra plugins here
       babel({
         babelHelpers: 'runtime',

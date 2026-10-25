@@ -5,7 +5,6 @@ import { tracked } from '@glimmer/tracking';
 import { Button, Form, Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
-import styles from './analysis.module.css';
 import {
   ARTISTIC_FORM_DATA,
   ArtisticForm,
@@ -151,7 +150,7 @@ export class RoutineTesterForm extends Component<{
     {{#if this.video}}
       <YoutubePlayer @url={{this.video}} @setApi={{this.setPlayerApi}} />
 
-      <this.Form @data={{this.data}} @submit={{this.submit}} class={{styles.tabs}} as |f|>
+      <this.Form @data={{this.data}} @submit={{this.submit}} class="tabs" as |f|>
         <Tabs as |tabs|>
           <tabs.Tab @label="Kür">
             <f.Text @name="rider" @label="Fahrer" />

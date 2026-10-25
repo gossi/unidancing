@@ -3,7 +3,6 @@ import { LinkTo } from '@ember/routing';
 
 import { type TimeTracking, type TimeTrackingFormData, validateTimeTracking } from './domain';
 import { TimelineEditor } from './editor';
-import styles from './timeline.module.css';
 
 import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { FieldValidationHandler, FormBuilder } from '@hokulea/ember';
@@ -67,7 +66,7 @@ export class TimelineForm extends Component<TimelineFormSignature> {
         Hilfreiche Tastenkürzel:
       </p>
 
-      <table class={{styles.shortcuts}}>
+      <table class="shortcuts">
         <thead>
           <tr>
             <th>Kürzel</th>
@@ -116,5 +115,42 @@ export class TimelineForm extends Component<TimelineFormSignature> {
         </tbody>
       </table>
     {{/let}}
+
+    <style scoped>
+      .shortcuts {
+        border-collapse: collapse;
+
+        thead {
+          background: var(--surface-container);
+        }
+
+        thead,
+        tbody {
+          border: 1px solid var(--shape-stroke-color);
+        }
+
+        th,
+        td {
+          padding: 0.5rem 0.75rem;
+          text-align: left;
+
+          /* &:first-child {
+            border-inline-end: 1px solid var(--shape-stroke-color);
+          }
+
+          &:last-child {
+            border-inline-start: 1px solid var(--shape-stroke-color);
+          } */
+
+          &:is(:first-child, :nth-child(2)) {
+            border-inline-start: 1px solid var(--shape-stroke-color);
+          }
+
+          &:is(:last-child, :nth-child(3)) {
+            border-inline-start: 1px solid var(--shape-stroke-color);
+          }
+        }
+      }
+    </style>
   </template>
 }

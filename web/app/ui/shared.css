@@ -1,0 +1,23 @@
+/* vis-timeline category colors — consumed by analysis results, viewer, and the
+   balance/effectivity/summary components */
+:root {
+  --artistry: #feb019;
+  --comm: #00e396;
+  --tricks: #008ffb;
+  --filler: #775dd0;
+  --void: #a5978b;
+  --dismounts: #ff4560;
+}
+
+/* analysis: form.gts + results.gts */
+.tabs {
+  [role="tabpanel"]:not([hidden]) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-container0);
+  }
+}
+
+.digits {
+  font-variant-numeric: tabular-nums;
+}

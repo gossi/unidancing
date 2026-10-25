@@ -4,7 +4,6 @@ import { LinkTo } from '@ember/routing';
 import { formatDate, t } from 'ember-intl';
 
 import { Score } from '../artistic/-components';
-import styles from './routines.module.css';
 
 import type { RoutineResult } from './domain-objects';
 import type { Document } from '@/tina/types';
@@ -21,7 +20,7 @@ interface RoutinesSignature {
 }
 
 export const Routines: TOC<RoutinesSignature> = <template>
-  <table class={{styles.routines}}>
+  <table class="routines">
     <thead>
       <tr>
         <th>Fahrer</th>
@@ -58,4 +57,66 @@ export const Routines: TOC<RoutinesSignature> = <template>
 
     </tbody>
   </table>
+  <style scoped>
+    .routines {
+      border-collapse: collapse;
+
+      thead {
+        background: var(--surface-container);
+      }
+
+      thead,
+      tbody {
+        border: 1px solid var(--shape-stroke-color);
+      }
+
+      th {
+        text-align: left;
+      }
+
+      th,
+      td {
+        padding: 0.5rem 0.75rem;
+        border-inline-start: 1px solid var(--shape-stroke-color);
+
+        &:last-child {
+          border-inline-end: 1px solid var(--shape-stroke-color);
+        }
+      }
+
+      td:last-child {
+        text-align: right;
+      }
+
+      [data-vis] {
+        width: 40%;
+
+        span {
+          display: inline-block;
+          width: var(--ratio, 0);
+          height: 1em;
+
+          &[data-group="artistry"] {
+            background-color: var(--artistry);
+          }
+
+          &[data-group="comm"] {
+            background-color: var(--comm);
+          }
+
+          &[data-group="tricks"] {
+            background-color: var(--tricks);
+          }
+
+          &[data-group="filler"] {
+            background-color: var(--filler);
+          }
+
+          &[data-group="void"] {
+            background-color: var(--void);
+          }
+        }
+      }
+    }
+  </style>
 </template>;

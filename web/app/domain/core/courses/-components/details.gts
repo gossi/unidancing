@@ -3,7 +3,6 @@ import { Page } from '@hokulea/ember';
 import { VideoPlayer } from '../../../supporting/ui';
 import { asString } from '../../../supporting/utils';
 import { ExerciseTeaser } from '../../exercises';
-import styles from './details.module.css';
 
 import type { Exercise } from '../../exercises';
 import type { Course } from '..';
@@ -34,7 +33,7 @@ const asExercise = (exercise?: Maybe<Exercise>): Exercise => {
 
 const CourseDetails: TOC<CourseDetailsSignature> = <template>
   <Page @title={{@course.title}} @description={{asString @course.about}}>
-    <div class={{styles.grid}}>
+    <div class="grid">
       <div>
         <h2>Lernziele</h2>
 
@@ -59,23 +58,23 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
     {{#if @course.examples}}
       <h2>Beispiele</h2>
 
-      <div class={{styles.examples}}>
+      <div class="examples">
         {{#each (pickExamples (asStringArray @course.examples)) as |url|}}
           <VideoPlayer @url={{url}} />
         {{/each}}
       </div>
     {{/if}}
 
-    <h2 class={{styles.lessons}}>Trainingseinheiten</h2>
+    <h2 class="lessons">Trainingseinheiten</h2>
 
     {{#each @course.lessons as |lesson idx|}}
-      <h3 class={{styles.lesson}} id="lesson-{{add1 idx}}">{{lesson.title}}</h3>
+      <h3 class="lesson" id="lesson-{{add1 idx}}">{{lesson.title}}</h3>
 
       {{#if lesson.description}}
         <p>{{lesson.description}}</p>
       {{/if}}
 
-      <div class={{styles.units}}>
+      <div class="units">
         {{#each lesson.exercises as |ex|}}
           <ExerciseTeaser @exercise={{asExercise ex.data}} />
         {{/each}}
@@ -87,6 +86,49 @@ const CourseDetails: TOC<CourseDetailsSignature> = <template>
     {{/each}} --}}
 
   </Page>
+  <style scoped>
+    .units {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: var(--spacing-container-3);
+
+      article {
+        margin: 0;
+
+        p {
+          margin: 0;
+        }
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--spacing-container0);
+
+      div {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-container-2);
+      }
+    }
+
+    .lesson {
+      counter-increment: lesson;
+    }
+
+    .lesson::before {
+      content: counter(lesson) ". ";
+    }
+
+    .examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 10px;
+      margin-bottom: var(--spacing-container1);
+    }
+  </style>
 </template>;
 
 export { CourseDetails };
