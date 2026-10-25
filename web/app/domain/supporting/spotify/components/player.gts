@@ -84,7 +84,10 @@ export class SpotifyPlayer extends Component {
 
       <div>
         {{#if this.client.authenticated}}
-          {{#let (popover opened=this.client.loadDevices.perform) as |pop|}}
+          {{#let
+            (popover opened=this.client.loadDevices.perform position="top span-left")
+            as |pop|
+          }}
             <IconButton
               @icon={{IconDevicesBold}}
               @importance="plain"

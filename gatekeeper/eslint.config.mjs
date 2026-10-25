@@ -10,7 +10,8 @@ const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
 export default defineConfig([
   includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
   {
-    // your overrides
+    // wrangler's generated dev bundles and deploy output are not source
+    ignores: ['.wrangler/**', 'dist/**']
   },
   ...node(import.meta.dirname)
 ]);
