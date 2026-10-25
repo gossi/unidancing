@@ -363,18 +363,6 @@ class Game extends Component {
     });
   }
 
-  machine = useMachine(this, () => {
-    const { play, select, dance, finish, finishRound, isGameOver } = this;
-
-    return {
-      machine: Machine.withConfig({
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        actions: { play, select, dance, finish, finishRound },
-        guards: { isGameOver }
-      })
-    };
-  });
-
   playSound = playSound(getOwner(this) as Owner);
   playTrack = playTrack(getOwner(this) as Owner);
   playTrackForDancing = playTrackForDancing(getOwner(this) as Owner);
@@ -479,6 +467,36 @@ class Game extends Component {
     };
   });
 
+  // NOTE: declared after all actions and guards it references — xstate's
+  // `withConfig` bakes implementations in at construction time, and `play` /
+  // `finishRound` are `assign()` action *objects* that cannot be resolved
+  // lazily. Class fields evaluate in declaration order, so a `machine` field
+  // placed above them would capture `undefined`.
+  machine = useMachine(this, () => ({
+    machine: Machine.withConfig({
+      /* eslint-disable @typescript-eslint/no-misused-promises -- xstate invokes actions
+         without awaiting; the async bodies are fire-and-forget by design */
+      actions: {
+        play: this.play,
+        select: this.select,
+        dance: this.dance,
+        finish: this.finish,
+        finishRound: this.finishRound
+      },
+      /* eslint-enable @typescript-eslint/no-misused-promises */
+      guards: {
+        isGameOver: this.isGameOver
+      }
+    })
+  }));
+
+  // The Form's submit callback must return nothing: xstate's `send` returns
+  // the next State, which pahu would read as a failed submit (no `.success`)
+  // and then crash on `state.issues.map` of undefined.
+  startGame = (params: GameParams) => {
+    void this.machine.send('play', params);
+  };
+
   selectSong = async (song: number) => {
     await this.playSound('select');
     this.song = song;
@@ -514,7 +532,7 @@ class Game extends Component {
     {{#if (this.machine.state.matches "manual")}}
       <Manual />
     {{else if (this.machine.state.matches "lobby")}}
-      <Lobby @play={{fn this.machine.send "play"}} />
+      <Lobby @play={{this.startGame}} />
     {{else if (this.machine.state.matches "playing")}}
       <div class={{styles.playing}}>
 

@@ -54,17 +54,6 @@ class Game extends Component {
 
   genre?: Genre;
 
-  machine = useMachine(this, () => {
-    const { play, dance, stop, startSelection, stopSelection, roll } = this;
-
-    return {
-      machine: Machine.withConfig({
-        // eslint-disable-next-line @typescript-eslint/no-misused-promises
-        actions: { play, dance, stop, roll, startSelection, stopSelection }
-      })
-    };
-  });
-
   @cached
   get playlistResources() {
     return Object.fromEntries(
@@ -142,6 +131,34 @@ class Game extends Component {
     await this.spotify.client.pause();
   };
 
+  // NOTE: declared after all actions it references — xstate's `withConfig`
+  // bakes implementations in at construction time, and `play` is an `assign()`
+  // action *object* that cannot be resolved lazily. Class fields evaluate in
+  // declaration order, so a `machine` field placed above the actions would
+  // capture them as `undefined` here.
+  machine = useMachine(this, () => ({
+    machine: Machine.withConfig({
+      /* eslint-disable @typescript-eslint/no-misused-promises -- xstate invokes actions
+         without awaiting; the async bodies are fire-and-forget by design */
+      actions: {
+        play: this.play,
+        dance: this.dance,
+        stop: this.stop,
+        roll: this.roll,
+        startSelection: this.startSelection,
+        stopSelection: this.stopSelection
+      }
+      /* eslint-enable @typescript-eslint/no-misused-promises */
+    })
+  }));
+
+  // The Form's submit callback must return nothing: xstate's `send` returns
+  // the next State, which pahu would read as a failed submit (no `.success`)
+  // and then crash on `state.issues.map` of undefined.
+  startGame = (params: Context) => {
+    void this.machine.send('play', params);
+  };
+
   start = (data: Context) => {
     this.machine.send('start', data);
   };
@@ -159,10 +176,7 @@ class Game extends Component {
     <div class={{styles.canvas}}>
 
       {{#if (this.machine.state.matches "lobby")}}
-        <Lobby
-          @data={{asContext this.machine.state.context}}
-          @play={{fn this.machine.send "play"}}
-        />
+        <Lobby @data={{asContext this.machine.state.context}} @play={{this.startGame}} />
       {{else}}
         <Portal @target="wof-header">
           <IconButton

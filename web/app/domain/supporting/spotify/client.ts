@@ -20,28 +20,29 @@ export class SpotifyClient {
 
   // private deviceId?: string = undefined;
 
-  statechart = useMachine(this, () => {
-    const { loadDevices, autoselectDevice, connectPlayer, loadPlayback, hasDevices } = this;
-
-    return {
-      machine: SpotifyMachine.withConfig({
-        guards: {
-          hasDevices
+  statechart = useMachine(this, () => ({
+    machine: SpotifyMachine.withConfig({
+      // NOTE: every entry references `this` lazily — the setup callback runs
+      // while this field is still initializing (class fields evaluate in
+      // declaration order), so the methods below would be `undefined` if
+      // destructured here. The interpreter invokes them only after
+      // `send('authenticate')`, when construction has long finished.
+      guards: {
+        hasDevices: () => this.hasDevices()
+      },
+      services: {
+        connectPlayer: async (_, { accessToken }) => {
+          await this.connectPlayer(accessToken as string);
         },
-        services: {
-          connectPlayer: async (_, { accessToken }) => {
-            await connectPlayer(accessToken as string);
-          },
-          loadDevices: () => loadDevices.perform(),
-          autoselectDevice,
-          loadPlayback
-        }
-      }),
-      interpreterOptions: {
-        devTools: true
+        loadDevices: () => this.loadDevices.perform(),
+        autoselectDevice: () => this.autoselectDevice(),
+        loadPlayback: () => this.loadPlayback()
       }
-    };
-  });
+    }),
+    interpreterOptions: {
+      devTools: true
+    }
+  }));
 
   // AUTH
 
@@ -69,13 +70,16 @@ export class SpotifyClient {
   // DEVICES
 
   get ready() {
+    // `authenticated` is a parallel state (regions: device, playback), so the
+    // state value is `{ device: …, playback: … }` — the former flat
+    // `matches({ authenticated: 'ready' })` could never be true (and `??`
+    // against a boolean short-circuited away the fallback anyway).
     return (
       this.statechart.state?.matches({
-        authenticated: 'ready'
-      }) ??
-      this.statechart.state?.matches({
-        authenticated: 'playback'
-      })
+        authenticated: {
+          device: 'ready'
+        }
+      }) ?? false
     );
   }
 
@@ -163,7 +167,10 @@ export class SpotifyClient {
     });
   }
 
-  loadPlayback = () => async () => {
+  // A plain async function: xstate services must return a promise/observable
+  // (the former `() => async () => {}` currying handed the inner function
+  // itself to the interpreter, which is not a spawnable actor).
+  loadPlayback = async () => {
     const playing = await this.player.getPlaybackState();
 
     if (playing?.item) {
