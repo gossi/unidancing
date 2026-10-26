@@ -2,8 +2,10 @@ import config from '@gossi/config-template-lint';
 
 export default {
   ...config,
+  plugins: [...(config.plugins ?? []), 'ember-scoped-css/src/template-lint/plugin'],
   rules: {
     ...config.rules,
+    'scoped-class-helper': 'error',
     'no-passed-in-event-handlers': {
       ignore: {
         Form: ['submit', 'reset'],

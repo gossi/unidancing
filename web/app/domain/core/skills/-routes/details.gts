@@ -6,6 +6,8 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 
+import { Page } from '@hokulea/ember';
+
 import { TinaMarkdown } from '../../../supporting/tina';
 import { findSkill } from '../-resource';
 
@@ -22,11 +24,9 @@ export class CourseDetailsRoute extends Route<{ id: string }> {
       {{#if r.resolved}}
         {{pageTitle r.value.title}}
 
-        <section>
-          <h1>{{r.value.title}}</h1>
-
+        <Page @title={{r.value.title}}>
           <TinaMarkdown @content={{r.value.body}} />
-        </section>
+        </Page>
       {{/if}}
     {{/let}}
   </template>

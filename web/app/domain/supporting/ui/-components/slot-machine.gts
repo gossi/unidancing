@@ -5,8 +5,6 @@ import { registerDestructor } from '@ember/destroyable';
 import { dropTask, timeout } from 'ember-concurrency';
 import { modifier } from 'ember-modifier';
 
-import styles from './slot-machine.module.css';
-
 import type Owner from '@ember/owner';
 import type { WithBoundArgs } from '@glint/template';
 
@@ -92,14 +90,41 @@ class Slot extends Component<SlotSignature> {
   );
 
   <template>
-    <div class={{styles.slot}}>
-      <div class={{styles.boxes}} {{this.animation start=@start reset=@reset}}>
-        <div class={{styles.box}}>?</div>
+    <div class="slot">
+      <div class="boxes" {{this.animation start=@start reset=@reset}}>
+        <div class="box">?</div>
         {{#each (repeat this.shuffledOptions REPEAT) as |option|}}
-          <div class={{styles.box}}>{{option}}</div>
+          <div class="box">{{option}}</div>
         {{/each}}
       </div>
     </div>
+
+    <style scoped>
+      .slot {
+        overflow: hidden;
+
+        /* stylelint-disable-next-line plugin/no-unsupported-browser-features */
+        min-width: max-content;
+        height: 1lh;
+        font-size: 3rem;
+      }
+
+      .boxes {
+        &[data-spinning] {
+          transition: transform 1s ease-in-out;
+        }
+      }
+
+      .box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        [data-spinning] & {
+          /* filter: blur(1.5px); */
+        }
+      }
+    </style>
   </template>
 }
 

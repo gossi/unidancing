@@ -5,8 +5,6 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 
 import { Card, Page } from '@hokulea/ember';
 
-import styles from './styles.module.css';
-
 export class TrainingDiagnosticsIndexRoute extends Route<object> {
   <template>
     <Page @title="Diagnostik">
@@ -23,7 +21,7 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
         Kür handelt.
       </p>
 
-      <div class={{styles.measures}}>
+      <div class="measures">
         <Card>
           <:header>
             <LinkTo @route="training.diagnostics.time-tracking">Zeitaufteilung</LinkTo>
@@ -69,6 +67,19 @@ export class TrainingDiagnosticsIndexRoute extends Route<object> {
         </Card>
       </div>
     </Page>
+
+    <style scoped>
+      .measures {
+        --min: 25ch;
+        --gap: 1rem;
+
+        display: grid;
+        grid-gap: var(--gap);
+
+        /* min() with 100% prevents overflow in extra narrow spaces */
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+      }
+    </style>
   </template>
 }
 

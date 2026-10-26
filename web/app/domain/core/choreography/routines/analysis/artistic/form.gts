@@ -4,12 +4,12 @@ import { concat } from '@ember/helper';
 
 import { formatNumber, t } from 'ember-intl';
 
-import { CardSection, Features } from '../../../../../supporting/ui';
-import { CriterionInterval, Score } from '../../artistic/-components';
+import { Features } from '../../../../../supporting/ui';
+import { CriterionInterval, Score, ScoreLabel } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { scoreArtistic } from '../../artistic/actions';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.module.css';
+import { CategoryCard } from './-components.gts';
 
 import type {
   ArtisticResults,
@@ -231,27 +231,16 @@ class Category extends Component<{
   }
 
   <template>
-    <CardSection class={{styles.category}}>
-      <:header>
-        <hgroup>
-          <h4>{{t (toIntlNameKey this.name)}}</h4>
-          <p>
-            <span class={{styles.score}} data-score="label">Score:</span>
-            <Score @score={{this.score}} />
-          </p>
-        </hgroup>
-      </:header>
-      <:body>
-        {{#each @category.criteria as |criterion|}}
-          <Criterion
-            @form={{@form}}
-            @criterion={{criterion}}
-            @results={{@results}}
-            @updateScore={{@updateScore}}
-          />
-        {{/each}}
-      </:body>
-    </CardSection>
+    <CategoryCard @name={{t (toIntlNameKey this.name)}} @score={{this.score}}>
+      {{#each @category.criteria as |criterion|}}
+        <Criterion
+          @form={{@form}}
+          @criterion={{criterion}}
+          @results={{@results}}
+          @updateScore={{@updateScore}}
+        />
+      {{/each}}
+    </CategoryCard>
   </template>
 }
 
@@ -318,7 +307,7 @@ export class ArtisticForm extends Component<ArtisticFormSignature> {
 
   <template>
     <p>
-      <span class={{styles.score}} data-score="label">Score:</span>
+      <ScoreLabel>Score:</ScoreLabel>
       <Score @score={{this.score}} />
     </p>
 

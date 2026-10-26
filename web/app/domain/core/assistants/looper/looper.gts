@@ -23,7 +23,6 @@ import {
   WithSpotify
 } from '../../../supporting/spotify';
 import { data } from './data';
-import styles from './looper.module.css';
 
 import type { Track } from '../../../supporting/spotify';
 import type { LoopDescriptor, LoopTrackDescriptor } from './domain-objects';
@@ -214,7 +213,7 @@ const PlayButton: TOC<PlayButtonSignature> = <template>
   {{#if (isPlaying @loop)}}
     <SpotifyPlayButton
       @intent="stop"
-      class={{styles.playbutton}}
+      class="playbutton"
       data-playing
       {{on "click" (stop)}}
       {{applyPercentage (playingPercentage)}}
@@ -222,10 +221,27 @@ const PlayButton: TOC<PlayButtonSignature> = <template>
       Stop
     </SpotifyPlayButton>
   {{else}}
-    <SpotifyPlayButton class={{styles.playbutton}} {{on "click" (fn (start) @loop 0)}}>
+    <SpotifyPlayButton class="playbutton" {{on "click" (fn (start) @loop 0)}}>
       Play
     </SpotifyPlayButton>
   {{/if}}
+
+  <style scoped>
+    .playbutton {
+      --percent: -1%;
+
+      border-width: 0;
+
+      &[data-playing] {
+        background-image: linear-gradient(
+          to right,
+          rgb(0 0 0 / 15%) calc(var(--percent) - 1%),
+          rgb(0 0 0 / 55%) var(--percent),
+          transparent calc(var(--percent) + 1%)
+        );
+      }
+    }
+  </style>
 </template>;
 
 interface LoopSignature {
@@ -324,21 +340,21 @@ class LoopCard extends Component<LoopCardSignature> {
   }
 
   <template>
-    <article class={{styles.card}}>
+    <article class="card">
       {{#if (and this.data this.data.track)}}
-        <div class={{styles.header}}>
+        <div class="header">
           <strong>{{this.data.track.name}}</strong>
           <small>{{formatArtists this.data.track.artists}}</small>
         </div>
 
         {{#each this.data.loops as |loop|}}
-          <div class={{styles.loop}}>
+          <div class="loop">
             <div>
               <time>{{formatDuration loop.duration}}</time>
               <span>{{loop.description}}</span>
             </div>
 
-            <div class={{styles.buttons}}>
+            <div class="buttons">
               {{#if DEV}}
                 <SpotifyPlayButton {{on "click" (fn (start) loop -10000)}}>-10</SpotifyPlayButton>
                 <SpotifyPlayButton {{on "click" (fn (start) loop -5000)}}>-5</SpotifyPlayButton>
@@ -349,6 +365,50 @@ class LoopCard extends Component<LoopCardSignature> {
         {{/each}}
       {{/if}}
     </article>
+
+    <style scoped>
+      .card {
+        display: grid;
+        row-gap: 0.8rem;
+
+        small {
+          color: var(--muted-color);
+        }
+
+        .header {
+          display: grid;
+        }
+
+        .buttons {
+          display: flex;
+          flex-direction: row;
+          gap: 0.5em;
+        }
+      }
+
+      .loop {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 0.5em;
+        justify-content: space-between;
+        padding-inline-start: var(--spacing-container-1);
+
+        div {
+          display: flex;
+          flex-direction: column;
+        }
+
+        time {
+          font-family: monospace;
+          font-size: 0.8em;
+        }
+
+        button {
+          width: auto;
+          margin: 0;
+        }
+      }
+    </style>
   </template>
 }
 

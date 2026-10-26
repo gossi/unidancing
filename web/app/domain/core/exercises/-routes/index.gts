@@ -10,7 +10,6 @@ import { Page } from '@hokulea/ember';
 
 import { ExerciseTeaser } from '../-components';
 import { findExercises } from '../-resource';
-import styles from './styles.module.css';
 
 export class ExercisesIndexRoute extends Route<object> {
   findExercises = use(this, findExercises());
@@ -35,7 +34,7 @@ export class ExercisesIndexRoute extends Route<object> {
       </:description>
 
       <:content>
-        <div class={{styles.listing}}>
+        <div class="listing">
           {{#let this.load as |r|}}
             {{#if r.resolved}}
               {{#each r.value as |exercise|}}
@@ -46,6 +45,13 @@ export class ExercisesIndexRoute extends Route<object> {
         </div>
       </:content>
     </Page>
+    <style scoped>
+      .listing {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+        gap: var(--spacing-container0);
+      }
+    </style>
   </template>
 }
 

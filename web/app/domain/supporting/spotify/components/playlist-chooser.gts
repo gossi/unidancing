@@ -5,7 +5,6 @@ import { use } from 'ember-resources';
 import { Form } from '@hokulea/ember';
 
 import { loadPlaylists } from '../resources/playlists';
-import styles from './playlist-chooser.module.css';
 
 import type { UserPlaylist } from '../domain-objects';
 
@@ -33,7 +32,7 @@ export class PlaylistChooser extends Component<PlaylistChooserSignature> {
   };
 
   <template>
-    <Form @data={{this.data}} @submit={{this.select}} class={{styles.form}} as |f|>
+    <Form @data={{this.data}} @submit={{this.select}} class="form" as |f|>
       <f.List @name="selection" @label="Playlist auswählen" as |l|>
         {{#each this.playlists as |playlist|}}
           <l.Option @value={{playlist}}>{{playlist.name}}</l.Option>
@@ -42,5 +41,19 @@ export class PlaylistChooser extends Component<PlaylistChooserSignature> {
 
       <f.Submit>Auswählen</f.Submit>
     </Form>
+    <style scoped>
+      .form {
+        overflow: hidden;
+
+        & > div {
+          overflow: hidden;
+        }
+
+        [role="listbox"] {
+          overflow: auto;
+          overscroll-behavior: contain;
+        }
+      }
+    </style>
   </template>
 }

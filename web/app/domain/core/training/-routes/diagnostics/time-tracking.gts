@@ -16,7 +16,6 @@ import {
   TimeTrackingEffectivityIndicator,
   TimeTrackingSummary
 } from '../../../choreography';
-import styles from './styles.module.css';
 
 import type { TimeAnalysis } from '../../../choreography/routines/analysis/time-tracking/domain';
 
@@ -47,7 +46,7 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
           <b>Void</b>
           (nichts) verbracht wird.</p>
 
-        <dl class={{styles.defs}}>
+        <dl class="defs">
           <dt>Artistik</dt>
           <dd>Die Zeit, die für Artistik verwendet wird. Solche Bewegungen, die Training in der
             entsprechenden
@@ -175,7 +174,7 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
         <p>Die Balance gibt das Verhältnis zwischen Artistik (inkl. Kommunikation) und Tricks an, um
           die Ausgewogenheit beider anzuzeigen.</p>
 
-        <dl class={{styles.defs}}>
+        <dl class="defs">
           <dt>Absolut</dt>
           <dd>
             <p>Gibt die gemessenen Merkmale im Vehältnis zur Kürlänge wieder.</p>
@@ -204,6 +203,14 @@ export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
         {{/if}}
       {{/let}}
     </Page>
+
+    <style scoped>
+      .defs {
+        dd > * + * {
+          margin-block-start: 0.5em;
+        }
+      }
+    </style>
   </template>
 }
 

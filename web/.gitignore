@@ -33,3 +33,5 @@ node_modules/
 /package-lock.json.ember-try
 /yarn.lock.ember-try
 .ssg-tmp/
+.stylelintcache
+/.stylelintcache

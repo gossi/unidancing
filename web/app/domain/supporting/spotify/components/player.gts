@@ -13,7 +13,6 @@ import { Button, Icon, IconButton, Popover, popover } from '@hokulea/ember';
 import { device2Icon, formatArtists } from '../helpers';
 import { SpotifyService } from '../service';
 import { LoginWithSpotify } from './login-with-spotify';
-import styles from './player.module.css';
 
 import type { Device } from '../domain-objects';
 
@@ -37,9 +36,9 @@ export class SpotifyPlayer extends Component {
   };
 
   <template>
-    <div class={{styles.layout}}>
-      <div class={{styles.content}}>
-        <Icon @icon={{IconSpotifyLogo}} class={{styles.spotify}} />
+    <div class="layout">
+      <div class="content">
+        <Icon @icon={{IconSpotifyLogo}} class="spotify" />
 
         {{#if (and this.client.authenticated (not this.client.error))}}
           {{!-- {{#if this.client.ready}}
@@ -51,7 +50,7 @@ export class SpotifyPlayer extends Component {
             </p>
             {{!-- {{else if this.client.error}}
             <p>
-              <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
+              <Icon @icon={{IconWarningFill}} class="warning" />
               Fehler:
               {{this.client.error}}
             </p> --}
@@ -66,13 +65,13 @@ export class SpotifyPlayer extends Component {
             </p>
             {{!-- {{else if this.client.error}}
             <p>
-              <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
+              <Icon @icon={{IconWarningFill}} class="warning" />
               Fehler:
               {{this.client.error}}
             </p> --}}
           {{else}}
             <p>
-              <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
+              <Icon @icon={{IconWarningFill}} class="warning" />
               Bitte Player auswählen
               <Icon @icon={{IconArrowRightThin}} />
             </p>
@@ -92,17 +91,17 @@ export class SpotifyPlayer extends Component {
               @icon={{IconDevicesBold}}
               @importance="plain"
               @label="Spotify Player auswählen"
-              class={{styles.trigger}}
+              class="trigger"
               data-has-device={{if this.client.device true}}
               data-need-device={{not this.client.device}}
               {{pop.trigger}}
             />
 
-            <Popover {{pop.target}} class={{styles.devices}}>
+            <Popover {{pop.target}} class="devices">
               <b>Spotify Player</b>
 
               {{#if this.client.device}}
-                <div class={{styles.device}}>
+                <div class="device">
                   <p>Aktueller Player</p>
 
                   <p>
@@ -132,5 +131,104 @@ export class SpotifyPlayer extends Component {
         {{/if}}
       </div>
     </div>
+    <style scoped>
+      .layout {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        min-height: calc(4.5rem + 1vw);
+        padding: var(--spacing-container-4);
+
+        strong,
+        small {
+          text-overflow: ellipsis;
+        }
+      }
+
+      .content {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .warning {
+        color: var(--indicator-warning-plain-text);
+      }
+
+      .spotify {
+        font-size: var(--s4);
+        color: #1ed760;
+      }
+
+      .trigger {
+        padding: var(--spacing-primitive-4);
+        font-size: var(--s3);
+
+        &[data-need-device] {
+          color: var(--indicator-error-plain-text);
+        }
+
+        &[data-has-device] {
+          /* spotify green */
+          color: #1ed760;
+        }
+      }
+
+      .device {
+        width: 100%;
+        padding-block: var(--spacing-primitive-4);
+        padding-inline: var(--spacing-primitive-4);
+        border-radius: var(--shape-radius-primitive);
+
+        background-color: var(--surface-container1);
+
+        p:first-child {
+          color: var(--typography-muted);
+        }
+
+        p:nth-child(2) {
+          padding-block: var(--spacing-primitive-1);
+          font-size: var(--s0);
+          font-weight: 550;
+        }
+      }
+
+      .devices {
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+
+          :where(p:first-child) {
+            color: var(--typography-subtle);
+          }
+        }
+
+        &:popover-open {
+          /* position: absolute;
+          inset: auto var(--spacing-container-1) 5rem auto; */
+
+          display: flex;
+          flex-direction: column;
+          gap: var(--spacing-container-1);
+          margin-right: var(--spacing-container-1);
+
+          button {
+            justify-content: flex-start;
+            padding-inline: var(--spacing-primitive-4);
+
+            span:first-child {
+              font-size: var(--s1);
+            }
+          }
+
+          @media (width >= 72rem) {
+            /* left: calc(50% + var(--sizing-max-content-width) / 2); */
+            right: calc((100% - var(--sizing-max-content-width)) / 2);
+          }
+        }
+      }
+    </style>
   </template>
 }

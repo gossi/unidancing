@@ -8,7 +8,6 @@ import { buildExerciseLink } from '..';
 import { asDifficulty, asLocomotion, asPersonal } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';
 import Difficulty from './difficulty';
-import styles from './teaser.module.css';
 
 import type { Exercise } from '..';
 import type { TOC } from '@ember/component/template-only';
@@ -21,7 +20,7 @@ export interface ExerciseTeaserSignature {
 }
 
 const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
-  <Card class={{styles.card}}>
+  <Card class="card">
     <:header>
       <span>
         {{#let (buildExerciseLink @exercise._sys.filename) as |l|}}
@@ -83,6 +82,48 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
       </ul>
     </:body>
   </Card>
+  <style scoped>
+    .card {
+      display: flex;
+      flex-direction: column;
+
+      :global([part="header"]) {
+        display: grid;
+        gap: var(--spacing-primitive-4);
+
+        div {
+          display: flex;
+          flex-wrap: wrap;
+          gap: var(--spacing-primitive-4);
+        }
+      }
+
+      :global([part="body"]) {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        gap: 0.75em;
+        justify-content: space-between;
+
+        ul {
+          display: flex;
+          flex-flow: row wrap;
+          gap: 0.5em;
+          justify-content: flex-end;
+
+          margin: 0;
+          padding: 0;
+
+          font-size: 80%;
+        }
+
+        li {
+          text-wrap: nowrap;
+          list-style-type: none;
+        }
+      }
+    }
+  </style>
 </template>;
 
 export { ExerciseTeaser };

@@ -2,7 +2,6 @@ import { Page } from '@hokulea/ember';
 
 import { TinaMarkdown } from '../../../supporting/tina';
 import { VideoPlayer } from '../../../supporting/ui';
-import styles from './details.module.css';
 
 import type { Art } from '..';
 import type { TOC } from '@ember/component/template-only';
@@ -14,7 +13,7 @@ export interface ArtDetailsSignature {
 }
 
 const ArtDetails: TOC<ArtDetailsSignature> = <template>
-  <Page @title={{@art.title}} class={{styles.art}}>
+  <Page @title={{@art.title}} class="art">
 
     {{#if @art.video}}
       <VideoPlayer @url={{@art.video}} />
@@ -26,6 +25,17 @@ const ArtDetails: TOC<ArtDetailsSignature> = <template>
 
     {{/each}} --}}
   </Page>
+  <style scoped>
+    .art {
+      header h1 {
+        padding-block-start: 0;
+      }
+
+      iframe {
+        margin-bottom: var(--block-spacing-vertical);
+      }
+    }
+  </style>
 </template>;
 
 export { ArtDetails };

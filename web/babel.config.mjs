@@ -2,6 +2,8 @@ import { buildMacros } from '@embroider/macros/babel';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+import { scopedCSS } from 'ember-scoped-css/babel';
+
 const __filename = fileURLToPath(import.meta.url);
 
 const macros = buildMacros({
@@ -13,6 +15,7 @@ const macros = buildMacros({
 export default {
   plugins: [
     'ember-concurrency/async-arrow-task-transform',
+    scopedCSS(),
     [
       '@babel/plugin-transform-typescript',
       {
@@ -25,7 +28,13 @@ export default {
       'babel-plugin-ember-template-compilation',
       {
         compilerPath: 'ember-source/ember-template-compiler/index.js',
-        transforms: [...macros.templateMacros]
+        transforms: [
+          scopedCSS.template({
+            layerName: 'app',
+            additionalRoots: ['app']
+          }),
+          ...macros.templateMacros
+        ]
       }
     ],
     [

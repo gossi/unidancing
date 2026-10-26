@@ -12,7 +12,6 @@ import IconPlayFill from '~icons/ph/play-fill';
 import { Button, IconButton, RangeInput } from '@hokulea/ember';
 
 import { durationToSeconds, formatDuration, secondsToDuration } from '../../utils';
-import styles from './player.module.css';
 
 import type { TaskInstance } from 'ember-concurrency';
 import type { Temporal } from 'temporal-polyfill';
@@ -298,7 +297,7 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
   };
 
   <template>
-    <div class={{styles.player}} {{this.registerKeyboardShortcuts}}>
+    <div class="player" {{this.registerKeyboardShortcuts}}>
       <div>
         <div {{this.player}}></div>
       </div>
@@ -306,27 +305,27 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
       <RangeInput
         @value={{durationToSeconds this.currentTime}}
         @update={{this.seekTo}}
-        class={{styles.progress}}
+        class="progress"
         max={{durationToSeconds this.duration}}
         {{on "keyup" this.preventDefault}}
         {{on "keydown" this.preventDefault}}
       />
 
       {{#if (neq @controls false)}}
-        <div class={{styles.controls}}>
+        <div class="controls">
           <IconButton
             @spacing="-1"
             @icon={{if this.playing IconPauseFill IconPlayFill}}
             @push={{this.toggle}}
             @label={{if this.playing "pause" "play"}}
           />
-          <span class={{styles.time}}>
+          <span class="time">
             {{formatDuration this.currentTime fractionalDigits=3}}
             /
             {{formatDuration this.duration}}
           </span>
 
-          <span class={{styles.seek}}>
+          <span class="seek">
             <Button @push={{fn this.seek -10}} @spacing="-1" @importance="plain">-10s</Button>
             <Button @push={{fn this.seek -1}} @spacing="-1" @importance="plain">-1s</Button>
             <Button @push={{fn this.seek -0.25}} @spacing="-1" @importance="plain">-0.25s</Button>
@@ -340,5 +339,47 @@ export class YoutubePlayer extends Component<YoutubePlayerSignature> {
         </div>
       {{/if}}
     </div>
+    <style scoped>
+      .player {
+        /* aspect-ratio: 16 / 9;
+        width: 100%; */
+        display: flex;
+        flex-direction: column;
+
+        & > :first-child {
+          overflow: auto;
+          resize: vertical;
+        }
+
+        :global(iframe) {
+          width: 100%;
+          min-height: 100%;
+        }
+      }
+
+      .time {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: var(--spacing-container-1);
+      }
+
+      .progress {
+        padding-block: var(--spacing-primitive-4);
+      }
+
+      .seek {
+        margin-inline-start: auto;
+        font-size: var(--s-1);
+
+        :global(button) {
+          border: 0;
+          padding: var(--spacing-primitive-4) !important;
+        }
+      }
+    </style>
   </template>
 }

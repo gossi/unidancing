@@ -2,11 +2,14 @@ import IconWarningFill from '~icons/ph/warning-fill';
 
 import { Icon } from '@hokulea/ember';
 
-import styles from './spotify-player-warning.module.css';
-
 export const SpotifyPlayerWarning = <template>
   <p>
-    <Icon @icon={{IconWarningFill}} class={{styles.warning}} />
+    <Icon @icon={{IconWarningFill}} class="warning" />
     Bitte Spotify Player auswählen
   </p>
+  <style scoped>
+    .warning {
+      color: var(--indicator-warning-plain-text);
+    }
+  </style>
 </template>;

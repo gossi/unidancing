@@ -1,5 +1,4 @@
 import { Tag } from '../../../supporting/ui';
-import styles from './styles.module.css';
 
 import type { Difficulty as ExerciseDifficulty } from '../domain-objects';
 import type { TOC } from '@ember/component/template-only';
@@ -21,7 +20,40 @@ interface DifficultySignature {
 }
 
 const Difficulty: TOC<DifficultySignature> = <template>
-  <Tag class={{styles.tag}} data-difficulty={{@difficulty}}>{{getLabel @difficulty}}</Tag>
+  <Tag class="tag" data-difficulty={{@difficulty}}>{{getLabel @difficulty}}</Tag>
+  <style scoped>
+    .tag {
+      color: var(--typography-main);
+
+      &[data-difficulty="beginner"] {
+        --color: #aceca1;
+
+        background-color: var(--color);
+
+        /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
+      }
+
+      &[data-difficulty="intermediate"] {
+        --color: #91b7c7;
+
+        background-color: var(--color);
+
+        /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
+      }
+
+      &[data-difficulty="advanced"] {
+        --color: #d0aae3;
+
+        background-color: var(--color);
+
+        /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
+      }
+
+      @media (prefers-color-scheme: dark) {
+        color: var(--typography-inverse);
+      }
+    }
+  </style>
 </template>;
 
 export default Difficulty;

@@ -1,3 +1,6 @@
+/* stylelint-disable selector-class-pattern, keyframes-name-pattern, keyframe-block-no-duplicate-selectors */
+
+/* camelCase names + grouped keyframe timing-functions kept from the original CSS (rename deferred) */
 .bingo {
   padding: var(--s-4);
 

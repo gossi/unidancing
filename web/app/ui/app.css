@@ -1,3 +1,10 @@
+@layer reset, tokens, foundation, layout, components, app;
+
+@import "@hokulea/core/style.css";
+
+@import 'vis-timeline/styles/vis-timeline-graph2d.min.css' layer(components);
+
+
 /* @font-face {
   font-display: swap;
   font-family: Inter;
@@ -29,15 +36,15 @@
 }
 
 
-/* @property --content-width {
+/* --content-width is typed so calc() values resolve as lengths; `auto` is the
+   default (expressed in the syntax grammar so the registration is valid) */
+@property --content-width {
   inherits: true;
   initial-value: auto;
-  syntax: "<length> | <percentage>";
-} */
+  syntax: "<length-percentage> | auto";
+}
 
 body {
-  --content-width: auto;
-
   padding-block-end: var(--inset-bottom);
 
   &:has(div[data-player]) {
@@ -92,7 +99,7 @@ dialog:is([data-game], [data-assistant]) {
   gap: var(--spacing-container0);
 
   width: var(--content-width);
-  height: calc(100dvh - var(--top) - var(--spacing-container0) * 2 - var(--inset-bottom));
+  height: calc(100dvh - var(--top) - var(--spacing-container0) - var(--inset-bottom));
   margin: var(--spacing-container0);
   padding: var(--spacing-container0);
 
@@ -141,6 +148,4 @@ kbd {
   background-color: var(--typography-code-background);
 }
 
-:global(.digits) {
-  font-variant-numeric: tabular-nums;
-}
+

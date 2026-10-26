@@ -10,7 +10,6 @@ import { Page } from '@hokulea/ember';
 
 import { ArtTree } from '../-components';
 import { findArts } from '../-resource';
-import styles from './styles.module.css';
 
 export class ArtsIndexRoute extends Route<object> {
   @cached
@@ -29,7 +28,7 @@ export class ArtsIndexRoute extends Route<object> {
     >
       {{#let this.load as |r|}}
         {{#if r.resolved}}
-          <div class={{styles.layout}}>
+          <div class="layout">
             <ArtTree @arts={{r.value}} />
 
             {{outlet}}
@@ -37,6 +36,18 @@ export class ArtsIndexRoute extends Route<object> {
         {{/if}}
       {{/let}}
     </Page>
+
+    <style scoped>
+      .layout {
+        display: grid;
+        gap: var(--s1);
+        grid-template-columns: max-content 1fr;
+
+        ul {
+          padding-left: calc(var(--spacing-primitive-3) * 2);
+        }
+      }
+    </style>
   </template>
 }
 

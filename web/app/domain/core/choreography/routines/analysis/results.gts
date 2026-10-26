@@ -4,7 +4,6 @@ import { tracked } from '@glimmer/tracking';
 import { Tabs } from '@hokulea/ember';
 
 import { YoutubePlayer } from '../../../../supporting/youtube';
-import styles from './analysis.module.css';
 import { ArtisticResults } from './artistic/results';
 import { ArtisticSummary } from './artistic/summary';
 import { NotTodoListResults } from './not-todo-list/results';
@@ -44,7 +43,7 @@ export class RoutineResults extends Component<{
   <template>
     <YoutubePlayer @url={{@data.video}} @setApi={{this.setPlayerApi}} />
 
-    <div class={{styles.tabs}}>
+    <div class="tabs">
       <Tabs as |tabs|>
         <tabs.Tab @label="Zusammenfassung">
           {{#if (not (or @data.timeTracking @data.artistic @data.notTodoList))}}
@@ -55,7 +54,7 @@ export class RoutineResults extends Component<{
             <h3>Zeitaufteilung</h3>
             <TimeTrackingSummary @data={{@data.timeTracking}} />
 
-            <div class={{styles.indicators}}>
+            <div class="indicators">
               <TimeTrackingEffectivityIndicator @data={{@data.timeTracking}} />
               <TimeTrackingBalanceIndicator @data={{@data.timeTracking}} />
             </div>
@@ -89,7 +88,7 @@ export class RoutineResults extends Component<{
               @active={{state.active}}
             />
 
-            <div class={{styles.indicators}}>
+            <div class="indicators">
               <TimeTrackingEffectivityIndicator @data={{@data.timeTracking}} />
               <TimeTrackingBalanceIndicator @data={{@data.timeTracking}} />
             </div>
@@ -113,5 +112,15 @@ export class RoutineResults extends Component<{
         {{/if}}
       </Tabs>
     </div>
+
+    <style scoped>
+      .indicators {
+        --min: 15ch;
+
+        display: grid;
+        grid-gap: var(--spacing-container0);
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--min)), 1fr));
+      }
+    </style>
   </template>
 }

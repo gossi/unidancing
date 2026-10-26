@@ -6,13 +6,19 @@ import { getOwner } from '@ember/owner';
 import { dropTask, timeout } from 'ember-concurrency';
 
 import { playSound } from '../../audio';
-import styles from './count-down.module.css';
 
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 
 export const Digit: TOC<{ Blocks: { default: [] } }> = <template>
-  <p class={{styles.counter}}>{{yield}}</p>
+  <p class="counter">{{yield}}</p>
+  <style scoped>
+    .counter {
+      font-size: 8rem;
+      font-feature-settings: "tnum";
+      text-align: center;
+    }
+  </style>
 </template>;
 
 interface CountDownSignature {

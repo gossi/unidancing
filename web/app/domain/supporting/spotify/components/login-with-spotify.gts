@@ -7,7 +7,6 @@ import { service as polarisService } from 'ember-polaris-service';
 import { Button } from '@hokulea/ember';
 
 import { SpotifyService } from '../service';
-import styles from './login-with-spotify.module.css';
 
 import type RouterService from '@ember/routing/router-service';
 
@@ -24,12 +23,20 @@ export class LoginWithSpotify extends Component {
   }
 
   <template>
-    <div class={{styles.scene}}>
+    <div class="scene">
       <Button @importance="subtle" @spacing="-1" @push={{this.loginWithSpotify}}>
         Login with Spotify
       </Button>
       <p>(derzeit nur für ausgewählte Personen - wir arbeiten daran es für alle zugänglich zu
         machen).</p>
     </div>
+    <style scoped>
+      .scene {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--s0);
+        align-items: center;
+      }
+    </style>
   </template>
 }

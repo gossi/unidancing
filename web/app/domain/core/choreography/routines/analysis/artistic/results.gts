@@ -1,13 +1,13 @@
 import Component from '@glimmer/component';
 import { concat } from '@ember/helper';
 
+import { CategoryCard } from '@unidancing/app/domain/core/choreography/routines/analysis/artistic/-components.gts';
 import { formatNumber, t } from 'ember-intl';
 
-import { CardSection, Features } from '../../../../../supporting/ui';
+import { Features } from '../../../../../supporting/ui';
 import { CriterionInterval, Score } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import styles from './artistic.module.css';
 
 import type {
   ArtisticResults as Results,
@@ -51,7 +51,7 @@ class Criterion extends Component<{
   }
 
   <template>
-    <div class={{styles.criterion}}>
+    <div class="criterion">
       {{concat
         (t (toIntlNameKey this.name))
         (if @criterion.value (concat " (" (formatNumber @criterion.value) ")") "")
@@ -60,6 +60,12 @@ class Criterion extends Component<{
         <CriterionInterval @criterion={{this.criterion}} @interval={{this.interval}} />
       {{/if}}
     </div>
+    <style scoped>
+      .criterion {
+        display: flex;
+        flex-direction: column;
+      }
+    </style>
   </template>
 }
 
@@ -75,27 +81,16 @@ class Category extends Component<{
   }
 
   <template>
-    <CardSection class={{styles.category}}>
-      <:header>
-        <hgroup>
-          <h4>{{t (toIntlNameKey this.name)}}</h4>
-          <p>
-            <span class={{styles.score}} data-score="label">Score:</span>
-            <Score @score={{@category.score}} />
-          </p>
-        </hgroup>
-      </:header>
-      <:body>
-        {{#each @category.criteria as |criterion|}}
-          <Criterion
-            @system={{@system}}
-            @part={{@part}}
-            @category={{@category}}
-            @criterion={{criterion}}
-          />
-        {{/each}}
-      </:body>
-    </CardSection>
+    <CategoryCard @name={{t (toIntlNameKey this.name)}} @score={{@category.score}}>
+      {{#each @category.criteria as |criterion|}}
+        <Criterion
+          @system={{@system}}
+          @part={{@part}}
+          @category={{@category}}
+          @criterion={{criterion}}
+        />
+      {{/each}}
+    </CategoryCard>
   </template>
 }
 
@@ -125,7 +120,7 @@ export class ArtisticResults extends Component<{
 
   <template>
     <p>
-      <span class={{styles.score}} data-score="label">Score:</span>
+      <span data-score="label">Score:</span>
       <Score @score={{this.score}} />
     </p>
 

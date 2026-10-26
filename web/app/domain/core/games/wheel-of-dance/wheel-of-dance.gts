@@ -27,7 +27,6 @@ import { Button, Form, IconButton, Page } from '@hokulea/ember';
 
 import { asContext, asDanceStyles, Genres, Playlists } from './data';
 import { Machine } from './state';
-import styles from './wheel-of-dance.module.css';
 
 import type { Context, DanceStyle, Genre } from './data';
 import type { TOC } from '@ember/component/template-only';
@@ -173,7 +172,7 @@ class Game extends Component {
   };
 
   <template>
-    <div class={{styles.canvas}}>
+    <div class="canvas">
 
       {{#if (this.machine.state.matches "lobby")}}
         <Lobby @data={{asContext this.machine.state.context}} @play={{this.startGame}} />
@@ -193,7 +192,7 @@ class Game extends Component {
           @start={{this.machine.state.matches "rolling"}}
           @reset={{this.machine.state.matches "selecting"}}
           @drawn={{this.prepare}}
-          class={{styles.slots}}
+          class="slots"
           as |Slot|
         >
           <div>
@@ -228,15 +227,48 @@ class Game extends Component {
           <Button @push={{fn this.machine.send "stop"}}>Stop</Button>
         {{/if}}
       {{/if}}
-    </div>
+    </div>ß
+
+    <style scoped>
+      .canvas {
+        display: flex;
+        flex-direction: column;
+        gap: var(--spacing-container2);
+        margin-block-start: var(--spacing-container4);
+      }
+
+      .slots {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+        gap: var(--spacing-container0);
+
+        & > div {
+          display: grid;
+          gap: var(--spacing-container0);
+
+          padding: var(--spacing-container0);
+          border-radius: var(--shape-radius-container);
+
+          background: var(--surface-container1);
+
+          h2 {
+            text-align: center;
+          }
+
+          & > div {
+            background: var(--surface-container);
+          }
+        }
+      }
+    </style>
   </template>
 }
 
 const WheelOfDance: TOC<object> = <template>
-  <Page class={{styles.game}}>
+  <Page class="game">
     <:title>
       Wheel of Dance
-      <PortalTarget @name="wof-header" class={{styles.toolbar}} />
+      <PortalTarget @name="wof-header" class="toolbar" />
     </:title>
     <:content>
       <WithSpotify>
@@ -244,13 +276,16 @@ const WheelOfDance: TOC<object> = <template>
       </WithSpotify>
     </:content>
   </Page>
-  {{!-- <section class={{styles.game}}>
-    <header>
+  <style scoped>
+    .game header h1 {
+      display: flex;
+      justify-content: space-between;
+    }
 
-    </header>
-
-
-  </section> --}}
+    .toolbar {
+      font-size: var(--s-1);
+    }
+  </style>
 </template>;
 
 export { WheelOfDance };

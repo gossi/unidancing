@@ -1,5 +1,3 @@
-import styles from './video-player.module.css';
-
 import type { TOC } from '@ember/component/template-only';
 
 const parseUrl = (url: string) => {
@@ -23,7 +21,7 @@ const parseUrl = (url: string) => {
 
 const VideoPlayer: TOC<{ Element: HTMLIFrameElement; Args: { url: string } }> = <template>
   <iframe
-    class={{styles.player}}
+    class="player"
     src={{parseUrl @url}}
     title="YouTube video player"
     frameborder="0"
@@ -31,6 +29,12 @@ const VideoPlayer: TOC<{ Element: HTMLIFrameElement; Args: { url: string } }> = 
     allowfullscreen
     ...attributes
   ></iframe>
+  <style scoped>
+    .player {
+      aspect-ratio: 16 / 9;
+      width: 100%;
+    }
+  </style>
 </template>;
 
 export { VideoPlayer };

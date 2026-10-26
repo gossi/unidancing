@@ -1,5 +1,4 @@
 import { isSSR } from '../utils';
-import styles from './soundboard.module.css';
 import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';
 
 export class SoundBoard {
@@ -25,7 +24,7 @@ export class SoundBoard {
       const audio = document.createElement('audio');
 
       audio.src = src;
-      audio.classList.add(styles.soundboard as string);
+      audio.hidden = true;
       audio.dataset.name = name;
       document.body.append(audio);
       this.#sounds.set(name, audio);

@@ -4,6 +4,7 @@ import { concat } from '@ember/helper';
 import { next } from '@ember/runloop';
 
 import { use } from 'ember-resources';
+import { scopedClass } from 'ember-scoped-css';
 import { TrackedObject, TrackedSet } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
 
@@ -16,7 +17,6 @@ import IconTrash from '~icons/ph/trash';
 import { Button, Form, Icon, IconButton } from '@hokulea/ember';
 
 import { findAwfulPractices } from '../../choreography';
-import styles from './bingo.module.css';
 
 import type { Awfulpractice } from '../../choreography';
 import type { TOC } from '@ember/component/template-only';
@@ -34,7 +34,7 @@ interface TileSignature {
 const Tile: TOC<TileSignature> = <template>
   <button
     type="button"
-    class={{styles.tile}}
+    class="tile"
     data-winner={{@winner}}
     data-selected={{@selected}}
     {{on "click" @select}}
@@ -356,7 +356,7 @@ class CounterManager extends Component<{ Args: { counters: Counters } }> {
   };
 
   <template>
-    <div class={{styles.counters}}>
+    <div class="counters">
       <h2>Zähler</h2>
 
       <p>
@@ -368,7 +368,7 @@ class CounterManager extends Component<{ Args: { counters: Counters } }> {
         <Form
           @data={{hash name=counter.name}}
           @submit={{fn this.renameCounter id}}
-          class={{styles.form}}
+          class="form"
           as |f|
         >
           <f.Text @name="name" @label={{concat "Zählerstand: " counter.count}} />
@@ -397,7 +397,7 @@ class CounterManager extends Component<{ Args: { counters: Counters } }> {
 
       <h3>Neuer Zähler</h3>
 
-      <Form @data={{hash name=""}} @submit={{this.newCounter}} class="{{styles.form}}" as |f|>
+      <Form @data={{hash name=""}} @submit={{this.newCounter}} class="form" as |f|>
         <f.Text @name="name" @label="Name für den Zähler" />
 
         <f.Submit><Icon @icon={{IconPlus}} /></f.Submit>
@@ -450,7 +450,7 @@ export default class BingoComponent extends Component {
   };
 
   <template>
-    <div class={{styles.bingo}}>
+    <div class="bingo">
       <nav>
         <ul>
           <li>
@@ -470,7 +470,7 @@ export default class BingoComponent extends Component {
 
         {{#if (eq this.display "game")}}
           <ul>
-            <li class="{{styles.bingoText}} {{if this.game.finished styles.bingoTextVisible}}">
+            <li class="bingoText {{if this.game.finished (scopedClass 'bingoTextVisible')}}">
               <span>B</span>
               <span>i</span>
               <span>n</span>
@@ -491,7 +491,7 @@ export default class BingoComponent extends Component {
 
       {{#if (eq this.display "game")}}
         {{#if this.game}}
-          <div class={{styles.playfield}}>
+          <div class="playfield">
             {{#each this.game.principles as |principle|}}
               <Tile
                 @principle={{principle}}
