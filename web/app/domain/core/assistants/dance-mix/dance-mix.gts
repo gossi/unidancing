@@ -253,7 +253,7 @@ class Play extends Component<PlaySignature> {
     <div class="play">
       <ol class="tracks">
         {{#each this.tracks as |track|}}
-          <li aria-selected={{eq track this.currentTrack}}>
+          <li data-current={{eq track this.currentTrack}}>
             {{track.name}}<br />
             <small>{{formatArtists track.artists}}</small>
           </li>
@@ -281,7 +281,7 @@ class Play extends Component<PlaySignature> {
           margin-bottom: var(--spacing-container0);
         }
 
-        [aria-selected] {
+        [data-current] {
           font-weight: bold;
         }
       }

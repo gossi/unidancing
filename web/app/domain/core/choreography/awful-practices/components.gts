@@ -32,7 +32,7 @@ export const TagLabel: TOC<{
 
         background-color: var(--color);
 
-        /* color: color-contrast(var(--color)  vs var(--typography-main), var(--typography-inverse)); */
+        /* color: color-contrast(var(--color) vs var(--typography-main), var(--typography-inverse)); */
       }
 
       &[data-tag="artistry"] {
