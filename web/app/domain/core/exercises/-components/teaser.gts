@@ -87,7 +87,7 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
       display: flex;
       flex-direction: column;
 
-      [part="header"] {
+      :global([part="header"]) {
         display: grid;
         gap: var(--spacing-primitive-4);
 
@@ -98,7 +98,7 @@ const ExerciseTeaser: TOC<ExerciseTeaserSignature> = <template>
         }
       }
 
-      [part="body"] {
+      :global([part="body"]) {
         display: flex;
         flex-direction: column;
         flex-grow: 1;

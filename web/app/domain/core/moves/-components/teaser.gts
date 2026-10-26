@@ -1,7 +1,7 @@
 import { Card } from '@hokulea/ember';
 
 import { TinaMarkdown } from '../../../supporting/tina';
-import { Icon } from '../../../supporting/ui';
+import { Icon, Tag } from '../../../supporting/ui';
 import { buildMoveLink } from '../-resource';
 
 import type { Move } from '..';
@@ -27,7 +27,7 @@ const MoveTeaser: TOC<MoveTeaserSignature> = <template>
       </span>
       <div>
         {{#each @move.tags as |tag|}}
-          <code>{{tag}}</code>
+          <Tag>{{tag}}</Tag>
         {{/each}}
       </div>
     </:header>
@@ -36,7 +36,7 @@ const MoveTeaser: TOC<MoveTeaserSignature> = <template>
     </:body>
   </Card>
   <style scoped>
-    .teaser [part="header"] {
+    .teaser :global([part="header"]) {
       display: flex;
       justify-content: space-between;
     }
