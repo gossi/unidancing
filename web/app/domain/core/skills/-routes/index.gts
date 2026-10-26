@@ -7,6 +7,8 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 
+import { Page } from '@hokulea/ember';
+
 import { findSkills } from '../-resource';
 
 export class CourseIndexRoute extends Route<object> {
@@ -20,22 +22,22 @@ export class CourseIndexRoute extends Route<object> {
   <template>
     {{pageTitle "Fertigkeiten"}}
 
-    <h1>Fertigkeiten</h1>
-
-    {{#let this.load as |r|}}
-      {{#if r.resolved}}
-        <ul>
-          {{#each r.value as |skill|}}
-            <li>
-              <LinkTo
-                @route="skills.details"
-                @model={{skill._sys.filename}}
-              >{{skill.title}}</LinkTo>
-            </li>
-          {{/each}}
-        </ul>
-      {{/if}}
-    {{/let}}
+    <Page @title="Fertigkeiten">
+      {{#let this.load as |r|}}
+        {{#if r.resolved}}
+          <ul>
+            {{#each r.value as |skill|}}
+              <li>
+                <LinkTo
+                  @route="skills.details"
+                  @model={{skill._sys.filename}}
+                >{{skill.title}}</LinkTo>
+              </li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      {{/let}}
+    </Page>
   </template>
 }
 
