@@ -2,8 +2,6 @@
 
 @import "@hokulea/core/style.css";
 
-@import "./shared.css";
-
 @import 'vis-timeline/styles/vis-timeline-graph2d.min.css' layer(components);
 
 

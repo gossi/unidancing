@@ -1,3 +1,5 @@
+import './routines.css';
+
 import { cached } from '@glimmer/tracking';
 
 import { link } from 'ember-link';
