@@ -19,7 +19,7 @@ import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
-import { assign } from 'xstate';
+import { assertEvent, assign } from 'xstate';
 
 import IconGear from '~icons/ph/gear';
 
@@ -107,19 +107,12 @@ class Game extends Component {
   };
 
   // ACTIONS
-  play = assign((context, event: Context) => {
-    return {
-      ...context,
-      duration: event.duration,
-      preparation: event.preparation
-    };
-  });
 
   roll = () => {
     void this.audio.soundboard.play('slot-machine-wheel');
   };
 
-  dance = async (context: Context) => {
+  dance = async ({ context }: { context: Context }) => {
     // @ts-expect-error yeah, but this is a given
     const track = getRandomTrack(getTracks(this.playlists[this.genre as Genre]));
 
@@ -130,17 +123,25 @@ class Game extends Component {
     await this.spotify.client.pause();
   };
 
-  // NOTE: declared after all actions it references — xstate's `withConfig`
-  // bakes implementations in at construction time, and `play` is an `assign()`
-  // action *object* that cannot be resolved lazily. Class fields evaluate in
-  // declaration order, so a `machine` field placed above the actions would
-  // capture them as `undefined` here.
+  // NOTE: declared after all actions it references — `Machine.provide()`
+  // resolves its implementation map at construction time, and the `roll` /
+  // `dance` / ... entries capture the class fields right then. Class fields
+  // evaluate in declaration order, so a `machine` field placed above the
+  // actions would capture them as `undefined` here.
   machine = useMachine(this, () => ({
-    machine: Machine.withConfig({
+    machine: Machine.provide({
       /* eslint-disable @typescript-eslint/no-misused-promises -- xstate invokes actions
          without awaiting; the async bodies are fire-and-forget by design */
       actions: {
-        play: this.play,
+        play: assign(({ context, event }) => {
+          assertEvent(event, 'play');
+
+          return {
+            ...context,
+            duration: event.duration,
+            preparation: event.preparation
+          };
+        }),
         dance: this.dance,
         stop: this.stop,
         roll: this.roll,
@@ -151,11 +152,12 @@ class Game extends Component {
     })
   }));
 
-  // The Form's submit callback must return nothing: xstate's `send` returns
-  // the next State, which pahu would read as a failed submit (no `.success`)
-  // and then crash on `state.issues.map` of undefined.
+  // The Form's submit callback must return nothing: pahu reads a returned
+  // value as the submit state (`undefined` passes, a stray object fails on
+  // `state.issues.map`), so the callback body deliberately discards `send`'s
+  // (non-)result — v5's `send` returns nothing.
   startGame = (params: Context) => {
-    void this.machine.send('play', params);
+    this.machine.send('play', params);
   };
 
   start = (data: Context) => {
@@ -227,7 +229,7 @@ class Game extends Component {
           <Button @push={{fn this.machine.send "stop"}}>Stop</Button>
         {{/if}}
       {{/if}}
-    </div>ß
+    </div>
 
     <style scoped>
       .canvas {
@@ -277,9 +279,10 @@ const WheelOfDance: TOC<object> = <template>
     </:content>
   </Page>
   <style scoped>
-    .game header h1 {
+    .game :global(header h1) {
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .toolbar {

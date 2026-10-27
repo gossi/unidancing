@@ -1,83 +1,98 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { createMachine } from 'xstate';
+import { setup } from 'xstate';
 
 import { WheelOfFortuneDefaults } from './data';
 
-export const Machine = createMachine(
-  {
-    context: WheelOfFortuneDefaults,
-    id: 'Wheel of Fortune',
-    initial: 'lobby',
-    states: {
-      lobby: {
-        on: {
-          play: {
-            target: 'selecting',
-            actions: {
-              type: 'play'
-            }
+import type { Context } from './data';
+
+export const Machine = setup({
+  types: {
+    context: {} as Context,
+    events: {} as
+      // eslint-disable-next-line unicorn/prefer-type-literal-last
+      | ({ type: 'play' } & Context)
+      | { type: 'settings' }
+      | { type: 'roll' }
+      | { type: 'prepare' }
+      | { type: 'dance' }
+      | { type: 'stop' }
+  },
+  // Stubs that `wheel-of-dance.gts` replaces through `Machine.provide()` —
+  // the role v4's second-argument `actions` implementations served. (`prepare`
+  // was never implemented in v4 either; the stub keeps that no-op reference
+  // valid under v5.)
+  actions: {
+    play: () => {},
+    roll: () => {},
+    prepare: () => {},
+    dance: () => {},
+    stop: () => {},
+    startSelection: () => {},
+    stopSelection: () => {}
+  }
+}).createMachine({
+  context: WheelOfFortuneDefaults,
+  id: 'Wheel of Fortune',
+  initial: 'lobby',
+  states: {
+    lobby: {
+      on: {
+        play: {
+          target: 'selecting',
+          actions: {
+            type: 'play'
           }
-        }
-      },
-      selecting: {
-        on: {
-          settings: {
-            target: 'lobby'
-          },
-          roll: {
-            target: 'rolling',
-            actions: {
-              type: 'roll'
-            }
-          }
-        },
-        entry: {
-          type: 'startSelection'
-        },
-        exit: {
-          type: 'stopSelection'
-        }
-      },
-      rolling: {
-        on: {
-          prepare: {
-            target: 'preparing',
-            actions: {
-              type: 'prepare'
-            }
-          }
-        }
-      },
-      preparing: {
-        on: {
-          dance: {
-            target: 'dancing'
-          }
-        }
-      },
-      dancing: {
-        on: {
-          stop: {
-            target: 'selecting',
-            actions: {
-              type: 'stop'
-            }
-          }
-        },
-        entry: {
-          type: 'dance'
         }
       }
-    }
-  },
-  {
-    actions: {
-      play: function (_context, _event) {},
-      roll: function (_context, _event) {},
-      dance: function (_context, _event) {},
-      stop: function (_context, _event) {},
-      startSelection: function (_context, _event) {},
-      stopSelection: function (_context, _event) {}
+    },
+    selecting: {
+      on: {
+        settings: {
+          target: 'lobby'
+        },
+        roll: {
+          target: 'rolling',
+          actions: {
+            type: 'roll'
+          }
+        }
+      },
+      entry: {
+        type: 'startSelection'
+      },
+      exit: {
+        type: 'stopSelection'
+      }
+    },
+    rolling: {
+      on: {
+        prepare: {
+          target: 'preparing',
+          actions: {
+            type: 'prepare'
+          }
+        }
+      }
+    },
+    preparing: {
+      on: {
+        dance: {
+          target: 'dancing'
+        }
+      }
+    },
+    dancing: {
+      on: {
+        stop: {
+          target: 'selecting',
+          actions: {
+            type: 'stop'
+          }
+        }
+      },
+      entry: {
+        type: 'dance'
+      }
     }
   }
-);
+});

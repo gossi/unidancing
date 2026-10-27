@@ -212,9 +212,6 @@ importers:
       '@vitest/browser-playwright':
         specifier: ^5.0.3
         version: 5.0.3(playwright@1.64.0)(vite@8.3.2(@types/node@22.10.7)(jiti@1.21.0)(terser@5.27.0)(yaml@2.9.1))(vitest@5.0.3)
-      '@xstate/inspect':
-        specifier: ^0.8.0
-        version: 0.8.0(@types/ws@8.18.2)(ws@8.21.3)(xstate@4.38.3)
       babel-import-util:
         specifier: ^3.0.1
         version: 3.0.1
@@ -372,8 +369,8 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3(@types/node@22.10.7)(@vitest/browser-playwright@5.0.3)(@vitest/ui@5.0.3)(happy-dom@20.14.5)(jsdom@25.0.1)(vite@8.3.2(@types/node@22.10.7)(jiti@1.21.0)(terser@5.27.0)(yaml@2.9.1))
       xstate:
-        specifier: ^4.38.2
-        version: 4.38.3
+        specifier: ^5.33.3
+        version: 5.33.3
       youtube-player:
         specifier: ^5.6.0
         version: 5.6.0
@@ -4241,16 +4238,6 @@ packages:
   '@xobotyi/scrollbar-width@1.9.5':
     resolution: {integrity: sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==}
 
-  '@xstate/inspect@0.8.0':
-    resolution: {integrity: sha512-wSkFeOnp+7dhn+zTThO0M4D2FEqZN9lGIWowJu5JLa2ojjtlzRwK8SkjcHZ4rLX8VnMev7kGjgQLrGs8kxy+hw==}
-    peerDependencies:
-      '@types/ws': ^8.0.0
-      ws: ^8.0.0
-      xstate: ^4.37.0
-    peerDependenciesMeta:
-      '@types/ws':
-        optional: true
-
   '@yarnpkg/lockfile@1.1.0':
     resolution: {integrity: sha512-GpSwvyXOcOOlV70vbnzjj4fW5xW/FdUF6nQEt1ENy7m4ZCczi1+/buVUPAqmGfqznsORNFzUMjctTIp8a9tuCQ==}
 
@@ -6223,9 +6210,6 @@ packages:
 
   fast-ordered-set@1.0.3:
     resolution: {integrity: sha512-MxBW4URybFszOx1YlACEoK52P6lE3xiFcPaGCUZ7QQOZ6uJXKo++Se8wa31SjcZ+NC/fdAWX7UtKEfaGgHS2Vg==}
-
-  fast-safe-stringify@2.1.1:
-    resolution: {integrity: sha512-W+KJc2dmILlPplD/H4K9l9LcAHAfPtP6BY84uVLXQ6Evcz9Lcg33Y2z1IVblT6xdY54PXYVHEv+0Wpq8Io6zkA==}
 
   fast-shallow-equal@1.0.0:
     resolution: {integrity: sha512-HPtaa38cPgWvaCFmRNhlc6NG7pv6NUHqjPgVAkWGoB9mQMwYB27/K0CvOM5Czy+qpT3e8XJ6Q4aPAnzpNpzNaw==}
@@ -10633,8 +10617,8 @@ packages:
     engines: {node: '>= 0.10.0'}
     hasBin: true
 
-  xstate@4.38.3:
-    resolution: {integrity: sha512-SH7nAaaPQx57dx6qvfcIgqKRXIh4L0A1iYEqim4s1u7c9VoCgzZc+63FY90AKU4ZzOC2cfJzTnpO4zK7fCUzzw==}
+  xstate@5.33.3:
+    resolution: {integrity: sha512-AnDRjS/GyKHmbA1PyhVCYBqYsA7EGe3KGgeD0ht3NFsXzoz7leX/HQDFX9QlHFJ/ltLHPsgChJYwPzRvB/0b4g==}
 
   y18n@4.0.3:
     resolution: {integrity: sha512-JKhqTOwSrqNA1NY5lSztJ1GrBiUodLMmIZuLiDaMRJ+itFd+ABVE8XBjOvIWL+rSqNDC74LCSFmlb/U4UZ4hJQ==}
@@ -15495,14 +15479,6 @@ snapshots:
 
   '@xobotyi/scrollbar-width@1.9.5': {}
 
-  '@xstate/inspect@0.8.0(@types/ws@8.18.2)(ws@8.21.3)(xstate@4.38.3)':
-    dependencies:
-      fast-safe-stringify: 2.1.1
-      ws: 8.21.3
-      xstate: 4.38.3
-    optionalDependencies:
-      '@types/ws': 8.18.2
-
   '@yarnpkg/lockfile@1.1.0': {}
 
   '@zip.js/zip.js@2.23.0': {}
@@ -18301,8 +18277,6 @@ snapshots:
   fast-ordered-set@1.0.3:
     dependencies:
       blank-object: 1.0.2
-
-  fast-safe-stringify@2.1.1: {}
 
   fast-shallow-equal@1.0.0: {}
 
@@ -23535,7 +23509,7 @@ snapshots:
       commander: 2.20.3
       cssfilter: 0.0.10
 
-  xstate@4.38.3: {}
+  xstate@5.33.3: {}
 
   y18n@4.0.3: {}
 

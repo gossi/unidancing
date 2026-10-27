@@ -9,7 +9,7 @@ import { htmlSafe } from '@ember/template';
 import { didCancel, dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
-import { createMachine } from 'xstate';
+import { setup } from 'xstate';
 
 import { Button, Form } from '@hokulea/ember';
 
@@ -87,7 +87,18 @@ const getParam =
     return DEFAULTS[param] as A[P];
   };
 
-const DanceMixMachine = createMachine({
+const DanceMixMachine = setup({
+  types: {
+    events: {} as
+      { type: 'play' } | { type: 'stop' } | { type: 'choosePlaylist' } | { type: 'selectPlaylist' }
+  },
+  // `exit: 'stop'` was never implemented in v4 either (it only warned); the
+  // stub keeps that reference valid under v5.
+  actions: {
+    /* eslint-disable-next-line @typescript-eslint/no-empty-function */
+    stop: () => {}
+  }
+}).createMachine({
   id: 'Dance Mix',
   initial: 'preparing',
   // entry: ['selectPlayer', 'readSettings'],
@@ -452,7 +463,6 @@ class Game extends Component<DanceMixSignature> {
           <Button
             @importance="subtle"
             @disabled={{this.machine.state.matches "playing"}}
-            {{! @glint-ignore }}
             @push={{fn this.machine.send "choosePlaylist"}}
           >
             Playlist wechseln

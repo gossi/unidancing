@@ -3,6 +3,7 @@ import { tracked } from '@glimmer/tracking';
 import { dropTask } from 'ember-concurrency';
 import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPlayer from 'spotify-web-playback';
+import { fromPromise } from 'xstate';
 
 import { useMachine } from '../statechart';
 import { SpotifyMachine } from './machine';
@@ -21,27 +22,26 @@ export class SpotifyClient {
   // private deviceId?: string = undefined;
 
   statechart = useMachine(this, () => ({
-    machine: SpotifyMachine.withConfig({
+    machine: SpotifyMachine.provide({
       // NOTE: every entry references `this` lazily — the setup callback runs
       // while this field is still initializing (class fields evaluate in
       // declaration order), so the methods below would be `undefined` if
-      // destructured here. The interpreter invokes them only after
+      // destructured here. The actor invokes them only after
       // `send('authenticate')`, when construction has long finished.
       guards: {
         hasDevices: () => this.hasDevices()
       },
-      services: {
-        connectPlayer: async (_, { accessToken }) => {
-          await this.connectPlayer(accessToken as string);
-        },
-        loadDevices: () => this.loadDevices.perform(),
-        autoselectDevice: () => this.autoselectDevice(),
-        loadPlayback: () => this.loadPlayback()
+      actors: {
+        connectPlayer: fromPromise<void, { accessToken: string }>(({ input }) =>
+          this.connectPlayer(input.accessToken)
+        ),
+        loadDevices: fromPromise(async () => {
+          await this.loadDevices.perform();
+        }),
+        autoselectDevice: fromPromise(() => this.autoselectDevice()),
+        loadPlayback: fromPromise(() => this.loadPlayback())
       }
-    }),
-    interpreterOptions: {
-      devTools: true
-    }
+    })
   }));
 
   // AUTH
