@@ -10,7 +10,7 @@
     "build": "turbo run build --filter @unidancing/app"
   },
   "devDependencies": {
-    "@glint/ember-tsc": "^1.11.6",
+    "@glint/ember-tsc": "catalog:ember",
     "turbo": "^2.0.11"
   },
   "engines": {
