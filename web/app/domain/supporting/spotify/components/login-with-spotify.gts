@@ -34,7 +34,7 @@ export class LoginWithSpotify extends Component {
       .scene {
         display: flex;
         flex-wrap: wrap;
-        gap: var(--s0);
+        gap: var(--s-4);
         align-items: center;
       }
     </style>

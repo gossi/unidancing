@@ -45,11 +45,11 @@ export class PlaylistChooser extends Component<PlaylistChooserSignature> {
       .form {
         overflow: hidden;
 
-        & > div {
+        & > :global(div) {
           overflow: hidden;
         }
 
-        [role="listbox"] {
+        :global([role="listbox"]) {
           overflow: auto;
           overscroll-behavior: contain;
         }

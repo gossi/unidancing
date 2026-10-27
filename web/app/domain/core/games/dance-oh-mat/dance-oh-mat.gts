@@ -10,7 +10,7 @@ import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
-import { assign, createMachine } from 'xstate';
+import { assertEvent, assign, setup } from 'xstate';
 
 import IconPauseFill from '~icons/ph/pause-fill';
 import IconPlayFill from '~icons/ph/play-fill';
@@ -73,111 +73,106 @@ const getParam =
 
 type Context = { rounds: number; duration: number; roundsToGo: number };
 
-const Machine = createMachine(
-  {
-    context: {
-      ...DEFAULTS,
-      roundsToGo: 0
+type GameEvent =
+  // eslint-disable-next-line unicorn/prefer-type-literal-last
+  | ({ type: 'play' } & GameParams)
+  | { type: 'help' }
+  | { type: 'dance'; track: Track }
+  | { type: 'start' }
+  | { type: 'finish' }
+  | { type: 'stop' };
+
+const Machine = setup({
+  types: {
+    events: {} as GameEvent,
+    context: {} as Context
+  },
+  // Stubs that the `Game` component replaces through `Machine.provide()` —
+  // v4 declared these as second-argument implementations.
+  actions: {
+    /* eslint-disable @typescript-eslint/no-empty-function */
+    select: () => {},
+    dance: () => {},
+    play: () => {},
+    finish: () => {},
+    finishRound: () => {}
+    /* eslint-enable @typescript-eslint/no-empty-function */
+  },
+  guards: {
+    isGameOver: () => false
+  }
+}).createMachine({
+  context: {
+    ...DEFAULTS,
+    roundsToGo: 0
+  },
+  id: 'Dance-Oh-Mat',
+  initial: 'lobby',
+  states: {
+    lobby: {
+      on: {
+        help: {
+          target: 'manual'
+        },
+        play: {
+          target: 'playing',
+          actions: {
+            type: 'play'
+          }
+        }
+      }
     },
-    id: 'Dance-Oh-Mat',
-    initial: 'lobby',
-    states: {
-      lobby: {
-        on: {
-          help: {
-            target: 'manual'
-          },
-          play: {
-            target: 'playing',
-            actions: {
-              type: 'play'
-            }
-          }
+    manual: {
+      on: {
+        start: {
+          target: 'lobby'
         }
-      },
-      manual: {
-        on: {
-          start: {
-            target: 'lobby'
-          }
-        }
-      },
-      playing: {
-        initial: 'selection',
-        states: {
-          selection: {
-            entry: {
-              type: 'select'
-            },
-            on: {
-              dance: {
-                target: 'dancing'
-              }
-            }
+      }
+    },
+    playing: {
+      initial: 'selection',
+      states: {
+        selection: {
+          entry: {
+            type: 'select'
           },
-          dancing: {
-            entry: {
-              type: 'dance'
-            },
-            on: {
-              finish: [
-                {
-                  target: '#Dance-Oh-Mat.lobby',
-                  cond: 'isGameOver',
-                  actions: {
-                    type: 'finish'
-                  }
-                },
-                {
-                  target: 'selection',
-                  actions: {
-                    type: 'finishRound'
-                  }
-                }
-              ]
+          on: {
+            dance: {
+              target: 'dancing'
             }
           }
         },
-        on: {
-          stop: {
-            target: 'lobby'
+        dancing: {
+          entry: {
+            type: 'dance'
+          },
+          on: {
+            finish: [
+              {
+                target: '#Dance-Oh-Mat.lobby',
+                guard: 'isGameOver',
+                actions: {
+                  type: 'finish'
+                }
+              },
+              {
+                target: 'selection',
+                actions: {
+                  type: 'finishRound'
+                }
+              }
+            ]
           }
         }
+      },
+      on: {
+        stop: {
+          target: 'lobby'
+        }
       }
-    },
-    schema: {
-      events: {} as
-        // eslint-disable-next-line unicorn/prefer-type-literal-last
-        | ({ type: 'play' } & GameParams)
-        | { type: 'help' }
-        | { type: 'dance'; track: Track }
-        | { type: 'start' }
-        | { type: 'finish' }
-        | { type: 'stop' },
-      context: {} as Context
-    },
-    predictableActionArguments: true,
-    preserveActionOrder: true
-  },
-  {
-    actions: {
-      /* eslint-disable @typescript-eslint/no-empty-function */
-      select: (_context, _event) => {},
-      dance: (_context, _event) => {},
-      play: (_context, _event) => {},
-      finish: (_context, _event) => {},
-      finishRound: (_context, _event) => {}
-      /* eslint-enable @typescript-eslint/no-empty-function */
-    },
-    services: {},
-    guards: {
-      isGameOver: (_context, _event) => {
-        return false;
-      }
-    },
-    delays: {}
+    }
   }
-);
+});
 
 const LOBBY_TRACK_URI = 'spotify:track:7IiurNiwebWtRFrMUojN04';
 
@@ -404,20 +399,11 @@ class Game extends Component {
 
   // GUARDS
 
-  isGameOver = (context: Context) => {
+  isGameOver = ({ context }: { context: Context }) => {
     return context.roundsToGo === 0;
   };
 
   // ACTIONS
-
-  // eslint-disable-next-line unicorn/prefer-type-literal-last
-  play = assign((_context: Context, params: { type: 'play' } & GameParams) => {
-    return {
-      rounds: params.rounds,
-      duration: params.duration,
-      roundsToGo: params.rounds - 1
-    };
-  });
 
   select = async () => {
     this.counter = 5;
@@ -460,8 +446,10 @@ class Game extends Component {
     this.machine.send('dance', { track });
   };
 
-  dance = async (context: Context, { track }: { track: Track; type: 'dance' }) => {
-    await this.playTrackForDancing(track, context.duration);
+  dance = async ({ context, event }: { context: Context; event: GameEvent }) => {
+    assertEvent(event, 'dance');
+
+    await this.playTrackForDancing(event.track, context.duration);
 
     // timer
     this.counter = context.duration;
@@ -479,28 +467,34 @@ class Game extends Component {
     await this.spotify.client.pause();
   };
 
-  finishRound = assign((context: Context) => {
-    return {
-      ...context,
-      roundsToGo: context.roundsToGo - 1
-    };
-  });
-
   // NOTE: declared after all actions and guards it references — xstate's
-  // `withConfig` bakes implementations in at construction time, and `play` /
-  // `finishRound` are `assign()` action *objects* that cannot be resolved
-  // lazily. Class fields evaluate in declaration order, so a `machine` field
-  // placed above them would capture `undefined`.
+  // `provide` resolves the implementation map at construction time, so class
+  // fields evaluate in declaration order and a `machine` field placed above
+  // them would capture `undefined`.
   machine = useMachine(this, () => ({
-    machine: Machine.withConfig({
+    machine: Machine.provide({
       /* eslint-disable @typescript-eslint/no-misused-promises -- xstate invokes actions
          without awaiting; the async bodies are fire-and-forget by design */
       actions: {
-        play: this.play,
+        // (defined inline so `assign` infers its generics from the provided
+        // action's context/event types)
+        play: assign(({ event }) => {
+          assertEvent(event, 'play');
+
+          return {
+            rounds: event.rounds,
+            duration: event.duration,
+            roundsToGo: event.rounds - 1
+          };
+        }),
         select: this.select,
         dance: this.dance,
         finish: this.finish,
-        finishRound: this.finishRound
+        finishRound: assign(({ context }) => {
+          return {
+            roundsToGo: context.roundsToGo - 1
+          };
+        })
       },
       /* eslint-enable @typescript-eslint/no-misused-promises */
       guards: {
@@ -509,11 +503,12 @@ class Game extends Component {
     })
   }));
 
-  // The Form's submit callback must return nothing: xstate's `send` returns
-  // the next State, which pahu would read as a failed submit (no `.success`)
-  // and then crash on `state.issues.map` of undefined.
+  // The Form's submit callback must return nothing: pahu reads a returned
+  // value as the submit state (`undefined` passes, a stray object fails on
+  // `state.issues.map`), so the callback body deliberately discards `send`'s
+  // (non-)result — v5's `send` returns nothing.
   startGame = (params: GameParams) => {
-    void this.machine.send('play', params);
+    this.machine.send('play', params);
   };
 
   selectSong = async (song: number) => {
@@ -555,7 +550,8 @@ class Game extends Component {
     {{else if (this.machine.state.matches "playing")}}
       <div class="playing">
 
-        {{#if (this.machine.state.matches "playing.selection")}}
+        {{! v5's typed `matches` wants partial state values, not dotted strings }}
+        {{#if (this.machine.state.matches (hash playing="selection"))}}
           <p class="counter">{{this.counter}}</p>
 
           <div class="selection">
