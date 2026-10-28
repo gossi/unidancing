@@ -2,28 +2,32 @@
   "name": "@unidancing/gatekeeper",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --env production --outdir ./dist && pnpm run sentry:sourcemaps",
     "sentry:sourcemaps": "sentry-cli sourcemaps inject --org gossi --project unidancing-gatekeeper ./dist && sentry-cli sourcemaps upload --org gossi --project unidancing-gatekeeper ./dist",
     "lint": "pnpm run '/^lint:(?!.*(fix)).*$/'",
     "lint:fix": "pnpm run '/^lint:[^:]*:fix/'",
-    "lint:js": "eslint . --cache",
-    "lint:js:fix": "eslint . --fix"
+    "lint:js": "oxlint .",
+    "lint:js:fix": "oxlint . --fix",
+    "lint:fmt": "oxfmt --check .",
+    "lint:fmt:fix": "oxfmt ."
   },
   "dependencies": {
-    "hono": "^4.6.19",
     "@hono/sentry": "^1.2.0",
+    "hono": "^4.6.19",
     "oauth4webapi": "^3.1.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20250129.0",
-    "@eslint/compat": "catalog:lint",
-    "@gossi/config-eslint": "catalog:lint",
-    "@gossi/config-prettier": "catalog:lint",
+    "@gossi/config-oxfmt": "catalog:lint",
+    "@gossi/config-oxlint": "catalog:lint",
     "@sentry/cli": "^2.41.1",
-    "eslint": "catalog:lint",
-    "prettier": "catalog:lint",
+    "@types/node": "catalog:types",
+    "oxfmt": "catalog:lint",
+    "oxlint": "catalog:lint",
+    "oxlint-tsgolint": "catalog:lint",
     "typescript": "catalog:build",
     "wrangler": "^3.107.2"
   },

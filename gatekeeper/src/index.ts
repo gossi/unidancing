@@ -65,7 +65,6 @@ const app = new Hono<{
   };
 }>();
 
-/* eslint-disable unicorn/no-top-level-side-effects */
 app.use(cors());
 app.use((c, next) => sentry({ environment: c.env.ENVIRONMENT })(c, next));
 
@@ -200,6 +199,5 @@ app.get('/spotify/refresh', async (c) => {
 app.get('/fail', () => {
   throw new Error('boom');
 });
-/* eslint-enable unicorn/no-top-level-side-effects */
 
 export default app;

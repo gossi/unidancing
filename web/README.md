@@ -73,7 +73,7 @@ Tests run in vitest browser mode (see `vite.config.mts` → `test`). Run
 ### Linting
 
 ```sh
-pnpm lint           # eslint, template-lint, stylelint, glint
+pnpm lint           # eslint, stylelint, glint
 pnpm lint:fix
 ```
 

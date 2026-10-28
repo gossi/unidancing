@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import { defineConfig } from 'eslint/config';
+import { plugin as emberPlugin } from 'eslint-plugin-ember/recommended';
 
 import ember from '@gossi/config-eslint/ember';
 
@@ -64,6 +65,8 @@ export default defineConfig([
     }
   },
   {
+    // rules must be declared alongside the plugin that provides them
+    plugins: { ember: emberPlugin },
     rules: {
       'unicorn/consistent-function-scoping': 'off',
       'unicorn/consistent-class-member-order': 'off',
@@ -72,7 +75,23 @@ export default defineConfig([
       // (no real property descriptors; see getParam in dance-oh-mat/dance-mix)
       // and changes truthiness semantics (null/0-valued entries slip through).
       'prefer-object-has-own': 'off',
-      'unicorn/no-computed-property-existence-check': 'off'
+      'unicorn/no-computed-property-existence-check': 'off',
+      // the tester forms are app-level wrappers around `<Form>` and forward the
+      // native form events as component arguments, same as `Form` itself; the
+      // shared preset ignores `Form`/`Pagination` — this extends that list
+      // (rule options are replaced, not merged, so re-declare the shared ones).
+      // Ported from the old `.template-lintrc` `no-passed-in-event-handlers` config.
+      'ember/template-no-passed-in-event-handlers': [
+        'error',
+        {
+          ignore: {
+            Form: ['submit', 'reset'],
+            Pagination: ['change'],
+            RoutineTesterForm: ['submit', 'reset'],
+            TrainingTesterForm: ['submit', 'reset']
+          }
+        }
+      ]
     }
   }
 ]);
