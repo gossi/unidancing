@@ -1,6 +1,7 @@
 {
   "name": "@unidancing/theme",
   "version": "0.0.1",
+  "type": "module",
   "description": "Moana theme for Hokulea",
   "license": "MIT",
   "keywords": [

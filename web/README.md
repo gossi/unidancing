@@ -37,7 +37,7 @@ its own.
 
 There is no `config/environment.js` anymore; the app config is a regular module
 in `app/config/environment.ts`. Runtime-configurable values come from `.env`
-files via Vite (see `envPrefix` in `vite.config.mts`; `YOUTUBE_API_KEY` is
+files via Vite (see `envPrefix` in `vite.config.ts`; `YOUTUBE_API_KEY` is
 exposed from `.env`).
 
 ### Building / Prerendering
@@ -50,7 +50,7 @@ pnpm build          # tinacms build + vite build (incl. SSG prerendering)
 
 1. enumerates the content routes at build time by querying the Tina GraphQL
    endpoint baked into `tina/__generated__/client.ts` (see `findRoutes()` in
-   `vite.config.mts`);
+   `vite.config.ts`);
 2. renders every route with `vite-ember-ssr` (happy-dom, no FastBoot) and writes
    `<route>/index.html` into `dist/`;
 3. embeds the fetched content as a JSON data island
@@ -67,7 +67,7 @@ through by turbo). `pnpm build:tina` must run before `vite build`.
 pnpm test           # vitest run (browser mode, chromium via playwright)
 ```
 
-Tests run in vitest browser mode (see `vite.config.mts` → `test`). Run
+Tests run in vitest browser mode (see `vite.config.ts` → `test`). Run
 `pnpm test:prebuild` first to generate a local Tina client when testing offline.
 
 ### Linting
@@ -97,7 +97,7 @@ remains installed only for the test runner.
   `app/domain/supporting/utils` is backed by a flag that only `app/app-ssr.ts`
   (the SSG entry) sets.
 * **Theming** — design tokens from `@unidancing/theme` are processed by
-  `@theemo/vite` (see `vite.config.mjs`); no custom webpack plugin anymore.
+  `@theemo/vite` (see `vite.config.ts`); no custom webpack plugin anymore.
 
 ## Deploying
 

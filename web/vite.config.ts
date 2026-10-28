@@ -1,16 +1,19 @@
+import { loadTranslations } from '@ember-intl/vite';
+import { ember, extensions } from '@embroider/vite';
 import { readFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 
-import { loadTranslations } from '@ember-intl/vite';
 import { babel } from '@rollup/plugin-babel';
-import { ember, extensions } from '@embroider/vite';
+import { playwright } from '@vitest/browser-playwright';
 import { scopedCSS } from 'ember-scoped-css/vite';
-import { theemo } from '@theemo/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import icons from 'unplugin-icons/vite';
 import { emberSsg } from 'vite-ember-ssr/vite-plugin';
-import { playwright } from '@vitest/browser-playwright';
 import { defineConfig } from 'vitest/config';
+
+import { theemo } from '@theemo/vite';
+
+import type { UserConfig } from 'vite';
 
 /**
  * Enumerates the routes to prerender, mirroring the content tree (Tina CMS).
@@ -22,12 +25,13 @@ import { defineConfig } from 'vitest/config';
  */
 async function findRoutes(): Promise<string[]> {
   const source = await readFile('./tina/__generated__/client.ts', 'utf8');
-  const url = source.match(/url:\s*'([^']+)'/)?.[1];
-  const token = source.match(/token:\s*'([^']+)'/)?.[1];
+  const url = /url:\s*'([^']+)'/.exec(source)?.[1];
 
   if (!url) {
     throw new Error('Could not read Tina content URL from tina/__generated__/client.ts');
   }
+
+  const token = /token:\s*'([^']+)'/.exec(source)?.[1];
 
   /**
    * Folder-aware document ids. `_sys.filename` is only the file's base name, so
@@ -35,12 +39,12 @@ async function findRoutes(): Promise<string[]> {
    * The app links to documents with `_sys.relativePath` minus its extension
    * (see routines/analysis/routines.gts), so enumerate the same way here.
    */
-  const slugs = async (field: string): Promise<string[]> => {
+  const routePaths = async (field: string, prefix: string): Promise<string[]> => {
     const response = await fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        ...(token ? { 'X-API-KEY': token } : {})
+        ...(token && { 'X-API-KEY': token })
       },
       body: JSON.stringify({
         query: `{ ${field} { edges { node { _sys { relativePath extension } } } } }`
@@ -61,19 +65,19 @@ async function findRoutes(): Promise<string[]> {
       );
     }
 
-    return data[field].edges.map(({ node }) =>
-      node._sys.relativePath.slice(0, -node._sys.extension.length)
-    );
+    return data[field].edges.map(({ node }) => {
+      const slug = node._sys.relativePath.slice(0, -node._sys.extension.length);
+
+      return `${prefix}/${slug}`;
+    });
   };
 
-  const arts = (await slugs('artConnection')).map((slug) => `kuenste/${slug}`);
-  const courses = (await slugs('courseConnection')).map((slug) => `courses/${slug}`);
-  const exercises = (await slugs('exerciseConnection')).map((slug) => `uebungen/${slug}`);
-  const moves = (await slugs('moveConnection')).map((slug) => `moves/${slug}`);
-  const skills = (await slugs('skillConnection')).map((slug) => `fertigkeiten/${slug}`);
-  const routines = (await slugs('routinesConnection')).map(
-    (slug) => `choreography/routines/${slug}`
-  );
+  const arts = await routePaths('artConnection', 'kuenste');
+  const courses = await routePaths('courseConnection', 'courses');
+  const exercises = await routePaths('exerciseConnection', 'uebungen');
+  const moves = await routePaths('moveConnection', 'moves');
+  const skills = await routePaths('skillConnection', 'fertigkeiten');
+  const routines = await routePaths('routinesConnection', 'choreography/routines');
 
   return [
     'index',
@@ -105,7 +109,9 @@ async function findRoutes(): Promise<string[]> {
   ];
 }
 
-export default defineConfig(async ({ command, mode }) => {
+// the explicit return type keeps TS from widening the `test` block's browser
+// literals during overload resolution of `defineConfig`
+export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
   // SSG only for production builds; also skip in the plugin's internal SSR
   // child build (which would otherwise re-enumerate routes over the network).
   const prerender =
@@ -130,7 +136,7 @@ export default defineConfig(async ({ command, mode }) => {
     },
     plugins: [
       ember(),
-      scopedCSS({layerName: 'app'}),
+      scopedCSS({ layerName: 'app' }),
       // extra plugins here
       babel({
         babelHelpers: 'runtime',
@@ -154,7 +160,7 @@ export default defineConfig(async ({ command, mode }) => {
     ],
     resolve: {
       alias: {
-        '@/tina': fileURLToPath(new URL('./tina/__generated__', import.meta.url)),
+        '@/tina': fileURLToPath(new URL('tina/__generated__', import.meta.url)),
         // ember-source provides @glimmer/tracking virtually at its root specifier,
         // but older addons (ember-resources 6, statecharts) deep-import this
         // subpath, which needs to be mapped onto ember-source's own dist file.
