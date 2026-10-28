@@ -55,18 +55,6 @@ jobs:
         run: pnpm run lint:css
         working-directory: web
 
-  lint-hbs:
-    name: Lint (HBS)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup
-        uses: ./.github/actions/setup
-
-      - name: Lint
-        run: pnpm run lint:hbs
-        working-directory: web
-
   playwright_version:
     name: playwright version
     runs-on: ubuntu-latest
@@ -100,8 +88,6 @@ jobs:
       #   run: pnpm run -r --parallel --aggregate-output lint:js
       # - name: Lint Types
       #   run: pnpm run -r --parallel --aggregate-output lint:types
-      # - name: Lint Handlebars
-      #   run: pnpm run -r --parallel --aggregate-output lint:hbs
       - name: Install browsers
         run: pnpm exec playwright install --with-deps chromium
         working-directory: web

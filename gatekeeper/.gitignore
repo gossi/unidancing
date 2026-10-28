@@ -1,6 +1,5 @@
 .dev.vars
 .wrangler/
-.eslintcache
 dist/
 # Sentry Config File
 .sentryclirc

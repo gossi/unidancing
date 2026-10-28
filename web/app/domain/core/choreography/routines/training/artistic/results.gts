@@ -158,7 +158,7 @@ class Part extends Component<{
   }
 
   <template>
-    {{! template-lint-disable table-groups  }}
+    {{! eslint-disable ember/template-table-groups }}
     <table class="training">
       <thead>
         <tr>
