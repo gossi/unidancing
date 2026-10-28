@@ -93,6 +93,7 @@
     ]
   },
   "include": [
+    "vite.config.ts",
     "tina/**/*",
     "app/**/*",
     "tests/**/*",

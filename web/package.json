@@ -2,6 +2,7 @@
   "name": "@unidancing/app",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "description": "Small description for @unidancing/app goes here",
   "repository": "",
   "license": "MIT",

@@ -15,7 +15,7 @@ export default defineConfig([
   },
   ...ember(import.meta.dirname),
   {
-    // Test suite runs on vitest (see tests/ + vite.config.mts `test`). The
+    // Test suite runs on vitest (see tests/ + vite.config.ts `test`). The
     // qunit recommended set that @gossi/config-eslint/ember spreads onto
     // `tests/**/*-test.*` only misfires on vitest files (e.g. qunit/require-expect
     // flagging `expect()` from 'vitest'). Deactivated explicitly — the ember

@@ -1,6 +1,7 @@
 {
   "name": "unidancing",
   "private": true,
+  "type": "module",
   "author": "gossi",
   "scripts": {
     "clean": "pnpm run '/^clean:.*/'",

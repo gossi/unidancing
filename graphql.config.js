@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   projects: {
     app: {
       schema: ["web/tina/__generated__/schema.gql"],
