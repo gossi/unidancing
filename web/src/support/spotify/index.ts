@@ -5,14 +5,14 @@ export { SpotifyService } from './service';
 export { SpotifyAuthRoute } from './routes/auth';
 
 // components
-export { LoginWithSpotify } from './components/login-with-spotify';
-export { MaybeSpotifyPlayerWarning } from './components/maybe-spotify-player-warning';
-export { PlayTrack } from './components/play-track';
-export { SpotifyPlayer } from './components/player';
-export { PlaylistChooser } from './components/playlist-chooser';
-export { SpotifyPlayButton } from './components/spotify-play-button';
-export { SpotifyPlayerWarning } from './components/spotify-player-warning';
-export { WithSpotify } from './components/with-spotify';
+export { LoginWithSpotify } from './components/login-with-spotify.gts';
+export { MaybeSpotifyPlayerWarning } from './components/maybe-spotify-player-warning.gts';
+export { PlayTrack } from './components/play-track.gts';
+export { SpotifyPlayer } from './components/player.gts';
+export { PlaylistChooser } from './components/playlist-chooser.gts';
+export { SpotifyPlayButton } from './components/spotify-play-button.gts';
+export { SpotifyPlayerWarning } from './components/spotify-player-warning.gts';
+export { WithSpotify } from './components/with-spotify.gts';
 
 // resources
 export { getTracks, loadPlaylist } from './resources/playlist';

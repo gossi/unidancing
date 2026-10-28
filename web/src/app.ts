@@ -8,6 +8,9 @@ import HokuleaService from '@hokulea/ember/services/-hokulea';
 
 import config from './config/environment';
 import Router from './router';
+import ApplicationController from './ui/application/controller.gts';
+import ApplicationRoute from './ui/application/route';
+import ApplicationTemplate from './ui/application/template.gts';
 
 export default class App extends EmberApp {
   modulePrefix = config.modulePrefix;
@@ -24,6 +27,11 @@ export default class App extends EmberApp {
     './services/intl': IntlService,
     './services/link-manager': LinkManagerService,
     './services/page-title': PageTitleService,
+
+    // app
+    './templates/application': ApplicationTemplate,
+    './controller/application': ApplicationController,
+    './routes/applicatino': ApplicationRoute,
 
     // Everything resolvable by convention from the app tree.
     ...import.meta.glob('./{routes,templates,controllers,services}/**/*.{js,ts,gjs,gts}', {

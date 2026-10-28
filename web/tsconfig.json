@@ -77,9 +77,9 @@
       "@unidancing/app/tests/*": [
         "./tests/*"
       ],
-      "@unidancing/app/*": [
-        "./app/*"
-      ],
+      // "@unidancing/app/*": [
+      //   "./app/*"
+      // ],
       "*": [
         "./types/*"
       ]
@@ -95,7 +95,7 @@
   "include": [
     "vite.config.ts",
     "tina/**/*",
-    "app/**/*",
+    "src/**/*",
     "tests/**/*",
     "types/**/*"
   ]
