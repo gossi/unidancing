@@ -137,7 +137,6 @@ export class TimelineViewer extends Component<TimelineViewerSignature> {
       min: 0,
       zoomMin: 0,
       orientation: 'top',
-      snap: undefined,
       showCurrentTime: false,
       showMajorLabels: false,
       format: {
