@@ -6,9 +6,10 @@ import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 
+import { TinaMarkdown } from '#support/tina';
+
 import { Page } from '@hokulea/ember';
 
-import { TinaMarkdown } from '../../../supporting/tina';
 import { findSkill } from '../-resource';
 
 export class CourseDetailsRoute extends Route<{ id: string }> {

@@ -1,4 +1,5 @@
-import { YoutubePlayer } from '../../../../supporting/youtube';
+import { YoutubePlayer } from '#support/youtube';
+
 import { scoreArtistic } from '../artistic/actions';
 import { loadSystem, loadSystemDescriptor } from '../systems/actions';
 import { ArtisticTrainingResults } from './artistic/results';

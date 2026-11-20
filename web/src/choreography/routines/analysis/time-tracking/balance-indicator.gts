@@ -1,9 +1,9 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { formatPercent, formatSeconds } from '@unidancing/app/domain/supporting/utils';
 import { link } from 'ember-link';
 
+import { formatPercent, formatSeconds } from '#support/utils';
 import IconInfo from '~icons/ph/info';
 
 import { Card, Icon, Tabs } from '@hokulea/ember';

@@ -1,8 +1,9 @@
+import { TinaMarkdown } from '#support/tina';
+import { asNumber, asString } from '#support/utils';
+import { Dialog, VideoPlayer } from '#ui';
+
 import { Button } from '@hokulea/ember';
 
-import { TinaMarkdown } from '../../../supporting/tina';
-import { Dialog, VideoPlayer } from '../../../supporting/ui';
-import { asNumber, asString } from '../../../supporting/utils';
 import { asMethod, formatDuration, formatMethod, formatMethodAbbr } from '../-helpers';
 import { asMediaCollection } from '../domain-objects';
 import { Media } from './media';

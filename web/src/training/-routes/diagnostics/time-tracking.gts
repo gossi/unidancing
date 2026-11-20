@@ -1,23 +1,23 @@
 import { cached } from '@glimmer/tracking';
 import { LinkTo } from '@ember/routing';
 
-import { Features, Note, Section } from '@unidancing/app/domain/supporting/ui';
 import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 import { use } from 'ember-resources';
 import Task from 'ember-tasks';
 
-import { Page } from '@hokulea/ember';
-
 import {
   findRoutine,
   TimeTrackingBalanceIndicator,
   TimeTrackingEffectivityIndicator,
   TimeTrackingSummary
-} from '../../../choreography';
+} from '#choreography';
+import { Features, Note, Section } from '#ui';
 
-import type { TimeAnalysis } from '../../../choreography/routines/analysis/time-tracking/domain';
+import { Page } from '@hokulea/ember';
+
+import type { TimeAnalysis } from '#choreography';
 
 function asTimeAnalysis(data: TimeAnalysis | undefined): TimeAnalysis {
   return data as TimeAnalysis;

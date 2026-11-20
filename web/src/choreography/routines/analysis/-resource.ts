@@ -2,8 +2,8 @@ import { resource, resourceFactory } from 'ember-resources';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { client } from '../../../../supporting/tina';
-import { cacheResult } from '../../../../supporting/utils';
+import { client } from '#support/tina';
+import { cacheResult } from '#support/utils';
 
 import type { RoutineResult } from './domain-objects';
 

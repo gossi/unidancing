@@ -11,9 +11,7 @@ import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import { setup } from 'xstate';
 
-import { Button, Form } from '@hokulea/ember';
-
-import { AudioPlayer, AudioService } from '../../../supporting/audio';
+import { AudioPlayer, AudioService } from '#support/audio';
 import {
   formatArtists,
   getRandomTracks,
@@ -25,13 +23,15 @@ import {
   SpotifyPlayButton,
   SpotifyService,
   WithSpotify
-} from '../../../supporting/spotify';
-import { useMachine } from '../../../supporting/statechart';
+} from '#support/spotify';
+import { useMachine } from '#support/statechart';
 
-import type { Playlist, Track, UserPlaylist } from '../../../supporting/spotify';
+import { Button, Form } from '@hokulea/ember';
+
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
+import type { Playlist, Track, UserPlaylist } from '#support/spotify';
 
 enum PlaylistOptions {
   Epic = 'epic',

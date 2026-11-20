@@ -10,9 +10,7 @@ import Service, { service } from 'ember-polaris-service';
 import { resource, resourceFactory, use } from 'ember-resources';
 import { trackedFunction } from 'reactiveweb/function';
 
-import { Form } from '@hokulea/ember';
-
-import { AudioPlayer, AudioService } from '../../../supporting/audio';
+import { AudioPlayer, AudioService } from '#support/audio';
 import {
   findTrack,
   formatArtists,
@@ -21,13 +19,16 @@ import {
   SpotifyPlayButton,
   SpotifyService,
   WithSpotify
-} from '../../../supporting/spotify';
+} from '#support/spotify';
+
+import { Form } from '@hokulea/ember';
+
 import { data } from './data';
 
-import type { Track } from '../../../supporting/spotify';
 import type { LoopDescriptor, LoopTrackDescriptor } from './domain-objects';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
+import type { Track } from '#support/spotify';
 
 const DEV = false;
 

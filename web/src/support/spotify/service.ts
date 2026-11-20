@@ -1,4 +1,3 @@
-import config from '@unidancing/app/config/environment';
 import { task, timeout } from 'ember-concurrency';
 import Service from 'ember-polaris-service';
 
@@ -7,8 +6,9 @@ import {
   createCodeChallenge,
   createCodeVerifier,
   saveAuthAttempt
-} from '../auth/pkce';
-import { deserialize, isSSR } from '../utils';
+} from '#support/auth';
+import { deserialize, isSSR } from '#support/utils';
+
 import { SpotifyClient } from './client';
 
 import type { Scope } from 'ember-polaris-service';
@@ -53,7 +53,7 @@ export class SpotifyService extends Service {
 
     saveAuthAttempt({ codeVerifier, state, returnTo });
 
-    const loginUrl = new URL(`${config.workerHostURL}/spotify/login`);
+    const loginUrl = new URL(`${__WORKER_HOST_URL__}/spotify/login`);
 
     loginUrl.searchParams.set('code_challenge', codeChallenge);
     loginUrl.searchParams.set('state', state);
@@ -77,7 +77,7 @@ export class SpotifyService extends Service {
 
   async refresh(token: string) {
     try {
-      const response = await fetch(`${config.workerHostURL}/spotify/refresh?token=${token}`);
+      const response = await fetch(`${__WORKER_HOST_URL__}/spotify/refresh?token=${token}`);
 
       if (response.status === 200) {
         this.authenticate(deserialize((await response.json()) as Record<string, string>));

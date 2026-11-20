@@ -1,13 +1,13 @@
+import { ExerciseTeaser } from '#exercises';
+import { asString } from '#support/utils';
+import { VideoPlayer } from '#ui';
+
 import { Page } from '@hokulea/ember';
 
-import { VideoPlayer } from '../../../supporting/ui';
-import { asString } from '../../../supporting/utils';
-import { ExerciseTeaser } from '../../exercises';
-
-import type { Exercise } from '../../exercises';
 import type { Course } from '..';
 import type { Maybe } from '@/tina/types';
 import type { TOC } from '@ember/component/template-only';
+import type { Exercise } from '#exercises';
 
 export interface CourseDetailsSignature {
   Args: {

@@ -1,7 +1,8 @@
+import { TinaMarkdown } from '#support/tina';
+import { Icon, Tag } from '#ui';
+
 import { Card } from '@hokulea/ember';
 
-import { TinaMarkdown } from '../../../supporting/tina';
-import { Icon, Tag } from '../../../supporting/ui';
 import { buildMoveLink } from '../-resource';
 
 import type { Move } from '..';

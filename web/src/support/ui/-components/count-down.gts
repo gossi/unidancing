@@ -5,7 +5,7 @@ import { getOwner } from '@ember/owner';
 
 import { dropTask, timeout } from 'ember-concurrency';
 
-import { playSound } from '../../audio';
+import { playSound } from '#support/audio';
 
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';

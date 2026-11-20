@@ -1,4 +1,3 @@
-import config from '@unidancing/app/config/environment';
 import Service from 'ember-polaris-service';
 
 import type { youtube_v3 } from '@googleapis/youtube';
@@ -22,7 +21,13 @@ export class YoutubeService extends Service {
       }
     }
 
-    p.set('key', config.APP.YOUTUBE_API_KEY);
+    const apiKey = __YOUTUBE_API_KEY__;
+
+    if (!apiKey) {
+      throw new Error('YOUTUBE_API_KEY is not configured');
+    }
+
+    p.set('key', apiKey);
 
     const response = await fetch(url);
 

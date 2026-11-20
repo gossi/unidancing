@@ -1,9 +1,10 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { YoutubePlayer } from '#support/youtube';
+
 import { Tabs } from '@hokulea/ember';
 
-import { YoutubePlayer } from '../../../../supporting/youtube';
 import { ArtisticResults } from './artistic/results';
 import { ArtisticSummary } from './artistic/summary';
 import { NotTodoListResults } from './not-todo-list/results';
@@ -13,8 +14,8 @@ import { TimeTrackingSummary } from './time-tracking/evaluation';
 import { TimeTrackingResults } from './time-tracking/results';
 import { TricksStub } from './tricks/stub';
 
-import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
 import type { RoutineResult } from './domain-objects';
+import type { YoutubePlayerAPI } from '#support/youtube';
 import type { Link } from 'ember-link';
 
 function length(arr: unknown[]) {

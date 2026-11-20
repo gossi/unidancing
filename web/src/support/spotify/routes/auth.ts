@@ -1,16 +1,16 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 
-import config from '@unidancing/app/config/environment';
 import { service as polarisService } from 'ember-polaris-service';
 
-import { clearAuthAttempt, loadAuthAttempt } from '../../auth/pkce';
-import { deserialize, isSSR } from '../../utils';
+import { clearAuthAttempt, loadAuthAttempt } from '#support/auth';
+import { deserialize, isSSR } from '#support/utils';
+
 import { SpotifyService } from '../service';
 
-import type { AuthAttempt } from '../../auth/pkce';
 import type RouteInfo from '@ember/routing/route-info';
 import type RouterService from '@ember/routing/router-service';
+import type { AuthAttempt } from '#support/auth';
 
 type RouteModel = object | string | number;
 type RouteArgs = Parameters<RouterService['urlFor']>;
@@ -84,7 +84,7 @@ export class SpotifyAuthRoute extends Route {
     }
 
     try {
-      const response = await fetch(`${config.workerHostURL}/spotify/authenticated`, {
+      const response = await fetch(`${__WORKER_HOST_URL__}/spotify/authenticated`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

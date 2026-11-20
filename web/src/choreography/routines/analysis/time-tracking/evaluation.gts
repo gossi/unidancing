@@ -1,7 +1,7 @@
 import { concat } from '@ember/helper';
 import { htmlSafe } from '@ember/template';
 
-import { formatNumber } from '@unidancing/app/domain/supporting/utils';
+import { formatNumber } from '#support/utils';
 
 import { CATEGORY_GROUPS } from './domain';
 

@@ -4,12 +4,13 @@ import { concat } from '@ember/helper';
 
 import { formatNumber, t } from 'ember-intl';
 
-import { Features } from '../../../../../supporting/ui';
+import { Features } from '#ui';
+
 import { CriterionInterval, Score, ScoreLabel } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { scoreArtistic } from '../../artistic/actions';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
-import { CategoryCard } from './-components.gts';
+import { CategoryCard } from './-components';
 
 import type {
   ArtisticResults,

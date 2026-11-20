@@ -1,8 +1,9 @@
+import { TinaMarkdown } from '#support/tina';
+import { asString } from '#support/utils';
+import { Icon, VideoPlayer } from '#ui';
+
 import { Page } from '@hokulea/ember';
 
-import { TinaMarkdown } from '../../../supporting/tina';
-import { Icon, VideoPlayer } from '../../../supporting/ui';
-import { asString } from '../../../supporting/utils';
 import { buildMoveLink } from '../-resource';
 
 import type { Move } from '..';

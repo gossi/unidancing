@@ -1,10 +1,6 @@
-import {
-  formatIndicator,
-  formatNumber,
-  formatSeconds
-} from '@unidancing/app/domain/supporting/utils';
 import { link } from 'ember-link';
 
+import { formatIndicator, formatNumber, formatSeconds } from '#support/utils';
 import IconInfo from '~icons/ph/info';
 
 import { Card, Icon } from '@hokulea/ember';

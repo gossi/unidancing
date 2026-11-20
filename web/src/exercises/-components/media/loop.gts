@@ -1,5 +1,4 @@
-import { Loop } from '../../../assistants';
-import { data } from '../../../assistants/looper/data';
+import { Loop, looperData } from '#assistants';
 
 import type { ExerciseMediaLoop } from '../../domain-objects';
 import type { TOC } from '@ember/component/template-only';
@@ -7,7 +6,7 @@ import type { TOC } from '@ember/component/template-only';
 function load(id: string) {
   const [trackId, loop] = id.split('.');
 
-  const track = data.find((t) => t.id === trackId);
+  const track = looperData.find((t) => t.id === trackId);
 
   return {
     track,

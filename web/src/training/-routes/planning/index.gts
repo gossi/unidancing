@@ -3,9 +3,9 @@ import { LinkTo } from '@ember/routing';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { CardSection, Features } from '#ui';
 
-import { CardSection, Features } from '../../../../supporting/ui';
+import { Page } from '@hokulea/ember';
 
 export class TrainingPlanningIndexRoute extends Route<object> {
   <template>

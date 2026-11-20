@@ -1,9 +1,10 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 
+import { YoutubePlayer } from '#support/youtube';
+
 import { Button, Form } from '@hokulea/ember';
 
-import { YoutubePlayer } from '../../../../supporting/youtube';
 import {
   ARTISTIC_FORM_DATA,
   ArtisticForm,
@@ -11,10 +12,10 @@ import {
   parseArtisticFormData
 } from '../analysis/artistic/form';
 
-import type { YoutubePlayerAPI } from '../../../../supporting/youtube';
 import type { ArtisticFormData } from '../analysis/artistic/form';
 import type { TrainingResult, TrainingTest } from './domain-objects';
 import type Owner from '@ember/owner';
+import type { YoutubePlayerAPI } from '#support/youtube';
 
 interface TrainingTesterFormArgs {
   data: TrainingTest;

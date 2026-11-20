@@ -8,6 +8,7 @@ import { playwright } from '@vitest/browser-playwright';
 import { scopedCSS } from 'ember-scoped-css/vite';
 import { FileSystemIconLoader } from 'unplugin-icons/loaders';
 import icons from 'unplugin-icons/vite';
+import { loadEnv } from 'vite';
 import { emberSsg } from 'vite-ember-ssr/vite-plugin';
 import { defineConfig } from 'vitest/config';
 
@@ -118,9 +119,24 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
     command === 'build' && mode === 'production' && !process.env.__VITE_EMBER_SSG_CHILD__;
   const routes = prerender ? await findRoutes() : [];
 
+  // .env values baked in at build time via `define` below — the config file
+  // itself has no import.meta.env, so read them through loadEnv.
+  const env = loadEnv(mode, import.meta.dirname, ['VITE_', 'YOUTUBE_']);
+
   return {
-    // expose .env values the app config reads (besides the default VITE_)
+    // expose .env values beyond the default VITE_ prefix
     envPrefix: ['VITE_', 'YOUTUBE_'],
+    define: {
+      // the gatekeeper worker: local dev server outside production builds,
+      // the deployed origin otherwise (mirrors the old ENV.workerHostURL DEV
+      // switch); consumed by the spotify support module
+      __WORKER_HOST_URL__: JSON.stringify(
+        mode === 'production' ? 'https://connect.unidancing.art' : 'http://127.0.0.1:8787'
+      ),
+      // YouTube data API key from .env (empty string = unset; consumers guard
+      // at the call site)
+      __YOUTUBE_API_KEY__: JSON.stringify(env.YOUTUBE_API_KEY ?? '')
+    },
     test: {
       include: ['tests/**/*-test.{gjs,gts,js,ts}'],
       // Ember boots one app instance per test file in a single browser tab;
@@ -156,7 +172,7 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
           custom: FileSystemIconLoader('./public/icons')
         }
       }),
-      ...(prerender ? [emberSsg({ routes, shoebox: true })] : [])
+      ...(prerender ? [emberSsg({ routes, shoebox: true, ssrEntry: 'src/app-ssr.ts' })] : [])
     ],
     resolve: {
       alias: {

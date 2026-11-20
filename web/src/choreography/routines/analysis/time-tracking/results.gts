@@ -3,8 +3,8 @@ import Component from '@glimmer/component';
 import { TimeTrackingSummary } from './evaluation';
 import { TimelineViewer } from './viewer';
 
-import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { TimeAnalysis } from './domain';
+import type { YoutubePlayerAPI } from '#support/youtube';
 
 interface TimeTrackingResultsSignature {
   Args: {

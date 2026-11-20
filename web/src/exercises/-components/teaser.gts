@@ -1,9 +1,10 @@
+import { buildArtLink } from '#arts';
+import { buildSkillLink } from '#skills';
+import { asString } from '#support/utils';
+import { Icon, Tag } from '#ui';
+
 import { Card } from '@hokulea/ember';
 
-import { Icon, Tag } from '../../../supporting/ui';
-import { asString } from '../../../supporting/utils';
-import { buildArtLink } from '../../arts';
-import { buildSkillLink } from '../../skills';
 import { buildExerciseLink } from '..';
 import { asDifficulty, asLocomotion, asPersonal } from '../domain-objects';
 import { FormatLocomotion, FormatPersonal } from './-formatters';

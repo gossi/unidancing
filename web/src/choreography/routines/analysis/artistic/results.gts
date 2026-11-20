@@ -1,13 +1,14 @@
 import Component from '@glimmer/component';
 import { concat } from '@ember/helper';
 
-import { CategoryCard } from '@unidancing/app/domain/core/choreography/routines/analysis/artistic/-components.gts';
 import { formatNumber, t } from 'ember-intl';
 
-import { Features } from '../../../../../supporting/ui';
+import { Features } from '#ui';
+
 import { CriterionInterval, Score } from '../../artistic/-components';
 import { getCriterionKey, toIntlNameKey } from '../../artistic/-utils';
 import { findInterval, loadSystem, loadSystemDescriptor } from '../../systems/actions';
+import { CategoryCard } from './-components';
 
 import type {
   ArtisticResults as Results,

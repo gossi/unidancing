@@ -1,5 +1,6 @@
-import { CardSection } from '../../../../../supporting/ui';
-import { Score, ScoreLabel } from '../../artistic/-components.gts';
+import { CardSection } from '#ui';
+
+import { Score, ScoreLabel } from '../../artistic/-components';
 
 import type { TOC } from '@ember/component/template-only';
 

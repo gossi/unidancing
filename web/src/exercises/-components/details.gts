@@ -1,11 +1,12 @@
 import { uniqueId } from '@ember/helper';
 
+import { buildSkillLink } from '#skills';
+import { TinaMarkdown } from '#support/tina';
+import { asString } from '#support/utils';
+import { Icon, Tag, VideoPlayer } from '#ui';
+
 import { Page } from '@hokulea/ember';
 
-import { TinaMarkdown } from '../../../supporting/tina';
-import { Icon, Tag, VideoPlayer } from '../../../supporting/ui';
-import { asString } from '../../../supporting/utils';
-import { buildSkillLink } from '../../skills';
 import { buildExerciseLink } from '../-resource';
 import {
   asDifficulty,

@@ -8,6 +8,7 @@ import { scopedClass } from 'ember-scoped-css';
 import { TrackedObject, TrackedSet } from 'tracked-built-ins';
 import { v4 as uuid } from 'uuid';
 
+import { findAwfulPractices } from '#choreography';
 import IconArrowRight from '~icons/ph/arrow-right';
 import IconCheck from '~icons/ph/check';
 import IconPencil from '~icons/ph/pencil';
@@ -16,11 +17,9 @@ import IconTrash from '~icons/ph/trash';
 
 import { Button, Form, Icon, IconButton } from '@hokulea/ember';
 
-import { findAwfulPractices } from '../../choreography';
-
-import type { Awfulpractice } from '../../choreography';
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
+import type { Awfulpractice } from '#choreography';
 
 interface TileSignature {
   Args: {

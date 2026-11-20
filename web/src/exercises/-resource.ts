@@ -3,8 +3,8 @@ import { sweetenOwner } from 'ember-sweet-owner';
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import { client } from '../../supporting/tina';
-import { cacheResult } from '../../supporting/utils';
+import { client } from '#support/tina';
+import { cacheResult } from '#support/utils';
 
 import type { Exercise } from './domain-objects';
 import type { ExerciseConnectionEdges as Edges } from '@/tina/types';

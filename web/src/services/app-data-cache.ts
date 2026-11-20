@@ -1,6 +1,6 @@
 import Service from '@ember/service';
 
-import { isSSR } from '@unidancing/app/domain/supporting/utils';
+import { isSSR } from '#support/utils';
 
 const ISLAND_ID = 'unidancing-data';
 

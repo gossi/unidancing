@@ -5,9 +5,9 @@ import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { Game } from '#games';
 
-import { Game } from '../../../games';
+import { Page } from '@hokulea/ember';
 
 export class TrainingPlanningGamesRoute extends Route<object> {
   <template>

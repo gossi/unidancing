@@ -1,8 +1,9 @@
 import { createCache, getValue } from '@glimmer/validator';
 
-import { useMachine } from '@unidancing/app/domain/supporting/statechart';
 import { describe, expect, test } from 'vitest';
 import { createMachine } from 'xstate';
+
+import { useMachine } from '#support/statechart';
 
 describe('Supporting | Unit | Statechart | useMachine', () => {
   test('boots to the initial snapshot immediately', () => {

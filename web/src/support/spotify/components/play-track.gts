@@ -5,7 +5,8 @@ import { registerDestructor } from '@ember/destroyable';
 import { service } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 
-import { AudioPlayer, AudioService } from '../../audio';
+import { AudioPlayer, AudioService } from '#support/audio';
+
 import { isAuthenticated } from '../abilities';
 import { findTrack } from '../resources/track';
 import { SpotifyService } from '../service';

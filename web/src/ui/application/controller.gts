@@ -2,11 +2,11 @@ import { tracked } from '@glimmer/tracking';
 import Controller from '@ember/controller';
 import { set } from '@ember/object';
 
-import { ALL_ASSISTANT_PARAMS } from '../domain/core/assistants';
-import { ALL_GAME_PARAMS } from '../domain/core/games';
+import { ALL_ASSISTANT_PARAMS } from '#assistants';
+import { ALL_GAME_PARAMS } from '#games';
 
-import type { Assistant } from '../domain/core/assistants';
-import type { Game } from '../domain/core/games';
+import type { Assistant } from '#assistants';
+import type { Game } from '#games';
 
 const PARAMS = [...ALL_GAME_PARAMS, ...ALL_ASSISTANT_PARAMS];
 

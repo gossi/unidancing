@@ -31,7 +31,7 @@ export default {
         transforms: [
           scopedCSS.template({
             layerName: 'app',
-            additionalRoots: ['app']
+            additionalRoots: ['src']
           }),
           ...macros.templateMacros
         ]

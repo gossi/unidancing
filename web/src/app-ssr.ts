@@ -2,9 +2,9 @@ import '@formatjs/intl-durationformat/polyfill';
 
 import { settled as emberSettled } from '@ember/test-helpers';
 
+import { setSSRMode } from '#support/utils';
+
 import Application from './app';
-import config from './config/environment';
-import { setSSRMode } from './domain/supporting/utils';
 import { drainPending } from './services/app-data-cache';
 
 // Marks the app as server-rendering: data fetches are awaited by the
@@ -33,10 +33,7 @@ if (win) {
 }
 
 export function createSsrApp() {
-  return Application.create({
-    ...config.APP,
-    autoboot: false
-  });
+  return Application.create({ autoboot: false });
 }
 
 /**

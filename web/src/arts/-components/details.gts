@@ -1,7 +1,7 @@
-import { Page } from '@hokulea/ember';
+import { TinaMarkdown } from '#support/tina';
+import { VideoPlayer } from '#ui';
 
-import { TinaMarkdown } from '../../../supporting/tina';
-import { VideoPlayer } from '../../../supporting/ui';
+import { Page } from '@hokulea/ember';
 
 import type { Art } from '..';
 import type { TOC } from '@ember/component/template-only';

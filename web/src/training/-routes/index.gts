@@ -3,7 +3,7 @@ import { LinkTo } from '@ember/routing';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { CardSection, Features } from '../../../supporting/ui';
+import { CardSection, Features } from '#ui';
 
 export class TrainingIndexRoute extends Route<object> {
   <template>

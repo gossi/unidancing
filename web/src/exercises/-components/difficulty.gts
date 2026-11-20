@@ -1,4 +1,4 @@
-import { Tag } from '../../../supporting/ui';
+import { Tag } from '#ui';
 
 import type { Difficulty as ExerciseDifficulty } from '../domain-objects';
 import type { TOC } from '@ember/component/template-only';

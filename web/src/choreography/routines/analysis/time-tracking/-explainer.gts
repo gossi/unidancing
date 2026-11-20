@@ -1,4 +1,4 @@
-import { formatNumber } from '@unidancing/app/domain/supporting/utils';
+import { formatNumber } from '#support/utils';
 
 import type { AttractivityGroup } from './domain';
 import type { TOC } from '@ember/component/template-only';

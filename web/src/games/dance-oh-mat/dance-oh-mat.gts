@@ -4,7 +4,6 @@ import { registerDestructor } from '@ember/destroyable';
 import { getOwner } from '@ember/owner';
 import { service } from '@ember/service';
 
-import { getTracks } from '@unidancing/app/domain/supporting/spotify/resources/playlist';
 import { dropTask, timeout } from 'ember-concurrency';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
@@ -12,15 +11,10 @@ import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
 import { assertEvent, assign, setup } from 'xstate';
 
-import IconPauseFill from '~icons/ph/pause-fill';
-import IconPlayFill from '~icons/ph/play-fill';
-import IconQuestion from '~icons/ph/question';
-
-import { Button, Form, IconButton } from '@hokulea/ember';
-
-import { AudioPlayer, AudioService, playSound } from '../../../supporting/audio';
+import { AudioPlayer, AudioService, playSound } from '#support/audio';
 import {
   getRandomTrack,
+  getTracks,
   loadPlaylist,
   MaybeSpotifyPlayerWarning,
   playTrack,
@@ -28,13 +22,18 @@ import {
   SpotifyPlayButton,
   SpotifyService,
   WithSpotify
-} from '../../../supporting/spotify';
-import { useMachine } from '../../../supporting/statechart';
+} from '#support/spotify';
+import { useMachine } from '#support/statechart';
+import IconPauseFill from '~icons/ph/pause-fill';
+import IconPlayFill from '~icons/ph/play-fill';
+import IconQuestion from '~icons/ph/question';
 
-import type { Playlist, SpotifyClient, Track } from '../../../supporting/spotify';
+import { Button, Form, IconButton } from '@hokulea/ember';
+
 import type { TOC } from '@ember/component/template-only';
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';
+import type { Playlist, SpotifyClient, Track } from '#support/spotify';
 
 export enum DanceOhMatParam {
   Rounds = 'rounds',

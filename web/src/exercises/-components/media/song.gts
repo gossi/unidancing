@@ -1,11 +1,11 @@
 import Component from '@glimmer/component';
 import { getOwner } from '@ember/owner';
 
-import { getStartForDancing, PlayTrack, playTrack } from '../../../../supporting/spotify';
+import { getStartForDancing, PlayTrack, playTrack } from '#support/spotify';
 
-import type { Track } from '../../../../supporting/spotify';
 import type { ExerciseMediaSong } from '../../domain-objects';
 import type Owner from '@ember/owner';
+import type { Track } from '#support/spotify';
 
 interface SongSignature {
   Args: {

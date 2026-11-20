@@ -4,9 +4,9 @@ import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { Assistant, buildAssistantLink } from '#assistants';
 
-import { Assistant, buildAssistantLink } from '../../../assistants';
+import { Page } from '@hokulea/ember';
 
 import type RouterService from '@ember/routing/router-service';
 import type { LinkManagerService } from 'ember-link';

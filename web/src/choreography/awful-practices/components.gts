@@ -1,4 +1,5 @@
-import { TinaMarkdown } from '../../../supporting/tina';
+import { TinaMarkdown } from '#support/tina';
+
 import { asTag, type Awfulpractice, type Tag } from './domain';
 
 import type { TOC } from '@ember/component/template-only';

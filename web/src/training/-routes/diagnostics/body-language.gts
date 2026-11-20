@@ -4,9 +4,9 @@ import { pageTitle } from 'ember-page-title';
 import { Route } from 'ember-polaris-routing';
 import CompatRoute from 'ember-polaris-routing/route/compat';
 
-import { Page } from '@hokulea/ember';
+import { Features, Section } from '#ui';
 
-import { Features, Section } from '../../../../supporting/ui';
+import { Page } from '@hokulea/ember';
 
 import type { TOC } from '@ember/component/template-only';
 

@@ -1,6 +1,6 @@
-import { Button } from '@hokulea/ember';
+import { buildAssistantLink } from '#assistants';
 
-import { buildAssistantLink } from '../../../assistants';
+import { Button } from '@hokulea/ember';
 
 import type { ExerciseMediaDancemix } from '../../domain-objects';
 import type { TOC } from '@ember/component/template-only';

@@ -5,7 +5,8 @@ import SpotifyWebApi from 'spotify-web-api-js';
 import SpotifyPlayer from 'spotify-web-playback';
 import { fromPromise } from 'xstate';
 
-import { useMachine } from '../statechart';
+import { useMachine } from '#support/statechart';
+
 import { SpotifyMachine } from './machine';
 
 import type { Device, Track } from './domain-objects';

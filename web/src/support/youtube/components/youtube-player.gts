@@ -6,12 +6,11 @@ import { modifier } from 'ember-modifier';
 import getVideoId from 'get-video-id';
 import YTPlayer from 'youtube-player';
 
+import { durationToSeconds, formatDuration, secondsToDuration } from '#support/utils';
 import IconPauseFill from '~icons/ph/pause-fill';
 import IconPlayFill from '~icons/ph/play-fill';
 
 import { Button, IconButton, RangeInput } from '@hokulea/ember';
-
-import { durationToSeconds, formatDuration, secondsToDuration } from '../../utils';
 
 import type { TaskInstance } from 'ember-concurrency';
 import type { Temporal } from 'temporal-polyfill';

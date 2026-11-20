@@ -4,7 +4,7 @@ import { isDevelopingApp, isTesting, macroCondition } from '@embroider/macros';
 
 import translationsDe from 'virtual:ember-intl/translations/de';
 
-import { isSSR } from '../domain/supporting/utils';
+import { isSSR } from '#support/utils';
 
 import type Owner from '@ember/owner';
 import type RouterService from '@ember/routing/router-service';

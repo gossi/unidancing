@@ -5,13 +5,14 @@ import { uniqueId } from '@ember/helper';
 
 import { modifier } from 'ember-modifier';
 
-import { dateToMilliseconds, dateToSeconds } from '../../../../../supporting/utils';
+import { dateToMilliseconds, dateToSeconds } from '#support/utils';
+
 import { CATEGORY_GROUPS } from './domain';
 import { TimelineViewer } from './viewer';
 
-import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { Category, Scene, TimeTracking } from './domain';
 import type Owner from '@ember/owner';
+import type { YoutubePlayerAPI } from '#support/youtube';
 import type { DataSet } from 'vis-data/esnext';
 import type {
   DataItem,

@@ -1,18 +1,21 @@
+import { buildRegistry } from 'ember-strict-application-resolver/build-registry';
+
+import { buildRoutes } from '#support/routing';
+
+import { SpotifyAuthRoute } from './routes/auth';
+
 export { SpotifyClient } from './client';
 export { SpotifyService } from './service';
 
-// routes
-export { SpotifyAuthRoute } from './routes/auth';
-
 // components
-export { LoginWithSpotify } from './components/login-with-spotify.gts';
-export { MaybeSpotifyPlayerWarning } from './components/maybe-spotify-player-warning.gts';
-export { PlayTrack } from './components/play-track.gts';
-export { SpotifyPlayer } from './components/player.gts';
-export { PlaylistChooser } from './components/playlist-chooser.gts';
-export { SpotifyPlayButton } from './components/spotify-play-button.gts';
-export { SpotifyPlayerWarning } from './components/spotify-player-warning.gts';
-export { WithSpotify } from './components/with-spotify.gts';
+export { LoginWithSpotify } from './components/login-with-spotify';
+export { MaybeSpotifyPlayerWarning } from './components/maybe-spotify-player-warning';
+export { PlayTrack } from './components/play-track';
+export { SpotifyPlayer } from './components/player';
+export { PlaylistChooser } from './components/playlist-chooser';
+export { SpotifyPlayButton } from './components/spotify-play-button';
+export { SpotifyPlayerWarning } from './components/spotify-player-warning';
+export { WithSpotify } from './components/with-spotify';
 
 // resources
 export { getTracks, loadPlaylist } from './resources/playlist';
@@ -32,3 +35,19 @@ export {
   playTrack,
   playTrackForDancing
 } from './tracks';
+
+/**
+ * @internal
+ */
+export const SpotifyManifest = {
+  buildRegistry: buildRegistry({
+    './routes/auth/spotify': SpotifyAuthRoute
+  }),
+  buildRoutes: buildRoutes(function () {
+    /* eslint-disable @typescript-eslint/no-invalid-this, unicorn/no-this-outside-of-class */
+    this.route('auth', function () {
+      this.route('spotify');
+    });
+    /* eslint-enable @typescript-eslint/no-invalid-this, unicorn/no-this-outside-of-class */
+  })
+};

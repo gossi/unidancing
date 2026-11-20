@@ -1,15 +1,14 @@
 import { link } from 'ember-link';
 import { pageTitle } from 'ember-page-title';
 
+import { Assistant, AssistantFactory, buildAssistantLink } from '#assistants';
+import { buildGameLink, Game, GameFactory } from '#games';
+import { Player } from '#ui';
 import IconX from '~icons/ph/x';
 
 import { AppHeader, IconButton } from '@hokulea/ember';
 
-import { Assistant, AssistantFactory, buildAssistantLink } from '../domain/core/assistants';
-import { buildGameLink, Game, GameFactory } from '../domain/core/games';
-import { Player } from '../domain/supporting/ui';
-
-import type ApplicationController from '../controllers/application.gts';
+import type ApplicationController from './controller';
 import type { TOC } from '@ember/component/template-only';
 
 const ApplicationTemplate: TOC<{ Args: { controller: ApplicationController } }> = <template>

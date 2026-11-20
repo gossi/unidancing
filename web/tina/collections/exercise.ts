@@ -1,6 +1,6 @@
 import type { Collection, TinaField } from 'tinacms';
 import { LinksField, VideoField } from '../-fields';
-import { data as loops } from '../../app/domain/core/assistants/looper/data';
+import { data as loops } from '../../src/assistants/looper/data';
 
 const loopOptions = loops
   .flatMap((loop) => {

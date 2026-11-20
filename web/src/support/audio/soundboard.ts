@@ -1,4 +1,5 @@
-import { isSSR } from '../utils';
+import { isSSR } from '#support/utils';
+
 import { countDown, counter, fail, select, slotMachineWheel, surprise } from './sounds';
 
 export class SoundBoard {

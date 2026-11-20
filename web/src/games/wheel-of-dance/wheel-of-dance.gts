@@ -3,24 +3,24 @@ import { cached } from '@glimmer/tracking';
 import { registerDestructor } from '@ember/destroyable';
 import { getOwner } from '@ember/owner';
 
-import { AudioPlayer, AudioService } from '@unidancing/app/domain/supporting/audio';
-import {
-  getRandomTrack,
-  getTracks,
-  loadPlaylist,
-  playTrackForDancing,
-  WithSpotify
-} from '@unidancing/app/domain/supporting/spotify';
-import { SpotifyService } from '@unidancing/app/domain/supporting/spotify/service';
-import { useMachine } from '@unidancing/app/domain/supporting/statechart';
-import { CountDown, SlotMachine } from '@unidancing/app/domain/supporting/ui';
-import { asNumber } from '@unidancing/app/domain/supporting/utils';
 import { service as polarisService } from 'ember-polaris-service';
 import { use } from 'ember-resources';
 import Portal from 'ember-stargate/components/portal';
 import PortalTarget from 'ember-stargate/components/portal-target';
 import { assertEvent, assign } from 'xstate';
 
+import { AudioPlayer, AudioService } from '#support/audio';
+import {
+  getRandomTrack,
+  getTracks,
+  loadPlaylist,
+  playTrackForDancing,
+  SpotifyService,
+  WithSpotify
+} from '#support/spotify';
+import { useMachine } from '#support/statechart';
+import { asNumber } from '#support/utils';
+import { CountDown, SlotMachine } from '#ui';
 import IconGear from '~icons/ph/gear';
 
 import { Button, Form, IconButton, Page } from '@hokulea/ember';

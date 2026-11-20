@@ -4,8 +4,8 @@ import { LinkTo } from '@ember/routing';
 import { type TimeTracking, type TimeTrackingFormData, validateTimeTracking } from './domain';
 import { TimelineEditor } from './editor';
 
-import type { YoutubePlayerAPI } from '../../../../../supporting/youtube';
 import type { FieldValidationHandler, FormBuilder } from '@hokulea/ember';
+import type { YoutubePlayerAPI } from '#support/youtube';
 
 interface TimelineFormSignature {
   Args: {
