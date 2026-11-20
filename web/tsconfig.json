@@ -71,15 +71,6 @@
       "@/tina/*": [
         "./tina/__generated__/*"
       ],
-      /*
-        App
-      */
-      "@unidancing/app/tests/*": [
-        "./tests/*"
-      ],
-      "@unidancing/app/*": [
-        "./app/*"
-      ],
       "*": [
         "./types/*"
       ]
@@ -95,7 +86,7 @@
   "include": [
     "vite.config.ts",
     "tina/**/*",
-    "app/**/*",
+    "src/**/*",
     "tests/**/*",
     "types/**/*"
   ]

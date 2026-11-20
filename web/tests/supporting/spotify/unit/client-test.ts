@@ -1,6 +1,9 @@
-import { SpotifyClient } from '@unidancing/app/domain/supporting/spotify/client';
 import sinon from 'sinon';
 import { describe, expect, test } from 'vitest';
+
+// deep import (not the #support/spotify barrel): the barrel's component graph
+// pulls decorators that the vitest transform cannot apply
+import { SpotifyClient } from '../../../../src/support/spotify/client';
 
 // the interpreter chains transitions through promise microtasks; a few
 // macrotask ticks drain them all

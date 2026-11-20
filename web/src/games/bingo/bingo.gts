@@ -1,0 +1,511 @@
+import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
+import { concat } from '@ember/helper';
+import { next } from '@ember/runloop';
+
+import { use } from 'ember-resources';
+import { scopedClass } from 'ember-scoped-css';
+import { TrackedObject, TrackedSet } from 'tracked-built-ins';
+import { v4 as uuid } from 'uuid';
+
+import { findAwfulPractices } from '#choreography';
+import IconArrowRight from '~icons/ph/arrow-right';
+import IconCheck from '~icons/ph/check';
+import IconPencil from '~icons/ph/pencil';
+import IconPlus from '~icons/ph/plus';
+import IconTrash from '~icons/ph/trash';
+
+import { Button, Form, Icon, IconButton } from '@hokulea/ember';
+
+import type { TOC } from '@ember/component/template-only';
+import type Owner from '@ember/owner';
+import type { Awfulpractice } from '#choreography';
+
+interface TileSignature {
+  Args: {
+    principle: Awfulpractice;
+    selected: boolean;
+    winner: boolean;
+    select: () => void;
+  };
+}
+
+const Tile: TOC<TileSignature> = <template>
+  <button
+    type="button"
+    class="tile"
+    data-winner={{@winner}}
+    data-selected={{@selected}}
+    {{on "click" @select}}
+  >
+    {{@principle.title}}
+  </button>
+</template>;
+
+class Bingo {
+  @tracked principles: Awfulpractice[];
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  @tracked selection: Set<Awfulpractice> = new TrackedSet();
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  @tracked winner: Set<Awfulpractice> = new TrackedSet();
+  @tracked finished = false;
+
+  private static STORAGE_PRINCIPLES = 'bullshit_bingo.principles';
+  private static STORAGE_SELECTION = 'bullshit_bingo.selection';
+
+  static hasSavegame() {
+    const principles = globalThis.localStorage.getItem(this.STORAGE_PRINCIPLES);
+
+    return Boolean(principles);
+  }
+
+  static loadSavegame(): Bingo | undefined {
+    const data = globalThis.localStorage.getItem(this.STORAGE_PRINCIPLES);
+
+    if (!data) {
+      return;
+    }
+
+    const selection = globalThis.localStorage.getItem(this.STORAGE_SELECTION);
+    const principles = JSON.parse(data) as Awfulpractice[];
+
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+    if (principles) {
+      const game = new Bingo(principles);
+
+      if (selection) {
+        for (const s of JSON.parse(selection)) {
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+          game.selection.add(game.principles.find((p) => p.id === s.id) as Awfulpractice);
+        }
+
+        game.checkForWin();
+      }
+
+      return game;
+    }
+
+    return;
+  }
+
+  constructor(principles: Awfulpractice[]) {
+    this.principles = principles;
+
+    // clear local storage for a fresh game
+    globalThis.localStorage.removeItem(Bingo.STORAGE_PRINCIPLES);
+    globalThis.localStorage.removeItem(Bingo.STORAGE_SELECTION);
+
+    // save new game
+    this.persistPrinciples();
+  }
+
+  select = (principle: Awfulpractice) => {
+    if (this.selection.has(principle)) {
+      this.selection.delete(principle);
+    } else {
+      this.selection.add(principle);
+    }
+
+    // reset in case of unselect
+    this.finished = false;
+    this.winner.clear();
+
+    this.checkForWin();
+  };
+
+  private checkForWin() {
+    const winner = this.findWinner();
+
+    if (winner !== undefined) {
+      const [line, index] = winner;
+
+      if (line === 'row') {
+        const start = (index - 1) * 5;
+
+        for (let i = start; i < start + 5; i++) {
+          // @ts-expect-error tina types
+          this.winner.add(this.principles[i]);
+        }
+      }
+
+      if (line === 'col') {
+        for (let i = 0; i < this.principles.length; i++) {
+          if (this.getColumn(i + 1) === index) {
+            // @ts-expect-error tina types
+            this.winner.add(this.principles[i]);
+          }
+        }
+      }
+
+      if (line === 'cross') {
+        for (let i = 0; i < this.principles.length; i++) {
+          const row = this.getRow(i + 1);
+          const col = this.getColumn(i + 1);
+
+          if (index === 0 && row === col) {
+            // @ts-expect-error tina types
+            this.winner.add(this.principles[i]);
+          }
+
+          if (index === 1 && row + col === 6) {
+            // @ts-expect-error tina types
+            this.winner.add(this.principles[i]);
+          }
+        }
+      }
+
+      this.finished = true;
+    }
+
+    this.persistSelection();
+  }
+
+  findWinner(): [string, number] | undefined {
+    if (this.principles.length === 0) {
+      return undefined;
+    }
+
+    const rows: boolean[][] = [[], [], [], [], []];
+    const cols: boolean[][] = [[], [], [], [], []];
+    const cross: boolean[][] = [[], []];
+
+    for (let i = 0; i < this.principles.length; i++) {
+      // @ts-expect-error tina types
+      const selected = this.selection.has(this.principles[i]);
+      const index = i + 1;
+      const row = this.getRow(index);
+      const col = this.getColumn(index);
+
+      // @ts-expect-error correct, can be null
+      rows[row - 1].push(selected);
+      // @ts-expect-error correct, can be null
+      cols[col - 1].push(selected);
+
+      if (row === col) {
+        // @ts-expect-error correct, can be null
+        cross[0].push(selected);
+      }
+
+      if (row + col === 6) {
+        // @ts-expect-error correct, can be null
+        cross[1].push(selected);
+      }
+    }
+
+    const lines = [rows, cols, cross].flat();
+    const winnerLine = lines.findIndex((line) => line.every(Boolean));
+
+    if (winnerLine !== -1 && winnerLine <= 4) {
+      return ['row', winnerLine + 1];
+    }
+
+    if (winnerLine >= 5 && winnerLine <= 9) {
+      return ['col', winnerLine + 1 - 5];
+    }
+
+    if (winnerLine >= 10) {
+      return ['cross', winnerLine - 10];
+    }
+
+    return undefined;
+  }
+
+  private getRow(index: number): number {
+    return Math.ceil(index / 5);
+  }
+
+  private getColumn(index: number): number {
+    const col = index % 5;
+
+    return col === 0 ? 5 : col;
+  }
+
+  private persistPrinciples() {
+    globalThis.localStorage.setItem(Bingo.STORAGE_PRINCIPLES, JSON.stringify(this.principles));
+  }
+
+  private persistSelection() {
+    globalThis.localStorage.setItem(Bingo.STORAGE_SELECTION, JSON.stringify([...this.selection]));
+  }
+}
+
+interface Counter {
+  id: string;
+  name: string;
+  count: number;
+}
+
+class Counters {
+  private static STORAGE_COUNTER = 'bullshit_bingo.counter';
+  private static STORAGE_ACTIVE_COUNTER_ID = 'bullshit_bingo.active_counter_id';
+
+  @tracked counters: Record<string, Counter> = new TrackedObject();
+  @tracked activeCounter!: Counter;
+
+  constructor() {
+    this.load();
+
+    if (Object.keys(this.counters).length === 0) {
+      // eslint-disable-next-line ember/no-runloop, @typescript-eslint/unbound-method
+      next(this, this.init);
+    }
+  }
+
+  load() {
+    const activeCounter = globalThis.localStorage.getItem(Counters.STORAGE_ACTIVE_COUNTER_ID);
+    const data = globalThis.localStorage.getItem(Counters.STORAGE_COUNTER);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const counters: Record<string, Counter> = data ? new TrackedObject(JSON.parse(data)) : {};
+
+    for (const [id, counter] of Object.entries(counters)) {
+      this.counters[id] = new TrackedObject(
+        counter as unknown as Record<string, string | number>
+      ) as unknown as Counter;
+    }
+
+    if (activeCounter && Object.keys(this.counters).includes(activeCounter)) {
+      // @ts-expect-error jajaja, whatever
+      this.activeCounter = this.counters[activeCounter];
+    }
+  }
+
+  init() {
+    const id = uuid();
+
+    this.counters[id] = new TrackedObject({
+      id,
+      name: 'Standard',
+      count: 0
+    });
+    this.activeCounter = this.counters[id];
+
+    this.persistCounters();
+  }
+
+  activateCounter = (id: string) => {
+    if (!this.counters[id]) {
+      return;
+    }
+
+    this.activeCounter = this.counters[id];
+    globalThis.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, id);
+  };
+
+  renameCounter = (id: string, name: string) => {
+    // @ts-expect-error jajaja, whatever
+    this.counters[id].name = name;
+    // if (id === this.activeCounter.id) {
+    //   this.activeCounter = this.counters[id];
+    // }
+    this.persistCounters();
+  };
+
+  incrementCounter(id: string) {
+    // @ts-expect-error jajaja, whatever
+    this.counters[id].count++;
+    // if (id === this.activeCounter.id) {
+    //   this.activeCounter = this.counters[id];
+    // }
+    this.persistCounters();
+  }
+
+  incrementActiveCounter = () => {
+    this.incrementCounter(this.activeCounter.id);
+  };
+
+  newCounter = (name: string) => {
+    const cnt = new TrackedObject({
+      id: uuid(),
+      name: name,
+      count: 0
+    });
+
+    this.counters[cnt.id] = cnt;
+    this.persistCounters();
+  };
+
+  deleteCounter = (id: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete this.counters[id];
+    this.persistCounters();
+  };
+
+  persistCounters() {
+    globalThis.localStorage.setItem(Counters.STORAGE_COUNTER, JSON.stringify(this.counters));
+    globalThis.localStorage.setItem(Counters.STORAGE_ACTIVE_COUNTER_ID, this.activeCounter.id);
+  }
+}
+
+function has(set: Set<unknown>, value: unknown): boolean {
+  return set.has(value);
+}
+
+class CounterManager extends Component<{ Args: { counters: Counters } }> {
+  newCounter = (data: { name: string }) => {
+    const { name } = data;
+
+    this.args.counters.newCounter(name);
+    data.name = '';
+  };
+
+  renameCounter = (id: string, data: { name: string }) => {
+    this.args.counters.renameCounter(id, data.name);
+  };
+
+  <template>
+    <div class="counters">
+      <h2>Zähler</h2>
+
+      <p>
+        Zähler können verwendet werden, um an bestimmten Ereignissen die Bingos zu zählen (zum
+        Beispiel der Videoanalyse vergangener Wettkämpfe).
+      </p>
+
+      {{#each-in @counters.counters as |id counter|}}
+        <Form
+          @data={{hash name=counter.name}}
+          @submit={{fn this.renameCounter id}}
+          class="form"
+          as |f|
+        >
+          <f.Text @name="name" @label={{concat "Zählerstand: " counter.count}} />
+
+          <f.Submit><Icon @icon={{IconPencil}} /></f.Submit>
+
+          {{#if (eq id @counters.activeCounter.id)}}
+            <IconButton @icon={{IconCheck}} @disabled={{true}} @label="Zähler aktiv" />
+          {{else}}
+            <IconButton
+              @icon={{IconArrowRight}}
+              @push={{fn @counters.activateCounter id}}
+              @label="Zähler aktivieren"
+            />
+          {{/if}}
+
+          <IconButton
+            @intent="danger"
+            @importance="subtle"
+            @icon={{IconTrash}}
+            @push={{fn @counters.deleteCounter id}}
+            @label="Zähler löschen"
+          />
+        </Form>
+      {{/each-in}}
+
+      <h3>Neuer Zähler</h3>
+
+      <Form @data={{hash name=""}} @submit={{this.newCounter}} class="form" as |f|>
+        <f.Text @name="name" @label="Name für den Zähler" />
+
+        <f.Submit><Icon @icon={{IconPlus}} /></f.Submit>
+      </Form>
+    </div>
+  </template>
+}
+
+export default class BingoComponent extends Component {
+  principlesLoader = use(this, findAwfulPractices);
+
+  @tracked principles: Awfulpractice[] = [];
+
+  @tracked gamePrinciples: Awfulpractice[] = [];
+  @tracked display = 'game';
+  @tracked game?: Bingo;
+  counters = new Counters();
+
+  constructor(owner: Owner, args: object) {
+    super(owner, args);
+
+    void this.load();
+  }
+
+  async load() {
+    this.principles = await this.principlesLoader.current;
+
+    if (Bingo.hasSavegame()) {
+      this.game = Bingo.loadSavegame();
+    }
+  }
+
+  toggle = () => {
+    this.display = this.display === 'game' ? 'counter' : 'game';
+  };
+
+  start = () => {
+    const principles = this.principles.toSorted(() => 0.5 - Math.random()).slice(0, 25);
+
+    this.game = new Bingo(principles);
+  };
+
+  reset = () => {
+    this.start();
+  };
+
+  newGame = () => {
+    this.counters.incrementActiveCounter();
+    this.start();
+  };
+
+  <template>
+    <div class="bingo">
+      <nav>
+        <ul>
+          <li>
+            <Button @spacing="-1" @push={{this.toggle}}>
+              {{#if (eq this.display "game")}}
+                Zähler
+              {{else}}
+                Spielen
+              {{/if}}
+            </Button>
+          </li>
+          <li>
+            {{this.counters.activeCounter.name}}:
+            <span>{{this.counters.activeCounter.count}}</span>
+          </li>
+        </ul>
+
+        {{#if (eq this.display "game")}}
+          <ul>
+            <li class="bingoText {{if this.game.finished (scopedClass 'bingoTextVisible')}}">
+              <span>B</span>
+              <span>i</span>
+              <span>n</span>
+              <span>g</span>
+              <span>o</span>
+              <span>!</span>
+            </li>
+          </ul>
+          <ul>
+            {{#if this.game.finished}}
+              <li><Button @spacing="-1" @importance="subtle" @push={{this.newGame}}>Nochmal Spielen</Button></li>
+            {{else}}
+              <li><Button @spacing="-1" @importance="subtle" @push={{this.reset}}>Neues Spiel</Button></li>
+            {{/if}}
+          </ul>
+        {{/if}}
+      </nav>
+
+      {{#if (eq this.display "game")}}
+        {{#if this.game}}
+          <div class="playfield">
+            {{#each this.game.principles as |principle|}}
+              <Tile
+                @principle={{principle}}
+                @selected={{has this.game.selection principle}}
+                @winner={{has this.game.winner principle}}
+                @select={{fn this.game.select principle}}
+              />
+            {{/each}}
+          </div>
+        {{else}}
+          <Button @push={{this.newGame}}>Neues Spiel</Button>
+        {{/if}}
+      {{else}}
+        <CounterManager @counters={{this.counters}} />
+      {{/if}}
+    </div>
+  </template>
+}

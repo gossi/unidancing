@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
-import type { Track } from '@unidancing/app/domain/supporting/spotify';
+import type { Track } from '#support/spotify';
 
 export const RADIOACTIVE: Track = {
   album: {

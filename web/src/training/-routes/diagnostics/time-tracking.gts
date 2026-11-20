@@ -1,0 +1,218 @@
+import { cached } from '@glimmer/tracking';
+import { LinkTo } from '@ember/routing';
+
+import { pageTitle } from 'ember-page-title';
+import { Route } from 'ember-polaris-routing';
+import CompatRoute from 'ember-polaris-routing/route/compat';
+import { use } from 'ember-resources';
+import Task from 'ember-tasks';
+
+import {
+  findRoutine,
+  TimeTrackingBalanceIndicator,
+  TimeTrackingEffectivityIndicator,
+  TimeTrackingSummary
+} from '#choreography';
+import { Features, Note, Section } from '#ui';
+
+import { Page } from '@hokulea/ember';
+
+import type { TimeAnalysis } from '#choreography';
+
+function asTimeAnalysis(data: TimeAnalysis | undefined): TimeAnalysis {
+  return data as TimeAnalysis;
+}
+
+export class TrainingDiagnosticsTimeTrackingRoute extends Route<object> {
+  @cached
+  get load() {
+    const promise = use(this, findRoutine('unicon-16/kazuhiro-shimoyama')).current;
+
+    return Task.promise(promise);
+  }
+
+  <template>
+    {{pageTitle "Zeitaufteilung"}}
+
+    <Page @title="Zeitaufteilung">
+      {{#let this.load as |r|}}
+        <p>Die Zeitaufteilung gibt einen interessanten Aufschluss über die Choreographie. Gemessen
+          wird wieviel Zeit mit
+          <b>Artistik</b>,
+          <b>Kommunikation</b>,
+          <b>Tricks</b>,
+          <b>Filler</b>
+          und
+          <b>Void</b>
+          (nichts) verbracht wird.</p>
+
+        <dl class="defs">
+          <dt>Artistik</dt>
+          <dd>Die Zeit, die für Artistik verwendet wird. Solche Bewegungen, die Training in der
+            entsprechenden
+            <LinkTo @route="arts">Kunst</LinkTo>
+            erfordert.</dd>
+
+          <dt>Kommunikation</dt>
+          <dd>Wenn Fahrer den "roten Faden" aufrecht erhalten und konstant das Publikum auf der
+            Reise durch die Kür mitnehmen, dann muss das nicht zwingend hoch artistisch erfolgen.
+            Kommunikation erfordert damit kein spezielles Tanz- oder Schauspieltraining und kann von
+            jeder Person gezeigt werden.<br />
+            Das beste Beispiel ist aber das hochschauen ins Publikum und ist insbesondere im
+            Juniorenalter eine schwierige Herausforderung.
+          </dd>
+
+          <dt>Tricks</dt>
+          <dd>Die Zeit, die für Tricks verwendet wird.</dd>
+
+          <dt>Filler</dt>
+          <dd>
+            <p>Überflüssige Zeit während Tricks, die der Kür nicht weiterhelfen.</p>
+
+            <ol>
+              <li>
+                Wenn Bewegung(en) für den Zuschauer berechenbar und damit uninteressant macht.
+                Darunter zählen zum Beispiel zu lange Glidings, an deren Ende ein weiterer Trick
+                (z.B. Tipspin) folgt, ein Übergang von Wheel-Walk ins Cross-Over (das Bein stochert
+                ewig, ehe es das Pedal trifft) oder zu viele Hüpfer während einer Hopping-Serie.</li>
+
+              <li>Wenn ein Trick gefahren wird nur zum Zweck damit er gewertet wird, dabei
+                allerdings einen sinnvolleren Nutzen der Kürzeit verplempert. Wird zum Beispiel
+                Cross-Over gefahren (ohne direkt in den Spin zu starten), so wird der Trick eine
+                gewisse Zeit benötigen. Ist der Fahrer mit dem Trick überfordert, wird zu dieser
+                Zeit keine artistische Performance stattfinden - die Auswahl des Tricks wird zum
+                Beinstellen für die eigene Kür.</li>
+
+              <li>Unnötige Ausgleichsbewegungen zur (Wieder)Herstellung des Gleichgewichts.</li>
+            </ol>
+          </dd>
+
+          <dt>Void</dt>
+          <dd>Die Zeit, in der nichts passiert. Der Fahrer fährt vor sich hin, aber weder ein Trick
+            noch Artistik werden gezeigt.</dd>
+
+          <dt>Abstiege</dt>
+          <dd>Zeit die für ungeplante Abstiege und auch des Wiederaufsteigen anfällt.</dd>
+        </dl>
+
+        <h2>Durchführung</h2>
+        <p>
+          Die Zeiten werden während einer Videoaufnahme gestoppt. Im Ergebnis steht zu jedem
+          Messkriterium die gemessene Zeit. Die Messwerte werden in Relation zur Kürlänge gesetzt.
+        </p>
+
+        <h2>Auswertung</h2>
+
+        <p>In der Auswertung sind zunächst die absolut gestoppten Zeiten, sowie deren Verhältnis zur
+          Kürdauer deskriptiv notiert.</p>
+
+        <p>
+          Das Auswertungsbeispiel zur
+          <LinkTo
+            @route="choreography.routines.details"
+            @model="unicon-16/kazuhiro-shimoyama"
+          >Einzelkür von Kazuhiro Shimoyama an der Unicon 16 in Brixen (Italien)</LinkTo>
+          listet die erfassten Merkmale und stellt sie tabellarisch dar.
+        </p>
+
+        {{#if r.resolved}}
+          <TimeTrackingSummary @data={{asTimeAnalysis r.value.timeTracking}} />
+        {{/if}}
+
+        <p>Die Durchdringung von Artistik bei nicht vorhandenen Fillern und Void ist beeindruckend.
+          Die Pause von Artistik kommt nur durch die Tricks zustande, die seine volle Aufmerksamkeit
+          erfordern, sonst findet Artistik auch während Tricks statt.</p>
+
+        <h3 id="effectivity">Kenngröße: Effektivität</h3>
+
+        <p>Die effektiv genutzte Zeit einer Kür lässt sich mathematisch berechnen. Basis hierfür
+          sind die erfassten Merkmale, die die Attraktivität einer Kür erhöhen (Promotoren) bzw.
+          senken (Detraktoren).</p>
+
+        <Features>
+          <Section>
+            <:header>Promotoren</:header>
+            <:body>
+              <ul>
+                <li>Artistik</li>
+                <li>Kommunikation</li>
+                <li>Tricks</li>
+              </ul>
+            </:body>
+          </Section>
+
+          <Section>
+            <:header>Detraktoren</:header>
+            <:body>
+              <ul>
+                <li>Filler</li>
+                <li>Void</li>
+                <li>Abstiege</li>
+              </ul>
+            </:body>
+          </Section>
+        </Features>
+
+        <p>Summiert man die Promotoren und subtrahiert die Detraktoren lässt sich die effektiv
+          genutzte Zeit für eine Kür berechnen.
+        </p>
+
+        <p>Der
+          <b>Effektivitätsindex (EI)</b>
+          ist die effektiv genutzte Zeit im Verhältnis zur Kürdauer. Der Wertebereich liegt
+          <i>theoretisch</i>
+          bei (0, 2), da Tricks zeitgleich mit Artistik gezeigt werden kann. Ein Wert von 1
+          bedeutet, dass die gesamte Kürzeit genutzt wurde.
+        </p>
+
+        {{#if r.resolved}}
+          <TimeTrackingEffectivityIndicator @data={{asTimeAnalysis r.value.timeTracking}} />
+        {{/if}}
+
+        <h3>Kenngröße: Balance</h3>
+
+        <p>Die Balance gibt das Verhältnis zwischen Artistik (inkl. Kommunikation) und Tricks an, um
+          die Ausgewogenheit beider anzuzeigen.</p>
+
+        <dl class="defs">
+          <dt>Absolut</dt>
+          <dd>
+            <p>Gibt die gemessenen Merkmale im Vehältnis zur Kürlänge wieder.</p>
+
+            <Note>Ist praktisch wenn der
+              <abbr title="Effektivitätsindex">EI</abbr>
+              sehr hoch ist.</Note>
+          </dd>
+
+          <dt>Verhältnis</dt>
+          <dd>
+            <p>Gibt das Verhältnis der gemessenen Merkmale zueinander an.</p>
+            <Note>Für die reine Betrachtung der Merkmale gegeneinander.</Note>
+          </dd>
+
+          <dt>Gewichtet</dt>
+          <dd>
+            <p>Gibt das Verhältnis der gemessenen Merkmale zueinander an mit dem Faktor
+              <abbr title="Effektivitätsindex">EI</abbr>.</p>
+            <Note>Eignet sich um zwei Küren miteinander zu vergleichen.</Note>
+          </dd>
+        </dl>
+
+        {{#if r.resolved}}
+          <TimeTrackingBalanceIndicator @data={{asTimeAnalysis r.value.timeTracking}} />
+        {{/if}}
+      {{/let}}
+    </Page>
+
+    <style scoped>
+      .defs {
+        dd > * + * {
+          margin-block-start: 0.5em;
+        }
+      }
+    </style>
+  </template>
+}
+
+// @ts-expect-error some broken upstream types here
+export default CompatRoute(TrainingDiagnosticsTimeTrackingRoute);

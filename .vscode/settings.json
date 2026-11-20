@@ -1,0 +1,8 @@
+{
+  // Auto-imports & organize fall back to relative specifiers — the module-name
+  // form ("@unidancing/app/*") and its tsconfig paths were retired in favor of
+  // the `#alias` subpath imports (web/package.json "imports"), which tsserver
+  // cannot offer as completions. Cross-element relatives are flagged by
+  // eslint-plugin-boundaries with a message pointing at the #alias to use.
+  "js/ts.preferences.importModuleSpecifier": "relative"
+}

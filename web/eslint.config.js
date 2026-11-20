@@ -1,12 +1,28 @@
+import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 import { includeIgnoreFile } from '@eslint/compat';
 import { defineConfig } from 'eslint/config';
+import boundaries from 'eslint-plugin-boundaries';
 import { plugin as emberPlugin } from 'eslint-plugin-ember/recommended';
 
 import ember from '@gossi/config-eslint/ember';
 
 const gitignorePath = fileURLToPath(new URL('.gitignore', import.meta.url));
+
+// core domains, mirroring the `#<domain>` import map in package.json
+const DOMAINS = [
+  'arts',
+  'assistants',
+  'choreography',
+  'courses',
+  'exercises',
+  'games',
+  'home',
+  'moves',
+  'skills',
+  'training'
+];
 
 export default defineConfig([
   includeIgnoreFile(gitignorePath, 'Imported .gitignore patterns'),
@@ -92,6 +108,120 @@ export default defineConfig([
           }
         }
       ]
+    }
+  },
+  {
+    // Architectural boundaries (https://www.jsboundaries.dev/) — recreates
+    // the module discipline of the sportipedia app layout: every core domain
+    // and support module is an element whose `index.ts` barrel is its public
+    // API. App-assembly wiring is exported from that barrel as a `*Manifest`
+    // object.
+    name: 'app/boundaries',
+    files: ['src/**/*.{ts,gts}', 'tests/**/*.{ts,gts}'],
+    plugins: { boundaries },
+    settings: {
+      'boundaries/root-path': path.resolve(import.meta.dirname),
+      // only the classified trees are checked; config files at the root are
+      // left to plain ESLint
+      'boundaries/include': ['src/**', 'tests/**'],
+      // virtual modules contributed by build plugins (unplugin-icons icons,
+      // ember-intl translations) behave as packages: they exist only at
+      // build time, so no local resolution can ever classify them
+      'boundaries/flag-as-external': {
+        customSourcePatterns: ['~icons/**', 'virtual:**']
+      },
+      'boundaries/elements': [
+        // most specific first: each support module is its own element
+        { type: 'support', pattern: 'src/support/*', capture: ['area'] },
+        { type: 'domain', pattern: `src/{${DOMAINS.join(',')}}` },
+        { type: 'shell', pattern: 'src/ui' },
+        { type: 'service', pattern: 'src/services' },
+        // fallback for the app assembly: app.ts, app-ssr.ts, entry.ts, router.ts
+        { type: 'app', pattern: 'src' },
+        { type: 'test', pattern: 'tests' }
+      ],
+      // resolve extensionless TS imports, the `#alias` package imports and the
+      // .gts specifiers
+      'import/resolver': {
+        typescript: {
+          alwaysTryTypes: true,
+          extensions: ['.ts', '.gts', '.js', '.gjs']
+        },
+        node: {
+          extensions: ['.ts', '.gts', '.js', '.gjs']
+        }
+      }
+    },
+    rules: {
+      'boundaries/dependencies': [
+        'error',
+        {
+          // anything not explicitly allowed below is a boundary violation
+          default: 'disallow',
+          policies: [
+            // third-party packages and node builtins: this is a single app
+            // package (one package.json), so externals are not partitioned
+            {
+              allow: { to: { module: { origin: ['external', 'core'] } } }
+            },
+            // files may always depend on other files of their own element
+            {
+              allow: { dependency: { relationship: { to: 'internal' } } }
+            },
+            // support modules, domains, the shell and app services consume
+            // support modules through their barrel (index.ts) only
+            {
+              from: { element: { type: ['support', 'domain', 'shell', 'service'] } },
+              allow: { to: { element: { type: 'support', fileInternalPath: 'index.ts' } } }
+            },
+            // core domains and the shell consume other domains through their
+            // barrel (index.ts) only, never reaching into internals
+            {
+              from: { element: { type: ['domain', 'shell'] } },
+              allow: { to: { element: { type: 'domain', fileInternalPath: 'index.ts' } } }
+            },
+            // the app assembly (app.ts, router.ts, …) wires everything
+            {
+              from: { element: { type: 'app' } },
+              allow: {
+                to: { element: { type: ['domain', 'support', 'shell', 'service'] } }
+              }
+            },
+            // tests see app internals (barrels and deep), never the assembly
+            {
+              from: { element: { type: 'test' } },
+              allow: {
+                to: { element: { type: ['domain', 'support', 'shell', 'service'] } }
+              }
+            },
+            // cross-element imports must use the "#alias" public API spelling
+            // (package.json "imports"). Relative specifiers are only allowed
+            // within one's own element. The negated extglob flags any other
+            // local source; the origin-guard keeps third-party and virtual
+            // packages out of scope. Order matters: this disallow comes after
+            // the allow-policies, and the internal re-allow below re-claims
+            // intra-element relative imports.
+            {
+              from: { element: { type: ['domain', 'support', 'shell', 'service'] } },
+              disallow: {
+                to: { module: { origin: 'local' } },
+                dependency: { source: ['!@(#*|#*/**)'] }
+              },
+              message:
+                'Cross-element imports must use the #alias public API (see package.json "imports") — target: {{to.element.path}}'
+            },
+            {
+              // re-allow intra-element relative imports (must follow the disallow)
+              from: { element: { type: ['domain', 'support', 'shell', 'service'] } },
+              allow: { dependency: { relationship: { to: 'internal' } } }
+            }
+          ]
+        }
+      ],
+      // unresolvable local imports must not silently escape boundary checks
+      'boundaries/no-unknown-dependencies': 'error',
+      // new source directories need an explicit element classification
+      'boundaries/no-unknown-files': 'error'
     }
   }
 ]);

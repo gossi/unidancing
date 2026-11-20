@@ -2,14 +2,31 @@
   "name": "@unidancing/app",
   "version": "0.0.0",
   "private": true,
-  "type": "module",
   "description": "Small description for @unidancing/app goes here",
-  "repository": "",
   "license": "MIT",
   "author": "",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
+  "repository": "",
+  "type": "module",
+  "imports": {
+    "#arts": "./src/arts/index.ts",
+    "#assistants": "./src/assistants/index.ts",
+    "#choreography": "./src/choreography/index.ts",
+    "#courses": "./src/courses/index.ts",
+    "#exercises": "./src/exercises/index.ts",
+    "#games": "./src/games/index.ts",
+    "#home": "./src/home/index.ts",
+    "#moves": "./src/moves/index.ts",
+    "#skills": "./src/skills/index.ts",
+    "#training": "./src/training/index.ts",
+    "#ui": "./src/support/ui/index.ts",
+    "#support/audio": "./src/support/audio/index.ts",
+    "#support/auth": "./src/support/auth/index.ts",
+    "#support/routing": "./src/support/routing/index.ts",
+    "#support/spotify": "./src/support/spotify/index.ts",
+    "#support/statechart": "./src/support/statechart/index.ts",
+    "#support/tina": "./src/support/tina/index.ts",
+    "#support/utils": "./src/support/utils/index.ts",
+    "#support/youtube": "./src/support/youtube/index.ts"
   },
   "scripts": {
     "dev": "tinacms dev -c vite",
@@ -17,8 +34,8 @@
     "build:tina": "PROD=true tinacms build",
     "lint": "concurrently -g 'npm:lint:*(!fix)'",
     "lint:fix": "concurrently -g 'npm:lint:*:fix'",
-    "lint:css": "stylelint 'app/**/*.css' --allow-empty-input --cache",
-    "lint:css:fix": "stylelint 'app/**/*.css' --allow-empty-input --fix",
+    "lint:css": "stylelint 'src/**/*.css' --allow-empty-input --cache",
+    "lint:css:fix": "stylelint 'src/**/*.css' --allow-empty-input --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "lint:types": "ember-tsc --noEmit",
@@ -94,6 +111,7 @@
     "ember-tasks": "^0.5.1",
     "ember-vitest": "^0.9.0",
     "eslint": "catalog:lint",
+    "eslint-plugin-boundaries": "^7.4.0",
     "eslint-plugin-ember": "catalog:lint",
     "get-video-id": "^4.1.7",
     "lz-string": "^1.5.0",
@@ -125,9 +143,5 @@
   },
   "ember": {
     "edition": "octane"
-  },
-  "exports": {
-    "./tests/*": "./tests/*",
-    "./*": "./app/*"
   }
 }

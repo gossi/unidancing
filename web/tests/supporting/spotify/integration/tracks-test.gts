@@ -1,11 +1,12 @@
-// deep imports skip the index.gts barrel's component graph
-import { SpotifyService } from '@unidancing/app/domain/supporting/spotify/service';
-import { playTrack } from '@unidancing/app/domain/supporting/spotify/tracks';
+// deep imports skip the index barrel's component graph (the components +
+// auth route pull decorators that the vitest transform cannot apply)
 import { service } from 'ember-polaris-service';
 import { test } from 'ember-vitest';
 import sinon from 'sinon';
 import { describe, expect } from 'vitest';
 
+import { SpotifyService } from '../../../../src/support/spotify/service';
+import { playTrack } from '../../../../src/support/spotify/tracks';
 import { RADIOACTIVE } from '../fixtures/tracks';
 
 describe('Spotify | Integration | Tracks', () => {
